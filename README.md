@@ -5,8 +5,9 @@ Time series prediction models:
 - that represent *state machines*
 - that are ideal for *lambda deployment*
 - in *online settings* (like (microprediction)[www.microprediction.org])
-- and are easily *benchmarked* because
-- they are (largely) *unopinionated* 
+- where *urgency* may or may not be important and
+- *benchmarking* is considered crucial, and made easy because the interface is
+- largely *unopinionated* 
 
 
 ### The "skate" interface
