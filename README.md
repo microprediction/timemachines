@@ -37,7 +37,8 @@ Given a "model" f, we can process observations xs as follows:
 - If returning a single value:
      - This should be an estimate of y[0] if y is a vector. 
      - The elements y[1:] are to be treated as exogenous variables, not known in advance. 
-     - The vector a is used to pass "known in advance" variables
+
+- The scalar, or vector a is used to pass "known in advance" variables
      
 - Missing data passed as np.nan
 
