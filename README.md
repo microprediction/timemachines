@@ -12,17 +12,18 @@ Time series prediction models:
 
 Some of these models are used as intermediate steps in the creation of distributional forecasts, at [microprediction.org](www.microprediction.org). And yes, this is Python so we can't *enforce* purity. There may be cases where a callable is the right way to do something, but bear in mind these are intended for stateless deployment using "helper" processes that catch and receive state. 
 
-### The "skate" interface
+### The "skater" interface
 A "model" is merely a function *suggesting* a state machine, whose role is sequential processing of data and emmission of "something" - usually a k-step ahead point estimate or estimate of a latent variable.    
 
-    x, s = f(                                                    # Returns a prediction (or latent var) and posterior state
-                        y:Union[float,[float]],                  # Contemporaneously observerd data, 
-                                                                 # ... including exogenous variables in y[1:], if any. 
-                        s=None,                                  # State
-                        k:float=1,                               # Number of steps ahead to forecast. Typically integer. 
-                        a:Union(float,[float])=None,             # Variables known in advance
-                        t:float=None,                            # Time of observation (epoch seconds)
-                        e:float=None) -> Union(float,[float])    # Non-binding maximal computation time ("e for expiry"), in seconds
+    x, s = f(   y:Union[float,[float]],                  # Contemporaneously observerd data, 
+                                                         # ... including exogenous variables in y[1:], if any. 
+                s=None,                                  # Prior state
+                k:float=1,                               # Number of steps ahead to forecast. Typically integer. 
+                a:Union(float,[float])=None,             # Variables known in advance
+                t:float=None,                            # Time of observation (epoch seconds)
+                e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
+                r:[float])                               # Hyper-parameters ("r" stands for for R^n)
+                      
     
 To emphasize, every model in this collection is *just* a function and the intent is that these functions are pure. 
 
@@ -52,7 +53,7 @@ Given a "model" f, we can process observations xs as follows:
       
 - State can be mutable for efficiency (e.g. it might be a long buffer) or not. Recall that Python is pass-by-object-reference. 
       - Caller should not need to know anything about state
-      - Reponsibility and ownership lies with the function
+      - Responsibility and ownership lies with the function
       - State is not an invitation to sneak in additional arguments
       
 - If y=None is passed, it is a suggestion to the "model" that it has time to perform some
@@ -91,9 +92,15 @@ This package wraps some time series prediction libraries that:
 Just observing, not judging. Depending on your task you may prefer the underlying libraries and additional functionality they bring. 
 
 ### Out of scope
-The simple interface is not well suited to problems where exogenous data comes and goes. You might consider a dictionary interface instead, as with the river package. It is also not well suited to fixed horizon forecasting if the data isn't sampled terribly regularly. Nor is it well suited to prediction of multiple time series whose sampling occurs irregularly. Ordinal values can be kludged okay, but purely categorical not so much. 
+The simple interface is not well suited to problems where exogenous data comes and goes. 
+You might consider a dictionary interface instead, as with the river package. 
+It is also not well suited to fixed horizon forecasting if the data isn't sampled terribly regularly. 
+Nor is it well suited to prediction of multiple time series whose sampling occurs irregularly. 
+Ordinal values can be kludged okay, but purely categorical not so much. And finally, if you
+don't like the idea of hyper-parameters lying in R^n or don't see any obvious embedding, this might 
+not be for you. 
 
-### Yes we're keen to receive PR's
+### Yes, we're keen to receive PR's
 If you'd like to contribute to this standardizing and benchmarking effort, 
 
 - See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
