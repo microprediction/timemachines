@@ -29,6 +29,7 @@ The function (or callable) predict should behave as follows:
           - This should be an estimate of y[0] if y is a vector. 
           - The elements y[1:] are to be treated as exogenous variables, not known in advance. 
           - The vector a is used to pass "known in advance" variables
+    - Missing data passed as np.nan
    
 
 ### What's not here
@@ -40,5 +41,5 @@ This wraps some time series prediction libraries that:
      - 
 
 ### Limitations
-The simple interface is not well suited to problems where exogenous data comes and goes. You might consider a dictionary interface instead, as with the river package. 
+The simple interface is not well suited to problems where exogenous data comes and goes. You might consider a dictionary interface instead, as with the river package. It is also not well suited to fixed horizon forecasting if the data isn't sampled terribly regularly. 
 
