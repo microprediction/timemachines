@@ -2,7 +2,7 @@
 Time series prediction models taking the form of state machines, manifest as pure functions. 
 These are ideal, in some respects, for lambda deployment at scale. 
 
-### "Skate" interface
+### The "skate" interface
 This repo attempts to standardize a variety of disparate approaches to time series prediction and filtering around a *very* simple functional interface
 
     x, s = predict(                                              # Returns a prediction (or latent var) and posterior state
