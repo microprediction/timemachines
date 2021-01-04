@@ -13,7 +13,7 @@ Time series prediction models:
 Some of these models are used as intermediate steps in the creation of distributional forecasts, at [microprediction.org](www.microprediction.org). And yes, this is Python so we can't *enforce* purity. There may be cases where a callable is the right way to do something, but bear in mind these are intended for stateless deployment using "helper" processes that catch and receive state. 
 
 ### The "skate" interface
-A "model" is merely a function *suggesting* a state machine, whose role is sequential processing of data and emmission of "something".   
+A "model" is merely a function *suggesting* a state machine, whose role is sequential processing of data and emmission of "something" - usually a k-step ahead point estimate or estimate of a latent variable.    
 
     x, s = f(                                                    # Returns a prediction (or latent var) and posterior state
                         y:Union[float,[float]],                  # Contemporaneously observerd data, 
