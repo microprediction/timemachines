@@ -52,13 +52,27 @@ Given a "model" f, we can process observations xs as follows:
       - State is not an invitation to sneak in additional arguments
    
 
+### But I want the model to keep the state 
+Knock yourself out. 
+
+   class Predictor:
+   
+       def __init__(self,f):
+            self.f = f
+            self.s = s
+            
+       def __call__(self,y,k,a,t,e):
+            x, self.s = self.f(y=y,s=self.s,k=k,a=a,t=t,e=e)
+            return x
+            
+
 ### What's not in the interface
 This wraps some time series prediction libraries that:
 
  - Use pandas dataframes
  - Bundle data with prediction logic
  - Rely on column naming conventions 
- - Require 20+ lines of setup code before a prediction can be made
+ - Require 10-20 lines of setup code before a prediction can be made
  - Require tracing into the code to infer intent
  - Require conventions such as '5min' 
 
