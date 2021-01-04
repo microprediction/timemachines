@@ -1,7 +1,7 @@
 # timemachines
 Time series prediction models:
 
-- taking the form of *pure functions* (that's the intent, anyway, but its a free country)
+- taking the form of *pure functions* 
 - that represent *state machines*
 - that are ideal for *lambda deployment*
 - in *online settings* 
@@ -9,7 +9,8 @@ Time series prediction models:
 - *benchmarking* is considered crucial, and made easy because the interface is
 - largely *unopinionated* 
 
-Some of these models are used as intermediate steps in the creation of distributional forecasts, at [microprediction.org](www.microprediction.org). 
+Some of these models are used as intermediate steps in the creation of distributional forecasts, at [microprediction.org](www.microprediction.org). And yes, this is Python so we can't *enforce* purity. There may be cases where a callable is the right way to do something, but bear in mind these are intended for stateless deployment using "helper" processes that catch and receive state. 
+
 ### The "skate" interface
 A "model" is merely a function *suggesting* a state machine, whose role is sequential processing of data and emmission of "something".   
 
