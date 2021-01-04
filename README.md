@@ -9,7 +9,7 @@ This repo attempts to standardize a variety of disparate approaches to time seri
                         y:Union[float,[float]],                  # Contemporaneously observerd data, 
                                                                  # ... including exogenous variables in y[1:], if any. 
                         s=None,                                  # State
-                        k:int=1,                                 # Number of steps ahead to forecast
+                        k:float=1,                               # Number of steps ahead to forecast. Typically integer. 
                         a:Union(float,[float])=None,             # Variables known in advance
                         t:float=None,                            # Time of observation (epoch seconds)
                         e:float=None) -> Union(float,[float])    # Non-binding maximal computation time ("e for expiry"), in seconds
