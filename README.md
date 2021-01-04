@@ -53,8 +53,9 @@ Given a "model" f, we can process observations xs as follows:
       - State is not an invitation to sneak in additional arguments
       
 - If y=None is passed, it is a suggestion to the "model" that it has time to perform some
-      offline task, such as a periodic fitting. In this case it would be typical to supply a
-      larger e than usual.
+      offline task, such as a periodic fitting. 
+      - In this case it would be typical to supply a larger e than usual.
+      - The function should return x=None, as acknowledgement that it has recognized the "offline" convention
    
 ### There is no fit()
 See the last convention listed above. 
