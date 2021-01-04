@@ -9,7 +9,8 @@ These are ideal, in some respects, for lambda deployment at scale.
 ### "Skate" interface
 This repo attempts to standardize a variety of disparate approaches to time series prediction around a *very* simple functional interface
 
-    x, s = predict(y:Union[float,[float]],             # Observed data
+    x, s = predict(                                              # Prediction (or latent var) and posterior state
+                        y:Union[float,[float]],                  # Observed data
                         s=None,                                  # State
                         k:int=1,                                 # Number of steps ahead to forecast
                         a:Union(float,[float])=None,             # Variables known in advance
@@ -27,11 +28,11 @@ Notice that the caller maintains state, not the "model".
         y_hat, state = predict(y,state)
         predictions.append(y_hat)
     
-### Conventions
-These are *all* the conventions. 
+### Conventions 
 
 - The format taken by state is determined by the model, not caller
        - The caller passes s=None the first time
+       
 - If returning a single value:
      - This should be an estimate of y[0] if y is a vector. 
      - The elements y[1:] are to be treated as exogenous variables, not known in advance. 
@@ -39,7 +40,7 @@ These are *all* the conventions.
 - Missing data passed as np.nan
 - If y=None is passed, it is a suggestion to the "model" that it has time to perform some
       offline task, such as a periodic fitting. In this case it would be typical to supply a
-      larger tau than usual. 
+      larger e than usual. 
    
 
 ### What's not in the interface
@@ -55,7 +56,7 @@ This wraps some time series prediction libraries that:
 Just observing, not judging. 
 
 ### Out of scope
-The simple interface is not well suited to problems where exogenous data comes and goes. You might consider a dictionary interface instead, as with the river package. It is also not well suited to fixed horizon forecasting if the data isn't sampled terribly regularly. Nor is it well suited to prediction of multiple time series whose sampling occurs irregularly. 
+The simple interface is not well suited to problems where exogenous data comes and goes. You might consider a dictionary interface instead, as with the river package. It is also not well suited to fixed horizon forecasting if the data isn't sampled terribly regularly. Nor is it well suited to prediction of multiple time series whose sampling occurs irregularly. Ordinal values can be kludged okay, but purely categorical not so much. 
 
 ### You may prefer
 See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
