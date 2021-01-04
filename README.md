@@ -42,7 +42,7 @@ Conventions:
       larger tau than usual. 
    
 
-### What's not here
+### What's not in the interface
 This wraps some time series prediction libraries that:
 
  - Use pandas dataframes
