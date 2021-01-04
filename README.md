@@ -5,8 +5,8 @@ These are ideal, in some respects, for lambda deployment at scale.
 ### "Skate" interface
 This repo attempts to standardize a variety of disparate approaches to time series prediction and filtering around a *very* simple functional interface
 
-    x, s = predict(                                              # Prediction (or latent var) and posterior state
-                        y:Union[float,[float]],                  # Observed data. Then comes
+    x, s = predict(                                              # Returns a prediction (or latent var) and posterior state
+                        y:Union[float,[float]],                  # Observed data, including exogenous variables if any. Then comes ...
                         s=None,                                  # State
                         k:int=1,                                 # Number of steps ahead to forecast
                         a:Union(float,[float])=None,             # Variables known in advance
