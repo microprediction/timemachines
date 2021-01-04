@@ -32,7 +32,7 @@ Given a "model" f, we can process observations xs as follows:
 ### Conventions 
 
 - The format taken by state is determined by the model, not caller
-       - The caller passes s=None the first time
+- The caller passes s=None the first time
        
 - If returning a single value:
      - This should be an estimate of y[0] if y is a vector. 
