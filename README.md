@@ -1,9 +1,5 @@
 # timemachines
-Time series prediction models taking the form of state machines:
-
-- that manifest as simple pure functions ...
-- where the caller is expected to maintain the state ...
-
+Time series prediction models taking the form of state machines, manifest as pure functions. 
 These are ideal, in some respects, for lambda deployment at scale. 
 
 ### "Skate" interface
