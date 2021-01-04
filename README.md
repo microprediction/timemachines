@@ -8,11 +8,11 @@ Time series prediction models taking the form of state machines:
 ### Motivation
 This repo attempts to standardize a variety of disparate approaches to time series prediction around a *very* simple functional interface
 
-    y_hat, S' = predict(y:Union[float,[float]],
-                        S=None, 
-                        k:int=1,
-                        t:int=None,
-                        a:[float]=None,
+    y_hat, s_after = predict(y:Union[float,[float]],           # Observed data
+                        s:dict=None,                           # State
+                        k:int=1,                               # Number of steps ahead to forecast
+                        t:float=None,                          # Time of observation (epoch seconds)
+                        a:Union(float,[float])=None,           # Variables known in advance
                         tau:int=None) -> Union(float,[float])  
     
 To emphasize, every model in this collection is *just* a function and the intent is that these functions are pure. 
@@ -49,9 +49,13 @@ This wraps some time series prediction libraries that:
  - Bundle data with prediction logic
  - Rely on column naming conventions 
  - Require 20+ lines of setup code before a prediction can be made
+ - '5min' 
 
 Just observing, not judging. 
 
 ### Out of scope
-The simple interface is not well suited to problems where exogenous data comes and goes. You might consider a dictionary interface instead, as with the river package. It is also not well suited to fixed horizon forecasting if the data isn't sampled terribly regularly. 
+The simple interface is not well suited to problems where exogenous data comes and goes. You might consider a dictionary interface instead, as with the river package. It is also not well suited to fixed horizon forecasting if the data isn't sampled terribly regularly. Nor is it well suited to prediction of multiple time series whose sampling occurs irregularly. 
+
+### You may prefer
+See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
 
