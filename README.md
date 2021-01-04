@@ -7,7 +7,7 @@ Time series prediction models taking the form of state machines
 ### The "skate" interface
 This repo attempts to standardize a variety of disparate approaches to time series prediction and filtering around a *very* simple functional interface
 
-    x, s = predict(                                              # Returns a prediction (or latent var) and posterior state
+    x, s = f(                                                    # Returns a prediction (or latent var) and posterior state
                         y:Union[float,[float]],                  # Contemporaneously observerd data, 
                                                                  # ... including exogenous variables in y[1:], if any. 
                         s=None,                                  # State
