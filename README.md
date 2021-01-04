@@ -31,4 +31,5 @@ The function (or callable) predict should behave as follows:
           - The vector a is used to pass "known in advance" variables
    
 
-
+### What's not here
+Pandas dataframes, bundling of model with data and guessing which column will be updated. 
