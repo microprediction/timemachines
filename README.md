@@ -1,8 +1,12 @@
 # timemachines
-Time series prediction models taking the form of state machines
-- taking the form of pure functions
-- that represent state machines
-- that are ideal for lambda deployment
+Time series prediction models:
+
+- taking the form of *pure functions*
+- that represent *state machines*
+- that are ideal for *lambda deployment*
+- in online settings
+
+Of course we can't enforce purity because this is python
 
 ### The "skate" interface
 This repo attempts to standardize a variety of disparate approaches to time series prediction and filtering around a *very* simple functional interface
@@ -52,8 +56,8 @@ Given a "model" f, we can process observations xs as follows:
       - State is not an invitation to sneak in additional arguments
    
 
-### But I want the model to keep the state 
-Knock yourself out. 
+### There are no classes in this package at all
+But you can make them. For example:
 
        class Predictor:
    
