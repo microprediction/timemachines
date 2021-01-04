@@ -16,13 +16,15 @@ This repo attempts to standardize a variety of disparate approaches to time seri
 To emphasize, every model in this collection is *just* a function and the intent is that these functions are pure. 
 
 ### Intended usage
-Notice that the caller maintains state, not the "model".
+Given a "model" f, we can process observations:
 
-    state = None
-    predictions = list()
-    for t,y in data.items()
-        y_hat, state = predict(y,state)
-        predictions.append(y_hat)
+    def map(f,ys:[float]):
+        s = None
+        xs = list()
+        for t,y in data.items()
+            x, s = f(y,s)
+            xs.append(xs)
+        return xs
     
 ### Conventions 
 
