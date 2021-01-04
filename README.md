@@ -38,10 +38,17 @@ Notice that the caller maintains state, not the "model".
      - This should be an estimate of y[0] if y is a vector. 
      - The elements y[1:] are to be treated as exogenous variables, not known in advance. 
      - The vector a is used to pass "known in advance" variables
+     
 - Missing data passed as np.nan
+
 - If y=None is passed, it is a suggestion to the "model" that it has time to perform some
       offline task, such as a periodic fitting. In this case it would be typical to supply a
       larger e than usual. 
+      
+- State can be mutable for efficiency (e.g. it might be a long buffer) or not. Recall that Python is pass-by-object-reference. 
+      - Caller should not need to know anything about state
+      - Reponsibility and ownership lies with the function
+      - State is not an invitation to sneak in additional arguments
    
 
 ### What's not in the interface
