@@ -21,7 +21,7 @@ To emphasize, every model in this collection is *just* a function and the intent
 ### Usage example
 Given a "model" f, we can process observations xs as follows:
 
-    def map(f,ys:[float]):
+    def posteriors(f,ys:[float]):
         s = None
         xs = list()
         for t,y in data.items()
