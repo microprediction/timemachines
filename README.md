@@ -55,15 +55,15 @@ Given a "model" f, we can process observations xs as follows:
 ### But I want the model to keep the state 
 Knock yourself out. 
 
-   class Predictor:
+       class Predictor:
    
-       def __init__(self,f):
-            self.f = f
-            self.s = s
-            
-       def __call__(self,y,k,a,t,e):
-            x, self.s = self.f(y=y,s=self.s,k=k,a=a,t=t,e=e)
-            return x
+           def __init__(self,f):
+                self.f = f
+                self.s = s
+
+           def __call__(self,y,k,a,t,e):
+                x, self.s = self.f(y=y,s=self.s,k=k,a=a,t=t,e=e)
+                return x
             
 
 ### What's not in the interface
