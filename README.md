@@ -91,6 +91,12 @@ Just observing, not judging. Depending on your task you may prefer the underlyin
 ### Out of scope
 The simple interface is not well suited to problems where exogenous data comes and goes. You might consider a dictionary interface instead, as with the river package. It is also not well suited to fixed horizon forecasting if the data isn't sampled terribly regularly. Nor is it well suited to prediction of multiple time series whose sampling occurs irregularly. Ordinal values can be kludged okay, but purely categorical not so much. 
 
-### You may prefer
-See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
+### Yes we're keen to receive PR's
+If you'd like to contribute to this standardizing and benchmarking effort, 
+
+- See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
+- Or add your own
+
+Consider warming up some of the packages by choosing hyper-parameters and testing on real data. See the ([tutorial](https://www.microprediction.com/python-3)) on retrieving historical data that never gets stale, or the [real data](https://pypi.org/project/realdata/) package. 
+
 
