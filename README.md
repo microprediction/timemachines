@@ -9,7 +9,7 @@ These are ideal, in some respects, for lambda deployment at scale.
 ### "Skate" interface
 This repo attempts to standardize a variety of disparate approaches to time series prediction around a *very* simple functional interface
 
-    y_hat, s_after = predict(y:Union[float,[float]],             # Observed data
+    x, s = predict(y:Union[float,[float]],             # Observed data
                         s=None,                                  # State
                         k:int=1,                                 # Number of steps ahead to forecast
                         a:Union(float,[float])=None,             # Variables known in advance
