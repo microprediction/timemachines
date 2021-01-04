@@ -11,7 +11,7 @@ Time series prediction models:
 
 Some of these models are used as intermediate steps in the creation of distributional forecasts, at [microprediction.org](www.microprediction.org). 
 ### The "skate" interface
-A "model" is merely a function *suggesting* a state machine.  
+A "model" is merely a function *suggesting* a state machine, whose role is sequential processing of data and emmission of "something".   
 
     x, s = f(                                                    # Returns a prediction (or latent var) and posterior state
                         y:Union[float,[float]],                  # Contemporaneously observerd data, 
