@@ -27,8 +27,8 @@ Notice that the caller maintains state, not the "model".
         y_hat, state = predict(y,state)
         predictions.append(y_hat)
     
-### Requirements on predict
-Conventions:
+### Conventions
+These are *all* the conventions. 
 
 - Expect S=None the first time, and initialize state as required
 - Tau, with units in seconds, is a suggested maximum computation time
@@ -50,7 +50,8 @@ This wraps some time series prediction libraries that:
  - Bundle data with prediction logic
  - Rely on column naming conventions 
  - Require 20+ lines of setup code before a prediction can be made
- - '5min' 
+ - Require tracing into the code to infer intent
+ - Require conventions such as '5min' 
 
 Just observing, not judging. 
 
