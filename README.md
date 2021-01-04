@@ -10,7 +10,7 @@ This repo attempts to standardize a variety of disparate approaches to time seri
                         t:int=None,
                         a:[float]=None) -> Union(float,[float])  
     
-To emphasize, every model in this collection is *just* a function and the intent is that they are pure. 
+To emphasize, every model in this collection is *just* a function and the intent is that these functions are pure. 
 
 ### Intended usage
 
@@ -32,4 +32,13 @@ The function (or callable) predict should behave as follows:
    
 
 ### What's not here
-Pandas dataframes, bundling of model with data and guessing which column will be updated. 
+This wraps some time series prediction libraries that:
+
+     - Use pandas dataframes
+     - Bundle data with prediction logic
+     - Rely on column naming conventions 
+     - 
+
+### Limitations
+The simple interface is not well suited to problems where exogenous data comes and goes. You might consider a dictionary interface instead, as with the river package. 
+
