@@ -10,7 +10,7 @@ Time series prediction models:
 
 
 ### The "skate" interface
-A model is morally a state machine. 
+A "model" is merely a function *suggesting* a state machine.  
 
     x, s = f(                                                    # Returns a prediction (or latent var) and posterior state
                         y:Union[float,[float]],                  # Contemporaneously observerd data, 
@@ -45,17 +45,20 @@ Given a "model" f, we can process observations xs as follows:
 
 - The scalar, or vector a is used to pass "known in advance" variables
      
-- Missing data passed as np.nan
-
-- If y=None is passed, it is a suggestion to the "model" that it has time to perform some
-      offline task, such as a periodic fitting. In this case it would be typical to supply a
-      larger e than usual. 
+- Missing data passed as np.nan 
       
 - State can be mutable for efficiency (e.g. it might be a long buffer) or not. Recall that Python is pass-by-object-reference. 
       - Caller should not need to know anything about state
       - Reponsibility and ownership lies with the function
       - State is not an invitation to sneak in additional arguments
+      
+- If y=None is passed, it is a suggestion to the "model" that it has time to perform some
+      offline task, such as a periodic fitting. In this case it would be typical to supply a
+      larger e than usual.
    
+### There is no fit()
+See the last convention listed above. 
+
 
 ### There are no classes in this package at all
 But you can make them. For example:
