@@ -1,7 +1,7 @@
 # timemachines
 Time series prediction models:
 
-- taking the form of *pure functions* (that's the intent, anyway)
+- taking the form of *pure functions* (that's the intent, anyway, but its a free country)
 - that represent *state machines*
 - that are ideal for *lambda deployment*
 - in *online settings*
