@@ -15,8 +15,8 @@ This repo attempts to standardize a variety of disparate approaches to time seri
     
 To emphasize, every model in this collection is *just* a function and the intent is that these functions are pure. 
 
-### Intended usage
-Given a "model" f, we can process observations:
+### Usage example
+Given a "model" f, we can process observations xs as follows:
 
     def map(f,ys:[float]):
         s = None
