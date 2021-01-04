@@ -4,7 +4,11 @@ Time series prediction models taking the form of state machines, where the calle
 ### Motivation
 This repo attempts to standardize a variety of disparate approaches to time series prediction around a *very* simple functional interface
 
-    y_hat, S' = predict(y:Union[float,[float]],S=None, k:int=1,t:int=None,a:[float]=None)->Union(float,[float])  # Univariate prediction, k steps ahead
+    y_hat, S' = predict(y:Union[float,[float]],
+                        S=None, 
+                        k:int=1,
+                        t:int=None,
+                        a:[float]=None) -> Union(float,[float])  
     
 To emphasize, every model in this collection is *just* a function
 
