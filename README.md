@@ -24,6 +24,7 @@ To emphasize, every model in this collection is *just* a function and the intent
 The function (or callable) predict should behave as follows:
 
     - Expect S=None the first time, and initialize state as required
+    - The observation time t is epoch seconds. 
     - If returning a single value:
           - This should be an estimate of y[0] if y is a vector. 
           - The elements y[1:] are to be treated as exogenous variables, not known in advance. 
