@@ -62,8 +62,8 @@ Given a "model" f, we can process observations xs as follows:
 See the last convention listed above. 
 
 
-### There are no classes in this package at all
-But you can make them. For example:
+### There is not bundling of state and model here
+But we aren't stopping you. For example:
 
        class Predictor:
    
