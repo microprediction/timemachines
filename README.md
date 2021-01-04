@@ -2,12 +2,13 @@
 Time series prediction models:
 
 - taking the form of *pure functions* 
-- that represent *state machines*
-- that are ideal for *lambda deployment*
+- that are recipes for *state machines*
+- and ideal for *lambda deployment*
 - in *online settings* 
-- where *urgency* may or may not be important and
-- *benchmarking* is considered crucial, and made easy because the interface is
-- largely *unopinionated* 
+- where helpers maintain state *on their behalf*, and
+- where *urgency* may or may not be important and,
+- *benchmarking* is considered crucial - not to mention easy 
+- because the interface is *mostly unopinionated* 
 
 Some of these models are used as intermediate steps in the creation of distributional forecasts, at [microprediction.org](www.microprediction.org). And yes, this is Python so we can't *enforce* purity. There may be cases where a callable is the right way to do something, but bear in mind these are intended for stateless deployment using "helper" processes that catch and receive state. 
 
