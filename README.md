@@ -40,6 +40,6 @@ This wraps some time series prediction libraries that:
      - Rely on column naming conventions 
      - 
 
-### Limitations
+### Out of scope
 The simple interface is not well suited to problems where exogenous data comes and goes. You might consider a dictionary interface instead, as with the river package. It is also not well suited to fixed horizon forecasting if the data isn't sampled terribly regularly. 
 
