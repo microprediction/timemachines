@@ -10,7 +10,8 @@ These are ideal, in some respects, for lambda deployment at scale.
 This repo attempts to standardize a variety of disparate approaches to time series prediction around a *very* simple functional interface
 
     x, s = predict(                                              # Prediction (or latent var) and posterior state
-                        y:Union[float,[float]],                  # Observed data
+                        y:Union[float,[float]],                  # Observed data. Then come the optional params...
+                        
                         s=None,                                  # State
                         k:int=1,                                 # Number of steps ahead to forecast
                         a:Union(float,[float])=None,             # Variables known in advance
