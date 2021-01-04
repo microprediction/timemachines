@@ -6,15 +6,15 @@ Time series prediction models taking the form of state machines:
 
 These are ideal, in some respects, for lambda deployment at scale. 
 
-### Motivation
+### "Skate" interface
 This repo attempts to standardize a variety of disparate approaches to time series prediction around a *very* simple functional interface
 
-    y_hat, s_after = predict(y:Union[float,[float]],           # Observed data
-                        s:dict=None,                           # State
-                        k:int=1,                               # Number of steps ahead to forecast
-                        t:float=None,                          # Time of observation (epoch seconds)
-                        a:Union(float,[float])=None,           # Variables known in advance
-                        tau:int=None) -> Union(float,[float])  
+    y_hat, s_after = predict(y:Union[float,[float]],             # Observed data
+                        s=None,                                  # State
+                        k:int=1,                                 # Number of steps ahead to forecast
+                        a:Union(float,[float])=None,             # Variables known in advance
+                        t:float=None,                            # Time of observation (epoch seconds)
+                        e:float=None) -> Union(float,[float])    # Non-binding maximal computation time ("e for expiry"), in seconds
     
 To emphasize, every model in this collection is *just* a function and the intent is that these functions are pure. 
 
@@ -30,9 +30,8 @@ Notice that the caller maintains state, not the "model".
 ### Conventions
 These are *all* the conventions. 
 
-- Expect S=None the first time, and initialize state as required
-- Tau, with units in seconds, is a suggested maximum computation time
-- The observation time t is epoch seconds. 
+- The format taken by state is determined by the model, not caller
+       - The caller passes s=None the first time
 - If returning a single value:
      - This should be an estimate of y[0] if y is a vector. 
      - The elements y[1:] are to be treated as exogenous variables, not known in advance. 
