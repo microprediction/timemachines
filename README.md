@@ -10,7 +10,7 @@ Time series prediction models:
 
 
 ### The "skate" interface
-This repo attempts to standardize a variety of disparate approaches to time series prediction and filtering around a *very* simple functional interface
+A model is morally a state machine. 
 
     x, s = f(                                                    # Returns a prediction (or latent var) and posterior state
                         y:Union[float,[float]],                  # Contemporaneously observerd data, 
