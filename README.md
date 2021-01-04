@@ -77,7 +77,7 @@ But you can make them. For example:
             
 
 ### What's not in the interface
-This wraps some time series prediction libraries that:
+This package wraps some time series prediction libraries that:
 
  - Use pandas dataframes
  - Bundle data with prediction logic
@@ -86,7 +86,7 @@ This wraps some time series prediction libraries that:
  - Require tracing into the code to infer intent
  - Require conventions such as '5min' 
 
-Just observing, not judging. 
+Just observing, not judging. Depending on your task you may prefer the underlying libraries and additional functionality they bring. 
 
 ### Out of scope
 The simple interface is not well suited to problems where exogenous data comes and goes. You might consider a dictionary interface instead, as with the river package. It is also not well suited to fixed horizon forecasting if the data isn't sampled terribly regularly. Nor is it well suited to prediction of multiple time series whose sampling occurs irregularly. Ordinal values can be kludged okay, but purely categorical not so much. 
