@@ -10,7 +10,7 @@ This repo attempts to standardize a variety of disparate approaches to time seri
                         t:int=None,
                         a:[float]=None) -> Union(float,[float])  
     
-To emphasize, every model in this collection is *just* a function
+To emphasize, every model in this collection is *just* a function and the intent is that they are pure. 
 
 ### Intended usage
 
