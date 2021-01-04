@@ -1,9 +1,10 @@
 # timemachines
 Time series prediction models taking the form of state machines:
 
-- represented as pure functions
-- where the caller is expected to maintain the state...
-- so that this is ideal for lambda deployment at scale.  
+- that manifest as simple pure functions ...
+- where the caller is expected to maintain the state ...
+
+These are ideal, in some respects, for lambda deployment at scale. 
 
 ### Motivation
 This repo attempts to standardize a variety of disparate approaches to time series prediction around a *very* simple functional interface
