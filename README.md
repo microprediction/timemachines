@@ -1,14 +1,13 @@
 # timemachines
 Time series prediction models taking the form of state machines, where the caller is expected to maintain the state. Ideal for lambda deployment. 
 
-## What goes in
-Sequential predictive models whose state can returned to the caller (preferably in an easily serialized format such as a dictionary). 
-
 ### Motivation
-This repo attempts to standardize a variety of disparate approaches to time series prediction around a simple functional interface
+This repo attempts to standardize a variety of disparate approaches to time series prediction around a *very* simple functional interface
 
     y_hat, S' = predict(y:Union[float,[float]],S=None, k:int=1,t:int=None,a:[float]=None)->Union(float,[float])  # Univariate prediction, k steps ahead
     
+To emphasize, every model in this collection is *just* a function
+
 ### Intended usage
 
     state = None
