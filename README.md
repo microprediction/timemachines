@@ -4,7 +4,7 @@ Time series prediction models:
 - taking the form of *pure functions* (that's the intent, anyway, but its a free country)
 - that represent *state machines*
 - that are ideal for *lambda deployment*
-- in *online settings*
+- in *online settings* (like (microprediction)[www.microprediction.org])
 - and are easily *benchmarked* because
 - they are (largely) *unopinionated* 
 
