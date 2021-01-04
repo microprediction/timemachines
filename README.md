@@ -97,6 +97,6 @@ If you'd like to contribute to this standardizing and benchmarking effort,
 - See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
 - Or add your own
 
-Consider warming up some of the packages by choosing hyper-parameters and testing on real data. See the ([tutorial](https://www.microprediction.com/python-3)) on retrieving historical data that never gets stale, or the [real data](https://pypi.org/project/realdata/) package. 
+Consider warming up some of the packages by choosing hyper-parameters and testing on real data. See the ([tutorial](https://www.microprediction.com/python-3)) on retrieving historical data that never gets stale, or the [real data](https://pypi.org/project/realdata/) package. We'd also refer you to the [comparison of hyper-parameter optimization packages](https://www.microprediction.com/blog/optimize). 
 
 
