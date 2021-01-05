@@ -10,8 +10,6 @@ Time series prediction models:
 - *benchmarking* is considered crucial - not to mention easy 
 - because the interface is *mostly unopinionated* 
 
-Some of these models are used as intermediate steps in the creation of distributional forecasts, at [microprediction.org](www.microprediction.org). And yes, this is Python so we can't *enforce* purity. There may be cases where a callable is the right way to do something, but bear in mind these are intended for stateless deployment using "helper" processes that catch and receive state. 
-
 ### The "skater" interface
 A "model" is merely a function *suggesting* a state machine, whose role is sequential processing of data and emmission of "something" - usually a k-step ahead point estimate or estimate of a latent variable.    
 
@@ -159,4 +157,6 @@ If you'd like to contribute to this standardizing and benchmarking effort,
 - See the [real data](https://pypi.org/project/realdata/) package, if that's simpler.
 - Perhaps of interest, the [comparison of hyper-parameter optimization packages](https://www.microprediction.com/blog/optimize). If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here, do yourself a favor and also enable "supporting" on your repo. 
 
+### Deployment
 
+Some of these models are used as intermediate steps in the creation of distributional forecasts, at [microprediction.org](www.microprediction.org). 
