@@ -90,13 +90,13 @@ Given a "model" f, also referred to as the callee, we can process observations x
 ### Space-filling conventions for *a* and *r*
 
 
-The script [demo_balanced_log_scale.py](https://github.com/microprediction/timemachines/blob/examples/demo_balanced_log_scale.py) illustrates the
+The script [demo_balanced_log_scale.py](https://github.com/microprediction/timemachines/blob/master/examples/demo_balanced_log_scale.py) illustrates the
 quasi-logarithmic parameter mapping from r in (0,1) to R. 
 
 ![](https://i.imgur.com/NCFCTeK.png)
 
 
-The script [demo_param_ordering.py](https://github.com/microprediction/timemachines/blob/examples/demo_param_ordering.py) illustrates
+The script [demo_param_ordering.py](https://github.com/microprediction/timemachines/blob/master/examples/demo_param_ordering.py) illustrates
 the mapping from r in (0,1) to R^n. Observe why the most important parameter should be listed first. It will vary
 more smoothly as we vary r. 
 

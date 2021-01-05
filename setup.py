@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.0.1",
+    version="0.0.2",
     description="Really simple pure function time series prediction models",
     long_description=README,
     long_description_content_type="text/markdown",
