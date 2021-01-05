@@ -1,17 +1,17 @@
 # timemachines
-Time series prediction models:
 
-- taking the form of *pure functions* 
-- that are recipes for *state machines*
-- and ideal for *lambda deployment*
-- in *online settings* 
-- where helpers maintain state *on their behalf*, and
-- where *urgency* may or may not be important and,
-- *benchmarking* is considered crucial - not to mention easy 
-- because the interface is *mostly unopinionated* 
+This package is an experiment in a different approach to the representation of time series models. Here a time series model
 
-### The "skater" interface
-A "model" is merely a function *suggesting* a state machine, whose role is sequential processing of data and emmission of "something" - usually a k-step ahead point estimate or estimate of a latent variable.    
+- takes the form of a *pure function* (!) 
+- that is a recipe for a *state machine* 
+- with the further, somewhat unusual convention that *variables known in advance* and *model hyper-parameters* can only be float. 
+
+The last convention is made pragmatic (we hope) by some space-filling curve conventions. Furthermore we have in mind 
+applications (think lambdas) that are somewhat unusual in that *the caller maintains the state* in-between invocations.  
+
+### The simple, pure "skater" interface:
+
+Most time series packages use a pretty complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function*. The function is intended to be a mathematical function (i.e. pure, with no side effects except for modifying s).  
 
     x, s = f(   y:Union[float,[float]],                  # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
@@ -20,12 +20,9 @@ A "model" is merely a function *suggesting* a state machine, whose role is seque
                 a:float=None,                            # Variable(s) known in advance, or conditioning
                 t:float=None,                            # Time of observation (epoch seconds)
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
-                r:float=None)                            # Hyper-parameters ("r" stands for for R^n)
+                r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s in R^n)
                       
-    
-To emphasize, every model in this collection is *just* a function and the intent is that these functions are pure. 
-
-### Usage example
+### Minimalist example
 Given a "model" f, also referred to as the callee, we can process observations xs as follows:
 
     def posteriors(f,ys:[float]):
@@ -36,9 +33,9 @@ Given a "model" f, also referred to as the callee, we can process observations x
             xs.append(xs)
         return xs
     
-### Conventions 
+### Conventions: 
 
-- The caller persists state from one invocation to the next
+- The caller, not the callee, persists state from one invocation to the next
     - The format taken by state is determined by the callee, not caller
     - The caller passes s=None the first time
     - The function initializes state as necessary, and passes it back
@@ -60,7 +57,6 @@ Given a "model" f, also referred to as the callee, we can process observations x
      be considerably larger than usual. 
      - The callee should return x=None, as acknowledgement that it has recognized the "offline" convention
    
-
 - Variables known in advance, or conditioning variables:
      - Passed as *scalar* argument *a* in (0,1). 
      - See discussion below re: space-filling curves so you know this isn't really a huge restriction.  
@@ -71,7 +67,7 @@ Given a "model" f, also referred to as the callee, we can process observations x
      - Example: size of a trade
      - Example: joystick button up 
 
-- Parameter space
+- Parameter space:
      - Caller has a limited ability to suggest variation in parameters (or maybe hyper-parameters, since 
      many callees will fit parameters on the fly or when there is time).
      - All parameters must be squished into a single float *r* in (0,1). 
@@ -81,12 +77,11 @@ Given a "model" f, also referred to as the callee, we can process observations x
      - This package provides some conventions for expanding to R^n using space filling curves,
      - so that the (hyper) parameter optimization can still exploit geometry, as you see fit. 
       
-- Ordering of parameters in space-filling curve
+- Ordering of parameters in space-filling curve:
     - The most important variables should be listed first, as they vary more slowly. 
     - See picture below or video
     
 ### Space-filling conventions for *a* and *r*
-
 
 The script [demo_balanced_log_scale.py](https://github.com/microprediction/timemachines/blob/master/examples/demo_balanced_log_scale.py) illustrates the
 quasi-logarithmic parameter mapping from r in (0,1) to R. 
