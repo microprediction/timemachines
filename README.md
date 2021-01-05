@@ -4,8 +4,8 @@ This package is an experiment in a different approach to the representation of t
 
 - takes the form of a *pure function* (!) 
 - that is a recipe for a *state machine* 
-- with the further, somewhat unusual convention that variables known in advance and
-- the full set of model hyper-parameters are both squished down into their respective *scalar* arguments. 
+- with the further, somewhat unusual convention that variables known in advance (*a*) and
+- the full set of model hyper-parameters (*r*) are both squished down into their respective *scalar* arguments. 
 
 The last convention is made pragmatic (we hope) by some space-filling curve conventions. Furthermore we have in mind 
 applications (think lambdas) that are somewhat unusual in that *the caller maintains the state* in-between invocations.  
