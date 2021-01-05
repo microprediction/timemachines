@@ -11,7 +11,7 @@ applications (think lambdas) that are somewhat unusual in that *the caller maint
 
 ### The simple, pure "skater" interface:
 
-Most time series packages use a pretty complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function*. The function is intended to be a mathematical function (i.e. pure, with no side effects except for modifying s).  
+Most time series packages use a pretty complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function* - and we mean that in the mathematical sense.   
 
     x, s = f(   y:Union[float,[float]],                  # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
@@ -21,7 +21,9 @@ Most time series packages use a pretty complex combination of methods and data t
                 t:float=None,                            # Time of observation (epoch seconds)
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s in R^n)
-                      
+                
+(Yes one might quibble with the purity given that state s can be modified). 
+
 ### Minimalist example
 Given a "model" f, also referred to as the callee, we can process observations xs as follows:
 
