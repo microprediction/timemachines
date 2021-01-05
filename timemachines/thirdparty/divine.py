@@ -15,7 +15,7 @@ def divine(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None, r=0.5):
     """
 
     # Allow r to control buffer length and burn-in
-    prms = to_parameters_logscale(r=r, exponents=[6, 2], bounds=[(10, 20), (125, 250)])
+    prms = to_parameters_logscale(r=r, bounds=[(10, 20), (125, 250)])
     burnin = max( int(math.ceil(prms[1])), 100)   # library limitation with default params
     max_buffer_len = int(math.ceil(prms[0]))
 
