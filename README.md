@@ -124,7 +124,9 @@ or write a decorator. However we have lambda applications in mind.
 
 Question 2. Why do it this bare-bones manner with squished parameter spaces?  
 
-Answer 2. The intent is comparison, combination and search for models. This package wraps some time series prediction libraries that:
+Answer 2. The intent is comparison, combination and search for models. However the
+hope here is that there is a *reasonable* way to map the most important hyper-parameter choices and thereby search across packages which
+have entirely different conventions. This package wraps some time series prediction libraries that:
 
  - Use pandas dataframes
  - Bundle data with prediction logic
@@ -133,7 +135,9 @@ Answer 2. The intent is comparison, combination and search for models. This pack
  - Require tracing into the code to infer intent
  - Require conventions such as '5min' 
 
-Just observing, not judging. Depending on your task you may prefer the underlying libraries and additional functionality they bring. 
+This package should *not* be viewed as an attempt to wrap most of the functionality of these packages. If you 
+have patterns in mind that match them, and you are confident of their performance, you are best served to 
+use them directly. 
 
 ### Scope and limitations
 The simple interface is not well suited to problems where exogenous data comes and goes. 
@@ -149,7 +153,10 @@ If you'd like to contribute to this standardizing and benchmarking effort,
 
 - See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
 - Or add your own
-
-Consider warming up some of the packages by choosing hyper-parameters and testing on real data. See the ([tutorial](https://www.microprediction.com/python-3)) on retrieving historical data that never gets stale, or the [real data](https://pypi.org/project/realdata/) package. We'd also refer you to the [comparison of hyper-parameter optimization packages](https://www.microprediction.com/blog/optimize). If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here, do yourself a favor and also enable "supporting" on your repo. 
+- Think about the most important hyper-parameters
+- Consider "warming up" the mapping (0,1)->hyper-params by testing on real data. 
+- See the ([tutorial](https://www.microprediction.com/python-3)) on retrieving historical data that never gets stale.
+- See the [real data](https://pypi.org/project/realdata/) package, if that's simpler.
+- Perhaps of interest, the [comparison of hyper-parameter optimization packages](https://www.microprediction.com/blog/optimize). If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here, do yourself a favor and also enable "supporting" on your repo. 
 
 
