@@ -24,7 +24,7 @@ setup(
     test_suite='pytest',
     tests_require=['pytest'],
     include_package_data=True,
-    install_requires=["pathlib"],
+    install_requires=["pathlib","microconventions","sklearn","divinity"],
     entry_points={
         "console_scripts": [
             "pointy=pointy.__main__:main",

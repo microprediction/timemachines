@@ -22,7 +22,7 @@ A "model" is merely a function *suggesting* a state machine, whose role is seque
                 a:Union(float,[float])=None,             # Variables known in advance
                 t:float=None,                            # Time of observation (epoch seconds)
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
-                r:[float])                               # Hyper-parameters ("r" stands for for R^n)
+                r:float)                               # Hyper-parameters ("r" stands for for R^n)
                       
     
 To emphasize, every model in this collection is *just* a function and the intent is that these functions are pure. 
@@ -50,6 +50,10 @@ Given a "model" f, we can process observations xs as follows:
 - The scalar, or vector a is used to pass "known in advance" variables
      
 - Missing data passed as np.nan 
+
+- All (hyper) parameters must be squished into a single real number in (-0.5,0.5). This is the most controversial decision, but
+     - the intent here is that the caller shouldn't need to know a lot about parameters
+     - this package provides some conventions for expanding to R^n using space filling curves
       
 - State can be mutable for efficiency (e.g. it might be a long buffer) or not. Recall that Python is pass-by-object-reference. 
       - Caller should not need to know anything about state
