@@ -9,23 +9,25 @@ from sklearn.metrics import mean_squared_error
 Y_TYPE = Union[float,List[float]]
 S_TYPE = Any
 K_TYPE = Union[float,int]
-A_TYPE = Y_TYPE
+A_TYPE = float              # See README.md for discussion of space-filling curves
 T_TYPE = Union[float,int]
 E_TYPE = Union[float,int]
-R_TYPE = float
+R_TYPE = float              # See README.md for discussion of space-filling curves
 
 BOUNDS_TYPE = List[Union[Tuple,List]]   # scipy.optimize style bounds [ (low,high), (low, high),... ]
 
-# Intended usage:
+############################################
+#  Utilities illustrating the conventions  #
+############################################
 
 
 def posterior(f:Callable,         # "Model" to run forward through observations
              ys:[Y_TYPE],         # Observations
-             k:K_TYPE,            # Steps ahead to predict
-             ats:[A_TYPE]=None,   # Data known in advance
+             k:K_TYPE,            # Steps ahead to predict, typically integer
+             ats:[A_TYPE]=None,   # Data known in advance, or maybe action-conditional
              ts:[T_TYPE]=None,    # Times of observations (epoch seconds)
              e:E_TYPE=None,       # Computation time limit per observation
-             r:R_TYPE=0.5):       # Hyper-parameters
+             r:R_TYPE=0.5):       # Hype(r)-pa(r)amete(r)s
     """ Compute k-step ahead estimates """
     s = None
     ats = [None for _ in ys] if ats is None else ats
@@ -73,6 +75,10 @@ def rmse1(f,ys=None,k=1,n=200):
     return rmse
 
 
+#####################################################
+#  Parameter (r) and action/advance (a) conventions #
+#####################################################
+
 def positive_log_scale(u,low,high):
     assert 0 < low < high
     log_low = math.log(low)
@@ -81,7 +87,7 @@ def positive_log_scale(u,low,high):
     return math.exp(x)
 
 
-def balanced_logscale(u, low, high):
+def to_log_space_1d(u, low, high):
     """ Approximately logarithmic map, but allows for ranges spanning zero """
     # Median at zero
 
@@ -102,24 +108,32 @@ def balanced_logscale(u, low, high):
             return positive_log_scale(u3,low=scale,high=high)
 
 
-def to_parameters(r:R_TYPE,bounds:BOUNDS_TYPE=None, dim:int=1):
-    """ Interprets r as a set of parameter choices
-        We reverse the pymorton convention so that the first listed
-        parameter is the most important one (it varies more smoothly as r varies)
+def to_space(p:float, bounds:BOUNDS_TYPE=None, dim:int=1):
+    """ Interprets p as a point in a rectangle in R^2 or R^3
+
+         :param bounds  [ (low,high), (low,high), (low,high) ] defaults to unit cube
+         :param dim     Dimension. Only used if bounds are not supplied.
+
     """
     if bounds is None:
         bounds = [ (0,1) for _ in range(dim) ]
     else:
         dim = len(bounds)
 
-    us = reversed( ZCurveConventions().to_cube(zpercentile=r, dim=dim) )     # 0 < us[i] < 1
+    us = reversed(ZCurveConventions().to_cube(zpercentile=p, dim=dim))     # 0 < us[i] < 1
     return [ u*(b[1]-b[0])+b[0] for u, b in zip(us, bounds)]
 
 
-def to_parameters_logscale(r:float, bounds:BOUNDS_TYPE):
-    """ Apply u->exp(e*u) to parameters """
+def to_log_space(r:float, bounds:BOUNDS_TYPE):
+    """ Interprets p as a point in a rectangle in R^2 or R^3 using Morton space-filling curve
+
+            :param bounds  [ (low,high), (low,high), (low,high) ] defaults to unit cube
+            :param dim     Dimension. Only used if bounds are not supplied.
+
+       Very similar to "to_space" but assumes speed varies with logarithm
+       """
     assert 0<=r<=1
     dim = len(bounds)
     us = reversed( ZCurveConventions().to_cube(zpercentile=r, dim=dim) )      # 0 < us[i] < 1
-    return [ balanced_logscale(u,low=b[0],high=b[1]) for u, b in zip(us, bounds) ]
+    return [to_log_space_1d(u, low=b[0], high=b[1]) for u, b in zip(us, bounds)]
 
