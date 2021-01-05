@@ -70,12 +70,12 @@ Given a "model" f, also referred to as the callee, we can process observations x
 - Parameter space:
      - Caller has a limited ability to suggest variation in parameters (or maybe hyper-parameters, since 
      many callees will fit parameters on the fly or when there is time).
-     - All parameters must be squished into a single float *r* in (0,1). 
+     - This communication is squished into a single float *r* in (0,1). 
      - Arguably, this makes callees more canonical and, 
      - seriously, there are lots of real numbers, and 
-     - the intent here is that the caller shouldn't need to know a lot about parameters
+     - the intent here is that the caller shouldn't need to know a lot about parameters.
      - This package provides some conventions for expanding to R^n using space filling curves,
-     - so that the (hyper) parameter optimization can still exploit geometry, as you see fit. 
+     - so that the callee's (hyper) parameter optimization can still exploit geometry, as you see fit. 
       
 - Ordering of parameters in space-filling curve:
     - The most important variables should be listed first, as they vary more slowly. 
