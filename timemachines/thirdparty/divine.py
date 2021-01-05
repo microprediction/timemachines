@@ -1,26 +1,21 @@
-try:
-    import divinity as dv
-except ImportError as e:
-    print(e)
-    raise ImportError("pip install sklearn, divinity")
-
 from typing import List
 import numpy as np
+import divinity as dv
 import math
-from timemachines.conventions import to_parameters_exp, Y_TYPE, K_TYPE, rmse1, prior_plot
+from timemachines.conventions import to_parameters_logscale, Y_TYPE, K_TYPE, rmse1, prior_plot
 import warnings
 warnings.filterwarnings('ignore', 'statsmodels.tsa.arima_model.ARMA',FutureWarning)
 warnings.filterwarnings('ignore', 'statsmodels.tsa.arima_model.ARIMA',FutureWarning)
 
 
-def divinity_f1(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None, r=0.5):
+def divine(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None, r=0.5):
     """ A simple wrapping of the divinity library
          - Fitting each call (slow)
          - Ignores exogenous variables
     """
 
     # Allow r to control buffer length and burn-in
-    prms = to_parameters_exp(r=r, exponents=[6,2], bounds=[(1,3),(1,2)])
+    prms = to_parameters_logscale(r=r, exponents=[6, 2], bounds=[(10, 20), (125, 250)])
     burnin = max( int(math.ceil(prms[1])), 100)   # library limitation with default params
     max_buffer_len = int(math.ceil(prms[0]))
 
@@ -49,6 +44,6 @@ def divinity_f1(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None, r=0.5):
 
 
 if __name__=='__main__':
-    err = prior_plot(f=divinity_f1, k=1, n=150)
+    err = prior_plot(f=divine, k=1, n=150)
     pass
 

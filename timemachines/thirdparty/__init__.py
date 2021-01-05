@@ -1,1 +1,1 @@
-from timemachines.thirdparty.divine import divinity_f1
+from timemachines.thirdparty.divine import divine
