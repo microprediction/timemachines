@@ -119,16 +119,20 @@ or write a decorator. However:
 
 Question 2. Why do it this bare-bones manner with squished parameter spaces?  
 
-Answer 2. The intent is comparison, combination and search for models. However the
-hope here is that there is a *reasonable* way to map the most important hyper-parameter choices and thereby search across packages which
-have entirely different conventions. This package wraps some time series prediction libraries that:
+Answer 2. The intent is to produce lambda-friendly models but also:
+- Comparison, combination and search for models, made possible by
+- A *reasonable* way to map the most important hyper-parameter choices (we hope),
+- Which imposes some geometric discipline on the hyper-parameter space (e.g. most important first), and
+- enables search across packages which have *entirely different conventions* and hyper-parameter spaces. 
 
+
+Observe that this package wraps *some* partial functionality of some time series prediction libraries. Those libraries could not be further removed from the above in that they:
  - Use pandas dataframes
  - Bundle data with prediction logic
  - Rely on column naming conventions 
  - Require 10-20 lines of setup code before a prediction can be made
  - Require tracing into the code to infer intent
- - Require conventions such as '5min' 
+ - Use conventions such as '5min' which not everyone agrees on 
 
 This package should *not* be viewed as an attempt to wrap most of the functionality of these packages. If you 
 have patterns in mind that match them, and you are confident of their performance, you are best served to 
