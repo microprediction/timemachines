@@ -113,7 +113,9 @@ Answer 1. Go ahead:
                 x, self.s = self.f(y=y,s=self.s,k=k,a=a,t=t,e=e)
                 return x
 
-or write a decorator. However we have lambda applications in mind. 
+or write a decorator. However:
+- We have lambda patterns in mind
+- The callee has more control in this setup (e.g. for multiple conditional forecasts)
 
 Question 2. Why do it this bare-bones manner with squished parameter spaces?  
 
