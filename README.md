@@ -14,7 +14,7 @@ applications (think lambdas) that are somewhat unusual in that *the caller maint
 
 Most time series packages use a pretty complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function* - and we mean that in the mathematical sense.   
 
-    x, s = f(   y:Union[float,[float]],                  # Contemporaneously observerd data, 
+    x, s, w = f(   y:Union[float,[float]],               # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
                 s=None,                                  # Prior state
                 k:float=1,                               # Number of steps ahead to forecast. Typically integer. 
@@ -22,17 +22,22 @@ Most time series packages use a pretty complex combination of methods and data t
                 t:float=None,                            # Time of observation (epoch seconds)
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s in R^n)
+The function returns: 
+
+                     -> float,                           # A point estimate, or anchor point, or theo
+                        Any,                             # Posterior state, intended for safe keeping by the callee until the next invocation 
+                        Any                              # Everything else (e.g. confidence intervals) not needed for the next invocation. 
                 
 (Yes one might quibble with the purity given that state s can be modified). 
 
 ### Minimalist example
 Given a "model" f, also referred to as the callee, we can process observations xs as follows:
 
-    def posteriors(f,ys:[float]):
+    def posteriors(f,ys):
         s = None
         xs = list()
-        for t,y in data.items()
-            x, s = f(y,s)
+        for y in ys: 
+            x, s, _ = f(y,s)
             xs.append(xs)
         return xs
     
