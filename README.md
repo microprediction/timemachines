@@ -157,15 +157,14 @@ don't like the idea of hyper-parameters lying in R^n or don't see any obvious em
 not be for you. 
 
 ### Yes, we're keen to receive PR's
-If you'd like to contribute to this standardizing and benchmarking effort, 
+If you'd like to contribute to this standardizing and benchmarking effort, here are some ideas:
 
 - See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
-- Or add your own
-- Think about the most important hyper-parameters
-- Consider "warming up" the mapping (0,1)->hyper-params by testing on real data. 
-- See the ([tutorial](https://www.microprediction.com/python-3)) on retrieving historical data that never gets stale.
-- See the [real data](https://pypi.org/project/realdata/) package, if that's simpler.
-- Perhaps of interest, the [comparison of hyper-parameter optimization packages](https://www.microprediction.com/blog/optimize). If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here, do yourself a favor and also enable "supporting" on your repo. 
+- Think about the most important hyper-parameters.
+- Consider "warming up" the mapping (0,1)->hyper-params by testing on real data. There is a [tutorial](https://www.microprediction.com/python-3) on retrieving live data, or use the [real data](https://pypi.org/project/realdata/) package, if that's simpler.
+- The [comparison of hyper-parameter optimization packages](https://www.microprediction.com/blog/optimize) might also be helpful.  
+
+If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here, do yourself a favor and also enable "supporting" on your repo. 
 
 ### Deployment
 
