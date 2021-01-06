@@ -30,7 +30,7 @@ The function returns:
                 
 (Yes one might quibble with the purity given that state s can be modified, but that's Python sensible).  
 
-![](https://www.instagram.com/joecooke_/?utm_medium=referral&utm_source=unsplash)
+![](https://i.imgur.com/NCFCTeK.png)
 
 Picture by [Joe Cook](https://www.instagram.com/joecooke_/?utm_medium=referral&utm_source=unsplash)
 
