@@ -31,7 +31,6 @@ The function returns:
 (Yes one might quibble with the purity given that state s can be modified, but that's Python sensible).  
 
 ### Skating forward
-Given a "model" f, also referred to as the callee, we can process observations xs as follows:
 
     def posteriors(f,ys):
         s = None
