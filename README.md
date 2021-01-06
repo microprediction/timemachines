@@ -2,7 +2,7 @@
 
 This package is an experiment in a different approach to the representation of time series models. Here a time series model
 
-- takes the form of a *pure function*  
+- takes the form of a *pure function* called a skater,
 - that is a recipe for a *state machine* 
 - with the further, somewhat unusual convention that variables known in advance (*a*) and
 - the full set of model hyper-parameters (*r*) are both squished down into their respective *scalar* arguments. 
@@ -10,9 +10,9 @@ This package is an experiment in a different approach to the representation of t
 The last convention is made pragmatic (we hope) by some space-filling curve conventions. Furthermore we have in mind 
 applications (think lambdas) that are somewhat unusual in that *the caller maintains the state* in-between invocations.  
 
-### The simple, pure "skater" interface:
+### A "skater" function 
 
-Most time series packages use a pretty complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function* - and we mean that in the mathematical sense.   
+Most time series packages use a complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function* We mean *function* in the mathematical sense.   
 
     x, s, w = f(   y:Union[float,[float]],               # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
@@ -28,9 +28,9 @@ The function returns:
                         Any,                             # Posterior state, intended for safe keeping by the callee until the next invocation 
                         Any                              # Everything else (e.g. confidence intervals) not needed for the next invocation. 
                 
-(Yes one might quibble with the purity given that state s can be modified). 
+(Yes one might quibble with the purity given that state s can be modified, but that's Python sensible).  
 
-### Minimalist example
+### Skating forward
 Given a "model" f, also referred to as the callee, we can process observations xs as follows:
 
     def posteriors(f,ys):
