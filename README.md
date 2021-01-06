@@ -4,14 +4,15 @@ This package is an experiment in a different approach to the representation of t
 
 - takes the form of a *pure function* (!) 
 - that is a recipe for a *state machine* 
-- with the further, somewhat unusual convention that *variables known in advance* and *model hyper-parameters* can only be float. 
+- with the further, somewhat unusual convention that variables known in advance (*a*) and
+- the full set of model hyper-parameters (*r*) are both squished down into their respective *scalar* arguments. 
 
 The last convention is made pragmatic (we hope) by some space-filling curve conventions. Furthermore we have in mind 
 applications (think lambdas) that are somewhat unusual in that *the caller maintains the state* in-between invocations.  
 
 ### The simple, pure "skater" interface:
 
-Most time series packages use a pretty complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function*. The function is intended to be a mathematical function (i.e. pure, with no side effects except for modifying s).  
+Most time series packages use a pretty complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function* - and we mean that in the mathematical sense.   
 
     x, s = f(   y:Union[float,[float]],                  # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
@@ -21,7 +22,9 @@ Most time series packages use a pretty complex combination of methods and data t
                 t:float=None,                            # Time of observation (epoch seconds)
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s in R^n)
-                      
+                
+(Yes one might quibble with the purity given that state s can be modified). 
+
 ### Minimalist example
 Given a "model" f, also referred to as the callee, we can process observations xs as follows:
 
@@ -70,12 +73,12 @@ Given a "model" f, also referred to as the callee, we can process observations x
 - Parameter space:
      - Caller has a limited ability to suggest variation in parameters (or maybe hyper-parameters, since 
      many callees will fit parameters on the fly or when there is time).
-     - All parameters must be squished into a single float *r* in (0,1). 
+     - This communication is squished into a single float *r* in (0,1). 
      - Arguably, this makes callees more canonical and, 
      - seriously, there are lots of real numbers, and 
-     - the intent here is that the caller shouldn't need to know a lot about parameters
+     - the intent here is that the caller shouldn't need to know a lot about parameters.
      - This package provides some conventions for expanding to R^n using space filling curves,
-     - so that the (hyper) parameter optimization can still exploit geometry, as you see fit. 
+     - so that the callee's (hyper) parameter optimization can still exploit geometry, as you see fit. 
       
 - Ordering of parameters in space-filling curve:
     - The most important variables should be listed first, as they vary more slowly. 
@@ -113,20 +116,26 @@ Answer 1. Go ahead:
                 x, self.s = self.f(y=y,s=self.s,k=k,a=a,t=t,e=e)
                 return x
 
-or write a decorator. However we have lambda applications in mind. 
+or write a decorator. However:
+- We have lambda patterns in mind
+- The callee has more control in this setup (e.g. for multiple conditional forecasts)
 
 Question 2. Why do it this bare-bones manner with squished parameter spaces?  
 
-Answer 2. The intent is comparison, combination and search for models. However the
-hope here is that there is a *reasonable* way to map the most important hyper-parameter choices and thereby search across packages which
-have entirely different conventions. This package wraps some time series prediction libraries that:
+Answer 2. The intent is to produce lambda-friendly models but also:
+- Comparison, combination and search for models, made possible by
+- A *reasonable* way to map the most important hyper-parameter choices (we hope),
+- Which imposes some geometric discipline on the hyper-parameter space (e.g. most important first), and
+- enables search across packages which have *entirely different conventions* and hyper-parameter spaces. 
 
+
+Observe that this package wraps *some* partial functionality of some time series prediction libraries. Those libraries could not be further removed from the above in that they:
  - Use pandas dataframes
  - Bundle data with prediction logic
  - Rely on column naming conventions 
  - Require 10-20 lines of setup code before a prediction can be made
  - Require tracing into the code to infer intent
- - Require conventions such as '5min' 
+ - Use conventions such as '5min' which not everyone agrees on 
 
 This package should *not* be viewed as an attempt to wrap most of the functionality of these packages. If you 
 have patterns in mind that match them, and you are confident of their performance, you are best served to 
