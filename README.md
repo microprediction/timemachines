@@ -173,4 +173,4 @@ If you are the maintainer of a time series package, we'd love your feedback and 
 
 ### Deployment
 
-Some of these models are used as intermediate steps in the creation of distributional forecasts, at [microprediction.org](www.microprediction.org). 
+Some of these models are used as intermediate steps in the creation of distributional forecasts, at [microprediction.org](https://www.microprediction.org). 
