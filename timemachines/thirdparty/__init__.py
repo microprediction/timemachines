@@ -1,1 +1,0 @@
-from timemachines.thirdparty.divine import divine

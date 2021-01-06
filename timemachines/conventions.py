@@ -1,85 +1,40 @@
-# Hyper-parameter conventions
 import math
-import numpy as np
 from microconventions.zcurve_conventions import ZCurveConventions
-from typing import List, Union, Callable, Tuple, Any
-from sklearn.metrics import mean_squared_error
-
-# The SKATER conventions
-Y_TYPE = Union[float,List[float]]
-S_TYPE = Any
-K_TYPE = Union[float,int]
-A_TYPE = float              # See README.md for discussion of space-filling curves
-T_TYPE = Union[float,int]
-E_TYPE = Union[float,int]
-R_TYPE = float              # See README.md for discussion of space-filling curves
-
-BOUNDS_TYPE = List[Union[Tuple,List]]   # scipy.optimize style bounds [ (low,high), (low, high),... ]
-
-############################################
-#  Utilities illustrating the conventions  #
-############################################
+from typing import List, Union, Tuple, Any
 
 
-def posterior(f:Callable,         # "Model" to run forward through observations
-             ys:[Y_TYPE],         # Observations
-             k:K_TYPE,            # Steps ahead to predict, typically integer
-             ats:[A_TYPE]=None,   # Data known in advance, or maybe action-conditional
-             ts:[T_TYPE]=None,    # Times of observations (epoch seconds)
-             e:E_TYPE=None,       # Computation time limit per observation
-             r:R_TYPE=0.5):       # Hype(r)-pa(r)amete(r)s
-    """ Compute k-step ahead estimates """
-    s = None
-    ats = [None for _ in ys] if ats is None else ats
-    ts = [None for _ in ys] if ts is None else ts
-    xs = list()
-    for y, t, a in zip(ys, ats, ts):
-        x, s = f(y=y, s=s, k=k, a=a, t=t, e=e, r=r)
-        xs.append(x)
-    return xs
+# The SKATER convention:
+# ----------------------
+# A time series model is a function with 7 inputs and 3 outputs
+#
+#        x, s, w = f( y, s, k, a, t, e, r )
 
 
-def prior(f, ys, k:int, ats=None, ts=None, e=None, r=0.5, x0=np.nan):
-    """ Compute k-step ahead estimates aligned for easy comparison against actual """
-    # Note k must be integer
-    xs = posterior(f=f, ys=ys[:-k], k=k, ats=ats, ts=ts, e=e, r=r)
-    return [x0]*k + xs
+
+# Inputs
+Y_TYPE = Union[float,List[float]]   # Observed data, where y[0] is usually assumed to be the 'target'
+S_TYPE = Any                        # State previously received from callee
+K_TYPE = Union[float,int]           # Number of steps ahead to forecast - usually integer
+A_TYPE = float                      # Known-in advance or other action-conditional variables
+                                    # See README.md for discussion of space-filling curves and why this can be scalar
+T_TYPE = Union[float,int]           # Epoch time of observation
+E_TYPE = Union[float,int]           # Expiry in seconds (i.e. how long should callee spend computing)
+R_TYPE = float                      # Hype(r) Pa(r)amete(r)s for the model
+                                    # Again, see README.md for discussion of space-filling curves
+
+# Outputs
+X_TYPE = Union[float,None]  # A point estimate, or some other anchor point deemed helpful
+#S_TYPE                       Posterior state. The callee intends that the caller keep this safe until the next
+                            # invocation of the function.
+W_TYPE = Any                # The rest. Here w stands for whatever' else is emitted by the function, such as
+                            # a confidence interval, a CDF or a standard deviation. None of this output will
+                            # be returned to the callee on the next invocation.
 
 
-def brownian(n):
-    ys_ = np.cumsum(np.random.randn(n))
-    ys = [y + np.random.randn() for y in ys_]
-    return list(ys)
-
-
-def prior_plot(f, ys=None, k=None, ats=None, ts=None, e=None, r=0.5, x0=np.nan, n=150, n_plot=25):
-    if ys is None:
-       ys = brownian(n=n)
-    xs = prior(f=f,ys=ys,k=k,ats=ats,ts=ts,e=e,r=r,x0=x0)
-    import matplotlib.pyplot as plt
-    if ts is None:
-        ts = range(len(ys))
-
-    plt.plot(ts[-n_plot:],ys[-n_plot:],'b*')
-    plt.plot(ts[-n_plot:],xs[-n_plot:],'g-')
-    plt.legend(['Data','Prediction'])
-    plt.show()
-
-
-def rmse1(f,ys=None,k=1,n=200):
-    """ Useful for a quick test """
-    if ys is None:
-       ys = brownian(n=n)
-    xs = prior(f=f,ys=ys,k=1,ats=None, ts=None)
-    rmse = mean_squared_error(ys[k:], xs[k:], squared=False)
-    return rmse
-
-
-#####################################################
-#  Parameter (r) and action/advance (a) conventions #
-#####################################################
+# The remainder of this module establishes space-filling curve conventions that apply to a and r
 
 def positive_log_scale(u,low,high):
+    """ Map u in (0,1) to (low,high) """
     assert 0 < low < high
     log_low = math.log(low)
     log_high = math.log(high)
@@ -108,6 +63,9 @@ def to_log_space_1d(u, low, high):
             return positive_log_scale(u3,low=scale,high=high)
 
 
+BOUNDS_TYPE = List[Union[Tuple,List]]   # scipy.optimize style bounds [ (low,high), (low, high),... ]
+
+
 def to_space(p:float, bounds:BOUNDS_TYPE=None, dim:int=1):
     """ Interprets p as a point in a rectangle in R^2 or R^3
 
@@ -124,7 +82,7 @@ def to_space(p:float, bounds:BOUNDS_TYPE=None, dim:int=1):
     return [ u*(b[1]-b[0])+b[0] for u, b in zip(us, bounds)]
 
 
-def to_log_space(r:float, bounds:BOUNDS_TYPE):
+def to_log_space(p:float, bounds:BOUNDS_TYPE):
     """ Interprets p as a point in a rectangle in R^2 or R^3 using Morton space-filling curve
 
             :param bounds  [ (low,high), (low,high), (low,high) ] defaults to unit cube
@@ -132,8 +90,20 @@ def to_log_space(r:float, bounds:BOUNDS_TYPE):
 
        Very similar to "to_space" but assumes speed varies with logarithm
        """
-    assert 0<=r<=1
+    assert 0 <= p <= 1
     dim = len(bounds)
-    us = reversed( ZCurveConventions().to_cube(zpercentile=r, dim=dim) )      # 0 < us[i] < 1
+    us = reversed(ZCurveConventions().to_cube(zpercentile=p, dim=dim))      # 0 < us[i] < 1
     return [to_log_space_1d(u, low=b[0], high=b[1]) for u, b in zip(us, bounds)]
+
+
+def to_int_log_space(p:float, bounds:BOUNDS_TYPE):
+    """ Interprets p as a point in an integer lattice in R^2 or R^3 using Morton space-filling curve, integers only
+
+            :param bounds  [ (low,high), (low,high), (low,high) ] defaults to unit cube
+
+       Very similar to "to_space" but assumes speed varies with logarithm
+       """
+    assert 0<=p<=1
+    prms = to_log_space(p=p,bounds=bounds)
+    return [ int(prm) for prm in prms ]
 

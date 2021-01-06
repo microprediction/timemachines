@@ -23,7 +23,7 @@ if __name__=='__main__':
     rs = np.linspace(start=0, stop=1, num=1000)
     for step_no, r in enumerate(rs):
         ts.append(r)
-        v = to_log_space(r=r, bounds=bounds)
+        v = to_log_space(p=r, bounds=bounds)
         vs.append(v)
         trailing = vs[-tail_len:]
         tail = max(ts[:-tail_len] + [0.0001])

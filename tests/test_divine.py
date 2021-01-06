@@ -1,7 +1,7 @@
-import numpy as np
-from timemachines.thirdparty.divine import divine
-from timemachines.conventions import rmse1
+from timemachines.machines.divine import divine
+from timemachines.metrics import brownian_rmse
 
 
 def test_divine():
-    print(rmse1(f=divine))
+    err = brownian_rmse(f=divine)
+

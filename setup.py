@@ -7,11 +7,11 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.0.2",
-    description="Really simple pure function time series prediction models",
+    version="0.0.3",
+    description="Time series models represented as pure functions with SKATER convention.",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://github.com/microprediction/pointy",
+    url="https://github.com/microprediction/timemachines",
     author="microprediction",
     author_email="pcotton@intechinvestments.com",
     license="MIT",
@@ -24,10 +24,10 @@ setup(
     test_suite='pytest',
     tests_require=['pytest'],
     include_package_data=True,
-    install_requires=["pathlib","microconventions","sklearn","divinity"],
+    install_requires=["pathlib","microconventions","sklearn","divinity","pmdarima"],
     entry_points={
         "console_scripts": [
-            "pointy=pointy.__main__:main",
+            "timemachines=timemachines.__main__:main",
         ]
     },
 )

@@ -16,5 +16,8 @@ more smoothly as we vary r.
 Click to see video
 
 
+## Model demos
+
+Most of the model modules are runnable. 
 
  
