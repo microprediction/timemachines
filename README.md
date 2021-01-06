@@ -11,6 +11,10 @@ This package is an experiment in a different approach to the representation of t
 The last convention is made pragmatic (we hope) by some space-filling curve conventions. Furthermore we have in mind 
 applications (think lambdas) that are somewhat unusual in that *the caller maintains the state* in-between invocations.  
 
+### Want to discuss time series modeling standardization?
+
+See this thread https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1
+
 ### A "skater" function 
 
 Most time series packages use a complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function* We mean *function* in the mathematical sense.   
