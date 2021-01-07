@@ -1,6 +1,4 @@
-
-# Trivial data augmentation
-import numpy as np
+from typing import List, Iterator
 
 
 def reflect(ys:[float], n:int)->[float]:
@@ -16,9 +14,18 @@ def reflect(ys:[float], n:int)->[float]:
     return xs[:n]
 
 
+def chunk_to_end(l:List, n:int)-> List[List]:
+    """
+        :param n: Size of batches
+    """
+    rl = list(reversed(l))
+    chunks = [ list(reversed(rl[x:x + n])) for x in range(0, len(rl), n) ]
+    return list(reversed(chunks[:-1]))
+
+
+
 if __name__=='__main__':
-    ys = np.cumsum(np.random.randn(15))
-    xs = reflect(ys,170)
-    import matplotlib.pyplot as plt
-    plt.plot(xs)
-    plt.show()
+    import random
+    ys = [1,2,3,4,5,6,7,8,9,10]
+    print(ys)
+    print( chunk_to_end(ys,3) )

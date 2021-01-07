@@ -2,8 +2,8 @@ from typing import List
 import numpy as np
 import divinity as dv
 from timemachines.conventions import to_int_log_space, Y_TYPE, K_TYPE
-from timemachines.suppression import suppress_output
-from timemachines.demonstrating import prior_plot
+from timemachines.utilities.suppression import suppress_output
+from timemachines.plotting import prior_plot
 
 
 def divine(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None, r=0.5):

@@ -1,7 +1,6 @@
 import pmdarima as pm
 from timemachines.conventions import to_int_log_space
-from timemachines.demonstrating import prior_plot_exogenous
-import math
+from timemachines.plotting import prior_plot_exogenous
 
 
 # TODO: https://alkaline-ml.com/pmdarima/auto_examples/example_pipeline.html
@@ -22,12 +21,11 @@ def pmd_auto(y, s, k, a, t, e, r):
         s = dict()
 
         # Interpret hyper-parameters - r is only used once at initiation of model
-        p_bounds, q_bounds, fit_frequency_bounds = (1, 10), (1, 10), (1, 500)
-        s['burnin'] = 50
+        p_bounds, q_bounds, n_fit_bounds = (1, 10), (1, 10), (1, 500)
+        s['n_burn'] = 50
         s['alpha'] = 0.25          # Defines confidence interval
         s['buffer_len'] = 5000
-        s['max_p'], s['max_q'], s['fit_frequency'] = to_int_log_space(r,
-                                                                      bounds=[p_bounds, q_bounds, fit_frequency_bounds])
+        s['max_p'], s['max_q'], s['n_fit'] = to_int_log_space(r, bounds=[p_bounds, q_bounds, n_fit_bounds])
 
         # Initialize history buffer
         try:
@@ -40,7 +38,7 @@ def pmd_auto(y, s, k, a, t, e, r):
             assert k==1, 'Currently, pmd auto_arima only supports use of exogenous variables when predicting one step ahead'
         s['model']   = None
         s['advance'] = list()  # Variables known in advance
-        s['since_last_fit'] = 0
+        s['staleness'] = 0
 
     if y is not None:
         # Process observation and return prediction
@@ -60,9 +58,9 @@ def pmd_auto(y, s, k, a, t, e, r):
             s['advance'].append(a)
 
         # Do we need to fit?
-        s['since_last_fit'] += 1
-        first_time = len(s['buffer']) == s['burnin']
-        stale = (len(s['buffer']) >= s['burnin']) and (s['since_last_fit'] >= s['fit_frequency'])
+        s['staleness'] += 1
+        first_time = len(s['buffer']) == s['n_burn']
+        stale = (len(s['buffer']) >= s['n_burn']) and (s['staleness'] >= s['n_fit'])
         if first_time or stale:
             none_, s, _ = pmd_auto(y=None, s=s, k=k, a=a, t=t, e=e, r=r)  # Fit the model
             assert none_ is None
@@ -83,7 +81,7 @@ def pmd_auto(y, s, k, a, t, e, r):
                                    max_p=s['max_p'], max_q=s['max_q'], max_P=5, max_Q=5, seasonal=True,
                                    stepwise=True, suppress_warnings=True, D=10, max_D=10,
                                    error_action='ignore')
-        s['since_last_fit'] = 0
+        s['staleness'] = 0
         #print(s['model'].params())
         return None, s, None  # Acknowledge that a fit was requested by returning x=None, w=None
 
