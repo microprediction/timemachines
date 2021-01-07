@@ -2,19 +2,24 @@
 
 This package is an experiment in a different approach to the representation of time series models. Here a time series model
 
-- takes the form of a *pure function* (!) 
-- that is a recipe for a *state machine* 
+- takes the form of a *pure function* called a *skater*,
+- that is a recipe for a *state machine*,
+- where the intent is that the *caller* will carry the state from one invocation to the next, not the *callee*, and
 - with the further, somewhat unusual convention that variables known in advance (*a*) and
 - the full set of model hyper-parameters (*r*) are both squished down into their respective *scalar* arguments. 
 
 The last convention is made pragmatic (we hope) by some space-filling curve conventions. Furthermore we have in mind 
 applications (think lambdas) that are somewhat unusual in that *the caller maintains the state* in-between invocations.  
 
-### The simple, pure "skater" interface:
+### Want to discuss time series modeling standardization?
 
-Most time series packages use a pretty complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function* - and we mean that in the mathematical sense.   
+See this thread https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1
 
-    x, s = f(   y:Union[float,[float]],                  # Contemporaneously observerd data, 
+### A "skater" function 
+
+Most time series packages use a complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function* We mean *function* in the mathematical sense.   
+
+    x, s, w = f(   y:Union[float,[float]],               # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
                 s=None,                                  # Prior state
                 k:float=1,                               # Number of steps ahead to forecast. Typically integer. 
@@ -22,17 +27,26 @@ Most time series packages use a pretty complex combination of methods and data t
                 t:float=None,                            # Time of observation (epoch seconds)
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s in R^n)
+The function returns: 
+
+                     -> float,                           # A point estimate, or anchor point, or theo
+                        Any,                             # Posterior state, intended for safe keeping by the callee until the next invocation 
+                        Any                              # Everything else (e.g. confidence intervals) not needed for the next invocation. 
                 
-(Yes one might quibble with the purity given that state s can be modified). 
+(Yes one might quibble with the purity given that state s can be modified, but that's Python sensible).  
 
-### Minimalist example
-Given a "model" f, also referred to as the callee, we can process observations xs as follows:
+![](https://i.imgur.com/DkZvZRq.png)
 
-    def posteriors(f,ys:[float]):
+Picture by [Joe Cook](https://www.instagram.com/joecooke_/?utm_medium=referral&utm_source=unsplash)
+
+
+### Skating forward
+
+    def posteriors(f,ys):
         s = None
         xs = list()
-        for t,y in data.items()
-            x, s = f(y,s)
+        for y in ys: 
+            x, s, _ = f(y,s)
             xs.append(xs)
         return xs
     
@@ -88,9 +102,6 @@ Given a "model" f, also referred to as the callee, we can process observations x
 
 The script [demo_balanced_log_scale.py](https://github.com/microprediction/timemachines/blob/master/examples/demo_balanced_log_scale.py) illustrates the
 quasi-logarithmic parameter mapping from r in (0,1) to R. 
-
-![](https://i.imgur.com/NCFCTeK.png)
-
 
 The script [demo_param_ordering.py](https://github.com/microprediction/timemachines/blob/master/examples/demo_param_ordering.py) illustrates
 the mapping from r in (0,1) to R^n. Observe why the most important parameter should be listed first. It will vary
@@ -151,16 +162,15 @@ don't like the idea of hyper-parameters lying in R^n or don't see any obvious em
 not be for you. 
 
 ### Yes, we're keen to receive PR's
-If you'd like to contribute to this standardizing and benchmarking effort, 
+If you'd like to contribute to this standardizing and benchmarking effort, here are some ideas:
 
 - See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
-- Or add your own
-- Think about the most important hyper-parameters
-- Consider "warming up" the mapping (0,1)->hyper-params by testing on real data. 
-- See the ([tutorial](https://www.microprediction.com/python-3)) on retrieving historical data that never gets stale.
-- See the [real data](https://pypi.org/project/realdata/) package, if that's simpler.
-- Perhaps of interest, the [comparison of hyper-parameter optimization packages](https://www.microprediction.com/blog/optimize). If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here, do yourself a favor and also enable "supporting" on your repo. 
+- Think about the most important hyper-parameters.
+- Consider "warming up" the mapping (0,1)->hyper-params by testing on real data. There is a [tutorial](https://www.microprediction.com/python-3) on retrieving live data, or use the [real data](https://pypi.org/project/realdata/) package, if that's simpler.
+- The [comparison of hyper-parameter optimization packages](https://www.microprediction.com/blog/optimize) might also be helpful.  
+
+If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here, do yourself a favor and also enable "supporting" on your repo. 
 
 ### Deployment
 
-Some of these models are used as intermediate steps in the creation of distributional forecasts, at [microprediction.org](www.microprediction.org). 
+Some of these models are used as intermediate steps in the creation of distributional forecasts, at [microprediction.org](https://www.microprediction.org). 
