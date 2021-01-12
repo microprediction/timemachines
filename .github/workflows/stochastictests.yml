@@ -4,10 +4,9 @@
 name: Run stochastic tests
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  schedule:
+    # Runs every hour for about five minutes
+    - cron:  '1 1 * * *'
 
 jobs:
   build:
