@@ -5,8 +5,7 @@ This package is an experiment in a different approach to the representation of t
 - takes the form of a *pure function* called a *skater*,
 - that is a recipe for a *state machine*,
 - where the intent is that the *caller* will carry the state from one invocation to the next, not the *callee*, and
-- with the further, somewhat unusual convention that variables known in advance (*a*) and
-- the full set of model hyper-parameters (*r*) are both squished down into their respective *scalar* arguments. 
+- with the further, somewhat unusual convention that variables known in advance (*a*) and the full set of model hyper-parameters (*r*) are both squished down into their respective *scalar* arguments. 
 
 We have in mind applications (think lambdas) that are somewhat unusual in that *the caller maintains the state* in-between invocations. 
 The last convention has advantages and disadvantages. It is made pragmatic (we hope) by some space-filling curve conventions.   
