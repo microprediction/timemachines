@@ -1,15 +1,14 @@
-# timemachines ![](https://travis-ci.com/microprediction/timemachines.svg?branch=main)
+# timemachines [![Build Status](https://travis-ci.com/microprediction/timemachines.svg?branch=main)](https://travis-ci.com/microprediction/timemachines)
 
 This package is an experiment in a different approach to the representation of time series models. Here a time series model
 
 - takes the form of a *pure function* called a *skater*,
 - that is a recipe for a *state machine*,
 - where the intent is that the *caller* will carry the state from one invocation to the next, not the *callee*, and
-- with the further, somewhat unusual convention that variables known in advance (*a*) and
-- the full set of model hyper-parameters (*r*) are both squished down into their respective *scalar* arguments. 
+- with the further, somewhat unusual convention that variables known in advance (*a*) and the full set of model hyper-parameters (*r*) are both squished down into their respective *scalar* arguments. 
 
-The last convention is made pragmatic (we hope) by some space-filling curve conventions. Furthermore we have in mind 
-applications (think lambdas) that are somewhat unusual in that *the caller maintains the state* in-between invocations.  
+We have in mind applications (think lambdas) that are somewhat unusual in that *the caller maintains the state* in-between invocations. 
+The last convention has advantages and disadvantages. It is made pragmatic (we hope) by some space-filling curve conventions.   
 
 ### Want to discuss time series modeling standardization?
 
