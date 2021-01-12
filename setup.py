@@ -25,7 +25,7 @@ setup(
     tests_require=['pytest'],
     include_package_data=True,
     install_requires=["pathlib","microconventions>0.5.0","sklearn","divinity","pmdarima","hyperopt","scipy",
-                      "poap","pySOT","funcy"],
+                      "poap","pySOT","funcy","pydlm"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",

@@ -61,11 +61,14 @@ def separate_observations(y:Y_TYPE, dim:int):
     return y0, exog
 
 
-def initialize_buffers(s,y:Y_TYPE):
+def dimension(y):
     try:
-        s['dim'] = len(y)
-    except TypeError:
-        s['dim'] = 1
+        return len(y)
+    except:
+        return 1
+
+def initialize_buffers(s,y:Y_TYPE):
+    s['dim'] = dimension(y)
     s['buffer'] = list()  # Target
     if s['dim'] > 1:
         s['exogenous'] = list()  # Exogenous

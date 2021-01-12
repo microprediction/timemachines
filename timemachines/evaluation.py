@@ -41,6 +41,14 @@ def lazy_dog(f, n=200, **kwargs):
     ys = brownian_with_exogenous(n=n)
     return evaluate_mean_squared_error(f=f,ys=ys,**kwargs)
 
+def quick_brown_fox_randomized(f, n=200, **kwargs):
+    """ Useful for a quick test of a skater, w/o exogenous inputs """
+    r = np.random.rand(1)
+    ys = brownian_with_noise(n=n)
+    try:
+        rmse = evaluate_mean_squared_error(f=f,ys=ys, **kwargs)
+    except:
+        raise('Error running '+f.__name__ + ' with r='+str(r))
 
 
 # Energy distance between residuals of consecutive epochs
