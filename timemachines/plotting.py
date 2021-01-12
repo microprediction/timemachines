@@ -56,7 +56,6 @@ def plot_observations_and_predictions(ts, xs, ys, n_plot:int):
         ysj = [y_[j] for y_ in ys]
         plt.plot(ts[-n_plot:], ysj[-n_plot:], 'r+')
         lgnd.append('exogenous '+str(j))
-    plt.pause(0.1)
 
     # Run the model
     plt.plot(ts[-n_plot:], xs[-n_plot:], 'g-')

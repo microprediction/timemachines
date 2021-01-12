@@ -8,8 +8,8 @@ import numpy as np
 from timemachines.conventions import targets
 
 
-# Evaluation of skaters - traditional point estimate scoring
-# Plenty more in sklearn.metrics
+# Evaluation of skaters
+#   (pretty standard scoring rules)
 
 def evaluate_sklearn_metric(f, ys, metric, n_burn=50, **kwargs):
     """ Useful for a quick test """
@@ -31,7 +31,7 @@ def evaluate_mean_absolute_percentage_error(f, ys, n_burn=50, **kwargs):
 
 
 def quick_brown_fox(f, n=200, **kwargs):
-    """ Useful for a quick test of a skater, univariate """
+    """ Useful for a quick test of a skater, w/o exogenous inputs """
     ys = brownian_with_noise(n=n)
     return evaluate_mean_squared_error(f=f,ys=ys, **kwargs)
 
@@ -44,7 +44,8 @@ def lazy_dog(f, n=200, **kwargs):
 
 
 # Energy distance between residuals of consecutive epochs
-# (a different way to evaluate point estimates)
+# (a more speculative way to evaluate point estimates)
+
 
 def evaluate_energy(f, ys=None, k=1, ats=None, ts=None, e=None, r=0.5, n_burn=50, n_epoch=100):
     r = residuals(f=f, ys=ys, k=k, ats=ats, ts=ts, e=e, r=r, n_burn=n_burn)
@@ -60,3 +61,5 @@ def brownian_energy(f, n=500, **kwargs):
 def exogenous_energy(f, n=500, **kwargs):
     ys = brownian_with_exogenous(n)
     return evaluate_energy(f=f,ys=ys, **kwargs)
+
+

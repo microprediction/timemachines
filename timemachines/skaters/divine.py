@@ -5,6 +5,8 @@ from timemachines.conventions import to_int_log_space, Y_TYPE, K_TYPE
 from timemachines.utilities.suppression import suppress_output
 from timemachines.plotting import prior_plot
 
+# I don't really recommend this guy. For one thing the logs are hard to suppress ;)
+
 
 def divine(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None, r=0.5):
     """ A partial wrapping of the divinity library with notable limitations:

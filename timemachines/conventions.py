@@ -7,7 +7,9 @@ from typing import List, Union, Tuple, Any
 # A time series model is a function with 7 inputs and 3 outputs
 #
 #        x, s, w = f( y, s, k, a, t, e, r )
-
+#
+# Some additional, optional conventions are expressed in the help functions in this file, but that
+# is more for convenient.
 
 # Inputs
 Y_TYPE = Union[float, List[float]]  # Observed data, where y[0] is usually assumed to be the 'target'
@@ -43,6 +45,50 @@ X_TYPE = Union[float, None]  # A point estimate, or some other anchor point deem
 W_TYPE = Any                 #  (W)hatever else callee chooses to emit, such as a conf interval
 
 
+
+def separate_observations(y:Y_TYPE, dim:int):
+    """ Usual convention for interpreting y, and checking dimension
+    :param s:
+    :param y:
+    :returns:  y0, exog
+    """
+    if dim == 1:
+        y0 = y
+        exog = None
+    else:
+        y0 = y[0]
+        exog = [y[1:]]
+    return y0, exog
+
+
+def initialize_buffers(s,y:Y_TYPE):
+    try:
+        s['dim'] = len(y)
+    except TypeError:
+        s['dim'] = 1
+    s['buffer'] = list()  # Target
+    if s['dim'] > 1:
+        s['exogenous'] = list()  # Exogenous
+    s['model'] = None
+    s['advance'] = list()  # Variables known in advance
+    s['staleness'] = 0
+    return s
+
+
+def update_buffers(s,a:A_TYPE,exog:[float],y0:float):
+    # Store "target" and other observations or vars known in advance
+    s['buffer'].append(y0)
+    if exog is not None:
+        s['exogenous'].append(exog[0])
+    if a is not None:
+        s['advance'].append(a)
+    return s
+
+
+
+
+
+
 # The remainder of this module establishes space-filling curve conventions that apply to a and r
 
 def positive_log_scale(u, low, high):
@@ -56,12 +102,16 @@ def positive_log_scale(u, low, high):
 
 def to_log_space_1d(u, low, high):
     """ Approximately logarithmic map, but allows for ranges spanning zero """
-    # Median at zero
+    # Avoid singularity at zero
 
     if 1e-8 < low < high:
         return positive_log_scale(u=u, low=low, high=high)
-    elif low < -1e-8 < 1e8 < high:
+    elif low < -1e-8 < 1e-8 < high:
         return -positive_log_scale(1 - u, low=-high, high=-low)
+    elif -1e-8 < low < 1e-8 < high:
+        return positive_log_scale(u=u,low=1e-8,high=high)
+    elif low < -1e-8 < high < 1e-8:
+        return -positive_log_scale(1-u, low=1e-8,high=-low)
     else:
         scale = abs(high - low) / 100
         if u < 0.475:
@@ -76,6 +126,7 @@ def to_log_space_1d(u, low, high):
 
 
 BOUNDS_TYPE = List[Union[Tuple, List]]  # scipy.optimize style bounds [ (low,high), (low, high),... ]
+
 
 
 def to_space(p: float, bounds: BOUNDS_TYPE = None, dim: int = 1):
@@ -104,7 +155,7 @@ def to_log_space(p:float, bounds: BOUNDS_TYPE):
        """
     assert 0 <= p <= 1
     dim = len(bounds)
-    us = reversed(ZCurveConventions().to_cube(zpercentile=p, dim=dim))  # 0 < us[i] < 1
+    us = list(reversed(ZCurveConventions().to_cube(zpercentile=p, dim=dim)) ) # 0 < us[i] < 1
     return [to_log_space_1d(u, low=b[0], high=b[1]) for u, b in zip(us, bounds)]
 
 
