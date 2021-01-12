@@ -24,7 +24,7 @@ setup(
     test_suite='pytest',
     tests_require=['pytest'],
     include_package_data=True,
-    install_requires=["pathlib","microconventions>0.5.0","sklearn","divinity","pmdarima","hyperopt","scipy",
+    install_requires=["pathlib","numpy>=1.16.5","microconventions>0.5.0","sklearn","divinity","pmdarima","hyperopt","scipy",
                       "poap","pySOT","funcy","pydlm","optuna","deap","ax-platform","sigopt","statsmodels","tdigest"],
     entry_points={
         "console_scripts": [
