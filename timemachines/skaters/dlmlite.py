@@ -6,9 +6,9 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-# pydlm skaters
-# TODO:
-# TODO: k-step ahead prediction
+# pydlm-lite skaters
+# See https://github.com/wwrechard/pydlm-lite for explanation of the refactoring of pydlm
+# The new version might be better for performant skaters, though it is fluid.
 
 
 def dlm_seasonal_hyperparams(s, r:R_TYPE):
