@@ -1,4 +1,4 @@
-# timemachines
+# timemachines https://travis-ci.com/microprediction/timemachines.svg?branch=main
 
 This package is an experiment in a different approach to the representation of time series models. Here a time series model
 
