@@ -25,7 +25,8 @@ setup(
     tests_require=['pytest'],
     include_package_data=True,
     install_requires=["pathlib","numpy>=1.16.5","importlib-metadata>=1.7.0","microconventions>0.5.0","sklearn","divinity","pmdarima","hyperopt","scipy",
-                      "poap","pySOT","funcy","pydlm","optuna","deap","ax-platform","sigopt","statsmodels","tdigest","platypus-opt"],
+                      "poap","pySOT","funcy","pydlm","optuna","deap","ax-platform","sigopt","statsmodels","tdigest","platypus-opt",
+                      "pymoo"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",
