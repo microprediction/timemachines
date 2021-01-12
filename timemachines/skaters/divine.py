@@ -18,7 +18,7 @@ def divine(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None, r=0.5):
     """
 
     # Allow r to control buffer length and burn-in
-    max_buffer_len, burnin = to_int_log_space(p=r, bounds=[(250, 5000), (100, 200)])
+    max_buffer_len, burnin = to_int_log_space(p=r, bounds=[(250, 5000), (25, 100)])
 
     if s is None:
         s = dict(buffer=[])

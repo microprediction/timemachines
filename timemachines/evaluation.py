@@ -30,13 +30,13 @@ def evaluate_mean_absolute_percentage_error(f, ys, n_burn=50, **kwargs):
     return evaluate_sklearn_metric(f=f, ys=ys, metric=mean_absolute_percentage_error(), n_burn=n_burn, **kwargs)
 
 
-def quick_brown_fox(f, n=200, **kwargs):
+def quick_brown_fox(f, n=120, **kwargs):
     """ Useful for a quick test of a skater, w/o exogenous inputs """
     ys = brownian_with_noise(n=n)
     return evaluate_mean_squared_error(f=f,ys=ys, **kwargs)
 
 
-def lazy_dog(f, n=200, **kwargs):
+def lazy_dog(f, n=120, **kwargs):
     """ Useful for a quick test of a skater, w/ exogenous inputs """
     ys = brownian_with_exogenous(n=n)
     return evaluate_mean_squared_error(f=f,ys=ys,**kwargs)
