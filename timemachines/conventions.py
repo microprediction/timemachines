@@ -13,14 +13,16 @@ from typing import List, Union, Tuple, Any
 
 # Inputs
 Y_TYPE = Union[float, List[float]]  # Observed data, where y[0] is usually assumed to be the 'target'
-S_TYPE = Any    # State previously received from callee
-K_TYPE = int    # Number of steps ahead to forecast - usually integer
+S_TYPE = Any  # State previously received from callee
+K_TYPE = int  # Number of steps ahead to forecast - usually integer
 A_TYPE = float  # Known-in advance or other action-conditional variables
-                # See README.md for discussion of space-filling curves
+# See README.md for discussion of space-filling curves
 T_TYPE = Union[float, int]  # Epoch time of observation
 E_TYPE = Union[float, int]  # Expiry in seconds (i.e. how long should callee spend computing)
 R_TYPE = float  # Hype(r) Pa(r)amete(r)s for the model
-                # Again, see README.md for discussion of space-filling curves
+
+
+# Again, see README.md for discussion of space-filling curves
 
 
 # Expresses the y convention
@@ -42,11 +44,10 @@ def targets(ys):
 
 X_TYPE = Union[float, None]  # A point estimate, or some other anchor point deemed helpful
 # S_TYPE                       Posterior state.
-W_TYPE = Any                 #  (W)hatever else callee chooses to emit, such as a conf interval
+W_TYPE = Any  # (W)hatever else callee chooses to emit, such as a conf interval
 
 
-
-def separate_observations(y:Y_TYPE, dim:int):
+def separate_observations(y: Y_TYPE, dim: int):
     """ Usual convention for interpreting y, and checking dimension
     :param s:
     :param y:
@@ -67,7 +68,8 @@ def dimension(y):
     except:
         return 1
 
-def initialize_buffers(s,y:Y_TYPE):
+
+def initialize_buffers(s, y: Y_TYPE):
     s['dim'] = dimension(y)
     s['buffer'] = list()  # Target
     if s['dim'] > 1:
@@ -78,7 +80,7 @@ def initialize_buffers(s,y:Y_TYPE):
     return s
 
 
-def update_buffers(s,a:A_TYPE,exog:[float],y0:float):
+def update_buffers(s, a: A_TYPE, exog: [float], y0: float):
     # Store "target" and other observations or vars known in advance
     s['buffer'].append(y0)
     if exog is not None:
@@ -86,10 +88,6 @@ def update_buffers(s,a:A_TYPE,exog:[float],y0:float):
     if a is not None:
         s['advance'].append(a)
     return s
-
-
-
-
 
 
 # The remainder of this module establishes space-filling curve conventions that apply to a and r
@@ -112,9 +110,9 @@ def to_log_space_1d(u, low, high):
     elif low < -1e-8 < 1e-8 < high:
         return -positive_log_scale(1 - u, low=-high, high=-low)
     elif -1e-8 < low < 1e-8 < high:
-        return positive_log_scale(u=u,low=1e-8,high=high)
+        return positive_log_scale(u=u, low=1e-8, high=high)
     elif low < -1e-8 < high < 1e-8:
-        return -positive_log_scale(1-u, low=1e-8,high=-low)
+        return -positive_log_scale(1 - u, low=1e-8, high=-low)
     else:
         scale = abs(high - low) / 100
         if u < 0.475:
@@ -129,7 +127,6 @@ def to_log_space_1d(u, low, high):
 
 
 BOUNDS_TYPE = List[Union[Tuple, List]]  # scipy.optimize style bounds [ (low,high), (low, high),... ]
-
 
 
 def to_space(p: float, bounds: BOUNDS_TYPE = None, dim: int = 1):
@@ -148,6 +145,16 @@ def to_space(p: float, bounds: BOUNDS_TYPE = None, dim: int = 1):
     return [u * (b[1] - b[0]) + b[0] for u, b in zip(us, bounds)]
 
 
+def from_space(ps: [float], bounds: BOUNDS_TYPE=None):
+    """ [ , ]^n -> [0,1] """
+    if bounds is None:
+        bounds = [(0, 1) for _ in range(len(ps))]
+    us = [(pi - b[0]) / (b[1] - b[0]) for pi, b in zip(ps, bounds)]
+    for u in us:
+        assert 0 <= u <= 1, "bounds are inconsistent with p=" + str(ps)
+    return ZCurveConventions().from_cube(list(reversed(us)))
+
+
 def to_log_space(p:float, bounds: BOUNDS_TYPE):
     """ Interprets p as a point in a rectangle in R^2 or R^3 using Morton space-filling curve
 
@@ -158,7 +165,7 @@ def to_log_space(p:float, bounds: BOUNDS_TYPE):
        """
     assert 0 <= p <= 1
     dim = len(bounds)
-    us = list(reversed(ZCurveConventions().to_cube(zpercentile=p, dim=dim)) ) # 0 < us[i] < 1
+    us = list(reversed(ZCurveConventions().to_cube(zpercentile=p, dim=dim)))  # 0 < us[i] < 1
     return [to_log_space_1d(u, low=b[0], high=b[1]) for u, b in zip(us, bounds)]
 
 

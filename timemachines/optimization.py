@@ -1,28 +1,26 @@
-from timemachines.conventions import to_space
-from microconventions.zcurve_conventions import ZCurveConventions
+from timemachines.conventions import to_space, Y_TYPE, from_space, dimension
 from timemachines.evaluation import evaluate_energy, evaluate_mean_squared_error
-from timemachines.optimizers.compendium import OPTIMIZERS
+from timemachines.optimizers.compendium import OPTIMIZERS, shgo_cube
 
 
-
-
-
-def optimize(f, ys, evaluator, optimizer, **kwargs):
-    """
-    :param f:      skater
-    :param ys:     time series
-    :param r_dim:  dimensionality to assume for hyper-parameters
-    :return:
-    """
+def optimize(f, ys:[Y_TYPE],
+             evaluator=evaluate_mean_squared_error,
+             optimizer=shgo_cube,
+             n_trials=100,
+             **kwargs)->float:
+    """ Returns best r """
 
     def objective(u:[float]):
-        """
-        :param u:  point in cube
-        :return:
-        """
-        r = ZCurveConventions().from_cube(prctls=list(reversed(u)))
-        return evaluate_mean_squared_error(f=f,ys=ys,r=r,**kwargs)
+        r = from_space(u)
+        return evaluator(f=f,ys=ys,r=r,**kwargs)
+
+    return optimizer(objective, n_trials=n_trials, n_dim=dimension(ys[0]))
 
 
+if __name__=='__main__':
+    from timemachines.skaters.pmd import pmd_auto
+    from timemachines.synthetic import brownian_with_exogenous
+    r_star = optimize(f=pmd_auto,ys=brownian_with_exogenous(n=500),n_trials=50)
+    print("Best hyper-param is "+str(r_star))
 
 
