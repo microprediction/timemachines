@@ -2,7 +2,7 @@
 
 This package is an experiment in a different approach to the representation of time series models. Here a time series model
 
-- takes the form of a *pure function* called a *skater*,
+- takes the form of a *pure function* with a *skater* signature,
 - that is a recipe for a *state machine*,
 - where the intent is that the *caller* will carry the state from one invocation to the next, not the *callee*, and
 - with the further, somewhat unusual convention that variables known in advance (*a*) and the full set of model hyper-parameters (*r*) are both squished down into their respective *scalar* arguments. 
