@@ -1,4 +1,3 @@
-
 from timemachines.synthetic import brownian_with_noise, brownian_with_exogenous
 from timemachines.skating import prior, residuals
 from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error
