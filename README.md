@@ -11,7 +11,7 @@ The penultimate convention is for generality, and also eyes lambda-based deploym
 
 ### Want to discuss time series modeling standardization?
 
-See this thread https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1
+This isn't *the right way* to write time series packages - more a way of exposing their functionality. If you are interested in design thoughts for time series maybe participate in this thread https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1. 
 
 ### A "skater" function 
 
@@ -33,11 +33,6 @@ The function returns:
                 
 (Yes one might quibble with the purity given that state s can be modified, but that's Python sensible).  
 
-![](https://i.imgur.com/DkZvZRq.png)
-
-Picture by [Joe Cook](https://www.instagram.com/joecooke_/?utm_medium=referral&utm_source=unsplash)
-
-
 ### Skating forward
 
     def posteriors(f,ys):
@@ -47,6 +42,11 @@ Picture by [Joe Cook](https://www.instagram.com/joecooke_/?utm_medium=referral&u
             x, s, _ = f(y,s)
             xs.append(xs)
         return xs
+
+![](https://i.imgur.com/DkZvZRq.png)
+
+Picture by [Joe Cook](https://www.instagram.com/joecooke_/?utm_medium=referral&utm_source=unsplash)
+
     
 ### Conventions: 
 
