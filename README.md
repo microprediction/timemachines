@@ -1,18 +1,17 @@
 # timemachines [![Build Status](https://travis-ci.com/microprediction/timemachines.svg?branch=main)](https://travis-ci.com/microprediction/timemachines)
 
-This package is an experiment in a different approach to the representation of time series models. Here a time series model
+This package is an experiment in a different approach to the representation of time series models. Here a time series model:
 
-- takes the form of a *pure function* called a *skater*,
+- takes the form of a *pure function* with a *skater* signature,
 - that is a recipe for a *state machine*,
-- where the intent is that the *caller* will carry the state from one invocation to the next, not the *callee*, and
+- where the intent that the *caller* might carry the state from one invocation to the next, not the *callee*, and
 - with the further, somewhat unusual convention that variables known in advance (*a*) and the full set of model hyper-parameters (*r*) are both squished down into their respective *scalar* arguments. 
 
-We have in mind applications (think lambdas) that are somewhat unusual in that *the caller maintains the state* in-between invocations. 
-The last convention has advantages and disadvantages. It is made pragmatic (we hope) by some space-filling curve conventions.   
+The penultimate convention is for generality, and also eyes lambda-based deployments. The last convention imposes at design time a consistent hyper-parameter space. This step may seem unnatural, but it facilitates comparisons of models and hyper-parameter optimizers in different settings. It is workable, we hope, with some space-filling curve conventions.   
 
 ### Want to discuss time series modeling standardization?
 
-See this thread https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1
+This isn't put forward as *the right way* to write time series packages - more a way of exposing their functionality. If you are interested in design thoughts for time series maybe participate in this thread https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1. 
 
 ### A "skater" function 
 
@@ -34,11 +33,6 @@ The function returns:
                 
 (Yes one might quibble with the purity given that state s can be modified, but that's Python sensible).  
 
-![](https://i.imgur.com/DkZvZRq.png)
-
-Picture by [Joe Cook](https://www.instagram.com/joecooke_/?utm_medium=referral&utm_source=unsplash)
-
-
 ### Skating forward
 
     def posteriors(f,ys):
@@ -48,6 +42,11 @@ Picture by [Joe Cook](https://www.instagram.com/joecooke_/?utm_medium=referral&u
             x, s, _ = f(y,s)
             xs.append(xs)
         return xs
+
+![](https://i.imgur.com/DkZvZRq.png)
+
+Picture by [Joe Cook](https://www.instagram.com/joecooke_/?utm_medium=referral&utm_source=unsplash)
+
     
 ### Conventions: 
 
