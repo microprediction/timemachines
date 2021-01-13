@@ -1,4 +1,4 @@
-# timemachines [![Build Status](https://travis-ci.com/microprediction/timemachines.svg?branch=main)](https://travis-ci.com/microprediction/timemachines) ![tests](https://github.com/microprediction/timemachines/workflows/build/badge.svg)
+# timemachines [![Build Status](https://travis-ci.com/microprediction/timemachines.svg?branch=main)](https://travis-ci.com/microprediction/timemachines) ![build](https://github.com/microprediction/timemachines/workflows/build/badge.svg)
 
 
 
