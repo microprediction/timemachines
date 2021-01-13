@@ -1,6 +1,6 @@
 from timemachines.conventions import to_space, Y_TYPE, from_space, dimension
 from timemachines.evaluation import evaluate_energy, evaluate_mean_squared_error
-from timemachines.optimizers.compendium import OPTIMIZERS, shgo_cube, optuna_cube
+from timemachines.optimizers.alloptimizers import OPTIMIZERS, shgo_cube, optuna_cube
 from timemachines.skaters.pmd import pmd_auto
 
 
