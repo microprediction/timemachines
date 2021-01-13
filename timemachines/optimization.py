@@ -8,20 +8,22 @@ def optimize(f, ys:[Y_TYPE],
              evaluator=evaluate_mean_squared_error,
              optimizer=shgo_cube,
              n_trials=100,
-             **kwargs)->float:
+             **kwargs)->(float, float):
     """ Returns best r """
 
     def objective(u:[float]):
         r = from_space(u)
         return evaluator(f=f,ys=ys,r=r,**kwargs)
 
-    return optimizer(objective, n_trials=n_trials, n_dim=dimension(ys[0]))
+    r_star = optimizer(objective, n_trials=n_trials, n_dim=dimension(ys[0]))
+    evaluation = objective(r_star)
+    return r_star, evaluation
 
 
 if __name__=='__main__':
     # Example that could take a while
     from timemachines.synthetic import brownian_with_exogenous
-    r_star = optimize(f=pmd_auto,ys=brownian_with_exogenous(n=300),
+    r_star, evaluation = optimize(f=pmd_auto,ys=brownian_with_exogenous(n=300),
                       n_trials=25, optimizer=optuna_cube)
     print("Best hyper-param is "+str(r_star))
     from timemachines.skaters.pmd import pmd_hyperparams

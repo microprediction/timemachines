@@ -17,5 +17,6 @@ def optimize_random_skater():
     print('Took ' + str( (time.time()-start_time)/60 ) + ' minutes.' )
 
 
+
 if __name__=='__main__':
     optimize_random_skater()
