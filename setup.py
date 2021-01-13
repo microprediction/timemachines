@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.0.18",
+    version="0.0.19",
     description="Time series models represented as pure functions with SKATER convention.",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -20,7 +20,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    packages=["timemachines"],
+    packages=["timemachines","timemachines.optimizers","timemachines.skaters"],
     test_suite='pytest',
     tests_require=['pytest'],
     include_package_data=True,
