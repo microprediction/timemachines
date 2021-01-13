@@ -1,6 +1,6 @@
 # timemachines [![Build Status](https://travis-ci.com/microprediction/timemachines.svg?branch=main)](https://travis-ci.com/microprediction/timemachines)
 
-This package is an experiment in a different approach to the representation of time series models. Here a time series model
+This package is an experiment in a different approach to the representation of time series models. Here a time series model:
 
 - takes the form of a *pure function* with a *skater* signature,
 - that is a recipe for a *state machine*,
