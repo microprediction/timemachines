@@ -1,7 +1,7 @@
-from timemachines.skaters.divine import divine
+from timemachines.skaters.divine import divinity_seasonal
 from timemachines.evaluation import quick_brown_fox
 
 
 def test_divine():
-    err = quick_brown_fox(f=divine,n=75)
+    err = quick_brown_fox(f=divinity_seasonal, n=75)
 

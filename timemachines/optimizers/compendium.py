@@ -9,7 +9,9 @@ from timemachines.optimizers.pymoocube import nelder_cube, ctaea_cube, nsga3_cub
 
 OPTIMIZERS = [ ax_cube, hyperopt_cube, shgo_cube, optuna_cube, pysot_cube,
                powell_cube, evolutionary_cube, genetic_cube, nelder_cube,
-               ctaea_cube, nsga3_cube, pattern_cube ]
+                nsga3_cube, pattern_cube ]
+
+FAILING_OPTIMIZERS = [ ctaea_cube ]
 
 if __name__=='__main__':
     from timemachines.optimizers.objectives import AN_OBJECTIVE

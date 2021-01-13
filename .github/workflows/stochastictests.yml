@@ -48,4 +48,4 @@ jobs:
         pytest
     - name: Run stochastic tests
       run: |
-        python stochastictests/run_stochastic_tests.py
+        python ./stochastictests/runstochastictests.py

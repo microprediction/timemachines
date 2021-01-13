@@ -8,7 +8,7 @@ from timemachines.plotting import prior_plot
 # I don't really recommend this guy. For one thing the logs are hard to suppress ;)
 
 
-def divine(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None, r=0.5):
+def divinity_seasonal(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None, r=0.5):
     """ A partial wrapping of the divinity library with notable limitations:
 
          - Fits every invocation (slow)
@@ -47,6 +47,6 @@ def divine(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None, r=0.5):
 
 
 if __name__=='__main__':
-    err = prior_plot(f=divine, k=1, n=150)
+    err = prior_plot(f=divinity_seasonal, k=1, n=150)
     pass
 
