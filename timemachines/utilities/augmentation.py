@@ -14,14 +14,6 @@ def reflect(ys:[float], n:int)->[float]:
     return xs[:n]
 
 
-def chunk_to_end(l:List, n:int)-> List[List]:
-    """
-        :param n: Size of batches
-    """
-    rl = list(reversed(l))
-    chunks = [ list(reversed(rl[x:x + n])) for x in range(0, len(rl), n) ]
-    return list(reversed(chunks[:-1]))
-
 def dilate(u,scale):
     if isinstance(u,list):
         return [u_*scale for u_ in u]

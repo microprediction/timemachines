@@ -2,10 +2,11 @@ from timemachines.synthetic import brownian_with_noise, brownian_with_exogenous
 from timemachines.skating import prior, residuals
 from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error
 from scipy.stats import energy_distance
-from timemachines.utilities import augmentation
-from timemachines.utilities.augmentation import chunk_to_end
 import numpy as np
 from timemachines.conventions import targets
+from typing import List
+
+
 
 
 # Evaluation of skaters
@@ -54,6 +55,14 @@ def quick_brown_fox_randomized(f, n=200, **kwargs):
 
 # Energy distance between residuals of consecutive epochs
 # (a more speculative way to evaluate point estimates)
+
+def chunk_to_end(l:List, n:int)-> List[List]:
+    """
+        :param n: Size of batches
+    """
+    rl = list(reversed(l))
+    chunks = [ list(reversed(rl[x:x + n])) for x in range(0, len(rl), n) ]
+    return list(reversed(chunks[:-1]))
 
 
 def evaluate_energy(f, ys=None, k=1, ats=None, ts=None, e=None, r=0.5, n_burn=50, n_epoch=100):
