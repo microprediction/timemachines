@@ -2,6 +2,7 @@ from timemachines.synthetic import brownian_with_noise, brownian_with_exogenous
 from timemachines.skating import prior, residuals
 from sklearn.metrics import mean_squared_error, mean_absolute_error, mean_absolute_percentage_error
 from scipy.stats import energy_distance
+from timemachines.utilities import augmentation
 from timemachines.utilities.augmentation import chunk_to_end
 import numpy as np
 from timemachines.conventions import targets

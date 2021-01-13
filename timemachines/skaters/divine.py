@@ -2,6 +2,7 @@ from typing import List
 import numpy as np
 import divinity as dv
 from timemachines.conventions import to_int_log_space, Y_TYPE, K_TYPE
+from timemachines.utilities import suppression
 from timemachines.utilities.suppression import suppress_output
 from timemachines.plotting import prior_plot
 
