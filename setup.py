@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.0.16",
+    version="0.0.17",
     description="Time series models represented as pure functions with SKATER convention.",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -24,10 +24,9 @@ setup(
     test_suite='pytest',
     tests_require=['pytest'],
     include_package_data=True,
-    install_requires=["pathlib","numpy>=1.16.5","importlib-metadata>=1.7.0","microconventions>0.5.0","sklearn","divinity","pmdarima","hyperopt","scipy",
+    install_requires=["wheel","pathlib","numpy>=1.16.5","importlib-metadata>=1.7.0","microconventions>0.5.0","sklearn","divinity","pmdarima","hyperopt","scipy",
                       "poap","pySOT","funcy","pydlm","optuna","deap","ax-platform","sigopt","statsmodels","tdigest","platypus-opt",
-                      "pymoo"],
-    dependency_links=["git+git://github.com/RJT1990/pyflux.git"],
+                      "pymoo","pyflux=0.4.16"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",
