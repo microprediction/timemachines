@@ -7,7 +7,7 @@ This package is an experiment in a different approach to the representation of t
 - where the intent that the *caller* might carry the state from one invocation to the next, not the *callee*, and
 - with the further, somewhat unusual convention that variables known in advance (*a*) and the full set of model hyper-parameters (*r*) are both squished down into their respective *scalar* arguments. 
 
-The penultimate convention is for generality, and also eyes lambda-based deployments. The last convention imposes at design time a consistent hyper-parameter space. It seems unnatural, but facilitates comparisons of models and hyper-parameter optimizers in different settings. It is workable, we hope, with some space-filling curve conventions.   
+The penultimate convention is for generality, and also eyes lambda-based deployments. The last convention imposes at design time a consistent hyper-parameter space. This step may seem unnatural, but it facilitates comparisons of models and hyper-parameter optimizers in different settings. It is workable, we hope, with some space-filling curve conventions.   
 
 ### Want to discuss time series modeling standardization?
 
