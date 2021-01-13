@@ -1,5 +1,7 @@
 # timemachines [![Build Status](https://travis-ci.com/microprediction/timemachines.svg?branch=main)](https://travis-ci.com/microprediction/timemachines)
 
+![build](https://github.com/microprediction/timemachines/workflows/Upload%Python%Package/badge.svg)
+
 This package is an experiment in a different approach to the representation of time series models. Here a time series model:
 
 - takes the form of a *pure function* with a *skater* signature,
