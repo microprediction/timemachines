@@ -1,4 +1,4 @@
-from timemachines.optimizers.compendium import OPTIMIZERS
+from timemachines.optimizers.alloptimizers import OPTIMIZERS
 from timemachines.optimizers.objectives import OBJECTIVES
 
 

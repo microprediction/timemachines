@@ -1,7 +1,7 @@
 from timemachines.optimization import optimize
 from timemachines.synthetic import brownian_with_exogenous
-from timemachines.optimizers.compendium import OPTIMIZERS
-from timemachines.skaters.compendium import SKATERS
+from timemachines.optimizers.alloptimizers import OPTIMIZERS
+from timemachines.skaters.allskaters import SKATERS
 import time
 import random
 
