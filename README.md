@@ -11,7 +11,7 @@ The penultimate convention is for generality, and also eyes lambda-based deploym
 
 ### Want to discuss time series modeling standardization?
 
-This isn't *the right way* to write time series packages - more a way of exposing their functionality. If you are interested in design thoughts for time series maybe participate in this thread https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1. 
+This isn't put forward as *the right way* to write time series packages - more a way of exposing their functionality. If you are interested in design thoughts for time series maybe participate in this thread https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1. 
 
 ### A "skater" function 
 
