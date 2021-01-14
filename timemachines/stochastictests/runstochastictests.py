@@ -1,4 +1,4 @@
-from timemachines.stochastictests.compendium import STOCHASTIC_TESTS
+from timemachines.stochastictests.allstochastictests import STOCHASTIC_TESTS
 import time
 import random
 TIMEOUT = 60*5

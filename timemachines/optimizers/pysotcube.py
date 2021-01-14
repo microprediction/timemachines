@@ -62,7 +62,8 @@ def pysot_cube( objective, n_trials, n_dim, with_count=False):
 
     # Run the optimization strategy
     result = controller.run()
-    return (result.value, gp.feval_count) if with_count else result.value
+    best_x = result.params[0].tolist()
+    return (result.value, best_x, gp.feval_count) if with_count else (result.value, best_x)
 
 
 if __name__ == '__main__':

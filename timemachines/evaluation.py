@@ -12,43 +12,43 @@ from typing import List
 # Evaluation of skaters
 #   (pretty standard scoring rules)
 
-def evaluate_sklearn_metric(f, ys, metric, n_burn=50, **kwargs):
+def evaluate_sklearn_metric(f, ys, metric, n_burn, **kwargs):
     """ Useful for a quick test """
     xs = prior(f=f,ys=ys,**kwargs)
     yt = targets(ys)
     return metric(yt[n_burn:], xs[n_burn:])
 
 
-def evaluate_mean_squared_error(f, ys, n_burn=50, **kwargs):
+def evaluate_mean_squared_error(f, ys, n_burn, **kwargs):
     return evaluate_sklearn_metric(f=f, ys=ys, metric=mean_squared_error, n_burn=n_burn, **kwargs)
 
 
-def evaluate_mean_absolute_error(f, ys, n_burn=50, **kwargs):
+def evaluate_mean_absolute_error(f, ys, n_burn, **kwargs):
     return evaluate_sklearn_metric(f=f, ys=ys, metric=mean_absolute_error, n_burn=n_burn, **kwargs)
 
 
-def evaluate_mean_absolute_percentage_error(f, ys, n_burn=50, **kwargs):
+def evaluate_mean_absolute_percentage_error(f, ys, n_burn, **kwargs):
     return evaluate_sklearn_metric(f=f, ys=ys, metric=mean_absolute_percentage_error(), n_burn=n_burn, **kwargs)
 
 
-def quick_brown_fox(f, n=120, **kwargs):
+def quick_brown_fox(f, n=120, n_burn=30,  **kwargs):
     """ Useful for a quick test of a skater, w/o exogenous inputs """
     ys = brownian_with_noise(n=n)
-    return evaluate_mean_squared_error(f=f,ys=ys, **kwargs)
+    return evaluate_mean_squared_error(f=f,ys=ys, n_burn=n_burn, **kwargs)
 
 
-def lazy_dog(f, n=120, **kwargs):
+def lazy_dog(f, n=120, n_burn=30, **kwargs):
     """ Useful for a quick test of a skater, w/ exogenous inputs """
     ys = brownian_with_exogenous(n=n)
-    return evaluate_mean_squared_error(f=f,ys=ys,**kwargs)
+    return evaluate_mean_squared_error(f=f,ys=ys, n_burn=n_burn, **kwargs)
 
 
-def quick_brown_fox_randomized(f, n=200, **kwargs):
+def quick_brown_fox_randomized(f, n=200, n_burn=30,  **kwargs):
     """ Useful for a quick test of a skater, w/o exogenous inputs """
     r = np.random.rand(1)
     ys = brownian_with_noise(n=n)
     try:
-        rmse = evaluate_mean_squared_error(f=f,ys=ys, **kwargs)
+        rmse = evaluate_mean_squared_error(f=f,ys=ys, n_burn=n_burn, r=r, **kwargs)
     except:
         raise('Error running '+f.__name__ + ' with r='+str(r))
 

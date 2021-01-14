@@ -17,10 +17,13 @@ def optuna_cube(objective, n_trials,n_dim, with_count=False):
     optuna.logging.set_verbosity(CRITICAL)
     study = optuna.create_study()
     study.optimize(cube_objective,n_trials=n_trials)
+
+    best_x = [ study.best_params['u'+str(i)] for i in range(n_dim) ]
+
     if with_count:
-        return study.best_value, feval_count
+        return study.best_value, best_x, feval_count
     else:
-        return study.best_value
+        return study.best_value, best_x
 
 
 if __name__=='__main__':

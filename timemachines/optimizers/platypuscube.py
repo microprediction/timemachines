@@ -26,9 +26,9 @@ def platypus_cube(objective, n_trials, n_dim, strategy, with_count=False):
 
     algorithm = strategy(problem)
     algorithm.run(n_trials)
-    feasible_solution_obj = [s.objectives[0] for s in algorithm.result if s.feasible]
-    best_obj = min(feasible_solution_obj)
-    return (best_obj, feval_count) if with_count else best_obj
+    feasible_solution_obj = sorted( [(s.objectives[0],s.variables) for s in algorithm.result if s.feasible], reverse=False)
+    best_obj, best_x = feasible_solution_obj[0]
+    return (best_obj, best_x, feval_count) if with_count else (best_obj, best_x)
 
 
 if __name__ == '__main__':

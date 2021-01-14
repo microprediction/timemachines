@@ -28,7 +28,7 @@ def shgo_cube(objective, n_trials, n_dim, with_count: bool = False):
                                                'maxfun': n_trials_reduced,
                                                'minimizer_kwargs':{'maxiter':10}},
                                 sampling_method='sobol')
-    return (result.fun, feval_count) if with_count else result.fun
+    return (result.fun, result.x, feval_count) if with_count else (result.fun, result.x)
 
 
 if __name__ == '__main__':

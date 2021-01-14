@@ -27,13 +27,15 @@ def ax_cube(objective, n_trials, n_dim, with_count=False):
                                                                evaluation_function=evaluation_func,
                                                                minimize=True,
                                                                total_trials=n_trials)
-    return (best_values[0]['objective'], feval_count) if with_count else best_values[0]['objective']
+    best_x = [ best_parameters['u'+str(i)] for i in range(n_dim) ]
+    best_val = best_values[0]['objective']
+    return (best_val, best_x, feval_count) if with_count else (best_val, best_x)
 
 
 @print_durations()
 def demo():
     for objective in OBJECTIVES:
-        print(ax_cube(objective, n_trials=50, n_dim=2, with_count=True))
+        print(ax_cube(objective, n_trials=15, n_dim=2, with_count=True))
 
 if __name__ == '__main__':
     demo()
