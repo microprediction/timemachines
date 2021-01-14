@@ -1,4 +1,4 @@
-# timemachines [![Build Status](https://travis-ci.com/microprediction/timemachines.svg?branch=main)](https://travis-ci.com/microprediction/timemachines) ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![regression](https://github.com/microprediction/timemachines/workflows/regression/badge.svg) ![offline-testing](https://github.com/microprediction/timemachines-testing/workflows/offline-testing/badge.svg)
+# timemachines [![Build Status](https://travis-ci.com/microprediction/timemachines.svg?branch=main)](https://travis-ci.com/microprediction/timemachines) ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![offline-testing](https://github.com/microprediction/timemachines-testing/workflows/offline-testing/badge.svg)
 
 
 
