@@ -52,47 +52,29 @@ Picture by [Joe Cook](https://www.instagram.com/joecooke_/?utm_medium=referral&u
     
 ### Conventions: 
 
-- The caller, not the callee, persists state from one invocation to the next
-    - The format taken by state is determined by the callee, not caller
-    - The caller passes s=None the first time
-    - The function initializes state as necessary, and passes it back
-    - The caller keeps the state and sends it back to the callee
+- State
+    - The caller, not the callee, persists state from one invocation to the next
+    - The caller passes s=None the first time, and the callee initializes state
     - State can be mutable for efficiency (e.g. it might be a long buffer) or not. 
-    - Recall that Python is pass-by-object-reference. 
-    - State should, ideally, be JSON-friendly. Use .tolist() on arrays.
-    - State is not an invitation to sneak in additional arguments.
+    - ?? state should, ideally, be JSON-friendly. Maybe use .tolist() on arrays.
        
-- Univariate or multivariate observation argument
+- Observations:
      - If y is a vector, the target is the first element y[0]
      - The elements y[1:] are contemporaneous exogenous variables, *not known in advance*.  
-     - Missing data as np.nan but *not None* (see fitting below)
+     - Missing data as np.nan but *not None* 
 
 - Fitting:  
-     - If y=None is passed, it is a suggestion to the callee to perform fitting, should that be necessary. 
-     - Or some other offline periodic task. 
-     - In this case the *e* argument takes on a slightly different interpretation, and should probably
-     be considerably larger than usual. 
+     - If y=None is passed, it is a suggestion to the callee to perform fitting, should that be necessary. In this case the *e* argument takes on a slightly different interpretation, and should be larger than usual. 
      - The callee should return x=None, as acknowledgement that it has recognized the "offline" convention
    
 - Variables known in advance, or conditioning variables:
      - Passed as *scalar* argument *a* in (0,1). 
-     - See discussion below re: space-filling curves so you know this isn't really a huge restriction.  
-     - Rationale: make it easier to design general purpose conditional prediction algorithms
-     - Bear in mind many functions will ignore this argument, so we have little to lose here. 
-     - Caller can deepcopy the state to effect multiple conditional predictions.
-     - Example: business day indicator
-     - Example: size of a trade
-     - Example: joystick button up 
+     - Rationale: make it easier to design general purpose conditional prediction algorithms 
+     - Examples: business day indicator; size of trade, joystick button up
 
-- Parameter space:
-     - Caller has a limited ability to suggest variation in parameters (or maybe hyper-parameters, since 
-     many callees will fit parameters on the fly or when there is time).
-     - This communication is squished into a single float *r* in (0,1). 
-     - Arguably, this makes callees more canonical and, 
-     - seriously, there are lots of real numbers, and 
-     - the intent here is that the caller shouldn't need to know a lot about parameters.
-     - This package provides some conventions for expanding to R^n using space filling curves,
-     - so that the callee's (hyper) parameter optimization can still exploit geometry, as you see fit. 
+- Hyper-Parameter space:
+     - A float *r* in (0,1). 
+     - This package provides some conventions for expanding to R^n using space filling curves, so that the callee's (hyper) parameter optimization can still exploit geometry, if it wants to. 
       
 - Ordering of parameters in space-filling curve:
     - The most important variables should be listed first, as they vary more slowly. 
