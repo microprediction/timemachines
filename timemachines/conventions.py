@@ -141,7 +141,10 @@ def to_space(p: float, bounds: BOUNDS_TYPE = None, dim: int = 1):
     else:
         dim = len(bounds)
 
-    us = reversed(ZCurveConventions().to_cube(zpercentile=p, dim=dim))  # 0 < us[i] < 1
+    if dim>1:
+        us = reversed(ZCurveConventions().to_cube(zpercentile=p, dim=dim))  # 0 < us[i] < 1
+    else:
+        us = [p]
     return [u * (b[1] - b[0]) + b[0] for u, b in zip(us, bounds)]
 
 
@@ -152,7 +155,10 @@ def from_space(ps: [float], bounds: BOUNDS_TYPE=None):
     us = [(pi - b[0]) / (b[1] - b[0]) for pi, b in zip(ps, bounds)]
     for u in us:
         assert 0 <= u <= 1, "bounds are inconsistent with p=" + str(ps)
-    return ZCurveConventions().from_cube(list(reversed(us)))
+    if len(us)>1:
+        return ZCurveConventions().from_cube(list(reversed(us)))
+    else:
+        return us
 
 
 def to_log_space(p:float, bounds: BOUNDS_TYPE):
