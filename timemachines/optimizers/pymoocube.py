@@ -84,9 +84,9 @@ def pymoo_cube(objective, n_trials, method_name, n_dim, with_count, ref_dirs=Non
                       return_least_infeasible=False,
                       save_history=False
                       )
-    f_min = result.F[0]
+    best_val = result.F[0]
     best_x = result.X.tolist()
-    return (f_min, best_x, problem.feval_count) if with_count else (f_min, best_x)
+    return (best_val, best_x, problem.feval_count) if with_count else (best_val, best_x)
 
 
 PYMOO_BROKEN = [de_cube,rnsga2_cube]

@@ -9,6 +9,7 @@ def optimize(f, ys:[Y_TYPE],
              optimizer,
              n_trials,
              n_dim,        # Which dimension to search in
+             with_count=False,
              **kwargs)->(float, float):
     """ Returns best r """
 
@@ -17,7 +18,7 @@ def optimize(f, ys:[Y_TYPE],
         return evaluator(f=f,ys=ys,r=r,**kwargs)
 
     a_test = objective(u=[0.5]*n_dim)  # Fail fast with easier trace TODO: remove
-    return optimizer(objective, n_trials=n_trials, n_dim=n_dim, with_count=False)
+    return optimizer(objective, n_trials=n_trials, n_dim=n_dim, with_count=with_count)
 
 
 
