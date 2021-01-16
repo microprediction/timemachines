@@ -13,7 +13,7 @@ This package is an experiment in a different approach to the representation of t
 
 The penultimate convention is for generality, and also eyes lambda-based deployments. The last convention imposes at design time a consistent hyper-parameter space. This step may seem unnatural, but it facilitates comparisons of models and hyper-parameter optimizers in different settings. It is workable, we hope, with some space-filling curve conventions.   
 
-This isn't put forward as *the right way* to write time series packages - more a way of exposing their functionality for comparisons. If you are interested in design thoughts for time series maybe participate in this thread https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1. 
+This isn't put forward as *the right way* to write time series packages - more a way of exposing their functionality for comparisons. If you are interested in design thoughts for time series maybe participate in this [thread](https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1). 
 
 ### A "skater" function 
 
