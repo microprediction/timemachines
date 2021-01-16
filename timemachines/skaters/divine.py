@@ -20,7 +20,6 @@ def divinity_seasonal(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None, r=0.5):
 
     # Allow r to control buffer length and burn-in
     max_buffer_len, burnin = to_int_log_space(p=r, bounds=[(250, 5000), (120, 140)])
-    assert max_buffer_len>100, 'divine library assumes 100 lags at least '
 
     if s is None:
         s = dict(buffer=[])
@@ -37,8 +36,8 @@ def divinity_seasonal(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None, r=0.5):
         s['buffer'] = s['buffer'][-max_buffer_len:]
 
     # Fit and predict, if warm, or just last value
-    if len(s['buffer']) < burnin:
-        return y, s, None
+    if len(s['buffer']) < max( burnin, 101 ):
+        return y, s, None  # library fails if there are less than 100 points
     else:
         with suppress_output():  # this doesn't work :(
             model = dv.divinity(forecast_length=k,optimise_trend_season_features = True)

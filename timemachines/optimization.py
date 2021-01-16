@@ -1,8 +1,8 @@
 from timemachines.conventions import to_space, Y_TYPE, from_space, dimension
 from timemachines.evaluation import evaluate_energy, evaluate_mean_squared_error
-from timemachines.optimizers.alloptimizers import OPTIMIZERS, shgo_cube, optuna_cube
+from timemachines.optimizers.alloptimizers import OPTIMIZERS
 from timemachines.skaters.pmd import pmd_auto
-
+import traceback
 
 def optimize(f, ys:[Y_TYPE],
              evaluator,
@@ -24,13 +24,20 @@ def optimize(f, ys:[Y_TYPE],
 
 if __name__=='__main__':
     from timemachines.synthetic import brownian_with_exogenous
-    best_val, best_x = optimize(f=pmd_auto,ys=brownian_with_exogenous(n=60),
-                      n_trials=5, n_dim=3, n_burn=20, optimizer=optuna_cube, evaluator=evaluate_mean_squared_error)
-    best_r = from_space(best_x)
-    print("Best hyper-param is "+str(best_r))
-    from timemachines.skaters.pmd import pmd_hyperparams
-    s = pmd_hyperparams(s=dict(),r=best_r)
-    from pprint import pprint
-    pprint(s)
-
+    from timemachines.evaluation import EVALUATORS
+    broken = list()
+    for optimizer in OPTIMIZERS:
+        print(' ')
+        print(optimizer.__name__)
+        for evaluator in EVALUATORS:
+            try:
+                print( optimize(f=pmd_auto,ys=brownian_with_exogenous(n=120),
+                      n_trials=5, n_dim=3, n_burn=20, optimizer=optimizer,
+                      evaluator=evaluator, with_count=True))
+            except Exception as e:
+                traceback.print_tb()
+                broken.append( (optimizer.__name__,evaluator.__name__))
+    print(' ')
+    print('Broken : ')
+    print(broken)
 

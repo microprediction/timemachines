@@ -42,10 +42,8 @@ def deap_on_cube(u:[float])->float:
 
 
 def damavandi_on_cube(u:[float])->float:
-    """ A multi-dimensional extension of Damavandi's function """
-    u0 = u[0]
-    dama = [ damavandi2(u0,u_) for u_ in u[1:] ]
-    return float(np.sum(dama))
+    """ A trivial multi-dimensional extension of Damavandi's function """
+    return damavandi2(u[0],u[1])
 
 
 def damavandi2(u1,u2)->float:

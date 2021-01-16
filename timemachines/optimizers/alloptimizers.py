@@ -1,18 +1,25 @@
-from timemachines.optimizers.hyperoptcube import hyperopt_cube
-from timemachines.optimizers.shgocube import shgo_cube
-from timemachines.optimizers.optunacube import optuna_cube
-from timemachines.optimizers.pysotcube import pysot_cube
-from timemachines.optimizers.powellcube import powell_cube
-from timemachines.optimizers.axcube import ax_cube
-from timemachines.optimizers.platypuscube import genetic_cube, evolutionary_cube
-from timemachines.optimizers.pymoocube import nelder_cube, ctaea_cube, nsga3_cube, pattern_cube
+from timemachines.optimizers.hyperoptcube import HYPEROPT_OPTIMIZERS
+from timemachines.optimizers.shgocube import SHGO_OPTIMIZERS
+from timemachines.optimizers.optunacube import OPTUNA_OPTIMIZERS
+from timemachines.optimizers.pysotcube import PYSOT_OPTIMIZERS
+from timemachines.optimizers.scipycube import SCIPY_OPTIMIZERS
+from timemachines.optimizers.axcube import AX_OPTIMIZERS
+from timemachines.optimizers.platypuscube import PLATYPUS_OPTIMIZERS
+from timemachines.optimizers.pymoocube import PYMOO_OPTMIZERS
 
-OPTIMIZERS = [ ax_cube, hyperopt_cube, shgo_cube, optuna_cube, pysot_cube,
-               powell_cube, evolutionary_cube, genetic_cube, nelder_cube,
-                nsga3_cube, pattern_cube ]
+OPTIMIZERS = SCIPY_OPTIMIZERS + SHGO_OPTIMIZERS + HYPEROPT_OPTIMIZERS +\
+             PYSOT_OPTIMIZERS + OPTUNA_OPTIMIZERS + AX_OPTIMIZERS +\
+             PLATYPUS_OPTIMIZERS + PYMOO_OPTMIZERS
 
-FAILING_OPTIMIZERS = [ ctaea_cube ]
+# To see what might be working, or not, refer to directories such as:
+# https://github.com/microprediction/timemachines-testing/tree/main/data/brownian/dlm_seasonal
+PASSING_OPTIMIZERS = SHGO_OPTIMIZERS + HYPEROPT_OPTIMIZERS + PYSOT_OPTIMIZERS + AX_OPTIMIZERS + OPTUNA_OPTIMIZERS
+
 
 if __name__=='__main__':
-    from timemachines.optimizers.objectives import AN_OBJECTIVE
-    minima = [ optimizer(AN_OBJECTIVE, n_trials=50, n_dim=5) for optimizer in OPTIMIZERS]
+    from timemachines.optimizers.objectives import OBJECTIVES
+    for objective in OBJECTIVES:
+        print(' ')
+        print(objective.__name__)
+        for optimizer in OPTIMIZERS:
+            print(optimizer.__name__,(optimizer.__name__,optimizer(objective, n_trials=50, n_dim=5, with_count=True)))

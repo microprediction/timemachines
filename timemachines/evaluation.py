@@ -6,11 +6,8 @@ import numpy as np
 from timemachines.conventions import targets
 from typing import List
 
-
-
-
 # Evaluation of skaters
-#   (pretty standard scoring rules)
+
 
 def evaluate_sklearn_metric(f, ys, metric, n_burn, **kwargs):
     """ Useful for a quick test """
@@ -25,10 +22,6 @@ def evaluate_mean_squared_error(f, ys, n_burn, **kwargs):
 
 def evaluate_mean_absolute_error(f, ys, n_burn, **kwargs):
     return evaluate_sklearn_metric(f=f, ys=ys, metric=mean_absolute_error, n_burn=n_burn, **kwargs)
-
-
-def evaluate_mean_absolute_percentage_error(f, ys, n_burn, **kwargs):
-    return evaluate_sklearn_metric(f=f, ys=ys, metric=mean_absolute_percentage_error(), n_burn=n_burn, **kwargs)
 
 
 def quick_brown_fox(f, n=120, n_burn=30,  **kwargs):
@@ -51,7 +44,7 @@ def quick_brown_fox_randomized(f, n=200, n_burn=30,  **kwargs):
         rmse = evaluate_mean_squared_error(f=f,ys=ys, n_burn=n_burn, r=r, **kwargs)
     except:
         raise('Error running '+f.__name__ + ' with r='+str(r))
-
+    return rmse
 
 # Energy distance between residuals of consecutive epochs
 # (a more speculative way to evaluate point estimates)
@@ -65,7 +58,7 @@ def chunk_to_end(l:List, n:int)-> List[List]:
     return list(reversed(chunks[:-1]))
 
 
-def evaluate_energy(f, ys=None, k=1, ats=None, ts=None, e=None, r=0.5, n_burn=50, n_epoch=100):
+def evaluate_energy(f, ys=None, k=1, ats=None, ts=None, e=None, r=0.5, n_burn=30, n_epoch=30):
     r = residuals(f=f, ys=ys, k=k, ats=ats, ts=ts, e=e, r=r, n_burn=n_burn)
     r_chunks = chunk_to_end(r,n_epoch)
     return np.mean([ energy_distance(u_values=u_values,v_values=v_values) for u_values, v_values in zip( r_chunks[1:],r_chunks[:-1] )])
@@ -81,3 +74,4 @@ def exogenous_energy(f, n=500, **kwargs):
     return evaluate_energy(f=f,ys=ys, **kwargs)
 
 
+EVALUATORS = [ evaluate_mean_squared_error, evaluate_mean_absolute_error, evaluate_energy ]

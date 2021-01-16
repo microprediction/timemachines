@@ -30,7 +30,7 @@ def debug():
 
 
 def comparison():
-    n_trials,n_dim = 300, 5
+    n_trials,n_dim = 100, 5
     comparison = sorted([(objective.__name__,optimizer(objective, n_trials=n_trials, n_dim=n_dim, with_count=True),
                           optimizer_name(optimizer))
                          for optimizer in OPTIMIZERS for objective in OBJECTIVES])
@@ -75,10 +75,11 @@ def matchup( white, black, objective )-> dict:
 
 
 if __name__=='__main__':
-    if False:
+    if True:
         comparison()
-    res = random_matchup(optimizers=OPTIMIZERS,objectives=OBJECTIVES)
-    pprint(res)
+    if False:
+        res = random_matchup(optimizers=OPTIMIZERS,objectives=OBJECTIVES)
+        pprint(res)
 
 
 

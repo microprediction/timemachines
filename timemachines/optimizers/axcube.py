@@ -9,7 +9,7 @@ from funcy import print_durations
 from timemachines.optimizers.objectives import OBJECTIVES
 
 
-def ax_cube(objective, n_trials, n_dim, with_count=False):
+def ax_cube(objective, n_trials, n_dim, with_count=False, method=None):
     global feval_count
     feval_count = 0
 
@@ -32,11 +32,20 @@ def ax_cube(objective, n_trials, n_dim, with_count=False):
     return (best_val, best_x, feval_count) if with_count else (best_val, best_x)
 
 
+def ax_default_cube(objective, n_trials, n_dim, with_count=False):
+    return ax_cube(objective=objective, n_trials=n_trials, n_dim=n_dim, with_count=with_count)
+
+
+AX_OPTIMIZERS = [ ax_default_cube ]
+
 @print_durations()
 def demo():
     for objective in OBJECTIVES:
-        print(ax_cube(objective, n_trials=15, n_dim=2, with_count=True))
+        print(' ')
+        print(objective.__name__)
+        for optimizer in AX_OPTIMIZERS:
+            print(optimizer(objective, n_trials=50, n_dim=5, with_count=True))
 
-if __name__ == '__main__':
+
+if __name__=='__main__':
     demo()
-

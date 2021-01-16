@@ -10,6 +10,8 @@ Assumes:
 
 Refer to the original packages if you need more advanced functionality. 
 
-# Study
+### Preliminary study
 
-You may be interested in the [Comparision of Global Optimizers](https://www.microprediction.com/blog/optimize)
+You may be interested in the [Comparision of Global Optimizers](https://www.microprediction.com/blog/optimize). However this repo
+intends to fix some of the issues with that study. 
+
