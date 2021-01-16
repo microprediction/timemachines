@@ -1,6 +1,8 @@
 # timemachines [![Build Status](https://travis-ci.com/microprediction/timemachines.svg?branch=main)](https://travis-ci.com/microprediction/timemachines) ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![offline-testing](https://github.com/microprediction/timemachines-testing/workflows/offline-testing/badge.svg)
 
+Timemachines standardizes, and test the efficacy of, many combinations of time series approaches and hyper-optimization of the same. The project exposes in a simple way optimizers from scipy, ax-platform, hyperopt, optuna, platypus, pymooo, pySOT - each with various strategy and parameter variations. It also presents time series models from pydlm, flux, pmdarima and others in a simple format. Combinations of models and hyper-optimization strategy are tested out of sample on [live data](https://www.microprediction.org/browse_streams.html) and assigned Elo ratings. 
 
+### How models are represented
 
 This package is an experiment in a different approach to the representation of time series models. Here a time series model:
 
