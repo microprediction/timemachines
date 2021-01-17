@@ -1,8 +1,10 @@
-# timemachines [![Build Status](https://travis-ci.com/microprediction/timemachines.svg?branch=main)](https://travis-ci.com/microprediction/timemachines) ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![offline-testing](https://github.com/microprediction/timemachines-testing/workflows/offline-testing/badge.svg)
+# timemachines [![Build Status](https://travis-ci.com/microprediction/timemachines.svg?branch=main)](https://travis-ci.com/microprediction/timemachines) ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![regression](https://github.com/microprediction/timemachines/workflows/regression/badge.svg) ![offline-testing](https://github.com/microprediction/timemachines-testing/workflows/offline-testing/badge.svg)
 
+Timemachines standardizes, and tests the efficacy of, combinations of time series approaches and hyper-optimization of the same. The project exposes in a simple way optimizers from scipy, ax-platform, hyperopt, optuna, platypus, pymooo, pySOT - each with various strategy and parameter variations. It also presents time series models from pydlm, flux, pmdarima and others in a simple format. Combinations of models and hyper-optimization strategy are tested out of sample on [live data](https://www.microprediction.org/browse_streams.html), and assigned Elo ratings. 
 
+### Time series models are pure functions suggestion state machines
 
-This package is an experiment in a different approach to the representation of time series models. Here a time series model:
+Here a time series model:
 
 - takes the form of a *pure function* with a *skater* signature,
 - that is a recipe for a *state machine*,
@@ -11,11 +13,9 @@ This package is an experiment in a different approach to the representation of t
 
 The penultimate convention is for generality, and also eyes lambda-based deployments. The last convention imposes at design time a consistent hyper-parameter space. This step may seem unnatural, but it facilitates comparisons of models and hyper-parameter optimizers in different settings. It is workable, we hope, with some space-filling curve conventions.   
 
-### Want to discuss time series modeling standardization?
+This isn't put forward as *the right way* to write time series packages - more a way of exposing their functionality for comparisons. If you are interested in design thoughts for time series maybe participate in this [thread](https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1). 
 
-This isn't put forward as *the right way* to write time series packages - more a way of exposing their functionality. If you are interested in design thoughts for time series maybe participate in this thread https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1. 
-
-### A "skater" function 
+### The skater signature 
 
 Most time series packages use a complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function* We mean *function* in the mathematical sense.   
 
