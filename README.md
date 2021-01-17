@@ -17,7 +17,7 @@ This isn't put forward as *the right way* to write time series packages - more a
 
 ### The skater signature 
 
-Most time series packages use a complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function* We mean *function* in the mathematical sense.   
+Most time series packages use a complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is merely a function in the mathematical sense.   
 
     x, s, w = f(   y:Union[float,[float]],               # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
