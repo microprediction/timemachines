@@ -15,7 +15,7 @@ The penultimate convention is for generality, and also eyes lambda-based deploym
 
 This isn't put forward as *the right way* to write time series packages - more a way of exposing their functionality for comparisons. If you are interested in design thoughts for time series maybe participate in this [thread](https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1). 
 
-### A "skater" function 
+### The skater signature 
 
 Most time series packages use a complex combination of methods and data to represent a time series model, its fitting, and forecasting usage. But in this package a "model" is *merely a function* We mean *function* in the mathematical sense.   
 
