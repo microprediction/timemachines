@@ -31,7 +31,7 @@ if __name__=='__main__':
         print(optimizer.__name__)
         for evaluator in EVALUATORS:
             try:
-                print( optimize(f=pmd_auto,ys=brownian_with_exogenous(n=120),
+                print( evaluator.__name__, optimize(f=pmd_auto,ys=brownian_with_exogenous(n=120),
                       n_trials=5, n_dim=3, n_burn=20, optimizer=optimizer,
                       evaluator=evaluator, with_count=True))
             except Exception as e:

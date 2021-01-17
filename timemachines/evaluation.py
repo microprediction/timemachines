@@ -50,7 +50,7 @@ def quick_brown_fox_randomized(f, n=200, n_burn=30,  **kwargs):
 # (a more speculative way to evaluate point estimates)
 
 def chunk_to_end(l:List, n:int)-> List[List]:
-    """
+    """ Break list in to evenly sized chunks
         :param n: Size of batches
     """
     rl = list(reversed(l))
@@ -61,7 +61,10 @@ def chunk_to_end(l:List, n:int)-> List[List]:
 def evaluate_energy(f, ys=None, k=1, ats=None, ts=None, e=None, r=0.5, n_burn=30, n_epoch=30):
     r = residuals(f=f, ys=ys, k=k, ats=ats, ts=ts, e=e, r=r, n_burn=n_burn)
     r_chunks = chunk_to_end(r,n_epoch)
-    return np.mean([ energy_distance(u_values=u_values,v_values=v_values) for u_values, v_values in zip( r_chunks[1:],r_chunks[:-1] )])
+    if len(r_chunks)>=2:
+        return np.mean([ energy_distance(u_values=u_values,v_values=v_values) for u_values, v_values in zip( r_chunks[1:],r_chunks[:-1] )])
+    else:
+        return 0.0
 
 
 def brownian_energy(f, n=500, **kwargs):
@@ -74,4 +77,4 @@ def exogenous_energy(f, n=500, **kwargs):
     return evaluate_energy(f=f,ys=ys, **kwargs)
 
 
-EVALUATORS = [ evaluate_mean_squared_error, evaluate_mean_absolute_error, evaluate_energy ]
+EVALUATORS = [ evaluate_mean_squared_error, evaluate_mean_absolute_error ]
