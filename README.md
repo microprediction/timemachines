@@ -2,9 +2,9 @@
 
 Timemachines standardizes, and tests the efficacy of, combinations of time series approaches and hyper-optimization of the same. The project exposes in a simple way optimizers from scipy, ax-platform, hyperopt, optuna, platypus, pymooo, pySOT - each with various strategy and parameter variations. It also presents time series models from pydlm, flux, pmdarima and others in a simple format. Combinations of models and hyper-optimization strategy are tested out of sample on [live data](https://www.microprediction.org/browse_streams.html), and assigned Elo ratings. 
 
-### How models are represented
+### Time series models are pure functions suggestion state machines
 
-This package is an experiment in a different approach to the representation of time series models. Here a time series model:
+Here a time series model:
 
 - takes the form of a *pure function* with a *skater* signature,
 - that is a recipe for a *state machine*,
