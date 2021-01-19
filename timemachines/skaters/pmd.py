@@ -17,7 +17,7 @@ def pmd_hyperparams(s, r:R_TYPE):
 
     season, s['max_p'], s['max_q'] = to_int_log_space(r, bounds=[seasonal_bounds, p_bounds, q_bounds])
     s['seasonal'] = season>1.5
-    s['n_fit'] = 100
+    s['n_fit'] = 500
     return s
 
 
