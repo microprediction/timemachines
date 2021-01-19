@@ -9,11 +9,15 @@ from timemachines.plotting import prior_plot_exogenous
 
 def pmd_hyperparams(s, r:R_TYPE):
     # One way to interpret hyper-params r for pmd_arima models
-    p_bounds, q_bounds, n_fit_bounds = (1, 10), (1, 10), (1, 500)
+    seasonal_bounds = (1,2)
+    p_bounds, q_bounds = (1, 10), (1, 10)
     s['n_burn'] = 50
     s['alpha'] = 0.25  # Defines confidence interval
     s['buffer_len'] = 5000
-    s['max_p'], s['max_q'], s['n_fit'] = to_int_log_space(r, bounds=[p_bounds, q_bounds, n_fit_bounds])
+
+    season, s['max_p'], s['max_q'] = to_int_log_space(r, bounds=[seasonal_bounds, p_bounds, q_bounds])
+    s['seasonal'] = season>1.5
+    s['n_fit'] = 100
     return s
 
 
@@ -66,5 +70,5 @@ def pmd_auto(y, s, k, a, t, e, r):
 
 
 if __name__ == '__main__':
-    err = prior_plot_exogenous(f=pmd_auto, k=1, n=500, r=0.05)
+    err = prior_plot_exogenous(f=pmd_auto, k=1, n=500, r=0.95)
     pass
