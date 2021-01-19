@@ -107,7 +107,7 @@ def to_log_space_1d(u, low, high):
 
     if 1e-8 < low < high:
         return positive_log_scale(u=u, low=low, high=high)
-    elif low < -1e-8 < 1e-8 < high:
+    elif low < -1e-8 < high < 1e-8:
         return -positive_log_scale(1 - u, low=-high, high=-low)
     elif -1e-8 < low < 1e-8 < high:
         return positive_log_scale(u=u, low=1e-8, high=high)
