@@ -5,6 +5,7 @@ from scipy.stats import energy_distance
 import numpy as np
 from timemachines.conventions import targets
 from typing import List
+from timemachines.data.real import hospital
 
 # Evaluation of skaters
 
@@ -26,7 +27,7 @@ def evaluate_mean_absolute_error(f, ys, n_burn, **kwargs):
 
 def quick_brown_fox(f, n=120, n_burn=30,  **kwargs):
     """ Useful for a quick test of a skater, w/o exogenous inputs """
-    ys = brownian_with_noise(n=n)
+    ys = hospital()[:n]
     return evaluate_mean_squared_error(f=f,ys=ys, n_burn=n_burn, **kwargs)
 
 

@@ -6,25 +6,21 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 
-# pydlm skaters
-# TODO:
-# TODO: k-step ahead prediction
 
 
 def dlm_seasonal_hyperparams(s, r:R_TYPE):
-    # One way to interpret hyper-params r for pmd_arima models
-    # e.g. dlm([]) + trend(degree=2, 0.98) + + seasonality(period = 7, 0.98)
+    # Simple seasonal model
     degree_bounds = (0.1,4.1)
-    initial_discount = (0.90,0.97)  # Tuned subsequently so doesn't matter that much
-    seasonality_choices = [0,7,24,3*24,4*24]
-    seasonality_choice_bounds = [0.2,4.4]
+    initial_discount = (0.90,0.97)    # Tuned subsequently so doesn't matter that much
+    seasonality_choices = [0,7,12,24]
+    seasonality_choice_bounds = [-0.4,3.4]
     bounds=[seasonality_choice_bounds, degree_bounds, initial_discount ]
     _period_choice, _degree, s['discount'] = to_log_space(r, bounds=bounds)
     period_choice = int(_period_choice)
     assert 0<= period_choice <= 3
     s['degree'], s['period'] = int(_degree), seasonality_choices[period_choice]
     s['n_burn'] = max(50,2*s['period'])
-    s['n_fit'] = 100  # How often to tune discount
+    s['n_fit'] = 500  # How often to tune discount
     return s
 
 
@@ -55,19 +51,21 @@ def dlm_seasonal(y, s, k, a, t, e, r):
         s = dict()
         s = dlm_seasonal_hyperparams(s=s, r=r)
         s['dim'] = dimension(y)
+        s['n_obs'] = 0
         if s['period']>0:
-            s['model'] = dlm([]) + trend(s['degree'], s['discount']) + seasonality(s['period'], s['discount'])
+            s['model'] = dlm([],printInfo=False) + trend(s['degree'], s['discount']) + seasonality(s['period'], s['discount'])
         else:
-            s['model'] = dlm([]) + trend(s['degree'], s['discount'])
+            s['model'] = dlm([],printInfo=False) + trend(s['degree'], s['discount'])
 
     if y is not None:
+        s['n_obs'] += 1
         assert isinstance(y, float) or len(y) == s['dim'], ' Cannot change dimension of input in flight '
         y0, exog = separate_observations(y=y,dim=s['dim'])
         y0_passed_in = None if np.isnan(y0) else None  # pydlm uses None for missing values
         s['model'].append([y0])
         num_obs = len(s['model'].data) if s.get('model') else 0
         if num_obs % s['n_fit'] == s['n_fit']-1:
-            _, s, _ = dlm_seasonal(y=None,s=s,k=k,a=a,t=t,e=10,r=r) # Fit
+            _, s, _ = dlm_seasonal(y=None,s=s,k=k,a=a,t=t,e=10,r=r)
         s['model'].fitForwardFilter()
         s['model'].fitBackwardSmoother()
         return dlm_seasonal_or_last_value(s=s, k=k, y=y)

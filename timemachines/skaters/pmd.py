@@ -9,16 +9,17 @@ from timemachines.plotting import prior_plot_exogenous
 
 def pmd_hyperparams(s, r:R_TYPE):
     # One way to interpret hyper-params r for pmd_arima models
-    s['n_burn'] = 100   # Initial burn in period before first fit
-    s['n_fit']  = 500   # Time between fits
-    s['alpha']  = 0.25  # Defines confidence interval
-    s['buffer_len'] = 5000
-    criterion, stepwise, intercept = to_space(r, bounds=[(-0.5,3.5), (0,1),(0,1)])
-    s['seasonal'] = True
+
+    m_float, criterion, stepwise = to_space(r, bounds=[ (0.5,12+0.5),(-0.5,3.5), (0,1)])
     CRITERIA = ['aic','aicc','bic','hqic']
     s['information_criterion'] = CRITERIA[int(criterion)]
+    s['seasonal'] = True
+    s['m'] = int(m_float)
     s['stepwise'] = stepwise<0.5
-    s['intercept'] = intercept<0.5
+    s['n_burn'] = 100     # Initial burn in period before first fit
+    s['n_fit'] = 500      # Time between fits
+    s['alpha'] = 0.25     # Defines confidence interval
+    s['buffer_len'] = 5000
     return s
 
 
@@ -64,7 +65,7 @@ def pmd_auto(y, s, k, a, t, e, r):
         X = s.get('exogenous') or None
         s['model'] = pm.auto_arima(y=s['buffer'], X=X, start_p=1, start_q=1, start_P=1, start_Q=1,
                                    max_p=10, max_q=10, max_P=24, max_Q=24, seasonal=s['seasonal'],
-                                   stepwise=s['stepwise'], suppress_warnings=True, D=10, max_D=10,
+                                   stepwise=s['stepwise'], suppress_warnings=True, D=1, max_D=3, m=s['m'],
                                    error_action='ignore', information_criterion=s['information_criterion'])
         print(s['model'])
         print(s['model'].params())
@@ -73,15 +74,17 @@ def pmd_auto(y, s, k, a, t, e, r):
 
 
 if __name__ == '__main__':
-    #prior_plot_exogenous(f=pmd_auto, k=1, n=100, r=0.95)
-    from timemachines.evaluation import evaluate_mean_absolute_error
-    from timemachines.data.real import hospital
-    from timemachines.skating import prior
-    ys = hospital()[:550]
-    xs1 = prior(f=pmd_auto,ys=ys, k=1, r=0.95)
-    xs2 = prior(f=pmd_auto,ys=ys, k=1, r=0.05)
-    pass
-    err1 = evaluate_mean_absolute_error(f=pmd_auto,k=1, ys=ys, r=0.95, n_burn=250)
-    print('----------------')
-    err2 = evaluate_mean_absolute_error(f=pmd_auto, k=1, ys=ys, r=0.05, n_burn=250)
-    print((err1,err2))
+    prior_plot_exogenous(f=pmd_auto, k=1, n=1000, r=0.95)
+
+    if False:
+        from timemachines.evaluation import evaluate_mean_absolute_error
+        from timemachines.data.real import hospital
+        from timemachines.skating import prior
+        ys = hospital()[:550]
+        xs1 = prior(f=pmd_auto,ys=ys, k=1, r=0.95)
+        xs2 = prior(f=pmd_auto,ys=ys, k=1, r=0.05)
+        pass
+        err1 = evaluate_mean_absolute_error(f=pmd_auto,k=1, ys=ys, r=0.95, n_burn=250)
+        print('----------------')
+        err2 = evaluate_mean_absolute_error(f=pmd_auto, k=1, ys=ys, r=0.05, n_burn=250)
+        print((err1,err2))
