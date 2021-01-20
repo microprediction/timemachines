@@ -1,6 +1,6 @@
 from platypus import NSGAII, Problem, Real, EvolutionaryStrategy, GeneticAlgorithm,\
     NSGAIII, CMAES, GDE3, IBEA, MOEAD, OMOPSO, SMPSO, SPEA2, EpsMOEA, normal_boundary_weights
-
+from platypus.core import FixedLengthArray
 
 # Platypus is designed for multi-objective optimization, so may not do so well on single-objective problems
 
@@ -26,7 +26,7 @@ def platypus_cube(objective, n_trials, n_dim, with_count=False, method=None):
     def _objective(vars):
         global feval_count
         feval_count += 1
-        return objective(list(vars))
+        return float(objective(list(vars))) # Avoid np.array as Platypus may puke
 
     problem = Problem(n_dim, 1, 0)
     problem.types[:] = [Real(0.0, 1.0)] * n_dim
@@ -46,6 +46,8 @@ def platypus_cube(objective, n_trials, n_dim, with_count=False, method=None):
     feasible_solution_obj = sorted([(s.objectives[0], s.variables) for s in algorithm.result if s.feasible],
                                    reverse=False)
     best_obj, best_x = feasible_solution_obj[0]
+    if isinstance(best_x,FixedLengthArray):
+        best_x = best_x._data   # CMA-ES returns it this way for some reason
     return (best_obj, best_x, feval_count) if with_count else (best_obj, best_x)
 
 
