@@ -18,6 +18,52 @@ class fixedAutoReg(autoReg):
         """
         return
 
+        # Append new data or features to the dlm
+
+
+class quietDlm(dlm):
+    # Same as DLM but without priting
+
+    def __init__(self,*arg,**kwargs):
+        super().__init__(*arg,**kwargs)
+
+    # Append new data or features to the dlm
+    def append(self, data, component='main'):
+        """ Append the new data to the main data or the components (new feature data)
+
+        Args:
+            data: the new data
+            component: the name of which the new data to be added to.\n
+                       'main': the main time series data\n
+                       other omponent name: add new feature data to other
+                       component.
+
+        """
+        # initialize the model to ease the modification
+        if not self.initialized:
+            self._initialize()
+
+        # if we are adding new data to the time series
+        if component == 'main':
+            # add the data to the self.data
+            self.data.extend(list(data))
+
+            # update the length
+            self.n += len(data)
+            self.result._appendResult(len(data))
+
+            # update the automatic components as well
+            for component in self.builder.automaticComponents:
+                comp = self.builder.automaticComponents[component]
+                comp.appendNewData(data)
+
+        # if we are adding new data to the features of dynamic components
+        elif component in self.builder.dynamicComponents:
+            comp = self.builder.dynamicComponents[component]
+            comp.appendNewData(data)
+
+        else:
+            raise NameError('Such dynamic component does not exist.')
 
 def dlm_exog_hyperparams(s, r:R_TYPE):
     # Univariate model with autoregressive components
@@ -38,11 +84,16 @@ def dlm_exog_hyperparams(s, r:R_TYPE):
 def dlm_exog_or_last_value(s, k:int, y:Y_TYPE):
     num_obs = len(s['model'].data) if s.get('model') else 0
     if num_obs < s['n_burn']:
-        y0, _ = separate_observations(y,s['dim'])
+        y0, exog = separate_observations(y,s['dim'])
         return y0, s, None
     else:
         assert k==1,'only k==1 for now' # TODO: Fix
-        x_mean, x_var = s['model'].predict()
+        y0, exog = separate_observations(y, s['dim'])
+        if exog is not None:
+            exog_passed_in = [None if np.isnan(ex0) else ex0 for ex0 in exog]
+            x_mean, x_var = s['model'].predict(featureDict={'exog':exog_passed_in[0]})
+        else:
+            x_mean, x_var = s['model'].predict()
         x = x_mean[0, 0]
         v = x_var[0,0]
         try:
@@ -62,22 +113,24 @@ def dlm_exog(y, s, k, a, t, e, r):
         s['dim'] = dimension(y)
         s = dlm_exog_hyperparams(s=s, r=r)
         y0, exog = separate_observations(y=y, dim=s['dim'])
-        y0_passed_in = None if np.isnan(y0) else y0  # pydlm uses None for missing values
-        exog_passed_in = [None if np.isnan(ex0) else ex0 for ex0 in exog]
         s['n_obs'] = 0
-        s['model'] = dlm([],printInfo=False) + trend(s['trend_degree'], s['discount']) + seasonality(s['period'], s['discount'])
+        s['model'] = quietDlm([], printInfo=False) + trend(s['trend_degree'], s['discount']) + seasonality(s['period'], s['discount'])
         s['model'] = s['model'] + fixedAutoReg(degree=s['auto_degree'], name='ar', w=1.0)
-        s['model'] = s['model'] + dynamic(features=exog_passed_in, discount=0.99, name='exog') # Set's first exog
+        if exog is not None:
+            exog_wrapped = [None if np.isnan(ex0) else ex0 for ex0 in exog]
+            s['model'] = s['model'] + dynamic(features=exog_wrapped, discount=0.99, name='exog') # Set's first exog
 
     if y is not None:
+        assert dimension(y)==s['dim'],'Cannot change dimension of data sent'
         s['n_obs'] += 1
         assert isinstance(y, float) or len(y) == s['dim'], ' Cannot change dimension of input in flight '
         y0, exog = separate_observations(y=y,dim=s['dim'])
         y0_passed_in = None if np.isnan(y0) else y0  # pydlm uses None for missing values
-        exog_passed_in = [ None if np.isnan(ex0) else ex0 for ex0 in exog ]
         s['model'].append([y0_passed_in])
-        if s['n_obs']>1:
-            s['model'].append(data=exog_passed_in, component='exog') # Don't get first exog twice
+        if exog is not None:
+            exog_wrapped = [ None if np.isnan(ex0) else ex0 for ex0 in exog ]
+            if s['n_obs']>1:
+                s['model'].append(data=exog_wrapped, component='exog') # Don't get first exog twice
         num_obs = len(s['model'].data) if s.get('model') else 0
         if num_obs % s['n_fit'] == s['n_fit']-1:
             _, s, _ = dlm_exog(y=None,s=s,k=k,a=a,t=t,e=10,r=r)
@@ -85,7 +138,9 @@ def dlm_exog(y, s, k, a, t, e, r):
         return dlm_exog_or_last_value(s=s, k=k, y=y)
 
     if y is None:
-        s['model'].tune() # Tunes discount factors
+        if dimension(y)==1:
+            s['model'].tune(maxit=20)
+            # Don't tune if exogenous ... haven't got this to work
         s['model'].fit()
         return None, s, None
 
