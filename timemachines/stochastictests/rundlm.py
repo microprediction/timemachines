@@ -1,4 +1,4 @@
-from timemachines.skaters.dlm import dlm_seasonal
+from timemachines.skaters.dlmseasonal import dlm_seasonal
 from timemachines.evaluation import quick_brown_fox_randomized
 
 
