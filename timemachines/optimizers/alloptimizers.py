@@ -13,7 +13,7 @@ CANDIDATES = SCIPY_OPTIMIZERS + SHGO_OPTIMIZERS + HYPEROPT_OPTIMIZERS +\
 
 # To see what might be working, or not, refer to directories such as:
 # https://github.com/microprediction/timemachines-testing/tree/main/data/brownian/dlm_seasonal
-OPTIMIZERS = SCIPY_OPTIMIZERS + PYSOT_OPTIMIZERS + AX_OPTIMIZERS + OPTUNA_OPTIMIZERS + PLATYPUS_OPTIMIZERS
+OPTIMIZERS = SHGO_OPTIMIZERS + SCIPY_OPTIMIZERS + PYSOT_OPTIMIZERS + AX_OPTIMIZERS + OPTUNA_OPTIMIZERS + PLATYPUS_OPTIMIZERS
 
 
 

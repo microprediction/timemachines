@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.1.13",
+    version="0.1.14",
     description="Time series models represented as pure functions with SKATER convention.",
     long_description=README,
     long_description_content_type="text/markdown",
