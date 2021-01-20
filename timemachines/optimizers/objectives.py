@@ -9,6 +9,8 @@ import numpy as np
 # Your mileage may vary
 # See pretty pictures at https://deap.readthedocs.io/en/master/api/benchmarks.html#deap.benchmarks
 # Once can easily add more from DEAP or elsewhere
+# For instance https://github.com/nathanrooy/landscapes#available-functions-from-single_objective
+
 
 ## Basis of tricky functions
 
@@ -16,7 +18,10 @@ import numpy as np
 def schwefel_on_cube(u:[float])->float:
     # https://deap.readthedocs.io/en/master/api/benchmarks.html#deap.benchmarks.schwefel
     u_squished = [ 1000*(ui**1.1-0.5) for ui in u ]
-    return 0.001*benchmarks.schwefel(u_squished)[0]
+    try:
+        return 0.001*benchmarks.schwefel(u_squished)[0]
+    except Exception as e:
+        raise Exception(e)
 
 
 def griewank_on_cube(u:[float])->float:

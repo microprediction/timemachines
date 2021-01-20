@@ -6,6 +6,7 @@ from timemachines.optimizers.scipycube import SCIPY_OPTIMIZERS
 from timemachines.optimizers.axcube import AX_OPTIMIZERS
 from timemachines.optimizers.platypuscube import PLATYPUS_OPTIMIZERS
 from timemachines.optimizers.pymoocube import PYMOO_OPTMIZERS
+from timemachines.optimizers.swarmlibcube import SWARMLIB_OPTIZERS
 
 CANDIDATES = SCIPY_OPTIMIZERS + SHGO_OPTIMIZERS + HYPEROPT_OPTIMIZERS +\
              PYSOT_OPTIMIZERS + OPTUNA_OPTIMIZERS + AX_OPTIMIZERS +\
