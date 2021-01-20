@@ -7,14 +7,16 @@ from timemachines.optimizers.axcube import AX_OPTIMIZERS
 from timemachines.optimizers.platypuscube import PLATYPUS_OPTIMIZERS
 from timemachines.optimizers.pymoocube import PYMOO_OPTMIZERS
 from timemachines.optimizers.swarmlibcube import SWARMLIB_OPTIZERS
+from timemachines.optimizers.nevergradcube import NEVERGRAD_OPTIMIZERS
 
 CANDIDATES = SCIPY_OPTIMIZERS + SHGO_OPTIMIZERS + HYPEROPT_OPTIMIZERS +\
              PYSOT_OPTIMIZERS + OPTUNA_OPTIMIZERS + AX_OPTIMIZERS +\
-             PLATYPUS_OPTIMIZERS + PYMOO_OPTMIZERS
+             PLATYPUS_OPTIMIZERS + PYMOO_OPTMIZERS + NEVERGRAD_OPTIMIZERS + SWARMLIB_OPTIZERS
 
 # To see what might be working, or not, refer to directories such as:
 # https://github.com/microprediction/timemachines-testing/tree/main/data/brownian/dlm_seasonal
-OPTIMIZERS = SHGO_OPTIMIZERS + SCIPY_OPTIMIZERS + PYSOT_OPTIMIZERS + AX_OPTIMIZERS + OPTUNA_OPTIMIZERS + PLATYPUS_OPTIMIZERS
+OPTIMIZERS = SHGO_OPTIMIZERS + SCIPY_OPTIMIZERS + PYSOT_OPTIMIZERS + AX_OPTIMIZERS + \
+             OPTUNA_OPTIMIZERS + PLATYPUS_OPTIMIZERS + NEVERGRAD_OPTIMIZERS + SWARMLIB_OPTIZERS
 
 
 

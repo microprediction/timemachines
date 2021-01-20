@@ -7,8 +7,8 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.1.16",
-    description="Time series models represented as pure functions with SKATER convention.",
+    version="0.1.17",
+    description="Time series models as pure functions, hyper-optimized by all the popular packages",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/microprediction/timemachines",
@@ -26,7 +26,7 @@ setup(
     include_package_data=True,
     install_requires=["wheel","pathlib","numpy>=1.16.5","importlib-metadata>=1.7.0","microconventions>0.5.0","getjson","sklearn","divinity","pmdarima","hyperopt","scipy",
                       "poap","pySOT","funcy","pydlm","optuna","deap","ax-platform","sigopt","statsmodels","tdigest","platypus-opt",
-                      "pymoo","ratings"],
+                      "pymoo","ratings","nevergrad","swarmlib"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",
