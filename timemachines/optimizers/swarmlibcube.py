@@ -7,10 +7,9 @@ import numpy as np
 from typing import Iterable, Tuple
 
 
-# This package bundles optimization tightly to visualization of the same, which doesn't seem like a great idea
-# Thus we basically have to rewrite it to use it.
-# Also, some are hardwired to two dimensions
-# To avoid clutter I'm only adding PSO for now from this library.
+# This rips out the guts of swarmlib so that it isn't bundled to visualization
+# We also convert 3-dim to 2-dim using space filling curve, which may not be the best idea. 
+# I'll probably add more algos from this library later. 
 
 
 
