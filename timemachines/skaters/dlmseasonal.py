@@ -61,8 +61,8 @@ def dlm_seasonal(y, s, k, a, t, e, r):
         s['n_obs'] += 1
         assert isinstance(y, float) or len(y) == s['dim'], ' Cannot change dimension of input in flight '
         y0, exog = separate_observations(y=y,dim=s['dim'])
-        y0_passed_in = None if np.isnan(y0) else None  # pydlm uses None for missing values
-        s['model'].append([y0])
+        y0_passed_in = None if np.isnan(y0) else y0  # pydlm uses None for missing values
+        s['model'].append([y0_passed_in])
         num_obs = len(s['model'].data) if s.get('model') else 0
         if num_obs % s['n_fit'] == s['n_fit']-1:
             _, s, _ = dlm_seasonal(y=None,s=s,k=k,a=a,t=t,e=10,r=r)

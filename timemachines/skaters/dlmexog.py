@@ -1,4 +1,4 @@
-from pydlm import dlm, trend, seasonality, autoReg
+from pydlm import dlm, trend, seasonality, autoReg, dynamic
 from timemachines.conventions import dimension, to_int_log_space, separate_observations, update_buffers, \
     Y_TYPE, A_TYPE, R_TYPE
 from timemachines.plotting import prior_plot_exogenous
@@ -19,7 +19,7 @@ class fixedAutoReg(autoReg):
         return
 
 
-def dlm_auto_hyperparams(s, r:R_TYPE):
+def dlm_exog_hyperparams(s, r:R_TYPE):
     # Univariate model with autoregressive components
     # This uses the discounting method of H/W so doesn't need to be fit as often
     period_choices = [3,5,7,10,12,16,24,32]
@@ -35,7 +35,7 @@ def dlm_auto_hyperparams(s, r:R_TYPE):
     return s
 
 
-def dlm_auto_or_last_value(s, k:int, y:Y_TYPE):
+def dlm_exog_or_last_value(s, k:int, y:Y_TYPE):
     num_obs = len(s['model'].data) if s.get('model') else 0
     if num_obs < s['n_burn']:
         y0, _ = separate_observations(y,s['dim'])
@@ -53,30 +53,36 @@ def dlm_auto_or_last_value(s, k:int, y:Y_TYPE):
         return x, s, w
 
 
-def dlm_auto(y, s, k, a, t, e, r):
+def dlm_exog(y, s, k, a, t, e, r):
     """ One way to use dlm
         :returns: x, s', w
     """
     if s is None:
         s = dict()
-        s = dlm_auto_hyperparams(s=s, r=r)
         s['dim'] = dimension(y)
+        s = dlm_exog_hyperparams(s=s, r=r)
+        y0, exog = separate_observations(y=y, dim=s['dim'])
+        y0_passed_in = None if np.isnan(y0) else y0  # pydlm uses None for missing values
+        exog_passed_in = [None if np.isnan(ex0) else ex0 for ex0 in exog]
         s['n_obs'] = 0
         s['model'] = dlm([],printInfo=False) + trend(s['trend_degree'], s['discount']) + seasonality(s['period'], s['discount'])
         s['model'] = s['model'] + fixedAutoReg(degree=s['auto_degree'], name='ar', w=1.0)
+        s['model'] = s['model'] + dynamic(features=exog_passed_in, discount=0.99, name='exog') # Set's first exog
 
     if y is not None:
         s['n_obs'] += 1
         assert isinstance(y, float) or len(y) == s['dim'], ' Cannot change dimension of input in flight '
         y0, exog = separate_observations(y=y,dim=s['dim'])
         y0_passed_in = None if np.isnan(y0) else y0  # pydlm uses None for missing values
+        exog_passed_in = [ None if np.isnan(ex0) else ex0 for ex0 in exog ]
         s['model'].append([y0_passed_in])
+        if s['n_obs']>1:
+            s['model'].append(data=exog_passed_in, component='exog') # Don't get first exog twice
         num_obs = len(s['model'].data) if s.get('model') else 0
         if num_obs % s['n_fit'] == s['n_fit']-1:
-            _, s, _ = dlm_auto(y=None,s=s,k=k,a=a,t=t,e=10,r=r)
+            _, s, _ = dlm_exog(y=None,s=s,k=k,a=a,t=t,e=10,r=r)
         s['model'].fitForwardFilter()
-        s['model'].fitBackwardSmoother()
-        return dlm_auto_or_last_value(s=s, k=k, y=y)
+        return dlm_exog_or_last_value(s=s, k=k, y=y)
 
     if y is None:
         s['model'].tune() # Tunes discount factors
@@ -85,7 +91,7 @@ def dlm_auto(y, s, k, a, t, e, r):
 
 
 if __name__ == '__main__':
-    err = prior_plot_exogenous(f=dlm_auto, k=1, n=1000, r=np.random.rand())
+    err = prior_plot_exogenous(f=dlm_exog, k=1, n=1000, r=np.random.rand())
     plt.figure()
     print('done')
     pass
