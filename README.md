@@ -85,17 +85,17 @@ Morally, a skater *suggests* an affine transformation of the incoming data. For 
 two numbers where the first can be *interpreted* as a point estimate (but need not be) and the second is *typically* suggestive
 of a symmetric error std, or width. 
 
+
           -> x     [float],    # A vector of point estimates, or anchor points, or theos
              x_std [float]     # A vector of "scale" quantities (such as a standard deviation of expected forecast errors) 
              s    Any,         # Posterior state, intended for safe keeping by the callee until the next invocation 
                        
 
-In returning state, one possibel intent is that the *caller* might carry the state from one invocation to the next, not the *callee*. This
+In returning state, one possible intent is that the *caller* might carry the state from one invocation to the next, not the *callee*. This
 is arguably more convenient than having the predicting object maintain state, because the caller can "freeze" the state as they see fit, as 
-when making conditional predictions. It also eyes lambda-based deployments and *encourages* tidy use of internal state (for instance
-all the home grown models here use simple dictionaries, making serialization trivial and eyeing lambda deployments. 
+when making conditional predictions. It also eyes lambda-based deployments and *encourages* tidy use of internal state - not that we succeed
+ when calling down to statsmodels (but all the home grown models here use simple dictionaries, making serialization trivial).
 
- 
 ### Skater hyper-parameters
  
 We use a further, somewhat unusual convention. All model hyper-parameters, should they exist, are squished down into
@@ -103,7 +103,7 @@ We use a further, somewhat unusual convention. All model hyper-parameters, shoul
   unnatural, but it facilitates comparisons of models and hyper-parameter optimizers in different settings. 
   It is workable, we hope, with some space-filling curve conventions. More on that below. 
   
-
+ 
 ### Obligatory picture of a skater
 
 
