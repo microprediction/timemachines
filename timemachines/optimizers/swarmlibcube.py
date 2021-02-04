@@ -1,6 +1,3 @@
-from swarmlib import PSOProblem
-from swarmlib.util.base_visualizer import BaseVisualizer
-from swarmlib.pso.pso_problem import PSOProblem
 from swarmlib.util.problem_base import ProblemBase
 from swarmlib.pso.particle import Particle as PSOParticle
 import numpy as np
@@ -100,7 +97,7 @@ def swarmlib_cube(objective, n_trials, n_dim, with_count=False, algo=None):
     def cube_objective(us):
         # PSO only handles 2-dim so we convert to a 2-dim problem
         #         # Obviously this might not work so well for 1-dim, 3-dim problems but at least it runs and who knows?
-        from timemachines.conventions import to_space, from_space
+        from timemachines.skaters.conventions import to_space, from_space
         assert all( [ 0<=ui<=1 for ui in us]),' expecting value on cube '
         u1 = from_space(us)
         un = to_space(u1,dim=n_dim)

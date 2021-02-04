@@ -26,7 +26,7 @@ setup(
     include_package_data=True,
     install_requires=["wheel","pathlib","numpy>=1.16.5","importlib-metadata>=1.7.0","microconventions>0.5.0","getjson","sklearn","divinity","pmdarima","hyperopt","scipy",
                       "poap","pySOT","funcy","pydlm","optuna","deap","ax-platform","sigopt","statsmodels","tdigest","platypus-opt",
-                      "pymoo","ratings","nevergrad","swarmlib"],
+                      "pymoo","ratings","nevergrad","swarmlib","momentum","fbprophet","pandas"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",

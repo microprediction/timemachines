@@ -1,4 +1,4 @@
-from timemachines.evaluation import chunk_to_end
+from timemachines.skaters.evaluation import chunk_to_end
 
 
 def test_chunk_from_end():

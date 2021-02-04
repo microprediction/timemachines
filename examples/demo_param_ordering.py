@@ -1,7 +1,7 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
-from timemachines.conventions import to_log_space
+from timemachines.skaters.conventions import to_log_space
 
 
 # Illustrates mapping from (0,1) to parameters in R^3

@@ -1,11 +1,9 @@
 from pprint import pprint
 from timemachines.optimizers.alloptimizers import OPTIMIZERS
 from timemachines.optimizers.objectives import OBJECTIVES
-import random
 from typing import List
 import numpy as np
 from pprint import pprint
-from ratings.elo import elo_expected
 
 
 def optimizer_name(solver):

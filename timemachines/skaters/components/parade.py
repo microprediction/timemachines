@@ -1,0 +1,77 @@
+from momentum import var_init, var_update   # Could easily add skew, kurtosis
+
+# A "parade" is a procession of l-step ahead predictions that are waiting to be judged when data arrives.
+# The predictions are stored in an array where the n'th entry will be judged after n data points arrive.
+# There are multiple entries in each row of the parade. For example if data is sampled on the hour,
+# then a 3-hour ahead forecast made at 11:01 am will march alongside a 5-hour ahead prediction made two hours
+# earlier at 9:00am. Both will be judged at 2pm. However they are tagged with the prediction horizon, allowing
+# for rolling statistics to be tracked separately for 1-hr, 2-hr,...10-hr ahead predictions, say.
+#
+# The usage is pretty simple. Send target y and posterior predictions (i.e. those using information y) to
+# parade_update, then  use parade_mean, parade_std
+
+
+def parade(p:dict, x:[float], y:float):
+    """ Process an observation y
+    :param p:   state - supply empty dict on first call
+    :param y:   incoming observation
+    :param x:   term structure of predictions out k steps ahead, made after y received
+    returns:  mean, std, of model residuals and the posterior state s'
+    """
+
+    # Initialize
+    if not p:
+        k = len(x)
+        p = {'predictions': [[] for _ in range(k)],  # Holds the cavalcade
+                'moments': [var_init() for _ in range(k)]}  # Could use kurtosis_init here for more moment
+    else:
+        assert len(x) == len(p['predictions']) # 'k' is immutable
+
+    assessable = p['predictions'].pop(0)
+    if assessable:
+        for j,xi in assessable:
+            p['moments'][j] = var_update(p['moments'][j], y - xi)
+
+    p['predictions'].append(list())
+    for j, xj in enumerate(x):
+        p['predictions'][j].append((j, xj))
+
+    return parade_mean(p), parade_std(p), p
+
+
+# Helpers for extracting skater-ready predictions
+
+def parade_bias(p):
+    """ Model bias is negative of mean residual """
+    return [mj.get('mean') for mj in p['moments']]
+
+
+def parade_mean(p):
+    """ Note the sign, E[y-f()] """
+    return [noneneg(mj.get('mean')) for mj in p['moments']]
+
+
+def parade_std(p):
+    return [mj.get('std') for mj in p['moments']]
+
+
+def noneneg(x):
+    return -x if x is not None else None
+
+
+if __name__=='__main__':
+    from pprint import pprint
+    import numpy as np
+    y = list(range(100))
+    x = [ yi-0.5 + np.random.randn() for yi in y][1:]
+    p = {}
+    for xi,yi in zip(x,y):
+        _, _, p = parade(p=p, x=[xi] * 3, y=yi)
+    pprint(p)
+
+
+    print(parade_mean(p=p))
+    print(parade_std(p=p))
+
+
+

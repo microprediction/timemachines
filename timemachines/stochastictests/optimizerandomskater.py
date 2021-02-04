@@ -1,5 +1,5 @@
-from timemachines.optimization import optimize
-from timemachines.synthetic import brownian_with_exogenous
+from timemachines.skaters.optimization import optimal_r
+from timemachines.skaters.synthetic import brownian_with_exogenous
 from timemachines.optimizers.alloptimizers import OPTIMIZERS
 from timemachines.skaters.allskaters import SKATERS
 import time
@@ -11,8 +11,8 @@ def optimize_random_skater():
     optimizer = random.choice(OPTIMIZERS)
     f = random.choice(SKATERS)
     print('Running '+str(optimizer.__name__))
-    r_star = optimize(f=f, ys=brownian_with_exogenous(n=50),
-                      n_trials=15, optimizer=optimizer)
+    r_star = optimal_r(f=f, y=brownian_with_exogenous(n=50),
+                       n_trials=15, optimizer=optimizer)
     print("Best hyper-param is " + str(r_star))
     print('Took ' + str( (time.time()-start_time)/60 ) + ' minutes.' )
 

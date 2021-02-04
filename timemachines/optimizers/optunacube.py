@@ -3,7 +3,7 @@ from optuna.logging import CRITICAL
 from timemachines.optimizers.objectives import OBJECTIVES
 
 
-def optuna_cube(objective, n_trials,n_dim, with_count=False, method=None):
+def optuna_cube_factory(objective, n_trials, n_dim, with_count=False, method=None):
 
     if method.lower()=='random':
         sampler = optuna.samplers.RandomSampler()
@@ -36,15 +36,15 @@ def optuna_cube(objective, n_trials,n_dim, with_count=False, method=None):
 
 
 def optuna_random_cube(objective, n_trials,n_dim, with_count=False):
-    return optuna_cube(objective=objective, n_trials=n_trials, n_dim=n_dim, with_count=with_count, method='random')
+    return optuna_cube_factory(objective=objective, n_trials=n_trials, n_dim=n_dim, with_count=with_count, method='random')
 
 
 def optuna_cmaes_cube(objective, n_trials, n_dim, with_count=False):
-    return optuna_cube(objective=objective, n_trials=n_trials, n_dim=n_dim, with_count=with_count, method='cmaes')
+    return optuna_cube_factory(objective=objective, n_trials=n_trials, n_dim=n_dim, with_count=with_count, method='cmaes')
 
 
 def optuna_tpe_cube(objective, n_trials, n_dim, with_count=False):
-    return optuna_cube(objective=objective, n_trials=n_trials, n_dim=n_dim, with_count=with_count, method='tpe')
+    return optuna_cube_factory(objective=objective, n_trials=n_trials, n_dim=n_dim, with_count=with_count, method='tpe')
 
 
 OPTUNA_OPTIMIZERS = [ optuna_cmaes_cube, optuna_tpe_cube, optuna_random_cube ]

@@ -1,7 +1,8 @@
-from timemachines.skaters.pmd import pmd_auto
-from timemachines.skaters.dlmseasonal import dlm_seasonal
-from timemachines.skaters.dlmauto import dlm_auto
-from timemachines.skaters.dlmexog import dlm_exog
+from timemachines.skaters.simple.basic import BASIC_SKATERS
+from timemachines.skaters.simple.linear import LINEAR_SKATERS
+from timemachines.skaters.divine.divineskaters import DIVINE_SKATERS
+from timemachines.skaters.proph.prophskaters import PROPHET_SKATERS
+from timemachines.skaters.dlm.alldlmskaters import DLM_SKATERS
 
-ALL_SKATERS = [ pmd_auto, dlm_auto, dlm_seasonal, dlm_exog ]
-SKATERS = [ dlm_exog ]  # Needing optimization
+SKATERS = BASIC_SKATERS + LINEAR_SKATERS + DIVINE_SKATERS + PROPHET_SKATERS + DLM_SKATERS
+

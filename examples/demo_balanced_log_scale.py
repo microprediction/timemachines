@@ -1,7 +1,7 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
-from timemachines.conventions import to_log_space_1d
+from timemachines.skaters.conventions import to_log_space_1d
 
 if __name__=='__main__':
     us = np.linspace(start=0,stop=1,num=150)
