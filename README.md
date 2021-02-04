@@ -44,7 +44,7 @@ a sequence of the model predictions as follows:
             x.append(xi)
         return x
  
-Notice that f here is just a *single function*. There are no classes in this package - well almost none. The callee f will
+Notice that f here is just a *single function*. There are no classes in this package - well except for the ones used as hacks to suppress optimizers who yabber incesantly. The callee f will
 create state 's' if it infers that this is the first time it is being called (note the empty dict passed). So
 long as the caller sends the callee an empty dict the first time, and 's' on subsequent invocations as shown above, everything should go swimmingly.  
  
