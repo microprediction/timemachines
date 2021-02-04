@@ -8,6 +8,7 @@ from timemachines.optimizers.platypuscube import PLATYPUS_OPTIMIZERS
 from timemachines.optimizers.pymoocube import PYMOO_OPTMIZERS
 from timemachines.optimizers.swarmlibcube import SWARMLIB_OPTIZERS
 from timemachines.optimizers.nevergradcube import NEVERGRAD_OPTIMIZERS
+from timemachines.skaters.components.chronometer import tick, tock
 
 CANDIDATES = SCIPY_OPTIMIZERS + SHGO_OPTIMIZERS + HYPEROPT_OPTIMIZERS +\
              PYSOT_OPTIMIZERS + OPTUNA_OPTIMIZERS + AX_OPTIMIZERS +\
@@ -21,10 +22,25 @@ OPTIMIZERS = SHGO_OPTIMIZERS + SCIPY_OPTIMIZERS + PYSOT_OPTIMIZERS + AX_OPTIMIZE
 
 
 if __name__=='__main__':
-    print(str(len(OPTIMIZERS)) + ' in use')
+    print(' ')
+    print('Full list of optimizer strategies .. ')
+    print(' ')
+    print([ o.__name__.replace('_cube','') for o in OPTIMIZERS])
+    print(' ')
+    print(str(len(OPTIMIZERS)) + ' optimization strategies will be compared.')
     from timemachines.optimizers.objectives import OBJECTIVES
+    print(str(len(OBJECTIVES)) + ' objective functions will be employed.')
     for objective in OBJECTIVES:
         print(' ')
-        print(objective.__name__)
-        for optimizer in OPTIMIZERS:
-            print(optimizer.__name__,(optimizer.__name__,optimizer(objective, n_trials=50, n_dim=5, with_count=True)))
+        for n_dim in [2,6,20]:
+            for n_trials in [20,150]:
+                print(' Now testing against '+objective.__name__+' in '+str(n_dim)+' dimensions with '+str(n_trials)+' trials.')
+                for optimizer in OPTIMIZERS:
+                    try:
+                        print(optimizer.__name__,(optimizer.__name__,optimizer(objective, n_trials=50, n_dim=5, with_count=True)))
+                    except:
+                        import warnings
+                        print(' ')
+                        warnings.warn(' WARNING : '+optimizer.__name__+' fails on '+ objective.__name__+ ' in '+str(n_dim)+' dimensions with '+str(n_trials)+' trials.')
+
+
