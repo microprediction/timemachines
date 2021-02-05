@@ -19,6 +19,7 @@ intends to fix some of the issues with that study.
 
 To run every optimizer against a number of objective functions
 
+    from timemachines.optimizers.alloptimizers import OPTIMIZERS   
     from timemachines.optimizers.objectives import OBJECTIVES
     for objective in OBJECTIVES:
         print(' ')

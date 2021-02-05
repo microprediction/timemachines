@@ -44,7 +44,7 @@ a sequence of the model predictions as follows:
             x.append(xi)
         return x
  
-Notice that f here is just a *single function*. There are no classes in this package - well almost none. The callee f will
+Notice that f here is just a *single function*. There are no classes in this package - well except for the ones used as hacks to suppress optimizers who yabber incesantly. The callee f will
 create state 's' if it infers that this is the first time it is being called (note the empty dict passed). So
 long as the caller sends the callee an empty dict the first time, and 's' on subsequent invocations as shown above, everything should go swimmingly.  
  
@@ -209,10 +209,10 @@ the river package).
 ### FAQ 3: Only Point Estimates and Confidence Intervals?  
 
 Yes, the skater does not return a full distribution - unless you smuggle it into the state. 
-However this package was motivated by the desire to create better free turnkey distributional forecasts, at [microprediction.org](https://www.microprediction.org). As an 
-aside, the use of skaters isn't really limited to point estimates. They can be considered linear transforms
-of incoming data. Part of the agenda here is figuring out how to judge skaters
-in a manner that better reflects some downstream uses (here the theory of proper scoring rules doesn't really suffice). 
+However this package was motivated by the desire to create better free turnkey distributional forecasts, at [microprediction.org](https://www.microprediction.org), and you might infer that skaters returning two numbers per horizon might be useful 
+as part of a chain of computations that eventually produces a distributional estimate. Skaters can be considered linear transforms
+of incoming data, and part of the agenda here is figuring out how to judge skaters
+in a manner that better reflects downstream use in distributional estimates. Here the theory of proper scoring rules doesn't really suffice, it would seem. End of aside.  
  
 
 ### Contributing 
