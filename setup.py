@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.2.1",
+    version="0.2.2",
     description="Bringing together popular time series packages, and popular optmization packages for hyper-param selection.",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -28,7 +28,7 @@ setup(
                       "divinity","pmdarima","hyperopt","scipy",
                       "poap","pySOT","funcy","pydlm","optuna","deap","ax-platform","sigopt","statsmodels","tdigest","platypus-opt",
                       "pymoo","ratings","nevergrad","swarmlib","momentum","pandas",
-                      "-e git://github.com/facebook/prophet.git#egg=prophet"],
+                      "fbprophet"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",
