@@ -1,4 +1,4 @@
-# timemachines [![Build Status](https://travis-ci.com/microprediction/timemachines.svg?branch=main)](https://travis-ci.com/microprediction/timemachines) ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![regression](https://github.com/microprediction/timemachines/workflows/regression/badge.svg) ![offline-testing](https://github.com/microprediction/timemachines-testing/workflows/offline-testing/badge.svg)
+# timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![regression-tests](https://github.com/microprediction/timemachines-testing/workflows/regression-tests/badge.svg) ![elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/elo-ratings/badge.svg)
 
 A time series library, calling to other time series packages, where: 
   - Models are represented as mere *functions* 
