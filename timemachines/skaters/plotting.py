@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from timemachines.skaters.synthetic import brownian_with_exogenous, brownian_with_noise
+from timemachines.data.synthetic import brownian_with_exogenous, brownian_with_noise
 from timemachines.skaters.skating import prior
 
 

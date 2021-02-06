@@ -1,4 +1,4 @@
-from timemachines.skaters.synthetic import brownian_with_exogenous
+from timemachines.data.synthetic import brownian_with_exogenous
 
 
 if __name__=='__main__':

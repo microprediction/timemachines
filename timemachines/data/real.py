@@ -1,9 +1,9 @@
 import csv
 import numpy as np
-import math
 
 # Not intended as a repo of data.
-# Just a couple for testing
+# Just a couple of examples for testing without introduction of internet latency.
+# See also data.live
 
 
 def hospital_from_csv():

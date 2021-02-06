@@ -1,4 +1,4 @@
-from timemachines.skaters.conventions import positive_log_scale
+from timemachines.skaters.conventions import positive_log_scale, to_space
 
 # Some "global" prophet defaults set outside the model
 
@@ -27,6 +27,12 @@ PROPHET_MODEL_LOG_HIGH = dict(changepoint_prior_scale=0.5,  # Suggested  [0.001,
 
 PROPHET_MODEL_LINEAR_LOW  = dict(changepoint_range = 0.8)  # Suggested  [0.8-0.95]
 PROPHET_MODEL_LINEAR_HIGH = dict(changepoint_range = 0.8)  # Suggested  [0.8-0.95]
+
+
+def prophet_params(r:float,dim:int, param_names:[str])->dict:
+    """ Interpret r in (0,1) as dict of param values """
+    u = to_space(r, dim=dim)
+    return dict([(name, prophet_param(name, ui)) for name, ui in zip(param_names, u)])
 
 
 def prophet_param(param_name, u:float):

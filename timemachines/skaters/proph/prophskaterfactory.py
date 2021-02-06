@@ -1,10 +1,9 @@
-from timemachines.skaters.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap, to_space
+from timemachines.skaters.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
 from typing import Any
 from timemachines.skaters.components.parade import parade
 from timemachines.skaters.proph.prophiskaterfactory import prophet_iskater_factory
-from timemachines.skaters.proph.prophparams import prophet_param
 from timemachines.skaters.utilities.nonemath import nonecenter
-from timemachines.skaters.proph.prophparams import PROPHET_META
+from timemachines.skaters.proph.prophparams import PROPHET_META, prophet_params
 from timemachines.skaters.utilities.nonemath import nonecast
 import sys
 import logging
@@ -83,7 +82,7 @@ def fbprophet_skater_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
         if a is not None:
             s['a'].append(a)
         if t is not None:
-            assert isinstance(float, t), 'epoch time please'
+            assert isinstance(t,float), 'epoch time please'
             s['t'].append(t)
 
         if len(s['y']) > max(2 * k + 5, PROPHET_META['n_warm']):
@@ -119,8 +118,7 @@ def fbprophet_hyperparam_skater_factory(r: R_TYPE = None, param_names: [str] = N
     assert param_names is not None
     dim = len(param_names)
     assert 2 <= dim <= 3
-    u = to_space(r, dim=dim)
-    model_params = dict([(name, prophet_param(name, ui)) for name,ui in zip(param_names,u)])
+    model_params = prophet_params(r=r,dim=dim, param_names=param_names)
     return fbprophet_skater_factory(model_params=model_params, **kwargs)
 
 

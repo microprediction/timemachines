@@ -16,13 +16,12 @@ Y_TYPE = Union[float, List[float]]  # Observed data, where y[0] is usually assum
 S_TYPE = Any  # State previously received from callee
 K_TYPE = int  # Number of steps ahead to forecast - usually integer
 A_TYPE = Y_TYPE  # Known-in advance or other action-conditional variables
-# See README.md for discussion of space-filling curves
 T_TYPE = Union[float, int]  # Epoch time of observation
 E_TYPE = Union[float, int]  # Expiry in seconds (i.e. how long should callee spend computing)
 R_TYPE = float  # Hype(r) Pa(r)amete(r)s for the model
 
 
-# Again, see README.md for discussion of space-filling curves
+# See README.md for discussion of space-filling curves
 
 def wrap(x):
     """ Ensure x is a list of float """
@@ -133,6 +132,21 @@ def to_log_space_1d(u, low, high):
         else:
             u3 = (u - 0.525) / 0.525
             return positive_log_scale(u3, low=scale, high=high)
+
+
+def implied_r(f):
+    """ Dimension for search implied by a skater name """
+    # Generally this isn't encouraged, as skaters might be created by functools.partial and folks
+    # may forget to apply functools.upate_wrapper to preserve the __name__
+    name = f if isinstance(f,str) else f.__name__
+    if '_r2' in name:
+        return 2
+    elif '_r3' in name:
+        return 3
+    elif '_r1' in name:
+        return 1
+    else:
+        return 0
 
 
 BOUNDS_TYPE = List[Union[Tuple, List]]  # scipy.optimize style bounds [ (low,high), (low, high),... ]

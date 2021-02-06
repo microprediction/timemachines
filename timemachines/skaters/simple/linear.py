@@ -29,11 +29,12 @@ def regress_change_on_first_known(y:Y_TYPE, s:dict, k, a:A_TYPE=None, t:T_TYPE =
 def regress_level_on_first_known(y:Y_TYPE, s:dict, k, a:A_TYPE=None, t:T_TYPE =None, e:E_TYPE =None)->([float] , Any , Any):
     """ Very basic online regression skater, mostly for testing
            - Only one known in advance variable is utilized
-           - Last value is ignored (!)
+           - Last value is ignored, unless a is None in which case we return 0.0
            - Empirical std is returned
     """
     y0 = wrap(y)[0]  # Ignore contemporaneous, exogenous variables
-    a0 = wrap(a)[0]  # Ignore all but the first known-in-advance variable
+    if a:
+        a0 = wrap(a)[0]  # Ignore all but the first known-in-advance variable
 
     if not s.get('k'):
         # First invocation
@@ -45,7 +46,7 @@ def regress_level_on_first_known(y:Y_TYPE, s:dict, k, a:A_TYPE=None, t:T_TYPE =N
         assert s['k']==k  # Immutability
 
     if a is None:
-        return [y0]*k, [1.0]*k, s
+        return [0]*k, [1.0]*k, s
     else:
         a_t, s['o'] = observance( y=[y0],o=s['o'], k=k, a= [a0])  # Update the observance
         if a_t is not None: # This is the contemporaneous 'a', which was supplied k calls ago.
@@ -72,7 +73,7 @@ def regress_level_on_first_known(y:Y_TYPE, s:dict, k, a:A_TYPE=None, t:T_TYPE =N
             return x , x_std, s
 
 
-LINEAR_SKATERS = [regress_change_on_first_known, regress_level_on_first_known]
+LINEAR_SKATERS = [regress_change_on_first_known]
 
 
 def regress_one_helper(x: [float], y: [float], r:dict)->dict:

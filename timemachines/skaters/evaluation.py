@@ -1,4 +1,4 @@
-from timemachines.skaters.synthetic import brownian_with_noise, brownian_with_exogenous
+from timemachines.data.synthetic import brownian_with_noise, brownian_with_exogenous
 from timemachines.skaters.skating import prior, residuals
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from scipy.stats import energy_distance
@@ -8,6 +8,11 @@ from typing import List
 from timemachines.data.real import hospital, hospital_with_exog
 
 # Evaluation of skaters
+
+
+def evaluator_from_name(name):
+    valid = [f for f in EVALUATORS if f.__name__==name ]
+    return valid[0] if len(valid)==1 else None
 
 
 def evaluate_sklearn_metric(f, y, k:int, a=None, t=None, e=None, r=None, metric=None, n_burn=None)->float:

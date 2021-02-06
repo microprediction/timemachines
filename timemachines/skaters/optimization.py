@@ -1,9 +1,11 @@
 from timemachines.skaters.conventions import Y_TYPE, from_space, A_TYPE
 from timemachines.optimizers.alloptimizers import OPTIMIZERS
+from timemachines.skaters.evaluation import evaluate_mean_squared_error
 import traceback
 import time
+from microprediction import MicroReader
 
-# Find optimal r
+# Find optimal r for a skater
 
 
 def optimal_r(f, y:[Y_TYPE],
@@ -20,6 +22,8 @@ def optimal_r(f, y:[Y_TYPE],
                           }
 
     """
+    if evaluator is None:
+        evaluator = evaluate_mean_squared_error
 
     def objective(u:[float]):
         r = from_space(u)
@@ -37,6 +41,33 @@ def optimal_r(f, y:[Y_TYPE],
     return best_r, best_val, info
 
 
+def optimal_r_for_stream(f, name:str, k: int, evaluator = None, optimizer = None,
+                            n_trials = None, n_dim = None,  n_burn:int = None, test_objective_first = True)->(
+    float, float, dict):   # best_r, best_val, info
+    """  Find the best hyper-parameters for a univariate skater using data from www.microprediction.org
+    :param f:
+    :param name:     Choose from https://www.microprediction.org/browse_streams.html but add '.json' to the end
+    :param k:
+    :param evaluator:
+    :param optimizer:
+    :param n_trials:
+    :param n_dim:
+    :param n_burn:
+    :param test_objective_first:
+    :return: best_r, best_value, info
+    """
+    mr = MicroReader()
+    lagged_values, lagged_times = mr.get_lagged_values_and_times(name=name)
+    t = list(reversed(lagged_times))
+    y = list(reversed(lagged_values))
+    return optimal_r(f=f,y=y,k=k, a=None,t=t,e=None,evaluator=evaluator,optimizer=optimizer,n_trials=n_trials,
+                      n_dim=n_dim, n_burn=n_burn, test_objective_first=test_objective_first)
+
+
+
+
+
+
 def optimize_proph_against_hospital(k=10, n_extra=100):
     """ Illustrative example
 
@@ -51,7 +82,7 @@ def optimize_proph_against_hospital(k=10, n_extra=100):
     n_burn = PROPHET_META['n_warm'] + k + 1
     y, a = hospital_with_exog(k=k, n=n_burn+n_extra, offset=True)
 
-    from timemachines.skaters.proph.prophskaters import fbprophet_univariate, fbprophet_known, fbprophet_recursive, fbprophet_exogenous
+    from timemachines.skaters.proph.prophskaters import fbprophet_univariate, fbprophet_known, fbprophet_recursive
     from timemachines.skaters.simple.basic import BASIC_SKATERS
     skaters = [fbprophet_univariate, fbprophet_known, fbprophet_recursive, fbprophet_recursive]+BASIC_SKATERS
 
@@ -83,7 +114,7 @@ def optimize_proph_against_hospital(k=10, n_extra=100):
 
 def select_working_combinations():
     """ Tedious examination of which optimizers work against different evaluators """
-    from timemachines.skaters.synthetic import brownian_with_exogenous
+    from timemachines.data.synthetic import brownian_with_exogenous
     from timemachines.skaters.evaluation import EVALUATORS
     broken = list()
     k = 1

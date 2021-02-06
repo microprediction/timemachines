@@ -1,5 +1,5 @@
 from timemachines.skaters.optimization import optimal_r
-from timemachines.skaters.synthetic import brownian_with_exogenous
+from timemachines.data.synthetic import brownian_with_exogenous
 from timemachines.optimizers.alloptimizers import OPTIMIZERS
 from timemachines.skaters.allskaters import SKATERS
 import time
