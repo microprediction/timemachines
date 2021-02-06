@@ -52,9 +52,9 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
             elo['active'][i]=False
 
     if len(fs)==2:
-        # paddle battle in a bottle
+        # a pitched paddle battle in a bottle
         print(fs[0].__name__ +' vs. '+fs[1].__name__)
-        y, t = random_regular_data(n_obs=500)
+        y, t = random_regular_data(n_obs=n_burn+50)
         scores = list()
         for i, f in zip([i1,i2],fs):
             import traceback
@@ -78,12 +78,15 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
     return elo
 
 
-def elo_expected(d:float,f:float=400)->float:
+def elo_expected(d:float,f:float=1200)->float:
     """ Expected points scored in a match
     :param d:   Difference in rating
     :param f:   "F"-Factor
     :return:    Expected points
     """
+    # Note that f is 3x the usual for chess, because the
+    # evaluation is considered a partial quick eval not
+    # a "full game" of chess
     return 1. / (1 + 10 ** (d / f))
 
 
