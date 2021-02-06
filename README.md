@@ -12,7 +12,7 @@ Some functionality is drawn from:
   - more from the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and, 
   - some home-grown approaches too. 
   
-Hyper-parameter optimization is routinely tested using a variety of optimization packages. See [timemachines-testing](https://github.com/microprediction/timemachines-testing). Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are compared on an ongoing basis out of sample. see [Elo Ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings). 
+Hyper-parameter optimization is routinely tested using a variety of optimization packages. See [timemachines-testing](https://github.com/microprediction/timemachines-testing). Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are compared on an ongoing basis out of sample. See the model [elo ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings). 
    
 This package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
 is of independent interest. It is easy to exploit:
