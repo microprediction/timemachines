@@ -2,7 +2,7 @@
 
 A time series package where: 
   - Time series models are represented as single *functions* 
-  - Those functions suggest state machines for sequential consumption of observations (the state machines emit k-step ahead forecasts)
+  - Those functions suggest state machines for sequential consumption of observations (the state machines emit vectors of forecasts of lenght *k*, and also standard deviations).
   - The collection of all hyper-parameters is squished into a single point, in (0,1).  
 
 Some functionality is drawn from:
