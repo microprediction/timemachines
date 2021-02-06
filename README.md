@@ -1,8 +1,8 @@
 # timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![regression-tests](https://github.com/microprediction/timemachines-testing/workflows/regression-tests/badge.svg) ![elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/elo-ratings/badge.svg)
 
-A time series library, calling to other time series packages, where: 
-  - Models are represented as mere *functions* 
-  - Those functions suggest state machines for sequential consumption of observations (the state machines emit k-step ahead forecasts)
+A time series package where: 
+  - Time series models are represented as single *functions* 
+  - Those functions suggest state machines for sequential consumption of observations (the state machines emit vectors of forecasts of lenght *k*, and also standard deviations).
   - The collection of all hyper-parameters is squished into a single point, in (0,1).  
 
 Some functionality is drawn from:
@@ -11,9 +11,12 @@ Some functionality is drawn from:
   - pmdarima,
   - more from the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and, 
   - some home-grown approaches too. 
-
-We also [test](https://github.com/microprediction/timemachines-testing) models and optimizer combinations. To that end, 
-this package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
+  
+Hyper-parameter optimization is routinely tested using a variety of optimization packages. See [timemachines-testing](https://github.com/microprediction/timemachines-testing). Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are compared on an ongoing basis out of sample. See the model [elo ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings). 
+   
+### Global optimizers in canonical form
+   
+This package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
 is of independent interest. It is easy to exploit:
  
   - scipy
@@ -27,8 +30,6 @@ is of independent interest. It is easy to exploit:
   - swarmlib
   - and possible others. See [global optimizers](https://github.com/microprediction/timemachines/tree/main/timemachines/optimizers) for the full list. 
  
-A third distinguishing feature of this library is that it is trained on [live data](https://www.microprediction.org/browse_streams.html). This
-is constantly updating, so the temptation to overfit to a stale, fixed history is reduced.  
 
 # Skaters
 
