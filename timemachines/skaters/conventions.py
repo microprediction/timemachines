@@ -171,7 +171,7 @@ def to_space(p: float, bounds: BOUNDS_TYPE = None, dim: int = 1):
     return [u * (b[1] - b[0]) + b[0] for u, b in zip(us, bounds)]
 
 
-def from_space(ps: [float], bounds: BOUNDS_TYPE=None):
+def from_space(ps: [float], bounds: BOUNDS_TYPE=None)->float:
     """ [ , ]^n -> [0,1] """
     if bounds is None:
         bounds = [(0, 1) for _ in range(len(ps))]
@@ -181,7 +181,7 @@ def from_space(ps: [float], bounds: BOUNDS_TYPE=None):
     if len(us)>1:
         return ZCurveConventions().from_cube(list(reversed(us)))
     else:
-        return us
+        return us[0]
 
 
 def to_log_space(p:float, bounds: BOUNDS_TYPE):
