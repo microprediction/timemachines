@@ -8,7 +8,7 @@ from timemachines.skaters.conventions import wrap
 from timemachines.skaters.divine.divineparams import MIN_N_WARM, DIVINE_MODEL
 from copy import deepcopy
 
-# I don't really recommend this guy. For one thing the logs are hard to suppress ;)
+# This guy is a little chatty
 
 
 def divinity_univariate_factory(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None,
