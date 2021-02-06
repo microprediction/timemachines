@@ -1,23 +1,21 @@
-
-# For updating elo_k1 ratings
-
-
 from timemachines.skaters.allskaters import SKATERS, skater_from_name  # Only those with no hyper-params
 from timemachines.skaters.evaluation import evaluate_mean_squared_error, evaluator_from_name
 import numpy as np
 from timemachines.data.live import random_regular_data
-from pprint import pprint
 
 
 def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=1600):
-    """ Create or update elo_k1 ratings by performing a random matchup on univariate live data
+    """ Create or update elo ratings by performing a random matchup on univariate live data
 
+          elo - Dictionary containing the 'state' (i.e. elo ratings and game counts)
           k   - Number of steps to look ahead
           tol - Error ratio that results in a tie being declared
 
+        Speed is not taken into account
     """
 
     if not elo:
+        # Initialize game counts and Elo ratings
         elo['name'] = [f.__name__ for f in SKATERS]
         elo['count'] = [0 for _ in SKATERS]
         elo['rating'] = [initial_elo for _ in SKATERS]
@@ -71,7 +69,9 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
             small = tol * (abs(scores[0]) + abs(scores[1]))  # Ties
             points = 1 if scores[0] < scores[1] - small else 0 if scores[1] < scores[0] - small else 0.5
             elo1, elo2 = elo['rating'][i1], elo['rating'][i2]
-            elo['rating'][i1], elo['rating'][i2] = elo_update(elo1, elo2, points)
+            min_games = min(elo['count'][i1],elo['count'][i2])
+            K = 16 if min_games > 25 else 25
+            elo['rating'][i1], elo['rating'][i2] = elo_update(elo1, elo2, points,K)
             elo['count'][i1] += 1
             elo['count'][i2] += 1
 
