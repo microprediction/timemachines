@@ -1,12 +1,17 @@
-from timemachines.skaters.simple.basic import BASIC_SKATERS
+from timemachines.skaters.simple.basic import BASIC_SKATERS, BASIC_R1_SKATERS
 from timemachines.skaters.simple.linear import LINEAR_SKATERS
 from timemachines.skaters.divine.divineskaters import DIVINE_SKATERS
-from timemachines.skaters.proph.prophskaters import PROPHET_SKATERS
+from timemachines.skaters.proph.prophskaters import PROPHET_SKATERS, PROPHET_R2_SKATERS
 from timemachines.skaters.dlm.alldlmskaters import DLM_SKATERS
 
 
-SKATERS = BASIC_SKATERS + LINEAR_SKATERS + DIVINE_SKATERS + PROPHET_SKATERS
-SKATERS = BASIC_SKATERS + LINEAR_SKATERS
+SKATERS_R3 = []
+SKATERS_R2 = PROPHET_R2_SKATERS
+SKATERS_R1 = BASIC_R1_SKATERS
+
+# And with no hyper-params...
+SKATERS = BASIC_SKATERS + LINEAR_SKATERS + PROPHET_SKATERS + DIVINE_SKATERS
+
 
 def skater_from_name(name):
     valid = [f for f in SKATERS if f.__name__==name ]
