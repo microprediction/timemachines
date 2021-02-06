@@ -14,6 +14,8 @@ Some functionality is drawn from:
   
 Hyper-parameter optimization is routinely tested using a variety of optimization packages. See [timemachines-testing](https://github.com/microprediction/timemachines-testing). Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are compared on an ongoing basis out of sample. See the model [elo ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings). 
    
+### Global optimizers in canonical form
+   
 This package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
 is of independent interest. It is easy to exploit:
  
@@ -28,8 +30,6 @@ is of independent interest. It is easy to exploit:
   - swarmlib
   - and possible others. See [global optimizers](https://github.com/microprediction/timemachines/tree/main/timemachines/optimizers) for the full list. 
  
-A third distinguishing feature of this library is that it is trained on [live data](https://www.microprediction.org/browse_streams.html). This
-is constantly updating, so the temptation to overfit to a stale, fixed history is reduced.  
 
 # Skaters
 
