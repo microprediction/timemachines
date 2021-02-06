@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.2.6",
+    version="0.2.7",
     description="Bringing together popular time series packages, and popular optmization packages for hyper-param selection.",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -20,7 +20,8 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
     ],
-    packages=["timemachines","timemachines.optimizers","timemachines.skaters","timemachines.stochastictests","timemachines.data"],
+    packages=["timemachines","timemachines.optimizers","timemachines.skaters","timemachines.stochastictests","timemachines.data",
+              "timemachines.skaters.components"],
     test_suite='pytest',
     tests_require=['pytest'],
     include_package_data=True,
