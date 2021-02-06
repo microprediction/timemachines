@@ -46,6 +46,6 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
-    - name: Run stochastic tests
+    - name: Run regression tests
       run: |
         python regression.py
