@@ -37,7 +37,7 @@ if __name__=='__main__':
                 print(' Now testing against '+objective.__name__+' in '+str(n_dim)+' dimensions with '+str(n_trials)+' trials.')
                 for optimizer in OPTIMIZERS:
                     try:
-                        print(optimizer.__name__,(optimizer.__name__,optimizer(objective, n_trials=50, n_dim=5, with_count=True)))
+                        print(optimizer.__name__,(optimizer.__name__,optimizer(objective, n_trials=n_trials, n_dim=n_dim, with_count=True)))
                     except:
                         import warnings
                         print(' ')
