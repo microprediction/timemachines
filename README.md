@@ -1,7 +1,7 @@
 # timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![regression-tests](https://github.com/microprediction/timemachines-testing/workflows/regression-tests/badge.svg) ![elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/elo-ratings/badge.svg)
 
-A time series library, calling to other time series packages, where: 
-  - Models are represented as mere *functions* 
+A time series package where: 
+  - Time series models are represented as single *functions* 
   - Those functions suggest state machines for sequential consumption of observations (the state machines emit k-step ahead forecasts)
   - The collection of all hyper-parameters is squished into a single point, in (0,1).  
 
@@ -11,9 +11,14 @@ Some functionality is drawn from:
   - pmdarima,
   - more from the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and, 
   - some home-grown approaches too. 
-
-We also [test](https://github.com/microprediction/timemachines-testing) models and optimizer combinations. To that end, 
-this package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
+  
+Hyper-parameter optimization is:
+  - Tested, see [timemachines-testing](https://github.com/microprediction/timemachines-testing). 
+ 
+Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are
+  - Compared, see [Elo Ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings) for models. 
+   
+To that end, this package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
 is of independent interest. It is easy to exploit:
  
   - scipy
