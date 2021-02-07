@@ -76,8 +76,6 @@ def _dlm_prediction_helper(s, k:int, y:Y_TYPE):
 
 
 
-
-
 def dlm_set_univariate_params(s, r:R_TYPE):
     period_choices = [3,5,7,10,12,16,24,32]
     s['auto_degree'], s['trend_degree'], period_choice = to_int_log_space(r,bounds=[
@@ -93,12 +91,8 @@ def dlm_set_univariate_params(s, r:R_TYPE):
 
 
 
-
-
-
-
 if __name__ == '__main__':
-    err = prior_plot_exogenous(f=dlm_univariate_r3, k=2, n=1000, r=np.random.rand())
+    err = prior_plot_exogenous(f=dlm_univariate_r3, k=2, n=500, r=np.random.rand())
     plt.figure()
     print('done')
     pass
