@@ -7,7 +7,7 @@ hyperopt
 microconventions
 momentum
 nevergrad
-numpy==1.19.5
+numpy>=1.19.5
 optuna
 platypus-opt
 poap
@@ -16,3 +16,4 @@ pydlm
 pymoo
 pystan
 swarmlib
+ratings>=0.0.6
