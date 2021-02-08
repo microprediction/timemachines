@@ -12,7 +12,7 @@ Some functionality is drawn from:
   - pydlm, 
   - pmdarima,
 
-We are working down the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and adding some home-grown approaches as well. On an ongoing basis: 
+and more. We are working down the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and adding some home-grown approaches as well. On an ongoing basis: 
  - Hyper-parameter optimization is routinely tested using a variety of optimization packages. See [timemachines-testing](https://github.com/microprediction/timemachines-testing). 
  - Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are compared on an ongoing basis out of sample. See the model [elo ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings). 
  - These tests use live data, constantly refreshed. See [stream listing](https://www.microprediction.org/browse_streams.html). 
