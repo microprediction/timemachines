@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.2.11",
+    version="0.2.12",
     description="Popular time series and optimization packages, with a simple, consistent functional interface.",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -23,7 +23,7 @@ setup(
     packages=["timemachines","timemachines.optimizers","timemachines.skaters","timemachines.stochastictests","timemachines.data",
               "timemachines.skaters.components","timemachines.skaters.simple","timemachines.skaters.proph","timemachines.skaters.divine",
               "timemachines.skaters.dlm","timemachines.skaters.pmd",'timemachines.skaters.utilities','timemachines.skaters.components',
-              'timemachines.data'],
+              'timemachines.data','timemachines.common'],
     test_suite='pytest',
     tests_require=['pytest','microprediction'],
     include_package_data=True,
