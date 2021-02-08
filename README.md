@@ -31,8 +31,10 @@ is of independent interest. It is easy to exploit:
   - pysot
   - shgo
   - swarmlib
-  - and possible others. See [global optimizers](https://github.com/microprediction/timemachines/tree/main/timemachines/optimizers) for the full list. 
- 
+  - and possible others. 
+  
+See [global optimizers](https://github.com/microprediction/timemachines/tree/main/timemachines/optimizers) for the full list. See [optimizer_elo_ratings/leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/optimizer_elo_ratings/leaderboards/overall) for current rankings and Elo ratings of global optimization strategies. These are computed by random match-ups where an [objective](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/objectives.py) function is chosen at random and the dimensionality of the search and number of allowed iterations is also randomly selected. The precise methodology is revealed in [optimizers/eloratings.py](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/eloratings.py). 
+
 
 # Skaters
 
@@ -106,6 +108,11 @@ We use a further, somewhat unusual convention. All model hyper-parameters, shoul
  a *scalar* quantity *r*. This imposes at skater "design time" a consistent hyper-parameter space. This step may seem
   unnatural, but it facilitates comparisons of models and hyper-parameter optimizers in different settings. 
   It is workable, we hope, with some space-filling curve conventions. More on that below. 
+  
+  
+### Skater Elo ratings and rankings
+
+Ratings for time series models, including some widely used packages such as fbprophet, are produced separately for different horizons. Specifically, we create a different Elo rating for looking k=1 steps ahead versus k=13 steps ahead, say. A rating is produced for each k in the Fibonacci sequence. See [skater_elo_ratings/leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) sub-directories. For example some good ways to predict univariate time series 8 steps in advance might be suggested by the rankings at [/leaderboards/univariate_008](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards/univariate_008) but of course their are caveats. 
   
  
 ### Obligatory picture of a skater
