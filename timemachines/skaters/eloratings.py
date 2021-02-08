@@ -3,6 +3,11 @@ from timemachines.skaters.evaluation import evaluate_mean_squared_error, evaluat
 import numpy as np
 from pprint import pprint
 from timemachines.data.live import random_regular_data
+from timemachines.common.eloratings import elo_update  # TODO: Use ratings package instead
+
+
+SKATER_ELO_F = 1000  # The scale factor for ratings. In chess this is set to 400.
+                     # If the matchup is considered more fluky than a single game of chess, a higher value might make sense.
 
 
 def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=1600, data_source =None):
@@ -74,39 +79,16 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
             points = 1 if scores[0] < scores[1] - small else 0 if scores[1] < scores[0] - small else 0.5
             elo1, elo2 = elo['rating'][i1], elo['rating'][i2]
             min_games = min(elo['count'][i1],elo['count'][i2])
-            K = 16 if min_games > 25 else 25
-            elo['rating'][i1], elo['rating'][i2] = elo_update(elo1, elo2, points,K)
+            K = 16 if min_games > 25 else 25  # The Elo update scaling parameter
+            elo['rating'][i1], elo['rating'][i2] = elo_update(elo1, elo2, points,k=K,f=SKATER_ELO_F)
             elo['count'][i1] += 1
             elo['count'][i2] += 1
 
     return elo
 
 
-def elo_expected(d:float,f:float=1200)->float:
-    """ Expected points scored in a match
-    :param d:   Difference in rating
-    :param f:   "F"-Factor
-    :return:    Expected points
-    """
-    # Note that f is 3x the usual for chess, because the
-    # evaluation is considered a partial quick eval not
-    # a "full game" of chess
-    return 1. / (1 + 10 ** (d / f))
 
 
-def elo_update(white_elo, black_elo, points, K=25):
-    """
-    :param white_elo:
-    :param black_elo:
-    :param points:     1 if White wins, 0 if Black wins
-    :param K:
-    :return:
-    """
-    d = black_elo - white_elo
-    expected_points = elo_expected(d=d, f=400)
-    w = points - expected_points
-    white_new_elo = white_elo + K * w
-    black_new_elo = black_elo - K * w
-    return white_new_elo, black_new_elo
+
 
 

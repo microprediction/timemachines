@@ -4,19 +4,29 @@ from pprint import pprint
 import traceback
 from timemachines.optimizers.objectives import OBJECTIVES
 from timemachines.optimizers.alloptimizers import OPTIMIZERS, optimizer_from_name
-from ratings import elo_expected
+from timemachines.common.eloratings import elo_update
 
 
-def optimizer_elo_update(elo: dict, tol=0.001, initial_elo=1600):
+N_DIM_CHOICES = [1, 2, 3, 5, 8]
+N_TRIALS_CHOICES = [10,20,30]
+
+
+def optimizer_elo_update(elo: dict, tol=0.001, initial_elo=1600,
+                         n_dim_choices:[int]=None, n_trials_choices:[int]=None):
     """ Create or update elo ratings for optimizers
 
           elo - Dictionary containing the 'state' (i.e. elo ratings and game counts)
           k   - Number of steps to look ahead
           tol - Objective function ratio that results in a tie being declared
-          data_provider - A function returning y, t
 
+        Chooses random objective function, random dimensions and random number of trials
         Speed is not taken into account
     """
+    if n_dim_choices is None:
+        n_dim_choices = N_DIM_CHOICES
+
+    if n_trials_choices is None:
+        n_trials_choices = N_TRIALS_CHOICES
 
     if not elo:
         # Initialize game counts and Elo ratings
@@ -51,8 +61,8 @@ def optimizer_elo_update(elo: dict, tol=0.001, initial_elo=1600):
     if len(optims)==2:
         # Let's have at it !
         print(optims[0].__name__ +' vs. '+optims[1].__name__)
-        n_dim = random.choice([1,2,3,5,8,13,21,34])
-        n_trials = random.choice([10,20,30,50,80,130,210,340])
+        n_dim = random.choice(n_dim_choices)
+        n_trials = random.choice(n_trials_choices)
         objective = random.choice(OBJECTIVES)
         match_params = {'n_dim':n_dim,'n_trials':n_trials,'objective':objective.__name__}
         pprint(match_params)
@@ -88,6 +98,8 @@ def optimizer_elo_update(elo: dict, tol=0.001, initial_elo=1600):
             else:
                 small = tol * (abs(minima_found[0]) + abs(minima_found[1]))  # Ties
                 points = 1 if minima_found[0] < minima_found[1] - small else 0 if minima_found[1] < minima_found[0] - small else 0.5
+                winner = optim_name_1 if points>0.75 else optim_name_2 if points<0.25 else 'draw'
+                print('>>>> ' + winner)
                 elo1, elo2 = elo['rating'][i1], elo['rating'][i2]
                 min_games = min(elo['count'][i1],elo['count'][i2])
                 K = 16 if min_games > 25 else 25
@@ -99,9 +111,14 @@ def optimizer_elo_update(elo: dict, tol=0.001, initial_elo=1600):
 
     return elo, match_params
 
-
-if __name__=='__main__':
+def demo_optimizer_elo():
+    # Run this to generate Elo ratings that will update for as long as you have the patience.
     elo = {}
     while True:
-        elo, _ =optimizer_elo_update(elo=elo)
-        pprint(sorted(list( zip(elo['rating'],elo['name'])),reverse=True))
+        elo, _ = optimizer_elo_update(elo=elo)
+        print(' ')
+        pprint(sorted(list(zip(elo['rating'], elo['name'])), reverse=True))
+        print(' ')
+
+if __name__=='__main__':
+    demo_optimizer_elo()

@@ -1,3 +1,6 @@
+pandas
+microconventions>0.5.0
+getjson
 ax-platform
 deap
 divinity
@@ -9,6 +12,7 @@ momentum
 nevergrad
 numpy>=1.19.5
 optuna
+pmdarima
 platypus-opt
 poap
 pySOT
@@ -16,4 +20,8 @@ pydlm
 pymoo
 pystan
 swarmlib
-ratings>=0.0.6
+sklearn
+statsmodels
+tdigest
+ratings>=0.0.7
+landscapes

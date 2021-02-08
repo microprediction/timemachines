@@ -7,8 +7,8 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.2.10",
-    description="Bringing together popular time series packages, and popular optmization packages for hyper-param selection.",
+    version="0.2.11",
+    description="Popular time series and optimization packages, with a simple, consistent functional interface.",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/microprediction/timemachines",
@@ -27,11 +27,11 @@ setup(
     test_suite='pytest',
     tests_require=['pytest'],
     include_package_data=True,
-    install_requires=["wheel","pathlib","numpy>=1.16.5","pandas","importlib-metadata>=1.7.0","microconventions>0.5.0","getjson","sklearn",
+    install_requires=["wheel","pathlib","numpy>=1.19.5","pandas","importlib-metadata>=1.7.0","microconventions>0.5.0","getjson","sklearn",
                       "divinity","pmdarima","hyperopt","scipy",
                       "poap","pySOT","funcy","pydlm","optuna","deap","ax-platform","sigopt","statsmodels","tdigest","platypus-opt",
                       "pymoo","ratings","nevergrad","swarmlib","momentum","pandas",
-                      "fbprophet","ratings>=0.0.6"],
+                      "fbprophet","ratings>=0.0.9","landscapes"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",
