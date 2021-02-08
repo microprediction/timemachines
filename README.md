@@ -1,5 +1,7 @@
 # timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![regression-tests](https://github.com/microprediction/timemachines-testing/workflows/regression-tests/badge.svg) ![optimizer-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/optimizer-elo-ratings/badge.svg) ![skater-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/skater-elo-ratings/badge.svg)
 
+### Time-series packages in canonical form, with Elo ratings
+
 A time series package where: 
   - Time series models are represented as mere functions. 
   - Those functions suggest state machines for sequential consumption of observations (the state machines emit vectors of forecasts of lenght *k*, and also standard deviations).
@@ -9,15 +11,13 @@ Some functionality is drawn from:
   - fbprophet, 
   - pydlm, 
   - pmdarima,
-  - more from the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and, 
-  - some home-grown approaches too. 
- 
-On an ongoing basis: 
+
+We are working down the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and adding some home-grown approaches as well. On an ongoing basis: 
  - Hyper-parameter optimization is routinely tested using a variety of optimization packages. See [timemachines-testing](https://github.com/microprediction/timemachines-testing). 
  - Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are compared on an ongoing basis out of sample. See the model [elo ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings). 
  - These tests use live data, constantly refreshed. See [stream listing](https://www.microprediction.org/browse_streams.html). 
    
-### Global optimizers in canonical form
+### Global optimizers in canonical form, with Elo ratings
    
 This package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
 is of independent interest. It is easy to exploit:
