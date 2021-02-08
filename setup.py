@@ -25,7 +25,7 @@ setup(
               "timemachines.skaters.dlm","timemachines.skaters.pmd",'timemachines.skaters.utilities','timemachines.skaters.components',
               'timemachines.data'],
     test_suite='pytest',
-    tests_require=['pytest'],
+    tests_require=['pytest','microprediction'],
     include_package_data=True,
     install_requires=["wheel","pathlib","numpy>=1.19.5","pandas","importlib-metadata>=1.7.0","microconventions>0.5.0","getjson","sklearn",
                       "divinity","pmdarima","hyperopt","scipy",
