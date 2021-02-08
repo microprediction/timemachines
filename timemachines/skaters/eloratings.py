@@ -1,18 +1,22 @@
 from timemachines.skaters.allskaters import SKATERS, skater_from_name  # Only those with no hyper-params
 from timemachines.skaters.evaluation import evaluate_mean_squared_error, evaluator_from_name
 import numpy as np
+from pprint import pprint
 from timemachines.data.live import random_regular_data
 
 
-def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=1600):
+def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=1600, data_source =None):
     """ Create or update elo ratings by performing a random matchup on univariate live data
 
           elo - Dictionary containing the 'state' (i.e. elo ratings and game counts)
           k   - Number of steps to look ahead
           tol - Error ratio that results in a tie being declared
+          data_provider - A function returning y, t
 
         Speed is not taken into account
     """
+    if data_source is None:
+        data_source = random_regular_data
 
     if not elo:
         # Initialize game counts and Elo ratings
@@ -104,4 +108,5 @@ def elo_update(white_elo, black_elo, points, K=25):
     white_new_elo = white_elo + K * w
     black_new_elo = black_elo - K * w
     return white_new_elo, black_new_elo
+
 

@@ -31,7 +31,7 @@ setup(
                       "divinity","pmdarima","hyperopt","scipy",
                       "poap","pySOT","funcy","pydlm","optuna","deap","ax-platform","sigopt","statsmodels","tdigest","platypus-opt",
                       "pymoo","ratings","nevergrad","swarmlib","momentum","pandas",
-                      "fbprophet"],
+                      "fbprophet","ratings>=0.0.6"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",

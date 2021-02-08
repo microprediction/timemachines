@@ -20,6 +20,11 @@ OPTIMIZERS = SHGO_OPTIMIZERS + SCIPY_OPTIMIZERS + PYSOT_OPTIMIZERS + AX_OPTIMIZE
              OPTUNA_OPTIMIZERS + PLATYPUS_OPTIMIZERS + NEVERGRAD_OPTIMIZERS + SWARMLIB_OPTIZERS
 
 
+def optimizer_from_name(name):
+    valid = [f for f in OPTIMIZERS if f.__name__==name ]
+    return valid[0] if len(valid)==1 else None
+
+
 
 if __name__=='__main__':
     print(' ')
