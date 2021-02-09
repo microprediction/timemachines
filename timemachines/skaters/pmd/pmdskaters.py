@@ -1,6 +1,6 @@
 from timemachines.skaters.pmd.pmdskaterfactory import pmd_skater_factory
 from timemachines.skaters.conventions import Y_TYPE,R_TYPE,A_TYPE,T_TYPE,E_TYPE, wrap
-from timemachines.skaters.simple.basic import last_value
+from timemachines.skaters.simple.empirical import empirical_last_value
 from timemachines.skaters.plotting import prior_plot, prior_plot_exogenous
 
 
@@ -47,7 +47,7 @@ def pmd_exog_compare(f,k=1):
     err1 = evaluate_mean_absolute_error(f=f, k=k, y=y0, r=r, n_burn=250)
     err2 = evaluate_mean_absolute_error(f=f, k=k, y=y, r=r, n_burn=250)
     err3 = evaluate_mean_absolute_error(f=f, k=k, y=y, r=r, a=a, n_burn=250)
-    errlv = evaluate_mean_absolute_error(f=last_value, k=k, y=y, r=r, a=a, n_burn=250)
+    errlv = evaluate_mean_absolute_error(f=empirical_last_value, k=k, y=y, r=r, a=a, n_burn=250)
 
 
     print('----------------')

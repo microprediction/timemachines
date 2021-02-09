@@ -3,9 +3,10 @@ from typing import Any
 from timemachines.skaters.components.parade import parade
 
 # Fast elementary time series skaters, useful as benchmarks, pre-processing, sub-components etc
+# They maintain running mean/std of their own empirical errors
 
 
-def last_value(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None )->([float] , Any , Any):
+def empirical_last_value(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None)->([float] , Any , Any):
     """ Last value cache, with empirical std """
 
     if not s.get('p'):
@@ -20,7 +21,7 @@ def last_value(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_
         return x, x_std, s
 
 
-def moving_average_r1(y :Y_TYPE, s, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None, r:R_TYPE=None):
+def empirical_ema_r1(y :Y_TYPE, s, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None, r:R_TYPE=None):
     """ Exponential moving average, with empirical std
 
           r      weight to place on existing anchor point
@@ -46,15 +47,15 @@ def moving_average_r1(y :Y_TYPE, s, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:
 
 
 def slowly_moving_average(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None):
-    return moving_average_r1(y=y,s=s,k=k,a=a,t=t,e=e,r=0.95)
+    return empirical_ema_r1(y=y, s=s, k=k, a=a, t=t, e=e, r=0.95)
 
 
 def quickly_moving_average(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None):
-    return moving_average_r1(y=y,s=s,k=k,a=a,t=t,e=e,r=0.75)
+    return empirical_ema_r1(y=y, s=s, k=k, a=a, t=t, e=e, r=0.75)
 
 
-BASIC_SKATERS = [ last_value, slowly_moving_average, quickly_moving_average ]
-BASIC_R1_SKATERS = [ moving_average_r1 ]
+BASIC_SKATERS = [empirical_last_value, slowly_moving_average, quickly_moving_average]
+BASIC_R1_SKATERS = [empirical_ema_r1]
 
 
 if __name__=='__main__':
@@ -63,7 +64,7 @@ if __name__=='__main__':
 
     k = 3
     y, a = hospital_with_exog(k=k)
-    f = moving_average_r1
+    f = empirical_ema_r1
     err1 = evaluate_mean_absolute_error(f=f, k=k, y=y, a=a, r=0.9, n_burn=50)
 
 

@@ -1,6 +1,6 @@
 from timemachines.skaters.proph.prophskaterfactory import fbprophet_skater_factory, fbprophet_hyperparam_skater_factory
 from timemachines.skaters.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
-
+import numpy as np
 
 # A collection of skaters powered by fbprophet
 
@@ -29,7 +29,40 @@ def fbprophet_univariate(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE
     y0 = [wrap(y)[0]]
     return fbprophet_skater_factory(y=y0, s=s, k=k, a=None, t=t, e=e)
 
-PROPHET_SKATERS = [ fbprophet_exogenous, fbprophet_known, fbprophet_univariate, fbprophet_recursive ]
+
+# (2) Prophet skaters with some residual chasing - experimental
+
+
+def fbprophet_chaser(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None):
+    """ Similar to fbexogenous but chases residuals """
+    from timemachines.skaters.composition.correcting import residual_chaser_factory
+    from timemachines.skaters.simple.trivial import trivial_ema_r1
+    x, x_std, s = residual_chaser_factory(y=y, s=s, k=k, a=a, t=t, e=e, f1=fbprophet_univariate, r1=None,
+                                          f2=trivial_ema_r1, r2=0.75, chase=0.5, threshold=0.5)
+    return x, x_std, s
+
+
+def fbprophet_cautious(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None):
+    """ Similar to fbexogenous, but no crazy nonsense """
+    if not s.get('s'):
+        s['s']={}       # prophet's state
+        s['y']=list()   # maintain last five values
+    y0 = wrap(y)[0]
+    s['y'].append(y0)
+    if len(s['y'])>5:
+        s['y'].pop(0)
+    import math
+    x_upper = [ np.max(s['y'])+math.sqrt(j+1)*np.std(s['y']) for j in range(k) ]
+    x_lower = [ np.min(s['y'])-math.sqrt(j+1)*np.std(s['y']) for j in range(k) ]
+    x, x_std, s['s'] = fbprophet_univariate(y=y,s=s['s'],k=k,a=a,t=t,e=e)
+    x_careful = np.minimum(np.array(x),np.array(x_upper))
+    x_careful = np.maximum(x_careful, np.array(x_lower))
+    return list(x_careful), x_std, s
+
+
+
+PROPHET_SKATERS = [ fbprophet_exogenous, fbprophet_known, fbprophet_univariate, fbprophet_recursive,
+                    fbprophet_cautious, fbprophet_chaser ]
 
 
 # (1) Skaters with author-suggested two-dimensional hyper-parameter spaces
@@ -65,3 +98,18 @@ def fbprophet_univariate_r2(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_T
 
 
 PROPHET_R2_SKATERS = [ fbprophet_exogenous_r2, fbprophet_known_r2, fbprophet_univariate_r2, fbprophet_recursive_r2 ]
+
+
+if __name__ == '__main__':
+    from timemachines.data.real import hospital_with_exog
+    from timemachines.skaters.plotting import prior_plot
+    import matplotlib.pyplot as plt
+    k = 1
+    y, a = hospital_with_exog(k=k, n=450, offset=True)
+    f = fbprophet_chaser
+    err2 = prior_plot(f=f, k=k, y=y, n=450, n_plot=50)
+    print(err2)
+    plt.show()
+    pass
+
+

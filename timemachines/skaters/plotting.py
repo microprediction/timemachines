@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from timemachines.data.synthetic import brownian_with_exogenous, brownian_with_noise
 from timemachines.skaters.skating import prior
-
+from timemachines.skaters.conventions import wrap
 
 # Quick ways to inspect skaters
 
@@ -16,10 +16,10 @@ def prior_plot(f, y=None, k=None, t=None, e=None, r=None, x0=np.nan, n=150, n_pl
        y = brownian_with_noise(n=n)
 
     if t is None:
-        t = range(len(y))
+        t = [float(ti) for ti in range(len(y))]
 
     x, x_std = prior(f=f, y=y, k=k, a=t, t=t, e=e, r=r, x0=x0)
-    ysf = [[y_] for y_ in y]
+    ysf = [[wrap(y_)[0]] for y_ in y]
     xk = [xt[-1] for xt in x]
     plot_with_last_value(t=t, x=xk, y=ysf, k=k, n_plot=n_plot)
 

@@ -1,4 +1,5 @@
 from momentum import var_init, var_update   # Could easily add skew, kurtosis
+from typing import Union, SupportsFloat, List
 
 # A "parade" is a procession of l-step ahead predictions that are waiting to be judged when data arrives.
 # The predictions are stored in an array where the n'th entry will be judged after n data points arrive.
@@ -11,14 +12,16 @@ from momentum import var_init, var_update   # Could easily add skew, kurtosis
 # parade_update, then  use parade_mean, parade_std
 
 
-def parade(p:dict, x:[float], y:float):
+def parade(p:dict, x:Union[List[SupportsFloat],None], y:Union[SupportsFloat,None]):
     """ Process an observation y
     :param p:   state - supply empty dict on first call
     :param y:   incoming observation
     :param x:   term structure of predictions out k steps ahead, made after y received
     returns:  mean, std, of model residuals and the posterior state s'
-    """
 
+    A special convention allows the caller to reset the empirical moments. Pass x=None and y=None
+
+    """
     # Initialize
     if not p:
         k = len(x)
@@ -27,16 +30,22 @@ def parade(p:dict, x:[float], y:float):
     else:
         assert len(x) == len(p['predictions']) # 'k' is immutable
 
-    assessable = p['predictions'].pop(0)
-    if assessable:
-        for j,xi in assessable:
-            p['moments'][j] = var_update(p['moments'][j], y - xi)
+    if x is None and y is None:
+        # "reset" the running moments but keep prediction parade
+        p_mean, p_std = parade_mean(p), parade_std(p)
+        p['moments'] = [var_init() for _ in range(k)]
+        return p_mean, p_std, p
+    else:
+        assessable = p['predictions'].pop(0)
+        if assessable:
+            for j,xi in assessable:
+                p['moments'][j] = var_update(p['moments'][j], y - xi)
 
-    p['predictions'].append(list())
-    for j, xj in enumerate(x):
-        p['predictions'][j].append((j, xj))
+        p['predictions'].append(list())
+        for j, xj in enumerate(x):
+            p['predictions'][j].append((j, xj))
 
-    return parade_mean(p), parade_std(p), p
+        return parade_mean(p), parade_std(p), p
 
 
 # Helpers for extracting skater-ready predictions
