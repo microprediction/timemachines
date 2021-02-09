@@ -31,7 +31,7 @@ def optimizer_game(white, black, n_dim, n_trials, objective, tol=0.001):
     trial_counts = list()
 
     for j, optimizer, going_first in zip([0,1], [white, black], [True, False]):
-        n_trials_to_use = n_trials if going_first else trial_counts[0]
+        n_trials_to_use = n_trials if going_first else int(0.8*trial_counts[0])
         try:
             best_val, best_x, feval_count = optimizer(objective, n_trials=n_trials_to_use, n_dim=n_dim, with_count=True)
             game_result['traceback'][j] = 'passing'
@@ -51,11 +51,11 @@ def optimizer_game(white, black, n_dim, n_trials, objective, tol=0.001):
             message = 'Optimizer was naughty. Used ' + str(
                 trial_counts[0]) + ' evaluations when instructed to use ' + str(n_trials_to_use)
             game_result['traceback'][j] = message
-        elif trial_counts[1] > trial_counts[0] * 1.4 or trial_counts[0] == n_trials and trial_counts[1] > trial_counts[
-            0] * 1.2:
+        elif trial_counts[1] > trial_counts[0] * 1.4 or (trial_counts[0] <= n_trials and trial_counts[1] > trial_counts[
+            0] * 1.2):
             message = 'Optimizer was naughty. Used ' + str(
                 trial_counts[1]) + ' evaluations when instructed to use ' + str(
-                n_trials_to_use)
+                trial_counts[0])
             game_result['traceback'][j] = message
         elif minima_found[0] is None:
             message = 'Optimizer returned None on ' + objective.__name__
