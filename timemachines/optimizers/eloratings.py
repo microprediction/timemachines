@@ -65,9 +65,14 @@ def optimizer_game(white, black, n_dim, n_trials, objective, tol=0.001):
             game_result['traceback'][j] = message
         else:
             small = tol * (abs(minima_found[0]) + abs(minima_found[1]))  # Ties
-            game_result['white_points'] = 1 if minima_found[0] < minima_found[1] - small else 0 if minima_found[1] < minima_found[
+            points = 1 if minima_found[0] < minima_found[1] - small else 0 if minima_found[1] < minima_found[
                 0] - small else 0.5
+            game_result['white_points']=points
             game_result['completed']=True
+            game_result['winner']= white.__name__ if points>0.75 else black.__name__ if points<0.25 else 'draw'
+    else:
+        game_result['winner']='incomplete'
+        game_result['white_points']=None
     return game_result
 
 
