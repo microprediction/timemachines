@@ -27,7 +27,6 @@ def optimizer_game(white, black, n_dim, n_trials, objective, tol=0.001):
     game_result = {'n_dim': n_dim, 'n_trials': n_trials, 'objective': objective.__name__,'white':white, 'black':black,
              'traceback':['passing','passing']}
 
-    pprint(match_params)
     minima_found = list()
     trial_counts = list()
 
@@ -90,7 +89,7 @@ def random_optimizer_game(optimizers=None, objectives=None, n_dim_choices:[int]=
     return game_result
 
 
-def optimizer_elo_update(optimizers,game_result:dict, elo: dict,initial_elo=1600):
+def optimizer_population_elo_update(optimizers, game_result:dict, elo: dict, initial_elo=1600):
     """ Create or update elo ratings for optimizers
 
           optimizers - List of optimizers that were considered
@@ -154,7 +153,7 @@ def demo_optimizer_elo():
     # Run this to generate Elo ratings that will update for as long as you have the patience.
     elo = {}
     while True:
-        elo, _ = optimizer_elo_update(elo=elo)
+        elo, _ = optimizer_population_elo_update(elo=elo)
         print(' ')
         pprint(sorted(list(zip(elo['rating'], elo['name'])), reverse=True))
         print(' ')
