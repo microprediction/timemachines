@@ -1,4 +1,6 @@
-# timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![regression-tests](https://github.com/microprediction/timemachines-testing/workflows/regression-tests/badge.svg) ![elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/elo-ratings/badge.svg)
+# timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![regression-tests](https://github.com/microprediction/timemachines-testing/workflows/regression-tests/badge.svg) ![optimizer-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/optimizer-elo-ratings/badge.svg) ![skater-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/skater-elo-ratings/badge.svg)
+
+### Time-series packages in canonical form, with Elo ratings
 
 A time series package where: 
   - Time series models are represented as mere functions. 
@@ -9,15 +11,13 @@ Some functionality is drawn from:
   - fbprophet, 
   - pydlm, 
   - pmdarima,
-  - more from the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and, 
-  - some home-grown approaches too. 
- 
-On an ongoing basis: 
+
+and more. We are working down the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and adding some home-grown approaches as well. On an ongoing basis: 
  - Hyper-parameter optimization is routinely tested using a variety of optimization packages. See [timemachines-testing](https://github.com/microprediction/timemachines-testing). 
  - Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are compared on an ongoing basis out of sample. See the model [elo ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings). 
  - These tests use live data, constantly refreshed. See [stream listing](https://www.microprediction.org/browse_streams.html). 
    
-### Global optimizers in canonical form
+### Global optimizers in canonical form, with Elo ratings
    
 This package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
 is of independent interest. It is easy to exploit:
@@ -31,8 +31,10 @@ is of independent interest. It is easy to exploit:
   - pysot
   - shgo
   - swarmlib
-  - and possible others. See [global optimizers](https://github.com/microprediction/timemachines/tree/main/timemachines/optimizers) for the full list. 
- 
+  - and possible others. 
+  
+See [global optimizers](https://github.com/microprediction/timemachines/tree/main/timemachines/optimizers) for the full list. See [optimizer_elo_ratings/leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/optimizer_elo_ratings/leaderboards/overall) for current rankings and Elo ratings of global optimization strategies. These are computed by random match-ups where an [objective](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/objectives.py) function is chosen at random and the dimensionality of the search and number of allowed iterations is also randomly selected. The precise methodology is revealed in [optimizers/eloratings.py](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/eloratings.py). 
+
 
 # Skaters
 
@@ -106,6 +108,11 @@ We use a further, somewhat unusual convention. All model hyper-parameters, shoul
  a *scalar* quantity *r*. This imposes at skater "design time" a consistent hyper-parameter space. This step may seem
   unnatural, but it facilitates comparisons of models and hyper-parameter optimizers in different settings. 
   It is workable, we hope, with some space-filling curve conventions. More on that below. 
+  
+  
+### Skater Elo ratings and rankings
+
+Ratings for time series models, including some widely used packages such as fbprophet, are produced separately for different horizons. Specifically, we create a different Elo rating for looking k=1 steps ahead versus k=13 steps ahead, say. A rating is produced for each k in the Fibonacci sequence. See [skater_elo_ratings/leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) sub-directories. For example some good ways to predict univariate time series 8 steps in advance might be suggested by the rankings at [/leaderboards/univariate_008](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards/univariate_008) but of course their are caveats. 
   
  
 ### Obligatory picture of a skater
