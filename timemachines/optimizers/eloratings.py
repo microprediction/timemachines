@@ -138,7 +138,8 @@ def optimizer_population_elo_update(optimizers, game_result:dict, elo: dict, ini
     black_name = game_result['black'].__name__
     white_ndx = elo['name'].index(white_name)
     black_ndx = elo['name'].index(black_name)
-    elo['count'][white_ndx]+=1
+    elo['traceback'][white_ndx]=game_result['traceback'][0]
+    elo['traceback'][black_ndx]=game_result['traceback'][1]
     elo['count'][black_ndx]+=1
     if game_result['completed']:
         points = game_result['points']
@@ -148,6 +149,7 @@ def optimizer_population_elo_update(optimizers, game_result:dict, elo: dict, ini
         min_games = min(elo['count'][white_ndx],elo['count'][black_ndx])
         k = OPTIMIZER_K_FACTOR/2.0 if min_games > 10 else OPTIMIZER_K_FACTOR
         new_white_elo, new_black_elo = elo_update(white_elo=white_elo, black_elo=black_elo,points=points,k=k,f=OPTIMIZER_F_FACTOR)
+        # Don't allow players with provisional ratings to impact other's.
         if elo['count'][black_ndx]>3:
             elo['rating'][white_ndx] = new_white_elo
         if elo['count'][white_ndx]>3:
