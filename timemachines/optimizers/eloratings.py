@@ -25,7 +25,7 @@ def optimizer_game(white, black, n_dim, n_trials, objective, tol=0.001):
     """
 
     game_result = {'n_dim': n_dim, 'n_trials': n_trials, 'objective': objective.__name__,'white':white, 'black':black,
-             'traceback':['passing','passing']}
+             'traceback':['passing','passing'],'best_val':[None, None],'best_x':[None,None],'feval_count':[None,None]}
 
     minima_found = list()
     trial_counts = list()
@@ -37,6 +37,9 @@ def optimizer_game(white, black, n_dim, n_trials, objective, tol=0.001):
             game_result['traceback'][j] = 'passing'
             minima_found.append(best_val)
             trial_counts.append(feval_count)
+            game_result['best_val'][j]=best_val
+            game_result['best_x'][j]=best_x
+            game_result['feval_count'][j]=feval_count
         except Exception as e:
             game_result['traceback'][j] = traceback.format_exc()
             trial_counts.append(None)
