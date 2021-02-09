@@ -129,8 +129,8 @@ PYSOT_OPTIMIZERS = [ pysot_ei_cube, pysot_lcb_cube, pysot_random_cube, pysot_srb
 
 
 if __name__ == '__main__':
-    from timemachines.optimizers.objectives import OBJECTIVES
-    for objective in OBJECTIVES:
+    from timemachines.objectives.classic import CLASSIC_OBJECTIVES
+    for objective in CLASSIC_OBJECTIVES:
         print(' ')
         print(objective.__name__)
         for optimizer in PYSOT_OPTIMIZERS:

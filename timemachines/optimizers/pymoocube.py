@@ -100,10 +100,10 @@ PYMOO_OPTMIZERS = [ pymoo_nsga2_cube, pymoo_nelder_cube, pymoo_nsga3_cube,
 # TODO: See why ['pymoo_ctaea_cube', 'pymoo_de_cube', 'pymoo_rnsga2_cube', 'pymoo_rnsga3_cube'] are broken sometimes
 
 if __name__ == '__main__':
-    from timemachines.optimizers.objectives import OBJECTIVES
+    from timemachines.objectives.classic import CLASSIC_OBJECTIVES
     always_working = PYMOO_CANDIDATES
     broken = set()
-    for objective in OBJECTIVES:
+    for objective in CLASSIC_OBJECTIVES:
         print(' ')
         print(objective.__name__)
         for optimizer in PYMOO_CANDIDATES:

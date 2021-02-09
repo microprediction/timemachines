@@ -1,3 +1,4 @@
 from timemachines.optimizers.alloptimizers import OPTIMIZERS
 from timemachines.skaters.allskaters import SKATERS
-from timemachines.optimizers.objectives import OBJECTIVES
+from timemachines.objectives.classic import CLASSIC_OBJECTIVES
+from timemachines.objectives.allobjectives import OBJECTIVES

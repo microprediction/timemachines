@@ -92,8 +92,8 @@ def shgo_cube(objective, n_trials, n_dim, with_count: bool = False, local_method
 
 
 if __name__ == '__main__':
-    from timemachines.optimizers.objectives import OBJECTIVES
-    for objective in OBJECTIVES:
+    from timemachines.objectives.classic import CLASSIC_OBJECTIVES
+    for objective in CLASSIC_OBJECTIVES:
         print(' ')
         print(objective.__name__)
         for optimizer in SHGO_OPTIMIZERS:

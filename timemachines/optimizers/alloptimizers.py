@@ -11,10 +11,8 @@ from timemachines.optimizers.platypuscube import PLATYPUS_OPTIMIZERS
 from timemachines.optimizers.pymoocube import PYMOO_OPTMIZERS
 from timemachines.optimizers.swarmlibcube import SWARMLIB_OPTIZERS
 from timemachines.optimizers.nevergradcube import NEVERGRAD_OPTIMIZERS
-from timemachines.skaters.components.chronometer import tick, tock
-from timemachines.optimizers.objectives import OBJECTIVES
+from timemachines.objectives.classic import CLASSIC_OBJECTIVES
 
-import os
 from datetime import datetime
 import pandas as pd
 import argparse
@@ -66,17 +64,17 @@ if __name__=='__main__':
     print(' ')
     print('Full list of objective functions .. ')
     print(' ')
-    print([ o.__name__ for o in OBJECTIVES])
+    print([o.__name__ for o in CLASSIC_OBJECTIVES])
     print(' ')
 
     print(datetime.now(), str(len(OPTIMIZERS)) + ' optimization strategies will be compared.')
-    print(datetime.now(), str(len(OBJECTIVES)) + ' objective functions will be employed.')
+    print(datetime.now(), str(len(CLASSIC_OBJECTIVES)) + ' objective functions will be employed.')
     print(datetime.now(), 'objective input dimensions: ', str(NDIMS))
     print(datetime.now(), 'number of trials: ', str(NTRIALS))
     print(datetime.now(), 'logfile: ', LOGFILE)
 
     log_array = []
-    for objective in OBJECTIVES:
+    for objective in CLASSIC_OBJECTIVES:
         print(' ')
         for n_dim in NDIMS:
             for n_trials in NTRIALS:

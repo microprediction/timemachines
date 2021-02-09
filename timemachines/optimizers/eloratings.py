@@ -2,7 +2,7 @@ import numpy as np
 import random
 from pprint import pprint
 import traceback
-from timemachines.optimizers.objectives import OBJECTIVES
+from timemachines.objectives.classic import CLASSIC_OBJECTIVES
 from timemachines.optimizers.alloptimizers import OPTIMIZERS, optimizer_from_name
 from timemachines.common.eloratings import elo_update
 
@@ -10,106 +10,145 @@ from timemachines.common.eloratings import elo_update
 N_DIM_CHOICES = [1, 2, 3, 5, 8]
 N_TRIALS_CHOICES = [10,20,30]
 
+OPTIMIZER_F_FACTOR=1000
+OPTIMIZER_K_FACTOR=25
 
-def optimizer_elo_update(elo: dict, tol=0.001, initial_elo=1600,
-                         n_dim_choices:[int]=None, n_trials_choices:[int]=None):
-    """ Create or update elo ratings for optimizers
 
-          elo - Dictionary containing the 'state' (i.e. elo ratings and game counts)
-          k   - Number of steps to look ahead
-          tol - Objective function ratio that results in a tie being declared
-
-        Chooses random objective function, random dimensions and random number of trials
-        Speed is not taken into account
+def optimizer_game(white, black, n_dim, n_trials, objective, tol=0.001):
     """
+    :param white:   optimizer
+    :param black:   optimizer
+    :param n_dim:
+    :param n_trials:
+    :param objective:
+    :return:  dict
+    """
+
+    game_result = {'n_dim': n_dim, 'n_trials': n_trials, 'objective': objective.__name__,'white':white, 'black':black,
+             'traceback':['passing','passing']}
+
+    pprint(match_params)
+    minima_found = list()
+    trial_counts = list()
+
+    for j, optimizer, going_first in zip([0,1], [white, black], [True, False]):
+        n_trials_to_use = n_trials if going_first else trial_counts[0]
+        try:
+            best_val, best_x, feval_count = optimizer(objective, n_trials=n_trials_to_use, n_dim=n_dim, with_count=True)
+            game_result['traceback'][j] = 'passing'
+            minima_found.append(best_val)
+            trial_counts.append(feval_count)
+        except Exception as e:
+            game_result['traceback'][j] = traceback.format_exc()
+            trial_counts.append(None)
+
+    game_result['completed']=False
+    if len(minima_found) == 2:
+        # Try to determine if one optimizer truly did a better job than the other.
+        if trial_counts[0] > n_trials * 1.5:
+            message = 'Optimizer was naughty. Used ' + str(
+                trial_counts[0]) + ' evaluations when instructed to use ' + str(n_trials_to_use)
+            game_result['traceback'][j] = message
+        elif trial_counts[1] > trial_counts[0] * 1.4 or trial_counts[0] == n_trials and trial_counts[1] > trial_counts[
+            0] * 1.2:
+            message = 'Optimizer was naughty. Used ' + str(
+                trial_counts[1]) + ' evaluations when instructed to use ' + str(
+                n_trials_to_use)
+            game_result['traceback'][j] = message
+        elif minima_found[0] is None:
+            message = 'Optimizer returned None on ' + objective.__name__
+            game_result['traceback'][j] = message
+        elif minima_found[1] is None:
+            message = 'Optimizer returned None on ' + objective.__name__
+            game_result['traceback'][j] = message
+        else:
+            small = tol * (abs(minima_found[0]) + abs(minima_found[1]))  # Ties
+            game_result['white_points'] = 1 if minima_found[0] < minima_found[1] - small else 0 if minima_found[1] < minima_found[
+                0] - small else 0.5
+            game_result['completed']=True
+    return game_result
+
+
+def random_optimizer_game(optimizers=None, objectives=None, n_dim_choices:[int]=None, n_trials_choices:[int]=None, tol=0.001):
     if n_dim_choices is None:
         n_dim_choices = N_DIM_CHOICES
 
     if n_trials_choices is None:
         n_trials_choices = N_TRIALS_CHOICES
 
+    if objectives is None:
+        objectives = CLASSIC_OBJECTIVES
+
+    if optimizers is None:
+        optimizers = OPTIMIZERS
+
+    n_dim = random.choice(n_dim_choices)
+    n_trials = random.choice(n_trials_choices)
+    objective = random.choice(objectives)
+    white, black = np.random.choice(optimizers, size=2, replace=False)
+    game_result = optimizer_game(white=white, black=black, n_dim=n_dim, n_trials=n_trials, objective=objective, tol=tol)
+    return game_result
+
+
+def optimizer_elo_update(optimizers,game_result:dict, elo: dict,initial_elo=1600):
+    """ Create or update elo ratings for optimizers
+
+          optimizers - List of optimizers that were considered
+          game_result - Produced by optimizer_game
+          elo   - Dictionary containing the 'state' of the population (i.e. elo ratings and game counts)
+          tol   - Objective function ratio that results in a tie being declared
+
+        Chooses random objective function, random dimensions and random number of trials
+        Speed is not taken into account
+    """
+
     if not elo:
         # Initialize game counts and Elo ratings
-        elo['name'] = [f.__name__ for f in OPTIMIZERS]
-        elo['count'] = [0 for _ in OPTIMIZERS]
-        elo['rating'] = [initial_elo for _ in OPTIMIZERS]
-        elo['traceback'] = ['not yet run' for _ in OPTIMIZERS]
-        elo['active'] = [True for _ in OPTIMIZERS]
+        elo['name'] = [f.__name__ for f in optimizers]
+        elo['count'] = [0 for _ in optimizers]
+        elo['rating'] = [initial_elo for _ in optimizers]
+        elo['traceback'] = ['not yet run' for _ in optimizers]
+        elo['active'] = [True for _ in optimizers]
 
     else:
         # Check for newcomers
-        new_names = [f.__name__ for f in OPTIMIZERS if f.__name__ not in elo['name']]
+        new_names = [f.__name__ for f in optimizers if f.__name__ not in elo['name']]
         for new_name in new_names:
             elo['name'].append(new_name)
             elo['count'].append(0)
             elo['rating'].append(initial_elo)
             elo['traceback'].append('not yet run')
             elo['active'].append(True)
+    # Who is active?
+    optimizer_names = [ o.__name__ for o in optimizers ]
+    elo['active'] = [ name_ in optimizer_names for name_ in elo['names'] ]
 
-    n_optimizers = len(elo['name'])
-    i1, i2 = np.random.choice(list(range(n_optimizers)), size=2, replace=False)
-    optim_name_1, optim_name_2 = elo['name'][i1], elo['name'][i2]
-    optims = list()
-    for i,sn in zip([i1,i2],[optim_name_1,optim_name_2]):
-        o = optimizer_from_name(sn)
-        if o is not None:
-            optims.append(o)
-            elo['active'][i]=True
-        else:
-            elo['active'][i]=False
+    # Peg rating of randomized algorithms to 1600, say.
+    elo['rating'] = [ r if 'random' not in name_ else initial_elo for r,name_ in zip(elo['rating'],elo['name']) ]
 
-    if len(optims)==2:
-        # Let's have at it !
-        print(optims[0].__name__ +' vs. '+optims[1].__name__)
-        n_dim = random.choice(n_dim_choices)
-        n_trials = random.choice(n_trials_choices)
-        objective = random.choice(OBJECTIVES)
-        match_params = {'n_dim':n_dim,'n_trials':n_trials,'objective':objective.__name__}
-        pprint(match_params)
-        minima_found = list()
-        trial_counts = list()
-
-        for i, o,going_first in zip([i1,i2],optims,[True,False]):
-            n_trials_to_use = n_trials if going_first else trial_counts[0]
-            try:
-                best_val, best_x, feval_count = o(objective, n_trials=n_trials_to_use, n_dim=n_dim, with_count=True)
-                elo['traceback'][i] = 'passing'
-                minima_found.append(best_val)
-                trial_counts.append(feval_count)
-            except Exception as e:
-                elo['traceback'][i] = traceback.format_exc()
-                trial_counts.append(None)
-
-        if len(minima_found)==2:
-            # Try to determine if one optimizer truly did a better job than the other.
-            if trial_counts[0]>n_trials*1.5:
-                message = 'Optimizer was naughty. Used '+str(trial_counts[0])+' evaluations when instructed to use '+str(n_trials_to_use)
-                elo['traceback'][i1] = message
-            elif trial_counts[1] > trial_counts[0]*1.2 or trial_counts[0]==n_trials and trial_counts[1] > trial_counts[0]*1.1:
-                message = 'Optimizer was naughty. Used ' + str(trial_counts[1]) + ' evaluations when instructed to use ' + str(
-                    n_trials_to_use)
-                elo['traceback'][i2] = message
-            elif minima_found[0] is None:
-                message = 'Optimizer returned None on '+objective.__name__
-                elo['traceback'][i1] = message
-            elif minima_found[1] is None:
-                message = 'Optimizer returned None on ' + objective.__name__
-                elo['traceback'][i2] = message
-            else:
-                small = tol * (abs(minima_found[0]) + abs(minima_found[1]))  # Ties
-                points = 1 if minima_found[0] < minima_found[1] - small else 0 if minima_found[1] < minima_found[0] - small else 0.5
-                winner = optim_name_1 if points>0.75 else optim_name_2 if points<0.25 else 'draw'
-                print('>>>> ' + winner)
-                elo1, elo2 = elo['rating'][i1], elo['rating'][i2]
-                min_games = min(elo['count'][i1],elo['count'][i2])
-                K = 16 if min_games > 25 else 25
-                elo['rating'][i1], elo['rating'][i2] = elo_update(elo1, elo2, points,K)
-                elo['count'][i1] += 1
-                elo['count'][i2] += 1
+    # Process results of match
+    white_name = game_result['white'].__name__
+    black_name = game_result['black'].__name__
+    white_ndx = elo['name'].index(white_name)
+    black_ndx = elo['name'].index(black_name)
+    elo['count'][white_ndx]+=1
+    elo['count'][black_ndx]+=1
+    if game_result['completed']:
+        points = game_result['points']
+        winner = white_name if points>0.75 else black_name if points<0.25 else 'draw'
+        print('>>>> ' + winner)
+        white_elo, black_elo = elo['rating'][white_ndx], elo['rating'][black_ndx]
+        min_games = min(elo['count'][white_ndx],elo['count'][black_ndx])
+        k = OPTIMIZER_K_FACTOR/2.0 if min_games > 10 else OPTIMIZER_K_FACTOR
+        new_white_elo, new_black_elo = elo_update(white_elo=white_elo, black_elo=black_elo,points=points,k=k,f=OPTIMIZER_F_FACTOR)
+        if elo['count'][black_ndx]>3:
+            elo['rating'][white_ndx] = new_white_elo
+        if elo['count'][white_ndx]>3:
+            elo['rating'][white_ndx] = new_black_elo
     else:
-        match_params = dict()
+        print('>>>> incomplete ')
 
-    return elo, match_params
+    return elo
 
 def demo_optimizer_elo():
     # Run this to generate Elo ratings that will update for as long as you have the patience.

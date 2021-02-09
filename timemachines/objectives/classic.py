@@ -136,15 +136,15 @@ def ackley_on_cube(u:[float])->float:
 
 
 
-AN_OBJECTIVE = deap_on_cube
+A_CLASSIC_OBJECTIVE = deap_on_cube  # For testing
 
 DEAP_OBJECTIVES = [schwefel_on_cube, rastrigin_on_cube, griewank_on_cube, deap_on_cube ]
 MISC_OBJECTIVES = [ paviani_on_cube, damavandi_on_cube, rosenbrock_modified_on_cube, ackley_on_cube ]
 
-OBJECTIVES = DEAP_OBJECTIVES + LANDSCAPES_OBJECTIVES + MISC_OBJECTIVES
+CLASSIC_OBJECTIVES = DEAP_OBJECTIVES + LANDSCAPES_OBJECTIVES + MISC_OBJECTIVES
 
 
 if __name__=="__main__":
-    for objective in OBJECTIVES:
+    for objective in CLASSIC_OBJECTIVES:
         objective(u=[0.5,0.5,0.5])
         objective(u=[0.5, 0.5, 0.0, 0.0, 0.0])

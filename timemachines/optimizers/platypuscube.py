@@ -104,9 +104,9 @@ PLATYPUS_OPTIMIZERS = [platypus_genetic_cube, platypus_evolutionary_cube, platyp
 
 
 if __name__ == '__main__':
-    from timemachines.optimizers.objectives import OBJECTIVES
+    from timemachines.objectives.classic import CLASSIC_OBJECTIVES
 
-    for objective in OBJECTIVES:
+    for objective in CLASSIC_OBJECTIVES:
         print(' ')
         print(objective.__name__)
         for optimizer in PLATYPUS_OPTIMIZERS:

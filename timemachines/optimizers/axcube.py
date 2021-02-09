@@ -6,7 +6,7 @@ rt.setLevel(CRITICAL)
 import warnings
 warnings.filterwarnings("ignore")
 from funcy import print_durations
-from timemachines.optimizers.objectives import OBJECTIVES
+from timemachines.objectives.classic import CLASSIC_OBJECTIVES
 
 
 def ax_cube(objective, n_trials, n_dim, with_count=False, method=None):
@@ -40,7 +40,7 @@ AX_OPTIMIZERS = [ ax_default_cube ]
 
 @print_durations()
 def demo():
-    for objective in OBJECTIVES:
+    for objective in CLASSIC_OBJECTIVES:
         print(' ')
         print(objective.__name__)
         for optimizer in AX_OPTIMIZERS:

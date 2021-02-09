@@ -1,5 +1,5 @@
 from scipy.optimize import minimize
-from timemachines.optimizers.objectives import OBJECTIVES
+from timemachines.objectives.classic import CLASSIC_OBJECTIVES
 global feval_count
 feval_count=0
 
@@ -54,7 +54,7 @@ SCIPY_OPTIMIZERS = [ scipy_slqsp_cube, scipy_powell_cube, scipy_nelder_cube, sci
 
 
 if __name__ == '__main__':
-    for objective in OBJECTIVES:
+    for objective in CLASSIC_OBJECTIVES:
         print(' ')
         print(objective.__name__)
         for optimizer in SCIPY_OPTIMIZERS:

@@ -1,4 +1,4 @@
-from timemachines.optimizers.objectives import OBJECTIVES
+from timemachines.objectives.classic import CLASSIC_OBJECTIVES
 import nevergrad as ng
 
 # Facebook nevergrad https://facebookresearch.github.io/nevergrad/optimization.html
@@ -101,7 +101,7 @@ NEVERGRAD_OPTIMIZERS = [ nevergrad_ngopt_cube, nevergrad_ngopt4_cube, nevergrad_
 
 
 if __name__=='__main__':
-    for objective in OBJECTIVES:
+    for objective in CLASSIC_OBJECTIVES:
         print(' ')
         print(objective.__name__)
         for optimizer in NEVERGRAD_OPTIMIZERS:

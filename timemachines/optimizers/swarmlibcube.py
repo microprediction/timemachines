@@ -124,9 +124,9 @@ SWARMLIB_OPTIZERS = [swarmlib_pso_cube]
 
 
 if __name__ == '__main__':
-    from timemachines.optimizers.objectives import OBJECTIVES
+    from timemachines.objectives.classic import CLASSIC_OBJECTIVES
 
-    for objective in OBJECTIVES:
+    for objective in CLASSIC_OBJECTIVES:
         print(' ')
         print(objective.__name__)
         for n_dim in range(2,4):

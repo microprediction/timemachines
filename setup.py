@@ -23,7 +23,7 @@ setup(
     packages=["timemachines","timemachines.optimizers","timemachines.skaters","timemachines.stochastictests","timemachines.data",
               "timemachines.skaters.components","timemachines.skaters.simple","timemachines.skaters.proph","timemachines.skaters.divine",
               "timemachines.skaters.dlm","timemachines.skaters.pmd",'timemachines.skaters.utilities','timemachines.skaters.components',
-              'timemachines.data','timemachines.common'],
+              'timemachines.data','timemachines.common','timemachines.objectives'],
     test_suite='pytest',
     tests_require=['pytest','microprediction'],
     include_package_data=True,

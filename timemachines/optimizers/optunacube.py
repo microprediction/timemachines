@@ -1,6 +1,6 @@
 import optuna
 from optuna.logging import CRITICAL
-from timemachines.optimizers.objectives import OBJECTIVES
+from timemachines.objectives.classic import CLASSIC_OBJECTIVES
 
 
 def optuna_cube_factory(objective, n_trials, n_dim, with_count=False, method=None):
@@ -51,7 +51,7 @@ OPTUNA_OPTIMIZERS = [ optuna_cmaes_cube, optuna_tpe_cube, optuna_random_cube ]
 
 
 if __name__=='__main__':
-    for objective in OBJECTIVES:
+    for objective in CLASSIC_OBJECTIVES:
         print(' ')
         print(objective.__name__)
         for optimizer in OPTUNA_OPTIMIZERS:

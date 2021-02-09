@@ -1,6 +1,5 @@
-from pprint import pprint
 from timemachines.optimizers.alloptimizers import OPTIMIZERS
-from timemachines.optimizers.objectives import OBJECTIVES
+from timemachines.objectives.classic import CLASSIC_OBJECTIVES
 from typing import List
 import numpy as np
 from pprint import pprint
@@ -18,7 +17,7 @@ def debug():
     for n_trials in [2,10,40]:
         for n_dim in [2,3]:
             for optimizer in OPTIMIZERS:
-                for objective in OBJECTIVES:
+                for objective in CLASSIC_OBJECTIVES:
                     try:
                         optimizer(objective, n_trials=n_trials,n_dim=n_dim,with_count=True)
                     except Exception as e:
@@ -31,7 +30,7 @@ def comparison():
     n_trials,n_dim = 100, 5
     comparison = sorted([(objective.__name__,optimizer(objective, n_trials=n_trials, n_dim=n_dim, with_count=True),
                           optimizer_name(optimizer))
-                         for optimizer in OPTIMIZERS for objective in OBJECTIVES])
+                         for optimizer in OPTIMIZERS for objective in CLASSIC_OBJECTIVES])
     pprint(comparison)
 
 
