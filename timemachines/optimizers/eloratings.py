@@ -3,7 +3,7 @@ import random
 from pprint import pprint
 import traceback
 from timemachines.objectives.classic import CLASSIC_OBJECTIVES
-from timemachines.optimizers.alloptimizers import OPTIMIZERS, optimizer_from_name
+from timemachines.optimizers.alloptimizers import OPTIMIZERS
 from timemachines.common.eloratings import elo_update
 
 
@@ -128,7 +128,7 @@ def optimizer_population_elo_update(optimizers, game_result:dict, elo: dict, ini
             elo['active'].append(True)
     # Who is active?
     optimizer_names = [ o.__name__ for o in optimizers ]
-    elo['active'] = [ name_ in optimizer_names for name_ in elo['names'] ]
+    elo['active'] = [ name_ in optimizer_names for name_ in elo['name'] ]
 
     # Peg rating of randomized algorithms to 1600, say.
     elo['rating'] = [ r if 'random' not in name_ else initial_elo for r,name_ in zip(elo['rating'],elo['name']) ]
@@ -161,7 +161,7 @@ def demo_optimizer_elo():
     # Run this to generate Elo ratings that will update for as long as you have the patience.
     elo = {}
     while True:
-        elo, _ = optimizer_population_elo_update(elo=elo)
+        elo = optimizer_population_elo_update(elo=elo)
         print(' ')
         pprint(sorted(list(zip(elo['rating'], elo['name'])), reverse=True))
         print(' ')
