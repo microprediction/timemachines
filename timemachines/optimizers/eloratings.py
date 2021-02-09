@@ -31,7 +31,7 @@ def optimizer_game(white, black, n_dim, n_trials, objective, tol=0.001):
     trial_counts = list()
 
     for j, optimizer, going_first in zip([0,1], [white, black], [True, False]):
-        n_trials_to_use = n_trials if going_first else int(0.8*trial_counts[0])
+        n_trials_to_use = n_trials if going_first else int(0.9*trial_counts[0])
         try:
             best_val, best_x, feval_count = optimizer(objective, n_trials=n_trials_to_use, n_dim=n_dim, with_count=True)
             game_result['traceback'][j] = 'passing'
@@ -42,20 +42,20 @@ def optimizer_game(white, black, n_dim, n_trials, objective, tol=0.001):
             game_result['feval_count'][j]=feval_count
         except Exception as e:
             game_result['traceback'][j] = traceback.format_exc()
-            trial_counts.append(None)
+            trial_counts.append(10) # We quickly test the second choice
 
     game_result['completed']=False
     if len(minima_found) == 2:
         # Try to determine if one optimizer truly did a better job than the other.
-        if trial_counts[0] > n_trials * 1.5:
-            message = 'Optimizer was naughty. Used ' + str(
-                trial_counts[0]) + ' evaluations when instructed to use ' + str(n_trials_to_use)
+        if trial_counts[0] > n_trials * 2:
+            message = 'Optimizer was naughty playing as white. It used ' + str(
+                trial_counts[0]) + ' evaluations when instructed to use ' + str(n_trials)
             game_result['traceback'][j] = message
         elif trial_counts[1] > trial_counts[0] * 1.4 or (trial_counts[0] <= n_trials and trial_counts[1] > trial_counts[
             0] * 1.2):
-            message = 'Optimizer was naughty. Used ' + str(
+            message = 'Optimizer was naughty when playing black. It used ' + str(
                 trial_counts[1]) + ' evaluations when instructed to use ' + str(
-                trial_counts[0])
+                int(0.9*trial_counts[0]))
             game_result['traceback'][j] = message
         elif minima_found[0] is None:
             message = 'Optimizer returned None on ' + objective.__name__
@@ -161,7 +161,12 @@ def demo_optimizer_elo():
     # Run this to generate Elo ratings that will update for as long as you have the patience.
     elo = {}
     while True:
-        elo = optimizer_population_elo_update(elo=elo)
+        game_result = random_optimizer_game(optimizers=OPTIMIZERS, objectives=CLASSIC_OBJECTIVES,
+                                            n_dim_choices=N_DIM_CHOICES, n_trials_choices=N_TRIALS_CHOICES, tol=0.001)
+        print(' Game...')
+        pprint(game_result)
+
+        elo = optimizer_population_elo_update(optimizers=OPTIMIZERS,elo=elo,game_result=game_result)
         print(' ')
         pprint(sorted(list(zip(elo['rating'], elo['name'])), reverse=True))
         print(' ')
