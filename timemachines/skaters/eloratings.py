@@ -6,8 +6,9 @@ from timemachines.data.live import random_regular_data
 from timemachines.common.eloratings import elo_update  # TODO: Use ratings package instead
 
 
-SKATER_ELO_F = 1000  # The scale factor for ratings. In chess this is set to 400.
+SKATER_F_FACTOR = 1000  # The scale factor for ratings. In chess this is set to 400.
                      # If the matchup is considered more fluky than a single game of chess, a higher value might make sense.
+SKATER_K_FACTOR = 60   # The Elo update factor (maximum rating gain)
 
 
 def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=1600, data_source =None):
@@ -79,8 +80,8 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
             points = 1 if scores[0] < scores[1] - small else 0 if scores[1] < scores[0] - small else 0.5
             elo1, elo2 = elo['rating'][i1], elo['rating'][i2]
             min_games = min(elo['count'][i1],elo['count'][i2])
-            K = 16 if min_games > 25 else 25  # The Elo update scaling parameter
-            elo['rating'][i1], elo['rating'][i2] = elo_update(elo1, elo2, points,k=K,f=SKATER_ELO_F)
+            K = SKATER_K_FACTOR/2.0 if min_games > 25 else SKATER_K_FACTOR  # The Elo update scaling parameter
+            elo['rating'][i1], elo['rating'][i2] = elo_update(elo1, elo2, points, k=K, f=SKATER_F_FACTOR)
             elo['count'][i1] += 1
             elo['count'][i2] += 1
 
