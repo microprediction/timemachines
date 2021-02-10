@@ -173,8 +173,8 @@ def optimizer_population_elo_update(optimizers, game_result:dict, elo: dict, ini
     optimizer_names = [ o.__name__ for o in optimizers ]
     elo['active'] = [ name_ in optimizer_names for name_ in elo['name'] ]
 
-    # Peg??
-    if False:
+    # Peg to random sampling
+    if True:
         elo['rating'] = [ r if 'optuna_random' not in name_ else initial_elo for r,name_ in zip(elo['rating'],elo['name']) ]
 
     # Process results of match

@@ -39,6 +39,10 @@ def optuna_random_cube(objective, n_trials,n_dim, with_count=False):
     return optuna_cube_factory(objective=objective, n_trials=n_trials, n_dim=n_dim, with_count=with_count, method='random')
 
 
+def optuna_random_cube_clone(objective, n_trials,n_dim, with_count=False): # duplicate
+    return optuna_cube_factory(objective=objective, n_trials=n_trials, n_dim=n_dim, with_count=with_count, method='random')
+
+
 def optuna_cmaes_cube(objective, n_trials, n_dim, with_count=False):
     return optuna_cube_factory(objective=objective, n_trials=n_trials, n_dim=n_dim, with_count=with_count, method='cmaes')
 
@@ -47,7 +51,7 @@ def optuna_tpe_cube(objective, n_trials, n_dim, with_count=False):
     return optuna_cube_factory(objective=objective, n_trials=n_trials, n_dim=n_dim, with_count=with_count, method='tpe')
 
 
-OPTUNA_OPTIMIZERS = [ optuna_cmaes_cube, optuna_tpe_cube, optuna_random_cube ]
+OPTUNA_OPTIMIZERS = [ optuna_cmaes_cube, optuna_tpe_cube, optuna_random_cube, optuna_random_cube_clone ]
 
 
 if __name__=='__main__':
