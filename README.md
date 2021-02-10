@@ -1,4 +1,4 @@
-# timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![regression-tests](https://github.com/microprediction/timemachines-testing/workflows/regression-tests/badge.svg) ![optimizer-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/optimizer-elo-ratings/badge.svg) ![skater-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/skater-elo-ratings/badge.svg)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![regression-tests](https://github.com/microprediction/timemachines-testing/workflows/regression-tests/badge.svg) ![optimizer-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/optimizer-elo-ratings/badge.svg) ![skater-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/skater-elo-ratings/badge.svg)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ### Time-series packages in canonical form, with Elo ratings
 
