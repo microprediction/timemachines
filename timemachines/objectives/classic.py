@@ -57,7 +57,7 @@ def rosenbrock_modified_on_cube(u:[float])->float:
 # According to http://infinity77.net/global_optimization/test_functions.html#test-functions-index
 # there are some really hard ones
 # See https://github.com/andyfaff/ampgo/blob/master/%20ampgo%20--username%20andrea.gavana%40gmail.com/go_benchmark.py
-
+# See also https://arxiv.org/pdf/1308.4008v1.pdf
 
 def damavandi_on_cube(u:[float])->float:
     """ A trivial multi-dimensional extension of Damavandi's function """
