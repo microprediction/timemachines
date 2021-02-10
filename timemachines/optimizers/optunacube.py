@@ -55,4 +55,4 @@ if __name__=='__main__':
         print(' ')
         print(objective.__name__)
         for optimizer in OPTUNA_OPTIMIZERS:
-            print((optimizer(objective, n_trials=100, n_dim=6, with_count=True)))
+            print((optimizer(objective, n_trials=150, n_dim=6, with_count=True)))

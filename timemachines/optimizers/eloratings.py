@@ -8,10 +8,13 @@ from timemachines.common.eloratings import elo_update
 
 
 N_DIM_CHOICES = [1, 2, 3, 5, 8]
-N_TRIALS_CHOICES = [10,20,30]
+N_TRIALS_CHOICES = [ 130, 210, 340]
 
-OPTIMIZER_F_FACTOR=1000
-OPTIMIZER_K_FACTOR=25
+OPTIMIZER_F_FACTOR = 1000
+OPTIMIZER_K_FACTOR = 60
+N_PROVISIONAL = 0   # Number of games for which player is considered provisional
+N_ATTEMPTS_WHITE   = 3
+N_ATTEMPTS_BLACK   = 6
 
 
 def optimizer_game(white, black, n_dim, n_trials, objective, tol=0.001):
@@ -25,54 +28,93 @@ def optimizer_game(white, black, n_dim, n_trials, objective, tol=0.001):
     """
 
     game_result = {'n_dim': n_dim, 'n_trials': n_trials, 'objective': objective.__name__,'white':white, 'black':black,
-             'traceback':['passing','passing'],'best_val':[None, None],'best_x':[None,None],'feval_count':[None,None]}
+             'traceback':['passing','passing'],'best_val':[None, None],'best_x':[None,None],'feval_count':[None,None],
+                   'n_trials_instructed':[None, None],'passing':[None, None],
+                   'completed':False}
 
-    minima_found = list()
-    trial_counts = list()
-
-    for j, optimizer, going_first in zip([0,1], [white, black], [True, False]):
-        n_trials_to_use = n_trials if going_first else int(0.9*trial_counts[0])
+    # White to play..
+    n_white_trials = n_trials
+    n_white_attempts = 0
+    while True:
         try:
-            best_val, best_x, feval_count = optimizer(objective, n_trials=n_trials_to_use, n_dim=n_dim, with_count=True)
-            game_result['traceback'][j] = 'passing'
-            minima_found.append(best_val)
-            trial_counts.append(feval_count)
-            game_result['best_val'][j]=best_val
-            game_result['best_x'][j]=best_x
-            game_result['feval_count'][j]=feval_count
+            white_best_val, white_best_x, white_feval_count = white(objective, n_trials=n_white_trials, n_dim=n_dim, with_count=True)
+            white_passing, white_traceback = white_best_val is not None, 'passing'
         except Exception as e:
-            game_result['traceback'][j] = traceback.format_exc()
-            trial_counts.append(10) # We quickly test the second choice
-
-    game_result['completed']=False
-    if len(minima_found) == 2:
-        # Try to determine if one optimizer truly did a better job than the other.
-        if trial_counts[0] > n_trials * 2:
-            message = 'Optimizer was naughty playing as white. It used ' + str(
-                trial_counts[0]) + ' evaluations when instructed to use ' + str(n_trials)
-            game_result['traceback'][j] = message
-        elif trial_counts[1] > trial_counts[0] * 1.4 or (trial_counts[0] <= n_trials and trial_counts[1] > trial_counts[
-            0] * 1.2):
-            message = 'Optimizer was naughty when playing black. It used ' + str(
-                trial_counts[1]) + ' evaluations when instructed to use ' + str(
-                int(0.9*trial_counts[0]))
-            game_result['traceback'][j] = message
-        elif minima_found[0] is None:
-            message = 'Optimizer returned None on ' + objective.__name__
-            game_result['traceback'][j] = message
-        elif minima_found[1] is None:
-            message = 'Optimizer returned None on ' + objective.__name__
-            game_result['traceback'][j] = message
+            white_traceback = traceback.format_exc()
+            white_passing, white_best_x, white_best_val, white_feval_count = False, None, None, None
+        if not white_passing or (white_feval_count<=n_trials) or (n_white_attempts>N_ATTEMPTS_WHITE):
+            break
         else:
-            small = tol * (abs(minima_found[0]) + abs(minima_found[1]))  # Ties
-            points = 1 if minima_found[0] < minima_found[1] - small else 0 if minima_found[1] < minima_found[
-                0] - small else 0.5
-            game_result['points']=points
-            game_result['completed']=True
-            game_result['winner']= white.__name__ if points>0.75 else black.__name__ if points<0.25 else 'draw'
+            n_white_attempts+=1
+            print('Playing white,'+white.__name__ + ' attempt ' + str(n_white_attempts + 1) + ' after instruction to use ' + str(n_white_trials) + ' resulted in '+str(white_feval_count)+' evaluations.')
+            n_white_trials = int(0.7*n_white_trials)
+    game_result['best_val'][0] = white_best_val
+    game_result['passing'][0] = white_passing
+    white_success = white_passing and white_feval_count <= n_trials
+    if white_passing and n_white_trials > n_trials:
+        white_traceback = 'White took ' + str(white_feval_count) + ' function evals when instructed to use ' + str(
+            n_white_trials)
+    game_result['traceback'][0] = white_traceback
+    if white_passing:
+        game_result['n_trials_instructed'][0] = n_white_trials
+        game_result['feval_count'][0] = white_feval_count
+        game_result['best_val'][0] = white_best_val
+        game_result['best_x'][0] = white_best_x
     else:
-        game_result['winner']='incomplete'
-        game_result['points']=None
+        pass
+
+    # Black to play
+    if white_success:
+        n_black_trials = white_feval_count  # <-- Tries to match the number of white actual evaluations
+        n_black_attempts = 0
+        while True:
+            try:
+                black_best_val, black_best_x, black_feval_count = black(objective, n_trials=n_black_trials,
+                                                                    n_dim=n_dim,
+                                                                    with_count=True)
+                black_traceback, black_passing = 'passing', black_best_val is not None
+            except Exception as e:
+                black_traceback = traceback.format_exc()
+                black_passing, black_best_x, black_best_val, black_feval_count = False, None, None, None
+
+            if not black_passing or (black_feval_count <= n_trials) or (n_black_attempts > N_ATTEMPTS_BLACK):
+                break
+            else:
+                n_black_attempts += 1
+                print('Playing black, '+black.__name__ + ' attempt ' + str(n_black_attempts + 1) + ' after instruction to use ' + str(
+                    n_black_trials) + ' resulted in ' + str(black_feval_count) + ' evaluations.')
+                n_black_trials = int(0.85 * n_black_trials)
+        black_success = black_passing and black_feval_count <= white_feval_count
+        game_result['n_trials_instructed'][1] = n_black_trials
+        game_result['feval_count'][1] = black_feval_count
+        game_result['best_val'][1] = black_best_val
+        if black_passing and n_black_trials > n_trials:
+            black_traceback = 'Black took '+str(black_feval_count)+' function evals when instructed to use '+str(n_black_trials)
+        game_result['traceback'][1] = black_traceback
+        game_result['passing'][1] = black_passing
+        if black_passing:
+            game_result['best_val'][1] = black_best_val
+            game_result['best_x'][1] = black_best_x
+            game_result['n_trials_instructed'][1] = n_black_trials
+            game_result['feval_count'][1] = black_feval_count
+
+    # Now that White and Black have both played...
+    if white_success and black_success:
+        game_result['completed']=True
+        small = tol * (abs(white_best_val) + abs(black_best_val))  # Ties
+        points = 1. if white_best_val < black_best_val - small else 0. if black_best_val < white_best_val - small else 0.5
+        game_result['points'] = points
+        game_result['winner'] = white.__name__.replace('_cube','') if points > 0.75 else black.__name__ if points < 0.25 else 'draw'
+        game_result['loser'] = black.__name__.replace('_cube',
+                                                   '') if points > 0.75 else white.__name__ if points < 0.25 else 'draw'
+        if game_result['winner']!='draw':
+            print(game_result['winner']+' beats '+game_result['loser'])
+        else:
+            print(black.__name__ + ' holds '+white.__name__+' to a draw.')
+    else:
+        game_result['winner'] = 'incomplete'
+        game_result['points'] = None
+
     return game_result
 
 
@@ -126,12 +168,14 @@ def optimizer_population_elo_update(optimizers, game_result:dict, elo: dict, ini
             elo['rating'].append(initial_elo)
             elo['traceback'].append('not yet run')
             elo['active'].append(True)
+
     # Who is active?
     optimizer_names = [ o.__name__ for o in optimizers ]
     elo['active'] = [ name_ in optimizer_names for name_ in elo['name'] ]
 
-    # Peg rating of randomized algorithms to 1600, say.
-    elo['rating'] = [ r if 'random' not in name_ else initial_elo for r,name_ in zip(elo['rating'],elo['name']) ]
+    # Peg??
+    if False:
+        elo['rating'] = [ r if 'optuna_random' not in name_ else initial_elo for r,name_ in zip(elo['rating'],elo['name']) ]
 
     # Process results of match
     white_name = game_result['white'].__name__
@@ -143,17 +187,16 @@ def optimizer_population_elo_update(optimizers, game_result:dict, elo: dict, ini
     elo['count'][black_ndx]+=1
     if game_result['completed']:
         points = game_result['points']
-        winner = white_name if points>0.75 else black_name if points<0.25 else 'draw'
-        print('>>>> ' + winner)
+        print('>>>> ' + game_result['winner'])
         white_elo, black_elo = elo['rating'][white_ndx], elo['rating'][black_ndx]
         min_games = min(elo['count'][white_ndx],elo['count'][black_ndx])
         k = OPTIMIZER_K_FACTOR/2.0 if min_games > 10 else OPTIMIZER_K_FACTOR
         new_white_elo, new_black_elo = elo_update(white_elo=white_elo, black_elo=black_elo,points=points,k=k,f=OPTIMIZER_F_FACTOR)
         # Don't allow players with provisional ratings to impact other's.
-        if elo['count'][black_ndx]>3:
+        if elo['count'][black_ndx]>=N_PROVISIONAL:
             elo['rating'][white_ndx] = new_white_elo
-        if elo['count'][white_ndx]>3:
-            elo['rating'][white_ndx] = new_black_elo
+        if elo['count'][white_ndx]>N_PROVISIONAL:
+            elo['rating'][black_ndx] = new_black_elo
     else:
         print('>>>> incomplete ')
 
@@ -169,9 +212,10 @@ def demo_optimizer_elo():
         pprint(game_result)
 
         elo = optimizer_population_elo_update(optimizers=OPTIMIZERS,elo=elo,game_result=game_result)
-        print(' ')
-        pprint(sorted(list(zip(elo['rating'], elo['name'])), reverse=True))
-        print(' ')
+        if random.choice(list(range(5)))==1:
+            print(' ')
+            pprint(sorted(list(zip(elo['rating'], elo['name'])), reverse=True))
+            print(' ')
 
 if __name__=='__main__':
     demo_optimizer_elo()
