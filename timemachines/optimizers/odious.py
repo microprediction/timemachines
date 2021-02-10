@@ -5,6 +5,10 @@ import numpy as np
 from pprint import pprint
 
 
+# Comparisons, mostly deprecated by eloratings.
+# See also https://github.com/microprediction/timemachines-testing/tree/main/optimizer_elo_ratings/leaderboards
+
+
 def optimizer_name(solver):
     return solver.__name__.replace('_cube','')
 
@@ -75,7 +79,7 @@ if __name__=='__main__':
     if True:
         comparison()
     if False:
-        res = random_matchup(optimizers=OPTIMIZERS,objectives=OBJECTIVES)
+        res = random_matchup( optimizers=OPTIMIZERS, objectives=CLASSIC_OBJECTIVES)
         pprint(res)
 
 
