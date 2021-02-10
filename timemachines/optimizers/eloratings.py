@@ -77,14 +77,14 @@ def optimizer_game(white, black, n_dim, n_trials, objective, tol=0.001):
                 black_traceback = traceback.format_exc()
                 black_passing, black_best_x, black_best_val, black_feval_count = False, None, None, None
 
-            if not black_passing or (black_feval_count <= n_trials) or (n_black_attempts > N_ATTEMPTS_BLACK):
+            if not black_passing or (black_feval_count <= 1.1*white_feval_count) or (n_black_attempts > N_ATTEMPTS_BLACK):
                 break
             else:
                 n_black_attempts += 1
                 print('Playing black, '+black.__name__ + ' attempt ' + str(n_black_attempts + 1) + ' after instruction to use ' + str(
                     n_black_trials) + ' resulted in ' + str(black_feval_count) + ' evaluations.')
                 n_black_trials = int(0.85 * n_black_trials)
-        black_success = black_passing and black_feval_count <= white_feval_count
+        black_success = black_passing and black_feval_count <= 1.1*white_feval_count
         game_result['n_trials_instructed'][1] = n_black_trials
         game_result['feval_count'][1] = black_feval_count
         game_result['best_val'][1] = black_best_val
