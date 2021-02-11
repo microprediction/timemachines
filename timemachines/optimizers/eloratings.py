@@ -175,7 +175,7 @@ def optimizer_population_elo_update(optimizers, game_result:dict, elo: dict, ini
 
     # Peg to random sampling
     if True:
-        elo['rating'] = [ r if 'optuna_random' not in name_ else initial_elo for r,name_ in zip(elo['rating'],elo['name']) ]
+        elo['rating'] = [ initial_elo if 'optuna_random' in name_ else r for r,name_ in zip(elo['rating'],elo['name']) ]
 
     # Process results of match
     white_name = game_result['white'].__name__
