@@ -5,11 +5,10 @@ import math
 # Some test objective functions to help guide optimizer choices
 # -------------------------------------------------------------
 #
-# We'll use DEAP's set of groovy benchmarks, and landscapes package
-# One day someone can explain to me why these benchmarks are defined on different domains when a cube would do.
+# We'll use DEAP's set of groovy benchmarks, and landscapes package et al.
+#
 # See pretty pictures at https://deap.readthedocs.io/en/master/api/benchmarks.html#deap.benchmarks
-# Once can easily add more from DEAP or elsewhere
-# For instance https://github.com/nathanrooy/landscapes#available-functions-from-single_objective
+# Some hardness assessment is at https://github.com/nathanrooy/landscapes#available-functions-from-single_objective but we'll do our own
 
 
 ## Basis of tricky functions
@@ -35,12 +34,53 @@ def rastrigin_on_cube(u:[float])->float:
     u_squished = [ 10.24*(ui**1.1-0.5) for ui in u ]
     return 0.01*benchmarks.rastrigin(u_squished)[0]
 
+
+def bohachevsky_on_cube(u:[float])->float:
+    # https://deap.readthedocs.io/en/master/api/benchmarks.html#deap.benchmarks.bohachevsky
+    u_squished = [ 10*(ui**1.1-0.5) for ui in u ]
+    return 0.001*benchmarks.bohachevsky(u_squished)[0]
+
+
+def rosenbrock_on_cube(u:[float])->float:
+    # https://deap.readthedocs.io/en/master/api/benchmarks.html#deap.benchmarks.rosenbrock
+    u_squished = [ 200*(ui**1.1-0.5) for ui in u ]
+    return 0.01*benchmarks.rosenbrock(u_squished)[0]
+
+
+def shaffer_on_cube(u:[float])->float:
+    # https://deap.readthedocs.io/en/master/api/benchmarks.html#deap.benchmarks.schaffer
+    u_squished = [ 200*(ui**1.1-0.5) for ui in u ]
+    return 0.01*benchmarks.schaffer(u_squished)[0]
+
+
+def shekel_on_cube(u:[float])->float:
+    # https://deap.readthedocs.io/en/master/api/benchmarks.html#deap.benchmarks.schaffer
+
+    n_dim = len(u)
+    NUMMAX = 15
+    A = 10 * np.random.rand(NUMMAX, n_dim)
+    C = np.random.rand(NUMMAX)
+    u_squished = [ 800*(ui**1.1-0.5) for ui in u ]
+    return -benchmarks.shekel(u_squished,A,C)[0]
+
+
 ## Combinations
 
-def deap_on_cube(u:[float])->float:
-    return schwefel_on_cube(u) + griewank_on_cube(u) + rastrigin_on_cube(u)
+def deap_combo1_on_cube(u:[float])->float:
+    return schwefel_on_cube(u) + griewank_on_cube(u)
 
 
+def deap_combo2_on_cube(u:[float])->float:
+    return shaffer_on_cube(u) + shekel_on_cube(u)
+
+
+def deap_combo3_on_cube(u:[float])->float:
+    return rosenbrock_on_cube(u) + bohachevsky_on_cube(u)
+
+
+DEAP_OBJECTIVES = [schwefel_on_cube, rastrigin_on_cube, griewank_on_cube,
+                   bohachevsky_on_cube, rosenbrock_on_cube, shaffer_on_cube, shekel_on_cube,
+                   deap_combo1_on_cube, deap_combo2_on_cube, deap_combo3_on_cube]
 
 
 # By hand...
@@ -117,9 +157,21 @@ def michaelewicz_on_cube(u:[float])->float:
     return michalewicz(u_scaled,m=20)
 
 
-LANDSCAPES_OBJECTIVES = [ styblinski_tang_on_cube, zakharov_on_cube, salomon_on_cube, rotated_hyper_ellipsoid_on_cube,
-                          qing_on_cube, michaelewicz_on_cube ]
+def landscapes_combo1_on_cube(u:[float])->float:
+    return qing_on_cube(u) + michaelewicz_on_cube(u)
 
+
+def landscapes_combo2_on_cube(u:[float])->float:
+    return rotated_hyper_ellipsoid_on_cube(u) + salomon_on_cube(u)
+
+
+def landscapes_combo3_on_cube(u:[float])->float:
+    return zakharov_on_cube(u) + styblinski_tang_on_cube(u)
+
+
+LANDSCAPES_OBJECTIVES = [ styblinski_tang_on_cube, zakharov_on_cube, salomon_on_cube, rotated_hyper_ellipsoid_on_cube,
+                          qing_on_cube, michaelewicz_on_cube, landscapes_combo1_on_cube, landscapes_combo2_on_cube,
+                          landscapes_combo3_on_cube ]
 
 # Some copied from peabox
 # https://github.com/stromatolith/peabox/blob/master/peabox/peabox_testfuncs.py
@@ -136,9 +188,8 @@ def ackley_on_cube(u:[float])->float:
 
 
 
-A_CLASSIC_OBJECTIVE = deap_on_cube  # For testing
+A_CLASSIC_OBJECTIVE = rastrigin_on_cube  # Just pick one for testing
 
-DEAP_OBJECTIVES = [schwefel_on_cube, rastrigin_on_cube, griewank_on_cube, deap_on_cube ]
 MISC_OBJECTIVES = [ paviani_on_cube, damavandi_on_cube, rosenbrock_modified_on_cube, ackley_on_cube ]
 
 CLASSIC_OBJECTIVES = DEAP_OBJECTIVES + LANDSCAPES_OBJECTIVES + MISC_OBJECTIVES
@@ -148,3 +199,4 @@ if __name__=="__main__":
     for objective in CLASSIC_OBJECTIVES:
         objective(u=[0.5,0.5,0.5])
         objective(u=[0.5, 0.5, 0.0, 0.0, 0.0])
+    print(len(CLASSIC_OBJECTIVES))
