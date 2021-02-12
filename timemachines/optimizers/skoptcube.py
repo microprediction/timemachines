@@ -94,12 +94,12 @@ SKOPT_GP_CANDIDATES = [ skopt_gp_default_cube, skopt_gp_sobol_cube, skopt_gp_ham
                         skopt_gp_lcb_cube, skopt_gp_lcbexplore_cube, skopt_gp_lcbexploit_cube,
                         skopt_gp_sampling_cube ]
 
-SKOPT_GP_OPTIMIZERS = [] # Not ready for prime time?
+SKOPT_GP_OPTIMIZERS = [ skopt_gp_default_cube ]
 
 if __name__ == '__main__':
-    always_working = SKOPT_GP_CANDIDATES
+    always_working = SKOPT_GP_CANDIDATES[:1]
     broken = set()
-    for objective in CLASSIC_OBJECTIVES[:1]:
+    for objective in CLASSIC_OBJECTIVES:
         print(' ')
         print(objective.__name__)
         for optimizer in SKOPT_GP_CANDIDATES:

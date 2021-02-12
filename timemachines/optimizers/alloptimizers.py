@@ -12,6 +12,7 @@ from timemachines.optimizers.pymoocube import PYMOO_OPTMIZERS
 from timemachines.optimizers.swarmlibcube import SWARMLIB_OPTIZERS
 from timemachines.optimizers.nevergradcube import NEVERGRAD_OPTIMIZERS
 from timemachines.objectives.classic import CLASSIC_OBJECTIVES
+from timemachines.optimizers.skoptcube import SKOPT_GP_OPTIMIZERS
 
 from datetime import datetime
 import pandas as pd
@@ -19,13 +20,13 @@ import argparse
 
 CANDIDATES = SCIPY_OPTIMIZERS + SHGO_OPTIMIZERS + HYPEROPT_OPTIMIZERS +\
              PYSOT_OPTIMIZERS + OPTUNA_OPTIMIZERS + AX_OPTIMIZERS +\
-             PLATYPUS_OPTIMIZERS + PYMOO_OPTMIZERS + NEVERGRAD_OPTIMIZERS + SWARMLIB_OPTIZERS
+             PLATYPUS_OPTIMIZERS + PYMOO_OPTMIZERS + NEVERGRAD_OPTIMIZERS + SWARMLIB_OPTIZERS + SKOPT_GP_OPTIMIZERS
 
 # To see what might be working, or not, refer regression testing results in directories such as:
 # https://github.com/microprediction/timemachines-testing/tree/main/data/brownian/dlm_seasonal
 OPTIMIZERS = SHGO_OPTIMIZERS + SCIPY_OPTIMIZERS + PYSOT_OPTIMIZERS + AX_OPTIMIZERS + \
              OPTUNA_OPTIMIZERS + PLATYPUS_OPTIMIZERS + NEVERGRAD_OPTIMIZERS +\
-             SWARMLIB_OPTIZERS + HYPEROPT_OPTIMIZERS + PYMOO_OPTMIZERS
+             SWARMLIB_OPTIZERS + HYPEROPT_OPTIMIZERS + PYMOO_OPTMIZERS + SKOPT_GP_OPTIMIZERS
 
 
 def optimizer_from_name(name):
