@@ -52,4 +52,4 @@ if __name__ == '__main__':
         print(' ')
         print(objective.__name__)
         for optimizer in HYPEROPT_OPTIMIZERS:
-            print(optimizer(objective, n_trials=50, n_dim=5, with_count=True))
+            print(optimizer(objective, n_trials=250, n_dim=6, with_count=True))

@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.2.31",
+    version="0.2.32",
     description="Evaluation and standardization of popular time series and optimization packages.",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -28,7 +28,7 @@ setup(
     tests_require=['pytest','microprediction'],
     include_package_data=True,
     install_requires=["wheel","pathlib","numpy>=1.19.5","pandas","importlib-metadata>=1.7.0","microconventions>0.5.0","getjson","sklearn",
-                      "divinity","pmdarima","hyperopt","scipy",
+                      "divinity","pmdarima","hyperopt","scipy","scikit-optimize",
                       "poap","pySOT","funcy","pydlm","optuna","deap","ax-platform","sigopt","statsmodels","tdigest","platypus-opt",
                       "pymoo","ratings","nevergrad","swarmlib","momentum","pandas",
                       "fbprophet","ratings>=0.0.9","landscapes"],

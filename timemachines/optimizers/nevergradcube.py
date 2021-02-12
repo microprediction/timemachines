@@ -105,4 +105,4 @@ if __name__=='__main__':
         print(' ')
         print(objective.__name__)
         for optimizer in NEVERGRAD_OPTIMIZERS:
-            print((optimizer.__name__,optimizer(objective, n_trials=100, n_dim=6, with_count=True)))
+            print((optimizer.__name__,optimizer(objective, n_trials=250, n_dim=6, with_count=True)))

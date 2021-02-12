@@ -102,7 +102,7 @@ def pysot_cube( objective, n_trials, n_dim, with_count=False, method=None, desig
     return (result.value, best_x, gp.feval_count) if with_count else (result.value, best_x)
 
 
-# Index by stratgegy
+# Index by strategy
 # SRBFStrategy, EIStrategy, DYCORSStrategy,RandomStrategy, LCBStrategy
 
 def pysot_srbf_cube( objective, n_trials, n_dim, with_count=False):
@@ -134,4 +134,4 @@ if __name__ == '__main__':
         print(' ')
         print(objective.__name__)
         for optimizer in PYSOT_OPTIMIZERS:
-            print( (optimizer.__name__, optimizer(objective, n_trials=100, n_dim=3, with_count=True)))
+            print( (optimizer.__name__, optimizer(objective, n_trials=250, n_dim=6, with_count=True)))
