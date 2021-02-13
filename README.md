@@ -10,38 +10,6 @@ A time series package where:
 
 ![](https://i.imgur.com/elu5muO.png)
 
-### Packages used
-
-Some functionality is drawn from:
-  - fbprophet, 
-  - pydlm, 
-  - pmdarima,
-
-and more. We are working down the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and adding some home-grown approaches as well. On an ongoing basis: 
- - Hyper-parameter optimization is routinely tested using a variety of optimization packages. See [timemachines-testing](https://github.com/microprediction/timemachines-testing). 
- - Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are compared on an ongoing basis out of sample. See the model [elo ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings). 
- - These tests use live data, constantly refreshed. See [stream listing](https://www.microprediction.org/browse_streams.html). 
-   
-# Skaters
-
-A time series approach manifests as a "skater", or we should say a function with a "skater" signature, that is
-considered a recipe for a *state machine*. The function is intended to be applied repeatedly. For example one could harvest
-a sequence of the model predictions as follows:
-
-    def posteriors(f,y):
-        s = {}       
-        x = list()
-        for yi in y: 
-            xi, xi_std, s = f(yi,s)
-            x.append(xi)
-        return x
- 
-Notice that f here is just a *single function*. There are no classes in this package - well except for the ones used as hacks to suppress optimizers who yabber incesantly. The callee f will
-create state 's' if it infers that this is the first time it is being called (note the empty dict passed). So
-long as the caller sends the callee an empty dict the first time, and 's' on subsequent invocations as shown above, everything should go swimmingly.  
- 
-### Observations: exogenous versus known-in-advance
- 
 - The skater function *f* takes a vector *y*, where the quantity to be predicted is y[0] and there may be other, simultaneously observed
  variables y[1:] whose lags may be helpful in predicting y[0].  
 - The function also takes a quantity *a* which is a vector of numbers known k-steps in advance. 
@@ -54,6 +22,39 @@ long as the caller sends the callee an empty dict the first time, and 's' on sub
                 t:float=None,                            # Time of observation (epoch seconds)
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s in R^n)
+
+A function with a "skater" signature, that is
+considered a recipe for a *state machine*. The function is intended to be applied repeatedly. For example one could harvest
+a sequence of the model predictions as follows:
+
+    def posteriors(f,y):
+        s = {}       
+        x = list()
+        for yi in y: 
+            xi, xi_std, s = f(yi,s)
+            x.append(xi)
+        return x
+ 
+Notice that f here is just a *single function*. There are no classes in this package - well except for the ones used as hacks to suppress optimizers who yabber incesantly. The callee f will create state 's' if it infers that this is the first time it is being called (note the empty dict passed). So
+long as the caller sends the callee an empty dict the first time, and 's' on subsequent invocations as shown above, everything should go swimmingly.  
+
+### Packages incorporated: 
+
+Some functionality is drawn from:
+  - fbprophet, 
+  - pydlm, 
+  - pmdarima,
+
+and more. We are working down the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and adding some home-grown approaches as well. 
+
+   
+# Skaters
+
+A time series approach manifests as a "skater", or we should say 
+ 
+### Observations: exogenous versus known-in-advance
+ 
+
 
 ### If you read nothing else here...
 This is important: 
@@ -158,6 +159,12 @@ Click to see video
  
  
 ### Optimization of hyperparameters
+ 
+On an ongoing basis: 
+ - Hyper-parameter optimization is routinely tested using a variety of optimization packages. See [timemachines-testing](https://github.com/microprediction/timemachines-testing). 
+ - Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are compared on an ongoing basis out of sample. See the model [elo ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings). 
+ - These tests use live data, constantly refreshed. See [stream listing](https://www.microprediction.org/browse_streams.html).  
+
    
 This package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
 is of independent interest. It is easy to exploit:
@@ -176,61 +183,6 @@ is of independent interest. It is easy to exploit:
 See [global optimizers](https://github.com/microprediction/timemachines/tree/main/timemachines/optimizers) for the full list. See [optimizer_elo_ratings/leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/optimizer_elo_ratings/leaderboards/overall) for current rankings and Elo ratings of global optimization strategies. These are computed by random match-ups where an [objective](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/objectives.py) function is chosen at random and the dimensionality of the search and number of allowed iterations is also randomly selected. The precise methodology is revealed in [optimizers/eloratings.py](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/eloratings.py). 
 
 UPDATE: I'm moving the optimizer part of this package into a standalone library [HumpDay](https://github.com/microprediction/humpday). Check it out.  
- 
-    
-### FAQ 1: Why not have the model persist the state?
-
-Answer: Well, you can trivially turn any skater function into a callable that does that, should you wish: 
-
-       class Predictor:
-   
-           def __init__(self,f):
-                self.f = f
-                self.s = s
-
-           def __call__(self,y,k,a,t,e):
-                x, x_std, self.s = self.f(y=y,s=self.s,k=k,a=a,t=t,e=e)
-                return x, x_std
-
-or write a decorator. Whatever, it's Python. 
-
-Answer: The intent is to produce simple lambda-friendly models and,
-
-- a *reasonable* way to map the most important hyper-parameter choices (we hope),
-- that imposes some geometric discipline on the hyper-parameter space in the first place, and
-- facilitates comparison of different ways to search hyper-parameters, across packages which have *entirely different conventions* and hyper-parameter spaces. 
-
-### FAQ 2: Why not use the packages, like prophet, directly?
-
-Answer: Maybe you should. Observe that this package wraps *some* functionality, not all by any means. You should use the original
-packages for maximum flexibility. However, as noted, you *might* like this package if you want to be able to do this:
-
-        s,k = {}, 3
-        for yi,ai in zip(y,a[k:]): 
-            xi, xi_std, s = f(y=yi,s=s,k=k,a=ai)
-
-Notice what isn't here: 
- - Pandas dataframes
- - A long list of methods and properties 
- - Column naming conventions 
- - The customary 10-50 lines of setup code before a prediction can be made,
- - The customary need to trace into the code to infer intent, including which parameters are supposed to be supplied. 
- - Possible confusion between variables known in advance and those observed contemporaneously,
- - Possible confusion about prediction horizon,
- - Possible conflation of 3-step ahead prediction with the 1-step ahead prediction applied three times, 
- - Datetime manipulation, and conventions like '5min' which not everyone agrees on. 
-
-There are also limitations of the skater approach. The simple data model in *y*, *a* is not well suited to problems where exogenous data comes and goes, and therefore cannot
-easily be represented by a vector of fixed length (you might consider a dictionary interface instead, as with
-the river package). 
-
-### FAQ 3: Only Point Estimates and Confidence Intervals?  
-
-Yes, the skater does not return a full distribution - unless you smuggle it into the state. 
-However this package was motivated by the desire to create better free turnkey distributional forecasts, at [microprediction.org](https://www.microprediction.org), and you might infer that skaters returning two numbers per horizon might be useful 
-as part of a chain of computations that eventually produces a distributional estimate. Skaters can be considered linear transforms
-of incoming data, and part of the agenda here is figuring out how to judge skaters
-in a manner that better reflects downstream use in distributional estimates. Here the theory of proper scoring rules doesn't really suffice, it would seem. End of aside.  
  
 
 ### Contributing 
