@@ -2,17 +2,16 @@
 
 ### Popular time-series packages in a simple functional (and Elo ratings)
 
-A time series package where: 
-  - Time series models are represented as mere functions. 
-  - Those functions suggest state machines for sequential consumption of observations (the state machines emit vectors of forecasts of lenght *k*, and also standard deviations).
+What's different:
+  - Time series models are represented as functions *f* with a "skater" signature. No classes. 
+  - Those functions suggest state machines for sequential consumption of observations (the state machines emit vectors of forecasts of length *k*, and also standard deviations).
   - The collection of all hyper-parameters is squished into a single point, in (0,1).  
 
 
 ![](https://i.imgur.com/elu5muO.png)
 
-- The skater function *f* takes a vector *y*, where the quantity to be predicted is y[0] and there may be other, simultaneously observed
- variables y[1:] whose lags may be helpful in predicting y[0].  
-- The function also takes a quantity *a* which is a vector of numbers known k-steps in advance. 
+A skater function *f* takes a vector *y*, where the quantity to be predicted is y[0] and there may be other, simultaneously observed
+ variables y[1:] whose lags may be helpful in predicting y[0]. The function also takes a quantity *a* which is a vector of numbers known k-steps in advance. 
 
       x, w, s = f(   y:Union[float,[float]],               # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
@@ -23,8 +22,7 @@ A time series package where:
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s in R^n)
 
-A function with a "skater" signature, that is
-considered a recipe for a *state machine*. The function is intended to be applied repeatedly. For example one could harvest
+The function is intended to be applied repeatedly. For example one could harvest
 a sequence of the model predictions as follows:
 
     def posteriors(f,y):
@@ -35,12 +33,13 @@ a sequence of the model predictions as follows:
             x.append(xi)
         return x
  
-Notice that f here is just a *single function*. There are no classes in this package - well except for the ones used as hacks to suppress optimizers who yabber incesantly. The callee f will create state 's' if it infers that this is the first time it is being called (note the empty dict passed). So
-long as the caller sends the callee an empty dict the first time, and 's' on subsequent invocations as shown above, everything should go swimmingly.  
+Notice the use of s={} on first invocation. This is also important: 
+- The caller should provide *a* pertaining to k-steps ahead, not the contemporaneous 'a'.  
 
 ### Packages incorporated: 
 
 Some functionality is drawn from:
+
   - fbprophet, 
   - pydlm, 
   - pmdarima,
@@ -48,24 +47,9 @@ Some functionality is drawn from:
 and more. We are working down the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and adding some home-grown approaches as well. 
 
    
-# Skaters
+### Skater "e" argument ("expiry")
 
-A time series approach manifests as a "skater", or we should say 
- 
-### Observations: exogenous versus known-in-advance
- 
-
-
-### If you read nothing else here...
-This is important: 
-
-- The caller should provide *a* pertaining to k-steps ahead, not the contemporaneous 'a'.  
-- The caller should provide *a* pertaining to k-steps ahead, not the contemporaneous 'a'.  
-- The caller should provide *a* pertaining to k-steps ahead, not the contemporaneous 'a'.  
-
-### Expiry
-
-The use of *e* is a fairly *weak convention* that many skaters ignore. In theory, a large expiry *e* can be used as a hint to the callee that
+The use of *e* is a fairly *weak* convention that many skaters ignore. In theory, a large expiry *e* can be used as a hint to the callee that
  there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation.
  However, this is between the caller and it's priest really - or its prophet. Some skaters, such
  as the prophet skater, do a full 'fit' every invocation so this is meaningless. Other skaters
@@ -74,9 +58,9 @@ The use of *e* is a fairly *weak convention* that many skaters ignore. In theory
 
 ### Return values
 
-Morally, a skater *suggests* an affine transformation of the incoming data. For each prediction horizon it returns
+For each prediction horizon it returns
 two numbers where the first can be *interpreted* as a point estimate (but need not be) and the second is *typically* suggestive
-of a symmetric error std, or width. 
+of a symmetric error std, or width. Morally, a skater *suggests* an affine transformation of the incoming data. 
 
 
           -> x     [float],    # A vector of point estimates, or anchor points, or theos
@@ -84,15 +68,14 @@ of a symmetric error std, or width.
              s    Any,         # Posterior state, intended for safe keeping by the callee until the next invocation 
                        
 
-In returning state, one possible intent is that the *caller* might carry the state from one invocation to the next, not the *callee*. This
-is arguably more convenient than having the predicting object maintain state, because the caller can "freeze" the state as they see fit, as 
-when making conditional predictions. It also eyes lambda-based deployments and *encourages* tidy use of internal state - not that we succeed
- when calling down to statsmodels (but all the home grown models here use simple dictionaries, making serialization trivial).
+In returning state, the likely intent is that the *caller* might carry the state from one invocation to the next, not the *callee*. This is arguably more convenient than having the predicting object maintain state, because the caller can "freeze" the state as they see fit, as 
+when making conditional predictions. This also eyes lambda-based deployments and *encourages* tidy use of internal state - not that we succeed
+ when calling down to statsmodels (but all the home grown models here use simple dictionaries, making serialization trivial). See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd). 
 
-### Skater hyper-parameters
+### Skater hyper-parameters in the interval (0,1)
  
 We use a further, somewhat unusual convention. All model hyper-parameters, should they exist, are squished down into
- a *scalar* quantity *r*. This imposes at skater "design time" a consistent hyper-parameter space. This step may seem
+ a *scalar* quantity *r* in (0,1). This imposes at "design time" a consistent hyper-parameter space. This step may seem
   unnatural, but it facilitates comparisons of models and hyper-parameter optimizers in different settings. 
   It is workable, we hope, with some space-filling curve conventions. More on that below. 
   
@@ -101,16 +84,8 @@ We use a further, somewhat unusual convention. All model hyper-parameters, shoul
 
 Ratings for time series models, including some widely used packages such as fbprophet, are produced separately for different horizons. Specifically, we create a different Elo rating for looking k=1 steps ahead versus k=13 steps ahead, say. A rating is produced for each k in the Fibonacci sequence. See [skater_elo_ratings/leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) sub-directories. For example some good ways to predict univariate time series 8 steps in advance might be suggested by the rankings at [/leaderboards/univariate_008](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards/univariate_008) but of course their are caveats. 
   
- 
-### Obligatory picture of a skater
-
-
-![](https://i.imgur.com/DkZvZRq.png)
-
-Photography by [Joe Cook](https://www.instagram.com/joecooke_/?utm_medium=referral&utm_source=unsplash)
-
     
-## Summary of conventions: 
+### Summary of conventions: 
 
 - State
     - The caller, not the callee, persists state from one invocation to the next
@@ -138,7 +113,7 @@ Nothing here is put forward
    as *the right way* to write time series packages - more a way of exposing their functionality for comparisons. 
   If you are interested in design thoughts for time series maybe participate in this [thread](https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1). 
 
-### Conventions for hyper-params in the unit interval or hypercube
+### A little more about hyper-parameters
 
 The restriction that all hyper-parameters be represented as r in (0,1) seems harsh. To be slightly less harsh, we include some standard ways
 to use (0,1)^2 or (0,1)^3 should that be preferable. Admittedly, this may still not be the most natural way to represent choices, but here
@@ -165,6 +140,7 @@ On an ongoing basis:
  - Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are compared on an ongoing basis out of sample. See the model [elo ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings). 
  - These tests use live data, constantly refreshed. See [stream listing](https://www.microprediction.org/browse_streams.html).  
 
+### Ability to employ many different optimization packages easily. 
    
 This package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
 is of independent interest. It is easy to exploit:
