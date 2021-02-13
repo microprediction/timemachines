@@ -3,9 +3,9 @@
 ### Popular time-series packages in a simple functional form
 
 What's different:
-  - Time series models are represented as functions *f* with a "skater" signature. No classes. 
-  - Those functions suggest state machines for sequential consumption of observations (the state machines emit vectors of forecasts of length *k*, and also standard deviations).
-  - The collection of all hyper-parameters is squished into a single point, in (0,1).  
+  - Time series models are represented as functions *f* with a "skater" signature, suggesting state machines for sequential consumption of observations (the state machines emit vectors of forecasts of length *k*, and also standard deviations).
+  - Standardized hyper-parameter space (the cube) and ability to hyper-optimize easily using scipy.optimize, ax-platform, hyperopt, optuna, platypus, pymoo, pySOT, shgo or anything else in [HumpDay](https://github.com/microprediction/humpday)
+  - Elo ratings of time series models, with [leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards).
 
 
 ![](https://i.imgur.com/elu5muO.png)
@@ -153,7 +153,6 @@ is of independent interest. It is easy to exploit:
   - pymoo
   - pysot
   - shgo
-  - swarmlib
   - and possible others. 
   
 See [global optimizers](https://github.com/microprediction/timemachines/tree/main/timemachines/optimizers) for the full list. See [optimizer_elo_ratings/leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/optimizer_elo_ratings/leaderboards/overall) for current rankings and Elo ratings of global optimization strategies. These are computed by random match-ups where an [objective](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/objectives.py) function is chosen at random and the dimensionality of the search and number of allowed iterations is also randomly selected. The precise methodology is revealed in [optimizers/eloratings.py](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/eloratings.py). 
