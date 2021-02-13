@@ -7,6 +7,11 @@ A time series package where:
   - Those functions suggest state machines for sequential consumption of observations (the state machines emit vectors of forecasts of lenght *k*, and also standard deviations).
   - The collection of all hyper-parameters is squished into a single point, in (0,1).  
 
+
+![](https://i.imgur.com/elu5muO.png)
+
+### Packages used
+
 Some functionality is drawn from:
   - fbprophet, 
   - pydlm, 
@@ -17,28 +22,6 @@ and more. We are working down the [listing of popular time series packages](http
  - Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are compared on an ongoing basis out of sample. See the model [elo ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings). 
  - These tests use live data, constantly refreshed. See [stream listing](https://www.microprediction.org/browse_streams.html). 
    
-### Global optimizers in canonical form, with Elo ratings
-   
-This package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
-is of independent interest. It is easy to exploit:
- 
-  - scipy
-  - ax-platform
-  - hyperopt
-  - optuna
-  - platypus
-  - pymoo
-  - pysot
-  - shgo
-  - swarmlib
-  - and possible others. 
-  
-See [global optimizers](https://github.com/microprediction/timemachines/tree/main/timemachines/optimizers) for the full list. See [optimizer_elo_ratings/leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/optimizer_elo_ratings/leaderboards/overall) for current rankings and Elo ratings of global optimization strategies. These are computed by random match-ups where an [objective](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/objectives.py) function is chosen at random and the dimensionality of the search and number of allowed iterations is also randomly selected. The precise methodology is revealed in [optimizers/eloratings.py](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/eloratings.py). 
-
-### UPDATE:
-
-I'm moving the optimizer part of this package into a standalone library [HumpDay](https://github.com/microprediction/humpday). Check it out. 
-
 # Skaters
 
 A time series approach manifests as a "skater", or we should say a function with a "skater" signature, that is
@@ -172,6 +155,27 @@ quasi-logarithmic parameter mapping from r in (0,1) to R which you can take or l
 
 [![IMAGE ALT TEXT](https://i.imgur.com/4F1oHXR.png)](https://vimeo.com/497113737 "Parameter importance")
 Click to see video
+ 
+ 
+### Optimization of hyperparameters
+   
+This package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
+is of independent interest. It is easy to exploit:
+ 
+  - scipy
+  - ax-platform
+  - hyperopt
+  - optuna
+  - platypus
+  - pymoo
+  - pysot
+  - shgo
+  - swarmlib
+  - and possible others. 
+  
+See [global optimizers](https://github.com/microprediction/timemachines/tree/main/timemachines/optimizers) for the full list. See [optimizer_elo_ratings/leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/optimizer_elo_ratings/leaderboards/overall) for current rankings and Elo ratings of global optimization strategies. These are computed by random match-ups where an [objective](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/objectives.py) function is chosen at random and the dimensionality of the search and number of allowed iterations is also randomly selected. The precise methodology is revealed in [optimizers/eloratings.py](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/eloratings.py). 
+
+UPDATE: I'm moving the optimizer part of this package into a standalone library [HumpDay](https://github.com/microprediction/humpday). Check it out.  
  
     
 ### FAQ 1: Why not have the model persist the state?
