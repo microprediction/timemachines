@@ -194,3 +194,4 @@ If you'd like to contribute to this standardizing and benchmarking effort, here 
 
 If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here that incorporates your library, do yourself a favor and also enable "supporting" on your repo. 
 
+See also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md)
