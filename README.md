@@ -4,9 +4,8 @@
 
 What's different:
   - Time series "models" are represented as functions *f* with a "skater" signature, suggesting state machines for sequential consumption of observations (the state machines emit vectors of forecasts of length *k*, and also standard deviations). NO CLASSES. NO DATAFRAMES. 
-  - Time series "models" yet to be 'fixed' use a standardized hyper-parameter space (the cube). This gives us the ability to hyper-optimize easily using scipy.optimize, ax-platform, hyperopt, optuna, platypus, pymoo, pySOT, shgo or anything else in [HumpDay](https://github.com/microprediction/humpday)
-  - Elo ratings of time series models, with [leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards).
-
+  - Time series "models" yet to be 'fixed' use a standardized hyper-parameter space (the cube). This is a limitation, but facilitates hyper-optimization using any global search from scipy.optimize, ax-platform, hyperopt, optuna, platypus, pymoo, pySOT ... or anything else in [HumpDay](https://github.com/microprediction/humpday)
+  - Elo ratings of time series models are produced, with [leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) based on live, constantly refreshing data like [this](https://www.microprediction.org/stream_dashboard.html?stream=sox_unlimited_gram_salad) at [microprediction.org](https://www.microprediction.org/browse_streams.html) - thereby discouraging hyperparameter overfiting.  
 
 ![](https://i.imgur.com/elu5muO.png)
 
