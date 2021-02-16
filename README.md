@@ -73,10 +73,8 @@ when making conditional predictions. This also eyes lambda-based deployments and
 
 ### Skater hyper-parameters in the interval (0,1)
  
-We use a further, somewhat unusual convention. All model hyper-parameters, should they exist, are squished down into
- a *scalar* quantity *r* in (0,1). This imposes at "design time" a consistent hyper-parameter space. This step may seem
-  unnatural, but it facilitates comparisons of models and hyper-parameter optimizers in different settings. 
-  It is workable, we hope, with some space-filling curve conventions. More on that below. 
+Morally hyper-parameters occupy the cube but operationallly, we use an unusual convention. All model hyper-parameters must be squished down into
+ a *scalar* quantity *r* in (0,1). This step may seem unnatural, but is workable with some space-filling curve conventions. More on that below. 
   
   
 ### Skater Elo ratings and rankings
