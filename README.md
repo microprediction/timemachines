@@ -88,7 +88,7 @@ Ratings for time series models, including some widely used packages such as fbpr
 
 - State
     - The caller, not the callee, persists state from one invocation to the next
-    - The caller passes s={}} the first time, and the callee initializes state
+    - The caller passes s={} the first time, and the callee initializes state
     - State can be mutable for efficiency (e.g. it might be a long buffer) or not. 
     - State should, ideally, be JSON-friendly. 
        
