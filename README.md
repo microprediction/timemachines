@@ -132,29 +132,7 @@ Click to see video
  
 ### Optimization of hyperparameters
  
-On an ongoing basis: 
- - Hyper-parameter optimization is routinely tested using a variety of optimization packages. See [timemachines-testing](https://github.com/microprediction/timemachines-testing). 
- - Once hyper-parameters are fixed, models with no tweakable (hyper)-parameters are compared on an ongoing basis out of sample. See the model [elo ratings](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings). 
- - These tests use live data, constantly refreshed. See [stream listing](https://www.microprediction.org/browse_streams.html).  
-
-### Ability to employ many different optimization packages easily. 
-   
-This package exposes some (but not all) functionality from numerous global optimizers in a consistent manner. Perhaps that 
-is of independent interest. It is easy to exploit:
- 
-  - scipy
-  - ax-platform
-  - hyperopt
-  - optuna
-  - platypus
-  - pymoo
-  - pysot
-  - shgo
-  - and possible others. 
-  
-See [global optimizers](https://github.com/microprediction/timemachines/tree/main/timemachines/optimizers) for the full list. See [optimizer_elo_ratings/leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/optimizer_elo_ratings/leaderboards/overall) for current rankings and Elo ratings of global optimization strategies. These are computed by random match-ups where an [objective](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/objectives.py) function is chosen at random and the dimensionality of the search and number of allowed iterations is also randomly selected. The precise methodology is revealed in [optimizers/eloratings.py](https://github.com/microprediction/timemachines/blob/main/timemachines/optimizers/eloratings.py). 
-
-UPDATE: I'm moving the optimizer part of this package into a standalone library [HumpDay](https://github.com/microprediction/humpday). Check it out.  
+UPDATE: I'm moving the optimizer part of this package into a standalone library [HumpDay](https://github.com/microprediction/humpday).   
  
 
 ### Contributing 
