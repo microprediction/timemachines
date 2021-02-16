@@ -3,7 +3,7 @@
 ### Popular time-series packages in a simple functional form
 
 What's different:
-  - Time series "models" are represented as functions *f* with a "skater" signature, suggesting state machines for sequential consumption of observations (the state machines emit vectors of forecasts of length *k*, and also standard deviations). NO CLASSES.
+  - Time series "models" are represented as functions *f* with a "skater" signature, suggesting state machines for sequential consumption of observations (the state machines emit vectors of forecasts of length *k*, and also standard deviations). NO CLASSES. NO DATAFRAMES. 
   - Time series "models" yet to be 'fixed' use a standardized hyper-parameter space (the cube). This gives us the ability to hyper-optimize easily using scipy.optimize, ax-platform, hyperopt, optuna, platypus, pymoo, pySOT, shgo or anything else in [HumpDay](https://github.com/microprediction/humpday)
   - Elo ratings of time series models, with [leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards).
 
