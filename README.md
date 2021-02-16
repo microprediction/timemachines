@@ -37,7 +37,7 @@ Notice the use of s={} on first invocation. This is also important:
 
 ### Packages incorporated: 
 
-Not enough yet, as I got distracted by [HumpDay](https://github.com/microprediction/humpday) and the paucity of fbpropht [post](https://www.linkedin.com/posts/petercotton_is-facebooks-prophet-the-time-series-messiah-activity-6767451190679748608-ftGE). However we're picking up speed and some functionality is drawn from:
+Not enough yet, as I got distracted by [HumpDay](https://github.com/microprediction/humpday) and the seeming paucity of fbprophet ([post](https://www.linkedin.com/posts/petercotton_is-facebooks-prophet-the-time-series-messiah-activity-6767451190679748608-ftGE)). However we're picking up speed and some functionality is drawn from:
 
   - fbprophet, 
   - pydlm, 
