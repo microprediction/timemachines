@@ -83,9 +83,8 @@ Epoch time of the observation
 ### Skater "e" argument ("expiry")
 
 The use of *e* is a fairly *weak* convention that many skaters ignore. In theory, a large expiry *e* can be used as a hint to the callee that
- there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation.
- However, this is between the caller and it's priest really - or its prophet. Some skaters, such
- as the prophet skater, do a full 'fit' every invocation so this is meaningless. Other skaters
+ there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation. A zero might suggest that there isn't even time for a "proper" prediction to be made, and we are still in the burn-in period as far as assessment or usage is concerned. However, this is between the caller and it's priest really - or its prophet we should say. Some skaters, such
+ as the Facebook prophet skater, do a full 'fit' every invocation so this is meaningless. Other skaters
   no separate notion of 'fit' versus 'update' because everything is incremental. 
    
 ## Skater "r" argument ("hype(r) pa(r)amete(r)s")
