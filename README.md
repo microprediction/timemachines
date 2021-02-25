@@ -71,7 +71,7 @@ The use of *e* is a fairly *weak* convention that many skaters ignore. In theory
    
 ## Skater "r" argument ("hype(r) pa(r)amete(r)s")
 
-A scalar in the closed interval \[0,1\]
+A scalar in the closed interval \[0,1\] represents *all* hyper-parameters. This step may seem unnatural, but is slighly less unnatural if [conventions](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/utilities/conventions.py) are followed that inflate \[0,1\] into the square \[0,1\]^2 or the cube \[0,1\]^3. See the functions **to_space** and **from_space**. 
 
 ### Return values
 
@@ -92,7 +92,7 @@ when making conditional predictions. This also eyes lambda-based deployments and
 ### Skater hyper-parameter *r* in the interval (0,1)
  
 Morally hyper-parameters occupy the cube but operationally, we use an unusual convention. All model hyper-parameters must be squished down into
- a *scalar* quantity *r* in (0,1). This step may seem unnatural, but is workable with some space-filling curve conventions. More on that below. 
+ a *scalar* quantity *r* in (0,1).  More on that below. 
     
 ### Summary of conventions: 
 
