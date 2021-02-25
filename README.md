@@ -10,7 +10,7 @@ What's different:
 ![](https://i.imgur.com/elu5muO.png)
 
 A skater function *f* takes a vector *y*, where the quantity to be predicted is y[0] and there may be other, simultaneously observed
- variables y[1:] whose lags may be helpful in predicting y[0]. The function also takes a quantity *a* which is a vector of numbers known k-steps in advance. 
+ variables y[1:] deemed helpful in predicting y[0]. The function also takes a quantity *a* which is a vector of numbers known k-steps in advance. 
 
       x, w, s = f(   y:Union[float,[float]],               # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
