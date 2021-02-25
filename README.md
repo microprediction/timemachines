@@ -4,7 +4,7 @@
 
 What's different:
   - Simple functional form. Time series "models" are literally functions, with a "skater" signature explained below. These functions suggest state machines that will perform sequential consumption of observations. The state machines emit vectors of forecasts of length *k*, and also standard deviations. NO CLASSES. NO DATAFRAMES. NO CEREMONY. 
-  - Simple combinations. Composition and combining in other ways is trivial. 
+  - Simple combinations. Stacking models, and combining in other ways, is easy due to the one-line format.  
   - Simple tuning using virtually any optimization library. Skaters with *r* parameter are yet to be "fixed". They use a standardized hyper-parameter space (the cube) so that, using the the [HumpDay](https://github.com/microprediction/humpday) package, one can easily switch from from scipy.optimize to ax-platform or hyperopt, optuna, platypus, pymoo, pySOT, skopt, dlib, nlopt, bayesian-optimization, nevergrad and more ... including close to 100 of the best performing global optimization strategies. 
   - Simple ongoing evaluation on fresh data. Skaters with no unassigned hyper-parameters can receive Elo ratings. See the [leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) in the accompanying repository [timemachines-testing](https://github.com/microprediction/timemachines-testing). Those Elo ratings based on head to head battles on live, constantly refreshing data like at [microprediction.org](https://www.microprediction.org/browse_streams.html) - thereby discouraging hyperparameter overfiting.  
 
