@@ -28,7 +28,9 @@ What's different:
   - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For many models state is a pure Python dictionary and thus
   trivially converted to JSON and back. 
 
-**NO CLASSES!**  **NO DATAFRAMES!** **NO CEREMONY!**   
+**NO CLASSES**  **NO DATAFRAMES** **NO CEREMONY**   
+
+Nothing to slow you down!
 
 ![](https://i.imgur.com/elu5muO.png)
 
