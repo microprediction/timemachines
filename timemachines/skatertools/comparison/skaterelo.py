@@ -1,9 +1,19 @@
 from timemachines.skaters.allskaters import SKATERS, skater_from_name  # Only those with no hyper-params
-from timemachines.skatertools.skating.evaluation import evaluate_mean_squared_error, evaluator_from_name
+from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error, evaluator_from_name
 import numpy as np
-from timemachines.skatertools.data.live import random_regular_data
-from timemachines.skatertools.comparison.eloformulas import elo_update  # TODO: Use ratings package instead
+from timemachines.skatertools.comparison.eloformulas import elo_update
 
+
+try:
+    from microprediction import MicroReader
+    have_micro = True
+except ImportError:
+    have_micro = False
+
+if have_micro:
+    from timemachines.skatertools.data.live import random_regular_data as DEFAULT_DATA_SOURCE
+else:
+    DEFAULT_DATA_SOURCE = None
 
 SKATER_F_FACTOR = 1000  # The scale factor for ratings. In chess this is set to 400.
                      # If the matchup is considered more fluky than a single game of chess, a higher value might make sense.
@@ -16,12 +26,13 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
           elo - Dictionary containing the 'state' (i.e. elo ratings and game counts)
           k   - Number of steps to look ahead
           tol - Error ratio that results in a tie being declared
-          data_provider - A function returning y, t
+          data_provider - A function taking n_obs and returning y, t
 
-        Speed is not taken into account
+        Speed is *not* taken into account, yet.
     """
     if data_source is None:
-        data_source = random_regular_data
+        data_source = DEFAULT_DATA_SOURCE
+        assert data_source is not None, "If microprediction is not installed you must supply a different data_source function that returns y, t "
 
     if not elo:
         # Initialize game counts and Elo ratings
@@ -63,7 +74,7 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
     if len(fs)==2:
         # a pitched paddle battle in a bottle
         print(fs[0].__name__ +' vs. '+fs[1].__name__)
-        y, t = random_regular_data(n_obs=n_burn+50)
+        y, t = data_source(n_obs=n_burn+50)
         scores = list()
         for i, f in zip([i1,i2],fs):
             import traceback
