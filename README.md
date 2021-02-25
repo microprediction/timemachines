@@ -1,6 +1,6 @@
 # timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![skater-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/skater-elo-ratings/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## Popular time-series packages in a simple functional form
+## Use popular time-series packages with one line of code
 
 What's different:
    - **Simple k-step ahead forecasts** with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py). 
