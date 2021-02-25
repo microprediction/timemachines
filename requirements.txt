@@ -1,4 +1,7 @@
 cmake
+convertdate
+holidays
+lunarcalendar
 pandas
 microconventions>0.5.0
 getjson

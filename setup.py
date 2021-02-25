@@ -41,7 +41,7 @@ setup(
     tests_require=['pytest','microprediction'],
     include_package_data=True,
     install_requires=["wheel","pathlib","numpy>=1.19.5","pandas","importlib-metadata>=1.7.0",
-                      "microconventions>0.5.0","getjson",
+                      "microconventions>0.5.0","getjson","convertdate","lunarcalendar","holidays",
                       "sklearn","scipy","funcy","tdigest",
                       "divinity","pmdarima","pydlm","tdigest","fbprophet",
                       "momentum","humpday"],
