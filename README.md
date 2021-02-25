@@ -96,9 +96,7 @@ A scalar in the closed interval \[0,1\] represents *all* hyper-parameters. This 
 
 ### Return values
 
-For each prediction horizon it returns
-two numbers where the first can be *interpreted* as a point estimate (but need not be) and the second is *typically* suggestive
-of a symmetric error std, or width. Morally, a skater *suggests* an affine transformation of the incoming data. 
+Two vectors and the posterior state. The first set of *k* numbers can be *interpreted* as a point estimate (but need not be) and the second is *typically* suggestive of a symmetric error std, or width. However a broader interpretation is possible wherein a skater *suggests* a useful affine transformation of the incoming data and nothing more.  
 
 
           -> x     [float],    # A vector of point estimates, or anchor points, or theos
@@ -106,9 +104,9 @@ of a symmetric error std, or width. Morally, a skater *suggests* an affine trans
              s    Any,         # Posterior state, intended for safe keeping by the callee until the next invocation 
                        
 
-In returning state, the likely intent is that the *caller* might carry the state from one invocation to the next, not the *callee*. This is arguably more convenient than having the predicting object maintain state, because the caller can "freeze" the state as they see fit, as 
+In returning state, the intent is that the *caller* might carry the state from one invocation to the next verbatim. This is arguably more convenient than having the predicting object maintain state, because the caller can "freeze" the state as they see fit, as 
 when making conditional predictions. This also eyes lambda-based deployments and *encourages* tidy use of internal state - not that we succeed
- when calling down to statsmodels (but all the home grown models here use simple dictionaries, making serialization trivial). See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd). 
+ when calling down to statsmodels (though prophet, and others including the home grown models use simple dictionaries, making serialization trivial). 
 
     
 ### Summary of conventions: 
@@ -132,11 +130,19 @@ when making conditional predictions. This also eyes lambda-based deployments and
 - Hyper-Parameter space:
      - A float *r* in (0,1). 
      - This package provides functions *to_space* and *from_space*, for expanding to R^n using space filling curves, so that the callee's (hyper) parameter optimization can still exploit geometry, if it wants to.   
-    
+     
+See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or file an issue if anything offends you greatly. 
  
 ## Usage 
 
-### Example 
+- See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
+
+### Install
+
+    pip install timemachines
+    pip install microprediction   (if you want to use live data)
+
+### Running a model and plotting it 
 
     from timemachines.skatertools.data import hospital_with_exog
     from timemachines.skatertools.visualization.priorplot import prior_plot
@@ -150,15 +156,9 @@ when making conditional predictions. This also eyes lambda-based deployments and
     err2 = prior_plot(f=fbprophet_exogenous, k=k, y=y, n=450, n_plot=50)
     
     plt.show()
- 
-### Install
-
-    pip install timemachines
-    pip install microprediction   (if you want to use live data)
     
 ### Tuning hyper-params
 
-- See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 - See [examples/tuning](https://github.com/microprediction/timemachines/tree/main/examples/tuning)
 - See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
     
