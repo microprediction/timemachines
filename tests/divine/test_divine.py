@@ -1,5 +1,5 @@
 from timemachines.skaters.divine.divineskaters import divine_univariate
-from timemachines.skaters.evaluation import hospital_mean_square_error
+from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_error
 
 
 def dont_test_divine(): # too noisy

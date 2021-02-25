@@ -1,4 +1,4 @@
-from timemachines.skaters.utilities.arrivals import infer_freq_from_epoch,  RECENT_SECONDS,naive_datetime_to_epoch, epoch_to_naive_datetime
+from timemachines.skatertools.utilities.epochtime import infer_freq_from_epoch,  RECENT_SECONDS,naive_datetime_to_epoch, epoch_to_naive_datetime
 
 
 def test_date_stuff():

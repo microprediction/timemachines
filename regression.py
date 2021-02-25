@@ -1,4 +1,4 @@
-from timemachines.stochastictests.allstochastictests import STOCHASTIC_TESTS
+from timemachines.skatertooltesting.allregressiontests import REGRESSION_TESTS
 import time
 import random
 TIMEOUT = 60*5
@@ -9,7 +9,7 @@ if __name__=='__main__':
     start_time = time.time()
     elapsed = time.time()-start_time
     while elapsed < TIMEOUT:
-        a_test = random.choice(STOCHASTIC_TESTS)
+        a_test = random.choice(REGRESSION_TESTS)
         print('Running '+str(a_test.__name__))
         a_test()
         elapsed = time.time() - start_time

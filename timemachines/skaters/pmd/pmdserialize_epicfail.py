@@ -1,8 +1,7 @@
 from timemachines.skaters.pmd.pmdskaters import pmd_exogenous
-import numpy as np
-from timemachines.data.real import hospital_with_exog
+from timemachines.skatertools.data import hospital_with_exog
 from pmdarima.arima import ARIMA
-from statsmodels.tsa.statespace.sarimax import SARIMAXResultsWrapper, SARIMAXResults
+
 
 # So the task here is to serialize and re-inflate the arima model, and thus all the skater state, to JSON
 # It may be a lost cause, but by all means prove me wrong.

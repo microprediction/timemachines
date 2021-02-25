@@ -1,6 +1,6 @@
-from pydlm import dlm, trend, seasonality, autoReg
-from timemachines.skaters.conventions import dimension, to_int_log_space, split_exogenous, Y_TYPE, R_TYPE
-from timemachines.skaters.plotting import prior_plot_exogenous
+from pydlm import dlm, trend, seasonality
+from timemachines.skatertools.utilities.conventions import dimension, to_int_log_space, split_exogenous, Y_TYPE, R_TYPE
+from timemachines.skatertools.visualization.priorplot import prior_plot_exogenous
 import math
 import numpy as np
 import matplotlib.pyplot as plt

@@ -1,4 +1,4 @@
-from timemachines.skaters.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
+from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
 from typing import Any
 
 # Similar to basic skaters, but no maintenence of empirical errors is performed
@@ -38,8 +38,8 @@ def trivial_ema_r1(y :Y_TYPE, s, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_T
 
 
 if __name__=='__main__':
-    from timemachines.data.real import hospital_with_exog
-    from timemachines.skaters.evaluation import evaluate_mean_absolute_error
+    from timemachines.skatertools.data import hospital_with_exog
+    from timemachines.skatertools.evaluation.evaluators import evaluate_mean_absolute_error
 
     k = 3
     y, a = hospital_with_exog(k=k,n=500)

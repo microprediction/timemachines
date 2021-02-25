@@ -1,5 +1,5 @@
 from timemachines.skaters.dlm.dlmexogenous import dlm_exogenous_r3, dlm_exogenous_b
-from timemachines.skaters.evaluation import hospital_mean_square_error, hospital_exog_mean_square_error
+from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_error, hospital_exog_mean_square_error
 import numpy as np
 
 

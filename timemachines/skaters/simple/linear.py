@@ -1,9 +1,9 @@
-from timemachines.skaters.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
+from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, E_TYPE, T_TYPE, wrap
 from typing import Any
 import numpy as np
 import math
-from timemachines.skaters.components.observance import observance
-from timemachines.skaters.components.parade import parade
+from timemachines.skatertools.components import observance
+from timemachines.skatertools.components.parade import parade
 
 
 def regress_change_on_first_known(y:Y_TYPE, s:dict, k, a:A_TYPE=None, t:T_TYPE =None, e:E_TYPE =None )->([float] , Any , Any):

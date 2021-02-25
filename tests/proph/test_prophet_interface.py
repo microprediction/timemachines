@@ -1,6 +1,6 @@
-from timemachines.data.real import hospital_with_exog, hospital
+from timemachines.skatertools.data.real import hospital_with_exog, hospital
 from timemachines.skaters.proph.prophskaterfactory import fbprophet_skater_factory
-from timemachines.skaters.utilities.nonemath import nearlysame
+from timemachines.skatertools.utilities.nonemath import nearlysame
 from timemachines.skaters.proph.prophiskaterfactory import prophet_iskater_factory, \
     prophet_fit_and_predict_simple, prophet_fit_and_predict_with_time, \
     prophet_fit_and_predict_with_time_and_advance_time, \

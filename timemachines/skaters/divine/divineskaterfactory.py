@@ -1,10 +1,9 @@
-from typing import List
 import numpy as np
 import divinity as dv
-from timemachines.skaters.conventions import to_int_log_space, Y_TYPE, K_TYPE
-from timemachines.skaters.utilities.suppression import no_stdout_stderr
-from timemachines.skaters.plotting import prior_plot
-from timemachines.skaters.conventions import wrap
+from timemachines.skatertools.utilities.conventions import Y_TYPE, K_TYPE
+from timemachines.skatertools.utilities.suppression import no_stdout_stderr
+from timemachines.skatertools.visualization.priorplot import prior_plot
+from timemachines.skatertools.utilities.conventions import wrap
 from timemachines.skaters.divine.divineparams import MIN_N_WARM, DIVINE_MODEL
 from copy import deepcopy
 

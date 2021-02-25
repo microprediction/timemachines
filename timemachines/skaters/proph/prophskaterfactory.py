@@ -1,14 +1,13 @@
-from timemachines.skaters.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
+from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
 from typing import Any
-from timemachines.skaters.components.parade import parade
+from timemachines.skatertools.components.parade import parade
 from timemachines.skaters.proph.prophiskaterfactory import prophet_iskater_factory
-from timemachines.skaters.utilities.nonemath import nonecenter
+from timemachines.skatertools.utilities.nonemath import nonecenter
 from timemachines.skaters.proph.prophparams import PROPHET_META, prophet_params
-from timemachines.skaters.utilities.nonemath import nonecast
+from timemachines.skatertools.utilities.nonemath import nonecast
 import sys
 import logging
 import numpy as np
-from typing import Union, List
 
 logging.disable(sys.maxsize)
 logging.getLogger('fbprophet').setLevel(logging.ERROR)
@@ -162,8 +161,8 @@ def fbprophet_skater_testor(y :Y_TYPE, s:dict=None, k:int =1, a:A_TYPE =None,
 
 
 if __name__ == '__main__':
-    from timemachines.data.real import hospital_with_exog
-    from timemachines.skaters.evaluation import evaluate_mean_absolute_error
+    from timemachines.skatertools.data import hospital_with_exog
+    from timemachines.skatertools.skating.evaluation import evaluate_mean_absolute_error
 
     k = 3
     y, a = hospital_with_exog(k=k, n=100, offset=True)

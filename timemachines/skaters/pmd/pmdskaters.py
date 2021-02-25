@@ -1,7 +1,7 @@
 from timemachines.skaters.pmd.pmdskaterfactory import pmd_skater_factory
-from timemachines.skaters.conventions import Y_TYPE,R_TYPE,A_TYPE,T_TYPE,E_TYPE, wrap
+from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE,T_TYPE,E_TYPE, wrap
 from timemachines.skaters.simple.empirical import empirical_last_value
-from timemachines.skaters.plotting import prior_plot, prior_plot_exogenous
+from timemachines.skatertools.visualization.priorplot import prior_plot, prior_plot_exogenous
 
 
 
@@ -38,8 +38,8 @@ PMD_SKATERS = [ pmd_known, pmd_exogenous, pmd_univariate ]
 
 
 def pmd_exog_compare(f,k=1):
-    from timemachines.skaters.evaluation import evaluate_mean_absolute_error
-    from timemachines.data.real import hospital_with_exog
+    from timemachines.skatertools.skating.evaluation import evaluate_mean_absolute_error
+    from timemachines.skatertools.data import hospital_with_exog
     y, a = hospital_with_exog(k=k)
     y0 = [ yi[0] for yi in y ]
 

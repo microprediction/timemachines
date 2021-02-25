@@ -1,12 +1,10 @@
 from timemachines.skaters.proph.prophiskaterfactory import prophet_iskater_factory
-from timemachines.skaters.conventions import wrap
-from fbprophet import Prophet
+from timemachines.skatertools.utilities.conventions import wrap
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 import random
 import math
-import matplotlib
 import os
 from pprint import pprint
 
@@ -62,7 +60,7 @@ def next_opinionated_forecast(n_train,k,n_recent, multiple,name=None):
                 t = list(reversed(lag_times))
                 n_obs = len(y)
         except ImportError:
-            from timemachines.data.real import hospital
+            from timemachines.skatertools.data import hospital
             y = hospital()
             t = [15*60*i for i in range(len(y))]
             name = 'hospital'

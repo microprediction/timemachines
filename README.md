@@ -160,11 +160,11 @@ and want a flexible way to represents searches then use one of the optim package
 the other hand, if you want to benefit from the operational simplicity of r in (0,1) then...
 
 - The default map *from_space* from (0,1)^3 or (0,1)^2->(0,1) uses interleaving of digits in the binary representations (after first scaling).
-- The script [demo_param_ordering.py](https://github.com/microprediction/timemachines/blob/master/examples/demo_param_ordering.py) illustrates
+- The script [demo_param_ordering.py](https://github.com/microprediction/timemachines/blob/master/examples/hyper/demo_param_ordering.py) illustrates
 the mapping from r in (0,1) to R^n demonstrating that the first coordinate will vary
 more smoothly as we vary r than the second, and so on.  
 - If you need dim>3 for hyper-parameters, you can always use *to_space* or *from_space* more than once. 
-- There are some functions provided to help you squish your hyper-params into the hypercube. The script [demo_balanced_log_scale.py](https://github.com/microprediction/timemachines/blob/master/examples/demo_balanced_log_scale.py) illustrates a
+- There are some functions provided to help you squish your hyper-params into the hypercube. The script [demo_balanced_log_scale.py](https://github.com/microprediction/timemachines/blob/master/examples/hyper/demo_balanced_log_scale.py) illustrates a
 quasi-logarithmic parameter mapping from r in (0,1) to R which you can take or leave. 
 
 [![IMAGE ALT TEXT](https://i.imgur.com/4F1oHXR.png)](https://vimeo.com/497113737 "Parameter importance")

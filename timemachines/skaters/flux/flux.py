@@ -8,8 +8,8 @@ except ImportError:
     print('pip install git+https://github.com/RJT1990/pyflux.git')
 
 import pandas as pd
-from timemachines.skaters.plotting import prior_plot_exogenous
-from timemachines.skaters.conventions import to_int_log_space, initialize_buffers, split_exogenous, update_buffers, \
+from timemachines.skatertools.skating.priorplot import prior_plot_exogenous
+from timemachines.skatertools.utilities.conventions import to_int_log_space, initialize_buffers, split_exogenous, update_buffers, \
     R_TYPE
 
 # TODO: Span models at https://pyflux.readthedocs.io/en/latest/gpnar.html with r

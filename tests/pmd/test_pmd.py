@@ -1,5 +1,5 @@
 from timemachines.skaters.pmd.pmdskaters import PMD_SKATERS, pmd_exogenous
-from timemachines.skaters.evaluation import hospital_mean_square_error, hospital_exog_mean_square_error
+from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_error, hospital_exog_mean_square_error
 
 
 def test_pmd_auto_univariate():

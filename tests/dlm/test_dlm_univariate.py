@@ -1,5 +1,5 @@
 from timemachines.skaters.dlm.dlmunivariate import dlm_univariate_a, dlm_univariate_r3
-from timemachines.skaters.evaluation import hospital_mean_square_error, hospital_exog_mean_square_error
+from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_error
 
 
 def test_dlm_auto_univariate():

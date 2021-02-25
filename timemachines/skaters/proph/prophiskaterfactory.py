@@ -1,14 +1,13 @@
 from fbprophet import Prophet
 import pandas as pd
-import numpy as np
 import sys
 import logging
 from typing import List, Tuple, Any
-from timemachines.skaters.conventions import wrap
-from timemachines.skaters.utilities.arrivals import infer_freq_from_epoch, is_valid_freq
-from timemachines.skaters.utilities.suppression import no_stdout_stderr
-from timemachines.skaters.utilities.arrivals import epoch_to_naive_datetime, EPOCH
+from timemachines.skatertools.utilities.conventions import wrap
+from timemachines.skatertools.utilities.epochtime import infer_freq_from_epoch, is_valid_freq, epoch_to_naive_datetime, EPOCH
+from timemachines.skatertools.utilities.suppression import no_stdout_stderr
 from timemachines.skaters.proph.prophparams import PROPHET_MODEL, PROPHET_META
+from timemachines.skatertools.utilities.wrangling import transpose
 
 logging.disable(sys.maxsize)
 logging.getLogger('fbprophet').setLevel(logging.ERROR)
@@ -18,7 +17,7 @@ logging.getLogger('fbprophet').setLevel(logging.ERROR)
 # Unlike most skaters, this "integrated" prophet skater (iskater) isn't computed by calling the skater
 # successively - the opposite is true. We fit once on the entire history every data point, and that's that.
 # Thus this function, which optionally returns the forecast dataframe and the model, doesn't contain the
-# ancilliary information that the skater carries (i.e. the prediction parade etc).
+# ancillary information that the skater carries (i.e. the prediction parade etc).
 
 
 def prophet_iskater_factory(y: [[float]], k: int, a: List = None, t: List = None, e=None, freq: str = None, n_max=1000,
@@ -34,7 +33,7 @@ def prophet_iskater_factory(y: [[float]], k: int, a: List = None, t: List = None
                              (obviously this adds to computation time)
     :returns: x         k-vector of predictions
               x_std     k-vector of standard deviations
-              forecast  full forecast dataframe
+              forecast  full forecast dataframe, familiar to users of fbprophet
     """
     if a:
         assert len(a) == len(y) + k
@@ -210,7 +209,6 @@ def prophet_fit_and_predict_with_advance_vars(y: [float], k: int, t: [float], a:
     assert len(t) == len(y) + k
     assert len(a) == len(y) + k
     assert isinstance(y[0], float)
-    from timemachines.skaters.utilities.wrangling import transpose
     a_cols = ['a' + str(i) for i in range(len(a[0]))]
     df = pd.DataFrame(columns=a_cols, data=a[:-k])
     df['y'] = y
@@ -242,7 +240,6 @@ def prophet_fit_and_predict_with_exog_and_advance_vars(y: [[float]], k: int, t: 
     assert len(t) == len(y) + k
     assert len(a) == len(y) + k
     assert isinstance(y[0], List)
-    from timemachines.skaters.utilities.wrangling import transpose
     a_cols = ['a' + str(i) for i in range(len(a[0]))]
     df = pd.DataFrame(columns=a_cols, data=a[:-k])
     Y = transpose(y)
@@ -282,7 +279,6 @@ def prophet_fit_and_predict_with_exog_and_advance_vars_no_t(y: [[float]], k: int
     """ Simpler wrapper for testing - univariate w/ advance vars w/ supplied times and future times  """
     assert len(a) == len(y) + k
     assert isinstance(y[0], List)
-    from timemachines.skaters.utilities.wrangling import transpose
     a_cols = ['a' + str(i) for i in range(len(a[0]))]
     df = pd.DataFrame(columns=a_cols, data=a[:-k])
     Y = transpose(y)

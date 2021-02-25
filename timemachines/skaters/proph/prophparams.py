@@ -1,4 +1,4 @@
-from timemachines.skaters.conventions import positive_log_scale, to_space
+from timemachines.skatertools.utilities.conventions import positive_log_scale, to_space
 
 # Some "global" prophet defaults set outside the model
 
