@@ -9,7 +9,7 @@ What's different:
     a forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However the *caller* is expected to maintain state from one 
     invocation (data point) to the next.  
    
-   - **Simple tuning** with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/hyper.py) facilitated by [HumpDay](https://github.com/microprediction/humpday), which provides a one-line canonical use of scipy.optimize, ax-platform,
+   - **Simple tuning** with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/hyper.py) facilitated by [HumpDay](https://github.com/microprediction/humpday), which provides canonical functional use of scipy.optimize, ax-platform,
    hyperopt, optuna, platypus, pymoo, pySOT, skopt, dlib, nlopt, bayesian-optimization, nevergrad and more. 
 
    
