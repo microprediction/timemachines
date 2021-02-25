@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Union, List
 import pandas as pd
 import pytz
+from timemachines.skatertools.utilities.arrivals import approx_dt
 
 
 EPOCH  = datetime.utcfromtimestamp(0)                     # Unix epoch start time as datetime
