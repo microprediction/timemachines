@@ -34,9 +34,6 @@ What's different:
 
 ## The Skater signature 
 
-A skater function *f* takes a vector *y*, where the quantity to be predicted is y[0] and there may be other, simultaneously observed
- variables y[1:] deemed helpful in predicting y[0]. The function also takes a quantity *a* which is a vector of numbers known k-steps in advance. 
-
       x, w, s = f(   y:Union[float,[float]],               # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
                 s=None,                                  # Prior state
@@ -57,10 +54,30 @@ a sequence of the model predictions as follows:
             x.append(xi)
         return x
  
-Notice the use of s={} on first invocation. This is also important: 
-- The caller should provide *a* pertaining to k-steps ahead, not the contemporaneous 'a'.  
+ or see the prominently positioned [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py). Notice the use of s={} on first invocation. 
+ 
+### Skater "y" argument
 
-   
+A skater function *f* takes a vector *y*, where the quantity to be predicted is y[0] and there may be other, simultaneously observed
+ variables y[1:] deemed helpful in predicting y[0].
+
+### Skater "s" argument
+ 
+The state. Pass empty dict the first time. 
+
+### Skater "k" argument 
+
+Determines the length of the term structure of predictions (and also their standard deviations) that will be returned. This cannot be varied from
+one invocation to the next. 
+
+### Skater "a" argument 
+
+A vector of known-in-advance variables. 
+
+### Skater "t" argument 
+
+Epoch time of the observation
+
 ### Skater "e" argument ("expiry")
 
 The use of *e* is a fairly *weak* convention that many skaters ignore. In theory, a large expiry *e* can be used as a hint to the callee that
@@ -89,10 +106,6 @@ In returning state, the likely intent is that the *caller* might carry the state
 when making conditional predictions. This also eyes lambda-based deployments and *encourages* tidy use of internal state - not that we succeed
  when calling down to statsmodels (but all the home grown models here use simple dictionaries, making serialization trivial). See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd). 
 
-### Skater hyper-parameter *r* in the interval (0,1)
- 
-Morally hyper-parameters occupy the cube but operationally, we use an unusual convention. All model hyper-parameters must be squished down into
- a *scalar* quantity *r* in (0,1).  More on that below. 
     
 ### Summary of conventions: 
 
@@ -115,14 +128,7 @@ Morally hyper-parameters occupy the cube but operationally, we use an unusual co
 - Hyper-Parameter space:
      - A float *r* in (0,1). 
      - This package provides functions *to_space* and *from_space*, for expanding to R^n using space filling curves, so that the callee's (hyper) parameter optimization can still exploit geometry, if it wants to.   
-     - See discussion below    
     
-    
-Nothing here is put forward
-   as *the right way* to write time series packages - more a way of exposing their functionality for comparisons. 
-  If you are interested in design thoughts for time series maybe participate in this [thread](https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1). 
-
-
  
 ## Usage 
  
@@ -145,6 +151,8 @@ If you'd like to contribute to this standardizing and benchmarking effort, here 
 - Think about the most important hyper-parameters and consider "warming up" the mapping (0,1)->hyper-params by testing on real data. There is a [tutorial](https://www.microprediction.com/python-3) on retrieving live data, or use the [real data](https://pypi.org/project/realdata/) package, if that's simpler.
 - The [comparison of hyper-parameter optimization packages](https://www.microprediction.com/blog/optimize) might also be helpful.  
 
-If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here that incorporates your library, do yourself a favor and also enable "supporting" on your repo. 
+If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here that incorporates your library, do yourself a favor and also enable "supporting" on your repo. Nothing here is put forward
+   as *the right way* to write time series packages - more a way of exposing their functionality for comparisons. 
+  If you are interested in design thoughts for time series maybe participate in this [thread](https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1). 
 
 See also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md)
