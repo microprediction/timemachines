@@ -3,14 +3,16 @@
 ### Popular time-series packages in a simple functional form
 
 What's different:
-  - Time series "models" are represented as functions *f* with a "skater" signature. These functions suggest state machines for sequential consumption of observations (the state machines emit vectors of forecasts of length *k*, and also standard deviations). ONE CALL. NO SETUP. NO CLASSES. NO DATAFRAMES. NO CEREMONY. 
-  - Time series "models" yet to be "fixed" use a standardized hyper-parameter space (the cube). This is a limitation, but facilitates hyper-optimization using any global search from scipy.optimize, ax-platform, hyperopt, optuna, platypus, pymoo, pySOT, skopt, bayesian-optimization, nevergrad and more ... including 50+ global optimization strategies enumerated in the [HumpDay](https://github.com/microprediction/humpday) package.
-  - Elo ratings of time series model instances (those with fixed hyper-params) populate [leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) in the accompanying repository [timemachines-testing](https://github.com/microprediction/timemachines-testing). Those Elo ratings based on head to head battles on live, constantly refreshing data like [this](https://www.microprediction.org/stream_dashboard.html?stream=sox_unlimited_gram_salad) at [microprediction.org](https://www.microprediction.org/browse_streams.html) - thereby discouraging hyperparameter overfiting.  
+  - **Simple functional form**. Time series "models" are literally functions, with a "skater" signature explained below. These functions suggest state machines that will perform sequential consumption of observations. The state machines emit vectors of forecasts of length *k*, and also standard deviations. ONE LINE. NO CLASSES. NO DATAFRAMES. NO CEREMONY. 
+  - **Simple stacking**. Composing or ensembling models is easy due to the one-line format.  
+  - **Simple tuning** using virtually any optimization library. Skaters with *r* parameter are yet to be "fixed". They use a standardized hyper-parameter space (the cube) so that, using the the [HumpDay](https://github.com/microprediction/humpday) package, one can easily switch from from scipy.optimize to ax-platform or hyperopt, optuna, platypus, pymoo, pySOT, skopt, dlib, nlopt, bayesian-optimization, nevergrad and more ... including close to 100 of the [highest rated](https://github.com/microprediction/optimizer-elo-ratings) global optimization strategies. 
+  - **Simple ongoing evaluation** on fresh data. Skaters with no unassigned hyper-parameters can receive Elo ratings. See the [leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) in the accompanying repository [timemachines-testing](https://github.com/microprediction/timemachines-testing). Those Elo ratings based on head to head battles on live, constantly refreshing data like at [microprediction.org](https://www.microprediction.org/browse_streams.html) - thereby discouraging hyperparameter overfiting.  
+ - **Simple deployment**. Skaters return state to the caller. Stateless deployment patterns (e.g. lambdas) are therefore possible. 
 
 ![](https://i.imgur.com/elu5muO.png)
 
 A skater function *f* takes a vector *y*, where the quantity to be predicted is y[0] and there may be other, simultaneously observed
- variables y[1:] whose lags may be helpful in predicting y[0]. The function also takes a quantity *a* which is a vector of numbers known k-steps in advance. 
+ variables y[1:] deemed helpful in predicting y[0]. The function also takes a quantity *a* which is a vector of numbers known k-steps in advance. 
 
       x, w, s = f(   y:Union[float,[float]],               # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
