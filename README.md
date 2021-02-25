@@ -1,15 +1,38 @@
 # timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![skater-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/skater-elo-ratings/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-### Popular time-series packages in a simple functional form
+## Popular time-series packages in a simple functional form
 
 What's different:
-  - **Simple functional form**. Time series "models" are literally functions, with a "skater" signature explained below. These functions suggest state machines that will perform sequential consumption of observations. The state machines emit vectors of forecasts of length *k*, and also standard deviations. ONE LINE. NO CLASSES. NO DATAFRAMES. NO CEREMONY. 
-  - **Simple stacking**. Composing or ensembling models is easy due to the one-line format.  
-  - **Simple tuning** using virtually any optimization library. Skaters with *r* parameter are yet to be "fixed". They use a standardized hyper-parameter space (the cube) so that, using the the [HumpDay](https://github.com/microprediction/humpday) package, one can easily switch from from scipy.optimize to ax-platform or hyperopt, optuna, platypus, pymoo, pySOT, skopt, dlib, nlopt, bayesian-optimization, nevergrad and more ... including close to 100 of the [highest rated](https://github.com/microprediction/optimizer-elo-ratings) global optimization strategies. 
-  - **Simple ongoing evaluation** on fresh data. Skaters with no unassigned hyper-parameters can receive Elo ratings. See the [leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) in the accompanying repository [timemachines-testing](https://github.com/microprediction/timemachines-testing). Those Elo ratings based on head to head battles on live, constantly refreshing data like at [microprediction.org](https://www.microprediction.org/browse_streams.html) - thereby discouraging hyperparameter overfiting.  
- - **Simple deployment**. Skaters return state to the caller. Stateless deployment patterns (e.g. lambdas) are therefore possible. 
+   - **Simple k-step ahead forecasts** with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py). 
+   Time series "models" are defined by functions with a "skater" signature facilitating [skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py).
+   One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
+    a forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However the *caller* is expected to maintain state from one 
+    invocation (data point) to the next.  
+   
+   - **Simple tuning** with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/hyper.py) facilitated by [HumpDay](https://github.com/microprediction/humpday), which provides a one-line canonical use of scipy.optimize, ax-platform,
+   hyperopt, optuna, platypus, pymoo, pySOT, skopt, dlib, nlopt, bayesian-optimization, nevergrad and more. 
+
+   
+   - **Simple evaluation** with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/evaluation/evaluators.py) using
+    metrics like RMSE or energy distances. 
+    
+   - **Simple stacking** of models with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py). The functional
+   form makes other types of model combination easy as well.  
+
+   - **Simple, ongoing empirical evaluation**. See the [leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) in
+    the accompanying repository [timemachines-testing](https://github.com/microprediction/timemachines-testing) listing Elo ratings
+     for skaters with no unassigned hyper-parameters. Assessment is always out of sample and uses *live*, constantly updating real-world data 
+     from [microprediction.org](https://www.microprediction.org/browse_streams.html).   
+
+  
+  - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For many models state is a pure Python dictionary and thus
+  trivially converted to JSON and back. 
+
+**NO CLASSES!**  **NO DATAFRAMES!** **NO CEREMONY!**   
 
 ![](https://i.imgur.com/elu5muO.png)
+
+## The Skater signature 
 
 A skater function *f* takes a vector *y*, where the quantity to be predicted is y[0] and there may be other, simultaneously observed
  variables y[1:] deemed helpful in predicting y[0]. The function also takes a quantity *a* which is a vector of numbers known k-steps in advance. 
@@ -37,16 +60,6 @@ a sequence of the model predictions as follows:
 Notice the use of s={} on first invocation. This is also important: 
 - The caller should provide *a* pertaining to k-steps ahead, not the contemporaneous 'a'.  
 
-### Packages incorporated: 
-
-Not enough yet, as I got distracted by [HumpDay](https://github.com/microprediction/humpday) and the seeming paucity of fbprophet ([post](https://www.linkedin.com/posts/petercotton_is-facebooks-prophet-the-time-series-messiah-activity-6767451190679748608-ftGE)). However we're picking up speed and some functionality is drawn from:
-
-  - fbprophet, 
-  - pydlm, 
-  - pmdarima,
-
-and more. We are working down the [listing of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) and adding some home-grown approaches as well. 
-
    
 ### Skater "e" argument ("expiry")
 
@@ -73,16 +86,10 @@ In returning state, the likely intent is that the *caller* might carry the state
 when making conditional predictions. This also eyes lambda-based deployments and *encourages* tidy use of internal state - not that we succeed
  when calling down to statsmodels (but all the home grown models here use simple dictionaries, making serialization trivial). See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd). 
 
-### Skater hyper-parameters in the interval (0,1)
+### Skater hyper-parameter *r* in the interval (0,1)
  
-Morally hyper-parameters occupy the cube but operationallly, we use an unusual convention. All model hyper-parameters must be squished down into
+Morally hyper-parameters occupy the cube but operationally, we use an unusual convention. All model hyper-parameters must be squished down into
  a *scalar* quantity *r* in (0,1). This step may seem unnatural, but is workable with some space-filling curve conventions. More on that below. 
-  
-  
-### Skater Elo ratings and rankings
-
-Ratings for time series models, including some widely used packages such as fbprophet, are produced separately for different horizons. Specifically, we create a different Elo rating for looking k=1 steps ahead versus k=13 steps ahead, say. A rating is produced for each k in the Fibonacci sequence. See [skater_elo_ratings/leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) sub-directories. For example some good ways to predict univariate time series 8 steps in advance might be suggested by the rankings at [/leaderboards/univariate_008](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards/univariate_008) but of course their are caveats. 
-  
     
 ### Summary of conventions: 
 
@@ -112,32 +119,23 @@ Nothing here is put forward
    as *the right way* to write time series packages - more a way of exposing their functionality for comparisons. 
   If you are interested in design thoughts for time series maybe participate in this [thread](https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1). 
 
-### A little more about hyper-parameters
 
-The restriction that all hyper-parameters be represented as r in (0,1) seems harsh. To be slightly less harsh, we include some standard ways
-to use (0,1)^2 or (0,1)^3 should that be preferable. Admittedly, this may still not be the most natural way to represent choices, but here
-we are trying to give lots of different optimizers a run at the problem. Of course, if you want to optimize skaters by some other means
-and want a flexible way to represents searches then use one of the optim packages directly (e.g. optuna is pretty flexible in this regard). On 
-the other hand, if you want to benefit from the operational simplicity of r in (0,1) then...
+ 
+## Usage 
+ 
+### Install
 
-- The default map *from_space* from (0,1)^3 or (0,1)^2->(0,1) uses interleaving of digits in the binary representations (after first scaling).
-- The script [demo_param_ordering.py](https://github.com/microprediction/timemachines/blob/master/examples/hyper/demo_param_ordering.py) illustrates
-the mapping from r in (0,1) to R^n demonstrating that the first coordinate will vary
-more smoothly as we vary r than the second, and so on.  
-- If you need dim>3 for hyper-parameters, you can always use *to_space* or *from_space* more than once. 
-- There are some functions provided to help you squish your hyper-params into the hypercube. The script [demo_balanced_log_scale.py](https://github.com/microprediction/timemachines/blob/master/examples/hyper/demo_balanced_log_scale.py) illustrates a
-quasi-logarithmic parameter mapping from r in (0,1) to R which you can take or leave. 
+    pip install timemachines
+    pip install microprediction   (if you want to use live data)
+    
+### Tuning hyper-params
 
-[![IMAGE ALT TEXT](https://i.imgur.com/4F1oHXR.png)](https://vimeo.com/497113737 "Parameter importance")
-Click to see video
- 
- 
-### Optimization of hyperparameters
- 
-UPDATE: I'm moving the optimizer part of this package into a standalone library [HumpDay](https://github.com/microprediction/humpday).   
- 
+- See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
+- See [examples/tuning](https://github.com/microprediction/timemachines/tree/main/examples/tuning)
+- See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
+    
+## Contribute 
 
-### Contributing 
 If you'd like to contribute to this standardizing and benchmarking effort, here are some ideas:
 
 - See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
