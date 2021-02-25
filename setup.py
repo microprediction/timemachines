@@ -33,7 +33,7 @@ setup(
               "timemachines.skatertools.components",
               "timemachines.skatertools.composition",
               "timemachines.skatertools.data",
-              "timemachiens.skatertools.evaluation",
+              "timemachines.skatertools.evaluation",
               "timemachines.skatertools.tuning",
               "timemachines.skatertools.utilities",
               "timemachines.skatertools.visualization"],
