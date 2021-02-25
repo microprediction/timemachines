@@ -69,6 +69,9 @@ The use of *e* is a fairly *weak* convention that many skaters ignore. In theory
  as the prophet skater, do a full 'fit' every invocation so this is meaningless. Other skaters
   no separate notion of 'fit' versus 'update' because everything is incremental. 
    
+## Skater "r" argument ("hype(r) pa(r)amete(r)s")
+
+A scalar in the closed interval \[0,1\]
 
 ### Return values
 
