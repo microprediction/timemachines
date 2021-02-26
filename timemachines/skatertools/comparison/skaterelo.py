@@ -66,6 +66,7 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
     for i,sn in zip([i1,i2],[skater1,skater2]):
         try:
             f = skater_from_name(sn)
+            assert f is not None,'probably just not used anymore'
             elo['active'][i] = True
             fs.append(f)
         except Exception as e:
