@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.3.10",
+    version="0.3.11",
     description="Evaluation and standardization of popular time series and tuning packages.",
     long_description=README,
     long_description_content_type="text/markdown",

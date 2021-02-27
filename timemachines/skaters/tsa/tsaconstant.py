@@ -15,6 +15,8 @@ def tsa_constant_skater_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
                              p:int=TSA_P_DEFAULT, d:int=TSA_D_DEFAULT, q:int=TSA_D_DEFAULT) -> ([float], Any, Any):
     """ Extremely simple univariate, fixed p,d,q ARIMA model that is re-fit each time """
 
+    # TODO: FIX THIS TO USE EMPIRICAL STD, OTHERWISE ENSEMBLES ARE DREADFUL
+
     y = wrap(y)
     a = wrap(a)
 
@@ -52,19 +54,55 @@ def tsa_constant_skater_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
 
 # TODO: Replace tsa with empirical tsa, otherwise these ensembles are silly
 
-def tsa_constant_skater_p3_d0_q3(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
+
+def tsa_constant_skater_p1_d0_q0(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
                              t: T_TYPE = None, e: E_TYPE = None) -> ([float], Any, Any):
-    return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=3,d=0,q=3)
+    return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=1,d=0,q=0)
 
 
-def tsa_constant_skater_p3_d1_q3(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
+def tsa_constant_skater_p2_d0_q0(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
                              t: T_TYPE = None, e: E_TYPE = None) -> ([float], Any, Any):
-    return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=3,d=1,q=3)
+    return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=2,d=0,q=0)
 
 
 def tsa_constant_skater_p3_d0_q0(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
                              t: T_TYPE = None, e: E_TYPE = None) -> ([float], Any, Any):
     return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=3,d=0,q=0)
+
+TSA_D0_Q0_SKATERS = [ tsa_constant_skater_p1_d0_q0, tsa_constant_skater_p2_d0_q0,
+                      tsa_constant_skater_p3_d0_q0 ]
+
+def tsa_constant_skater_p1_d0_q1(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
+                             t: T_TYPE = None, e: E_TYPE = None) -> ([float], Any, Any):
+    return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=1,d=0,q=1)
+
+
+def tsa_constant_skater_p2_d0_q1(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
+                             t: T_TYPE = None, e: E_TYPE = None) -> ([float], Any, Any):
+    return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=2,d=0,q=1)
+
+
+def tsa_constant_skater_p3_d0_q1(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
+                             t: T_TYPE = None, e: E_TYPE = None) -> ([float], Any, Any):
+    return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=3,d=0,q=1)
+
+TSA_D0_Q1_SKATERS = [ tsa_constant_skater_p1_d0_q0, tsa_constant_skater_p2_d0_q0,
+                      tsa_constant_skater_p3_d0_q0 ]
+
+TSA_D0_SKATERS = TSA_D0_Q0_SKATERS + TSA_D0_Q1_SKATERS
+
+#################################### d=1 ####################################
+
+
+
+def tsa_constant_skater_p1_d1_q0(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
+                             t: T_TYPE = None, e: E_TYPE = None) -> ([float], Any, Any):
+    return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=1,d=1,q=0)
+
+
+def tsa_constant_skater_p2_d1_q0(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
+                             t: T_TYPE = None, e: E_TYPE = None) -> ([float], Any, Any):
+    return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=2,d=1,q=0)
 
 
 def tsa_constant_skater_p3_d1_q0(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
@@ -72,8 +110,33 @@ def tsa_constant_skater_p3_d1_q0(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
     return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=3,d=1,q=0)
 
 
-TSA_CONSTANT_SKATERS = [tsa_constant_skater_p3_d0_q3, tsa_constant_skater_p3_d1_q3,
-                        tsa_constant_skater_p3_d0_q0, tsa_constant_skater_p3_d1_q0]
+TSA_D1_Q0_SKATERS = [ tsa_constant_skater_p1_d1_q0, tsa_constant_skater_p2_d1_q0,
+                      tsa_constant_skater_p3_d1_q0 ]
+
+def tsa_constant_skater_p1_d1_q1(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
+                             t: T_TYPE = None, e: E_TYPE = None) -> ([float], Any, Any):
+    return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=1,d=1,q=1)
+
+
+def tsa_constant_skater_p2_d1_q1(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
+                             t: T_TYPE = None, e: E_TYPE = None) -> ([float], Any, Any):
+    return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=2,d=1,q=1)
+
+
+def tsa_constant_skater_p3_d1_q1(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
+                             t: T_TYPE = None, e: E_TYPE = None) -> ([float], Any, Any):
+    return tsa_constant_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,p=3,d=1,q=1)
+
+
+TSA_D1_Q1_SKATERS = [ tsa_constant_skater_p1_d1_q0, tsa_constant_skater_p2_d1_q0,
+                      tsa_constant_skater_p3_d1_q0 ]
+
+TSA_D1_SKATERS = TSA_D1_Q0_SKATERS + TSA_D1_Q1_SKATERS
+
+TSA_CONSTANT_SKATERS = TSA_D0_SKATERS + TSA_D1_SKATERS
+
+
+
 
 
 def tsa_balanced_ensemble(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None)->([float] , Any , Any):
