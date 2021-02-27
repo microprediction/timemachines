@@ -4,7 +4,6 @@ from timemachines.skaters.simple.empirical import empirical_last_value
 from timemachines.skatertools.visualization.priorplot import prior_plot, prior_plot_exogenous
 
 
-
 def pmd_exogenous(y:Y_TYPE, s:dict, k:int=1, a:A_TYPE=None, t:T_TYPE=None, e:E_TYPE=None):
     """ Predict using auto_arima, with both simultaneously observed and known in advance variables
         This skater has no hyper-parameters
@@ -34,12 +33,9 @@ def pmd_univariate(y:Y_TYPE, s:dict, k:int=1, a:A_TYPE=None, t:T_TYPE=None, e:E_
     return pmd_skater_factory(y=y0, s=s, k=k, a=None, t=t, e=e, method='auto')
 
 
-PMD_SKATERS = [ pmd_known, pmd_exogenous, pmd_univariate ]
-
-
 def pmd_exog_compare(f,k=1):
-    from timemachines.skatertools.skating.evaluation import evaluate_mean_absolute_error
-    from timemachines.skatertools.data import hospital_with_exog
+    from timemachines.skatertools.evaluation.evaluators import evaluate_mean_absolute_error
+    from timemachines.skatertools.evaluation.evaluators import hospital_with_exog
     y, a = hospital_with_exog(k=k)
     y0 = [ yi[0] for yi in y ]
 
@@ -60,8 +56,6 @@ def pmd_exog_compare(f,k=1):
 if __name__ == '__main__':
     f = pmd_exogenous
     if True:
-        prior_plot_exogenous(f=f, k=1, n=200, r=0.95)
+        prior_plot_exogenous(f=f, k=1, n=200)
     if True:
-        prior_plot(f=f,k=1,n=200,r=0.5)
-    if True:
-        pmd_exog_compare(f=f)
+        prior_plot(f=f,k=1,n=200)

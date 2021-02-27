@@ -90,8 +90,6 @@ def dlm_set_univariate_params(s, r:R_TYPE):
     return s
 
 
-
-
 if __name__ == '__main__':
     err = prior_plot_exogenous(f=dlm_univariate_r3, k=2, n=500, r=np.random.rand())
     plt.figure()

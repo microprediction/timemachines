@@ -1,4 +1,5 @@
-from timemachines.skaters.pmd.pmdskaters import PMD_SKATERS, pmd_exogenous
+from timemachines.skaters.pmd.allpmdskaters import PMD_SKATERS
+from timemachines.skaters.pmd.pmdskaters import pmd_exogenous
 from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_error, hospital_exog_mean_square_error
 
 

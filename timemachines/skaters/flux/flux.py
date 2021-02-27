@@ -8,7 +8,7 @@ except ImportError:
     print('pip install git+https://github.com/RJT1990/pyflux.git')
 
 import pandas as pd
-from timemachines.skatertools.skating.priorplot import prior_plot_exogenous
+from timemachines.skatertools.visualization.priorplot import prior_plot_exogenous
 from timemachines.skatertools.utilities.conventions import to_int_log_space, initialize_buffers, split_exogenous, update_buffers, \
     R_TYPE
 
