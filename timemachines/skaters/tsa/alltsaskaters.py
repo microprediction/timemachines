@@ -1,3 +1,3 @@
-from timemachines.skaters.tsa.tsasimple import TSA_SKATERS_CONSTANT
+from timemachines.skaters.tsa.tsaconstant import TSA_CONSTANT_SKATERS
 
-TSA_SKATERS = TSA_SKATERS_CONSTANT
+TSA_SKATERS = TSA_CONSTANT_SKATERS

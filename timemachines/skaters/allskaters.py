@@ -1,4 +1,4 @@
-from timemachines.skaters.simple.movingaverage import EMA_SKATERS, BASIC_R1_SKATERS
+from timemachines.skaters.simple.movingaverage import EMA_SKATERS, EMA_R1_SKATERS
 from timemachines.skaters.simple.linear import LINEAR_SKATERS
 from timemachines.skaters.divine.divineskaters import DIVINE_SKATERS
 from timemachines.skaters.proph.allprophetskaters import PROPHET_SKATERS, PROPHET_R2_SKATERS
@@ -9,7 +9,7 @@ from timemachines.skaters.tsa.alltsaskaters import TSA_SKATERS
 
 SKATERS_R3 = []
 SKATERS_R2 = PROPHET_R2_SKATERS
-SKATERS_R1 = BASIC_R1_SKATERS
+SKATERS_R1 = EMA_R1_SKATERS
 
 
 # And with no hyper-params...

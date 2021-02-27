@@ -65,13 +65,14 @@ def quickly_moving_average(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, 
 def rapidly_moving_average(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None):
     return empirical_ema_r1(y=y, s=s, k=k, a=a, t=t, e=e, r=0.5)
 
+EMA_BASIC_SKATERS = [empirical_last_value, sluggish_moving_average, slowly_moving_average, quickly_moving_average, rapidly_moving_average ]
+
 
 def precision_ema_ensemble(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None)->([float] , Any , Any):
     """
          Precision weight several different moving averages
     """
-    fs = [ sluggish_moving_average, slowly_moving_average, quickly_moving_average, slowly_moving_average,
-           rapidly_moving_average, empirical_last_value ]
+    fs = EMA_BASIC_SKATERS
     return precision_weighted_ensemble_factory(fs=fs,y=y,s=s,k=k,a=a,t=t,e=e,r=0.5)
 
 
@@ -79,8 +80,7 @@ def balanced_ema_ensemble(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE 
     """
          More evenly weighted
     """
-    fs = [ sluggish_moving_average, slowly_moving_average, quickly_moving_average, slowly_moving_average,
-           rapidly_moving_average, empirical_last_value ]
+    fs = EMA_BASIC_SKATERS
     return precision_weighted_ensemble_factory(fs=fs,y=y,s=s,k=k,a=a,t=t,e=e,r=0.25)
 
 
@@ -88,17 +88,15 @@ def aggressive_ema_ensemble(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYP
     """
          Heavily weight the best
     """
-    fs = [ sluggish_moving_average, slowly_moving_average, quickly_moving_average, slowly_moving_average,
-           rapidly_moving_average, empirical_last_value ]
+    fs = EMA_BASIC_SKATERS
     return precision_weighted_ensemble_factory(fs=fs,y=y,s=s,k=k,a=a,t=t,e=e,r=0.9)
 
 
-EMA_SKATERS = [empirical_last_value, slowly_moving_average, quickly_moving_average,
-               sluggish_moving_average, rapidly_moving_average,
-               balanced_ema_ensemble, aggressive_ema_ensemble,
-               precision_ema_ensemble]
+EMA_ENSEMBLE_SKATERS = [ balanced_ema_ensemble, aggressive_ema_ensemble, precision_ema_ensemble]
 
-BASIC_R1_SKATERS = [empirical_ema_r1]
+EMA_SKATERS = EMA_BASIC_SKATERS + EMA_ENSEMBLE_SKATERS
+
+EMA_R1_SKATERS = [empirical_ema_r1]
 
 
 if __name__=='__main__':
@@ -107,8 +105,8 @@ if __name__=='__main__':
 
     k = 3
     y, a = hospital_with_exog(k=k,n=500)
-    f = empirical_ema_r1
-    err1 = evaluate_mean_absolute_error(f=f, k=k, y=y, a=a, r=0.9, n_burn=50)
+    f = aggressive_ema_ensemble
+    err1 = evaluate_mean_absolute_error(f=f, k=k, y=y, a=a, n_burn=50)
 
 
 
