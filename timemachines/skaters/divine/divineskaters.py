@@ -7,11 +7,11 @@ def divine_univariate(y,s,k,a=None,t=None,e=None):
 
 
 def divine_univariate_hypocratic_slow(y,s,k,a=None,t=None,e=None):
-    return slowly_moving_hypocratic_residual_factory(f=divine_univariate, y=y,s=s,a=a,t=t,e=e)
+    return slowly_moving_hypocratic_residual_factory(f=divine_univariate, y=y,s=s,k=k,a=a,t=t,e=e)
 
 
 def divine_univariate_hypocratic_fast(y,s,k,a=None,t=None,e=None):
-    return quickly_moving_hypocratic_residual_factory(f=divine_univariate, y=y,s=s,a=a,t=t,e=e)
+    return quickly_moving_hypocratic_residual_factory(f=divine_univariate, y=y,s=s,k=k,a=a,t=t,e=e)
 
 
 DIVINE_SKATERS = [ divine_univariate, divine_univariate_hypocratic_slow, divine_univariate_hypocratic_fast ]

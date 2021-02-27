@@ -18,7 +18,7 @@ def precision_weighted_skater(y,s,k,a,t,e,r=0.5):
        r -   determines the exponent:
 
              r=0.0 corresponds to equal weighting independent of x_std supplied by the models
-             r=0.5 corresponds to precision weighting and is the default
+             r=0.5 corresponds to simple weighting and is the default
              r->1  will use only the most accurate skater in the ensemble
 
     """
@@ -30,6 +30,6 @@ def precision_weighted_skater(y,s,k,a,t,e,r=0.5):
     y_hats = [ y[2*j+1] for j in range(J) ]
     x = weighted_average(y=y_hats, w=w)
     x_std = min(y_stds)  # Conservative - they probably are not independent
-    x_interp = [y[0]+(j+1)/k*(x-y) for j in range(k)]
+    x_interp = [y[0]+(j+1)/k*(x-y[0]) for j in range(k)]
     x_std_interp = [math.sqrt(j+1)*x_std for j in range(k)]
     return x_interp, x_std_interp, {}
