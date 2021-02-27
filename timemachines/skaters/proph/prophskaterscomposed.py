@@ -1,7 +1,7 @@
 from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, E_TYPE, T_TYPE
 from timemachines.skatertools.composition.residualshypocratic import quickly_moving_hypocratic_residual_factory
 from timemachines.skatertools.composition.residualcomposition import residual_chaser_factory
-from timemachines.skaters.proph.prophskaterssingular import fbprophet_univariate, fbprophet_exogenous
+from timemachines.skaters.proph.prophskaterssingular import fbprophet_univariate, fbprophet_exogenous, fbprophet_cautious
 
 
 def fbprophet_exogenous_hypocratic(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None):
@@ -16,7 +16,7 @@ def fbprophet_univariate_hypocratic(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None
 
 def fbprophet_cautious_hypocratic(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None):
     """ Chase residuals, somewhat cautiously using, quickly moving average """
-    return quickly_moving_hypocratic_residual_factory(y=y, s=s, k=k, a=a, t=t, e=e, r=None, f=fbprophet_cautious_hypocratic)
+    return quickly_moving_hypocratic_residual_factory(y=y, s=s, k=k, a=a, t=t, e=e, r=None, f=fbprophet_cautious)
 
 
 def fbprophet_exogenous_exogenous(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None):
