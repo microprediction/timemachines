@@ -1,6 +1,6 @@
 from timemachines.skaters.pmd.pmdskaterfactory import pmd_skater_factory
 from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE,T_TYPE,E_TYPE, wrap
-from timemachines.skaters.simple.empirical import empirical_last_value
+from timemachines.skaters.simple.movingaverage import empirical_last_value
 from timemachines.skatertools.visualization.priorplot import prior_plot, prior_plot_exogenous
 
 

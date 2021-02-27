@@ -70,8 +70,8 @@ def optimize_proph_against_hospital(k=10, n_extra=100):
     y, a = hospital_with_exog(k=k, n=n_burn+n_extra, offset=True)
 
     from timemachines.skaters.proph.prophskaterssingular import fbprophet_univariate, fbprophet_known, fbprophet_recursive
-    from timemachines.skaters.simple.empirical import BASIC_SKATERS
-    skaters = [fbprophet_univariate, fbprophet_known, fbprophet_recursive, fbprophet_recursive]+BASIC_SKATERS
+    from timemachines.skaters.simple.movingaverage import EMA_SKATERS
+    skaters = [fbprophet_univariate, fbprophet_known, fbprophet_recursive, fbprophet_recursive] + EMA_SKATERS
 
     for f in skaters:
         mn_err = evaluator(f=f, y=y, k=k, a=a, n_burn=n_burn)
@@ -105,7 +105,7 @@ def select_working_combinations():
     from timemachines.skatertools.evaluation.evaluators import EVALUATORS
     broken = list()
     k = 1
-    from timemachines.skaters.simple.empirical import empirical_ema_r1
+    from timemachines.skaters.simple.movingaverage import empirical_ema_r1
     f = empirical_ema_r1
     for optimizer in OPTIMIZERS:
         print(' ')

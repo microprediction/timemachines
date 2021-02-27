@@ -2,6 +2,8 @@ from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYP
 from typing import Any
 from timemachines.skatertools.components.parade import parade
 from timemachines.skatertools.utilities.nonemath import nonecast
+from timemachines.skatertools.ensembling.ensemblefactory import precision_weighted_ensemble_factory
+import math
 
 # Fast elementary time series skaters, useful as benchmarks, pre-processing, sub-components etc
 # They maintain running mean/std of their own empirical errors
@@ -48,6 +50,10 @@ def empirical_ema_r1(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TY
         return [s['x']] * k, x_std_fallback, s
 
 
+def sluggish_moving_average(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None):
+    return empirical_ema_r1(y=y, s=s, k=k, a=a, t=t, e=e, r=0.99)
+
+
 def slowly_moving_average(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None):
     return empirical_ema_r1(y=y, s=s, k=k, a=a, t=t, e=e, r=0.95)
 
@@ -56,9 +62,42 @@ def quickly_moving_average(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, 
     return empirical_ema_r1(y=y, s=s, k=k, a=a, t=t, e=e, r=0.75)
 
 
+def rapidly_moving_average(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None):
+    return empirical_ema_r1(y=y, s=s, k=k, a=a, t=t, e=e, r=0.5)
 
 
-BASIC_SKATERS = [empirical_last_value, slowly_moving_average, quickly_moving_average]
+def precision_ema_ensemble(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None)->([float] , Any , Any):
+    """
+         Precision weight several different moving averages
+    """
+    fs = [ sluggish_moving_average, slowly_moving_average, quickly_moving_average, slowly_moving_average,
+           rapidly_moving_average, empirical_last_value ]
+    return precision_weighted_ensemble_factory(fs=fs,y=y,s=s,k=k,a=a,t=t,e=e,r=0.5)
+
+
+def balanced_ema_ensemble(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None)->([float] , Any , Any):
+    """
+         More evenly weighted
+    """
+    fs = [ sluggish_moving_average, slowly_moving_average, quickly_moving_average, slowly_moving_average,
+           rapidly_moving_average, empirical_last_value ]
+    return precision_weighted_ensemble_factory(fs=fs,y=y,s=s,k=k,a=a,t=t,e=e,r=0.25)
+
+
+def aggressive_ema_ensemble(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None)->([float] , Any , Any):
+    """
+         Heavily weight the best
+    """
+    fs = [ sluggish_moving_average, slowly_moving_average, quickly_moving_average, slowly_moving_average,
+           rapidly_moving_average, empirical_last_value ]
+    return precision_weighted_ensemble_factory(fs=fs,y=y,s=s,k=k,a=a,t=t,e=e,r=0.9)
+
+
+EMA_SKATERS = [empirical_last_value, slowly_moving_average, quickly_moving_average,
+               sluggish_moving_average, rapidly_moving_average,
+               balanced_ema_ensemble, aggressive_ema_ensemble,
+               precision_ema_ensemble]
+
 BASIC_R1_SKATERS = [empirical_ema_r1]
 
 

@@ -1,18 +1,20 @@
-from timemachines.skaters.simple.empirical import BASIC_SKATERS, BASIC_R1_SKATERS
+from timemachines.skaters.simple.movingaverage import EMA_SKATERS, BASIC_R1_SKATERS
 from timemachines.skaters.simple.linear import LINEAR_SKATERS
 from timemachines.skaters.divine.divineskaters import DIVINE_SKATERS
 from timemachines.skaters.proph.allprophetskaters import PROPHET_SKATERS, PROPHET_R2_SKATERS
 from timemachines.skaters.dlm.alldlmskaters import DLM_SKATERS
 from timemachines.skaters.simple.thinking import THINKING_SKATERS
 from timemachines.skaters.pmd.allpmdskaters import PMD_SKATERS
-
+from timemachines.skaters.tsa.alltsaskaters import TSA_SKATERS
 
 SKATERS_R3 = []
 SKATERS_R2 = PROPHET_R2_SKATERS
 SKATERS_R1 = BASIC_R1_SKATERS
 
+
 # And with no hyper-params...
-SKATERS = BASIC_SKATERS + LINEAR_SKATERS + PROPHET_SKATERS + DIVINE_SKATERS + DLM_SKATERS + THINKING_SKATERS + PMD_SKATERS
+SKATERS = EMA_SKATERS + LINEAR_SKATERS + PROPHET_SKATERS + DIVINE_SKATERS + DLM_SKATERS + \
+          THINKING_SKATERS + PMD_SKATERS + TSA_SKATERS
 
 
 def skater_from_name(name):

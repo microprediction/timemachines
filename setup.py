@@ -32,6 +32,7 @@ setup(
               "timemachines.skatertools.comparison",
               "timemachines.skatertools.components",
               "timemachines.skatertools.composition",
+              "timemachines.skatertools.ensembling",
               "timemachines.skatertools.data",
               "timemachines.skatertools.evaluation",
               "timemachines.skatertools.tuning",

@@ -1,5 +1,5 @@
 from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE
-from timemachines.skaters.simple.empirical import empirical_ema_r1
+from timemachines.skaters.simple.movingaverage import empirical_ema_r1
 from timemachines.skatertools.utilities.conventions import wrap
 
 # Skaters that shrink towards zero

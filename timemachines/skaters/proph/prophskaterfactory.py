@@ -162,7 +162,7 @@ def fbprophet_skater_testor(y :Y_TYPE, s:dict=None, k:int =1, a:A_TYPE =None,
 
 if __name__ == '__main__':
     from timemachines.skatertools.data import hospital_with_exog
-    from timemachines.skatertools.skating.evaluation import evaluate_mean_absolute_error
+    from timemachines.skatertools.evaluation.evaluators import evaluate_mean_absolute_error
 
     k = 3
     y, a = hospital_with_exog(k=k, n=100, offset=True)

@@ -23,7 +23,7 @@ def residual_chaser_factory(y :Y_TYPE, s:dict, k:int, a:A_TYPE =None, t:T_TYPE =
 
     y0 = wrap(y)[0]
     if not s.get('s1'):
-        s = {'sres': {},                        # Residual state ... used to determine the residual
+        s = {'sres': {},                      # Residual state ... used to determine the residual
              'x': y0,
              's1':{},                         # First model state
              's2':dict([(j,{}) for j in J]),  # Residual model states
