@@ -1,6 +1,6 @@
 # timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![skater-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/skater-elo-ratings/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## Use popular time-series packages with one line of code
+## State machines for time-series. Use popular packages with one line of code
 
 What's different:
 
@@ -9,7 +9,7 @@ What's different:
    - **Simple k-step ahead forecasts** in functional style involving [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py). 
    Time series "models" are synomymous with functions that have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
    One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
-    a forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However the *caller* is expected to maintain state from one 
+    forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However here the *caller* is expected to maintain state from one 
     invocation (data point) to the next.  
    
    - **Simple tuning** with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/hyper.py) facilitated by [HumpDay](https://github.com/microprediction/humpday), which provides canonical functional use of scipy.optimize, ax-platform,
