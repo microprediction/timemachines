@@ -4,7 +4,7 @@
 
 What's different:
 
-   - **Simple canoncial use** of *some* functionality from packages like fbprophet, pmdarima and their ilk. 
+   - **Simple canoncial use** of *some* functionality from packages like fbprophet, pmdarima, tsa and their ilk. 
 
    - **Simple k-step ahead forecasts** in functional style involving [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py). 
    Time series "models" are synomymous with functions that have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
