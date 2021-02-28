@@ -6,7 +6,7 @@ from timemachines.skaters.dlm.alldlmskaters import DLM_SKATERS
 from timemachines.skaters.simple.thinking import THINKING_SKATERS
 from timemachines.skaters.pmd.allpmdskaters import PMD_SKATERS
 from timemachines.skaters.tsa.alltsaskaters import TSA_SKATERS
-from timemachines.skaters.nproph.allnprophskaters import NPROPH_SKATERSs
+from timemachines.skaters.nproph.allnprophskaters import NPROPH_SKATERS
 
 SKATERS_R3 = []
 SKATERS_R2 = PROPHET_R2_SKATERS
