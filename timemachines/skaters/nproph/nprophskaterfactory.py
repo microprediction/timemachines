@@ -109,7 +109,13 @@ def nproph_skater_factory(y:Y_TYPE, s:dict, k:int=1, a:A_TYPE=None, t:T_TYPE=Non
             if len(s['o']['x']) > 5 + 2*k:
                 Y = s['o']['y'][k+1:]
                 X = s['o']['x'][k+1:]
-                x_std = [ np.nanstd( [ xi[0]-yk[0] for xi, yk in zip( X, Y[j:] ) ] ) for j in range(1,k+1) ]
+                x_std = [ np.nanstd(
+                    [xi[0]-yk[0] 
+                     for xi, yk 
+                     in zip( X, Y[j:] ) ] ) 
+                         for j 
+                         in range(1,k+1) 
+                        ]
             else:
                 x_std = [1.0]*k   # Fallback to dreadful estimate
         else:
@@ -134,9 +140,25 @@ def nproph_skater_factory(y:Y_TYPE, s:dict, k:int=1, a:A_TYPE=None, t:T_TYPE=Non
         tick(s)
         X = s['o'].get('x') or None
         Y = s['o']['y']
-        s['model'] = pm.auto_arima(y=Y, X=X, **s['params'])
-        print(s['model'])
-        print(s['model'].arima_res_.params)
+        # s['model'] = pm.auto_arima(y=Y, X=X, **s['params'])
+        
+        s['model'] = NeuralProphet(
+            n_lags=s['params']['n_lags'],
+            changepoints_range=s['params']['changepoints_range'],
+            n_changepoints=s['params']['n_changepoints'],
+            weekly_seasonality=s['params']['weekly_seasonality'],
+            batch_size=s['params']['batch_size'],
+            epochs=s['params']['epochs'],
+            learning_rate=s['params']['learning_rate'],
+        )
+        dummy_freq = '5min'
+        dummy_start = '2021-01-01'
+        DF = pd.DataFrame(columns=['y'], data=Y)
+        DF['ds'] = pd.date_range(
+            start=dummy_start, periods=len(Y), freq=dummy_freq
+        )
+        s['model'].fit(DF, freq=dummy_freq)
+        print(s['model'].data_params)
         pprint(tocks(s))
         tock(s,'fit')
         pprint(tocks(s))
