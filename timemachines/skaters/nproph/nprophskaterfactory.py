@@ -2,7 +2,7 @@ from pprint import pprint
 from typing import Any, Union, List
 
 import numpy as np
-import pmdarima as pm #?
+# import npropharima as pm #?
 
 from timemachines.skatertools.utilities.conventions import (
     Y_TYPE, A_TYPE, E_TYPE, T_TYPE, S_TYPE
@@ -21,27 +21,38 @@ from timemachines.skatertools.components.chronometer import (
 
 ###################################################################################################
 #                                                                                                 #
-#                      PMD-ARIMA skater factory                                                   #
+#                      NPROPH-ARIMA skater factory                                                #
 #                                                                                                 #
 # As with all skaters, the intent is that you can cycle through observations as follows:          #
 #                                                                                                 #
 #      for yi, ai in zip(y, a):                                                                   #
-#         x, x_std, s = pmd_exogenous(y=yi, s=s, k=7, a=ai)                                       #
+#         x, x_std, s = nproph_univariate(y=yi, s=s, k=7, a=ai)                                       #
 #                                                                                                 #
 # where each x and s_std are length 7, in this example, and a[0] is contemporaneous with y[7]     #
-#                                                                                                 #
-# Advantages:                                                                                     #
-#       - Pretty good amortized invocation time, say if you fit every 100 invocations             #
-# Disadvantages:                                                                                  #
-#       - Model state is opaque or at best obscure                                                #
-#                                                                                                 #
+#                                                                                                 ##               
 ###################################################################################################
 
+def nproph_set_immutable(y: Y_TYPE, k:int, a:A_TYPE=None, n_warm:int=20):
+    """ Set on the first invocation, when s={} is passed """
+    return {'k': k,
+            'alpha':0.25,   # Determines confidence interval
+            'n_fit':250,
+            'n_warm':n_warm,
+            'dim_exog': dimension(y) - 1,
+            'dim_a': dimension(a)}
 
-def pmd_skater_factory(y:Y_TYPE, s:dict, k:int=1, a:A_TYPE=None, t:T_TYPE=None, e:E_TYPE=None,
-                       method: str= 'default', n_warm=50,
-                       model_params:dict=None)->(Union[List[float],None],
-                                                 Union[List[float],None], Any):
+def nproph_check_consistent_usage(y:Y_TYPE,s,k,a):
+    if y is not None:
+        assert dimension(y)-1 == s['immutable']['dim_exog']
+    if k is not None:
+        assert k==s['immutable']['k']
+    if a is not None:
+        assert dimension(a)==s['immutable']['dim_a']
+
+def nproph_skater_factory(y:Y_TYPE, s:dict, k:int=1, a:A_TYPE=None, t:T_TYPE=None, e:E_TYPE=None,
+                          method: str= 'default', n_warm=50,
+                          model_params:dict=None)->(Union[List[float],None],
+                                                    Union[List[float],None], Any):
     """ Predict using both simultaneously observed and known in advance variables
         y: Y_TYPE    scalar or list where y[1:] are interpreted as contemporaneously observed exogenous variables
         s:           state
@@ -64,17 +75,17 @@ def pmd_skater_factory(y:Y_TYPE, s:dict, k:int=1, a:A_TYPE=None, t:T_TYPE=None, 
         # Initialize
         s['n_obs'] = 0
         s['model'] = None
-        s['immutable'] = pmd_set_immutable(k=k, y=y, a=a, n_warm=n_warm)
-        s['params'] = pmd_params(method=method)
+        s['immutable'] = nproph_set_immutable(k=k, y=y, a=a, n_warm=n_warm)
+        s['params'] = nproph_params(method=method)
         if model_params:
             s['params'].update(model_params)
         s['o'] = dict()                         # Observance
     else:
-        pmd_check_consistent_usage(y=y,s=s,a=a,k=k)
+        nproph_check_consistent_usage(y=y,s=s,a=a,k=k)
 
     tick(s)
     if t is not None:
-        pass # Other models might perform an evolution step here. Not applicable to PMDARIMA
+        pass # Other models might perform an evolution step here. Not applicable to nprophARIMA
 
     if y is not None:
         # Receive observation y[0], possibly exogenous y[1:] and possibly k-in-advance a[:]
@@ -83,7 +94,7 @@ def pmd_skater_factory(y:Y_TYPE, s:dict, k:int=1, a:A_TYPE=None, t:T_TYPE=None, 
         y_t, z = split_exogenous(y)
         x_t, s['o'] = observance(y=y,o=s['o'],k=k,a=a)
 
-        # Update the pmdarima model itself
+        # Update the npropharima model itself
         if x_t is not None:
             if s['model'] is not None:
                 if x_t:
@@ -112,12 +123,14 @@ def pmd_skater_factory(y:Y_TYPE, s:dict, k:int=1, a:A_TYPE=None, t:T_TYPE=None, 
                     z_forward = [ list(z) + list(ai) for ai in s['o']['a'] ]  # Add known k-steps ahead
                                     # This estimate could be improved by predicting z's and attenuating
                                     # It is only really a good idea for k=1
-            x, ntvls = s['model'].predict(n_periods=k, X=z_forward, return_conf_int=True, alpha=s['immutable']['alpha'])
+            x, ntvls = s['model'].predict(
+                n_periods=k, X=z_forward, return_conf_int=True, alpha=s['immutable']['alpha']
+            )
             x_std = list([ ntvl[1] - ntvl[0] for ntvl in ntvls ])
 
     # Fit
     tock(s)
-    if pmd_it_is_time_to_fit(s=s, e=e):
+    if nproph_it_is_time_to_fit(s=s, e=e):
         tick(s)
         X = s['o'].get('x') or None
         Y = s['o']['y']
@@ -134,30 +147,7 @@ def pmd_skater_factory(y:Y_TYPE, s:dict, k:int=1, a:A_TYPE=None, t:T_TYPE=None, 
         return None, None, s
 
 
-def pmd_it_is_time_to_fit(s:S_TYPE, e:E_TYPE)->bool:
+def nproph_it_is_time_to_fit(s:S_TYPE, e:E_TYPE)->bool:
     """ Provided 60 seconds, or getting stale """
     return s['n_obs'] == s['immutable']['n_warm'] or \
            (s['n_obs'] > s['immutable']['n_warm'] and ((e is not None and e>60) or s['n_obs'] % s['immutable']['n_fit'] == 0))
-
-
-def pmd_set_immutable(y: Y_TYPE, k:int, a:A_TYPE=None, n_warm:int=20):
-    """ Set on the first invocation, when s={} is passed """
-    return {'k': k,
-            'alpha':0.25,   # Determines confidence interval
-            'n_fit':250,
-            'n_warm':n_warm,
-            'dim_exog': dimension(y) - 1,
-            'dim_a': dimension(a)}
-
-
-def pmd_check_consistent_usage(y:Y_TYPE,s,k,a):
-    if y is not None:
-        assert dimension(y)-1 == s['immutable']['dim_exog']
-    if k is not None:
-        assert k==s['immutable']['k']
-    if a is not None:
-        assert dimension(a)==s['immutable']['dim_a']
-
-
-
-
