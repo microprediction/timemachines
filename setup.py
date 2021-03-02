@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.3.11",
+    version="0.3.12",
     description="Evaluation and standardization of popular time series and tuning packages.",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -26,6 +26,7 @@ setup(
               "timemachines.skaters.dlm",
               "timemachines.skaters.flux",
               "timemachines.skaters.pmd",
+              "timemachines.skaters.tsa",
               "timemachines.skaters.proph",
               "timemachines.skaters.simple",
               "timemachines.skatertools",
