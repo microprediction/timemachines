@@ -20,5 +20,3 @@ if __name__=='__main__':
     pprint(info)
     params = prophet_params(r=best_r,dim=2)
     pprint(params)
-
-
