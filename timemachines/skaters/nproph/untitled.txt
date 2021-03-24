@@ -1,0 +1,4 @@
+for file in *.py
+do
+  cp "$file" "n${file}"
+done
