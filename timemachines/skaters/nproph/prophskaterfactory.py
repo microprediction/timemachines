@@ -1,27 +1,27 @@
 from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
 from typing import Any
 from timemachines.skatertools.components.parade import parade
-from timemachines.skaters.proph.prophiskaterfactory import prophet_iskater_factory
+from timemachines.skaters.nproph.nprophiskaterfactory import nprophet_iskater_factory
 from timemachines.skatertools.utilities.nonemath import nonecenter
-from timemachines.skaters.proph.prophparams import PROPHET_META, prophet_params
+from timemachines.skaters.nproph.nprophparams import NPROPHET_META, nprophet_params
 from timemachines.skatertools.utilities.nonemath import nonecast
 import sys
 import logging
 import numpy as np
 
 logging.disable(sys.maxsize)
-logging.getLogger('fbprophet').setLevel(logging.ERROR)
+logging.getLogger('fbnprophet').setLevel(logging.ERROR)
 
 
 ###################################################################################################
 #                                                                                                 #
 #                      Facebook Prophet skater factory                                            #
 #                                                                                                 #
-# Wraps prophet model with recursive use, running empirical moments, and some hyper-parameters    #
-# See https://facebook.github.io/prophet/docs/diagnostics.html#hyperparameter-tuning              #
+# Wraps nprophet model with recursive use, running empirical moments, and some hyper-parameters    #
+# See https://facebook.github.io/nprophet/docs/diagnostics.html#hyperparameter-tuning              #
 #                                                                                                 #
 # Advantages:                                                                                     #
-#       - State is a simple dictionary, since prophet itself has no notion of state               #
+#       - State is a simple dictionary, since nprophet itself has no notion of state               #
 #       - Supposed to work okay without any hyper-param tuning                                    #
 #       - Great documentation, response to GitHub issues and backing by Facebook devs             #
 #                                                                                                 #
@@ -30,12 +30,12 @@ logging.getLogger('fbprophet').setLevel(logging.ERROR)
 #       - Generative model isn't suggestive of strong out of sample performance (opinion)         #
 #       - Empirical results are quizzical                                                         #
 #                                                                                                 #
-# See also: prophetiskaterfatory                                                                  #                              #
+# See also: nprophetiskaterfatory                                                                  #                              #
 #                                                                                                 #
 ###################################################################################################
 
 
-def fbprophet_skater_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
+def fbnprophet_skater_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
                              t: T_TYPE = None, e: E_TYPE = None,
                              emp_mass: float = 0.0, emp_std_mass: float = 0.0,
                              freq=None, recursive: bool = False,
@@ -53,9 +53,9 @@ def fbprophet_skater_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
     assert 0 <= emp_std_mass <= 1
 
     if freq is None:
-        freq = PROPHET_META['freq']
+        freq = NPROPHET_META['freq']
     if n_max is None:
-        n_max = PROPHET_META['n_max']
+        n_max = NPROPHET_META['n_max']
 
     y = wrap(y)
     a = wrap(a)
@@ -84,12 +84,12 @@ def fbprophet_skater_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
             assert isinstance(t,float), 'epoch time please'
             s['t'].append(t)
 
-        if len(s['y']) > max(2 * k + 5, PROPHET_META['n_warm']):
-            # Offset y, t, a are supplied to prophet interface
+        if len(s['y']) > max(2 * k + 5, NPROPHET_META['n_warm']):
+            # Offset y, t, a are supplied to nprophet interface
             t_arg = s['t'][k:] if t is not None else None
             a_arg = s['a']
             y_arg = s['y'][k:]
-            x, x_std, forecast, model = prophet_iskater_factory(y=y_arg, k=k, a=a_arg, t=t_arg,
+            x, x_std, forecast, model = nprophet_iskater_factory(y=y_arg, k=k, a=a_arg, t=t_arg,
                                                                 freq=freq, n_max=n_max,
                                                                 recursive=recursive, model_params=model_params)
             s['m'] = True # Flag indicating a model has been fit (there is no point keeping the model itself, however)
@@ -110,26 +110,26 @@ def fbprophet_skater_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
         return x_center, x_std_center, s
 
 
-def fbprophet_hyperparam_skater_factory(r: R_TYPE = None, param_names: [str] = None,   **kwargs):
+def fbnprophet_hyperparam_skater_factory(r: R_TYPE = None, param_names: [str] = None,   **kwargs):
     """ Useful for creating skaters based on hyper-parameters r and the
         method of modifying them suggested by the authors
      """
     assert param_names is not None
     dim = len(param_names)
     assert 2 <= dim <= 3
-    model_params = prophet_params(r=r,dim=dim, param_names=param_names)
-    return fbprophet_skater_factory(model_params=model_params, **kwargs)
+    model_params = nprophet_params(r=r,dim=dim, param_names=param_names)
+    return fbnprophet_skater_factory(model_params=model_params, **kwargs)
 
 
-def fbprophet_skater_testor(y :Y_TYPE, s:dict=None, k:int =1, a:A_TYPE =None,
+def fbnprophet_skater_testor(y :Y_TYPE, s:dict=None, k:int =1, a:A_TYPE =None,
                      t:T_TYPE=None, e:E_TYPE =None, r:R_TYPE =None, freq=None, n_max=None):
-    """ A default facebook prophet usage, with no hyper-parameters and no prediction parade """
+    """ A default facebook nprophet usage, with no hyper-parameters and no prediction parade """
     # For testing
 
     if freq is None:
-        freq = PROPHET_META['freq']
+        freq = NPROPHET_META['freq']
     if n_max is None:
-        n_max = PROPHET_META['n_max']
+        n_max = NPROPHET_META['n_max']
 
     y = wrap(y)
     a = wrap(a)
@@ -152,8 +152,8 @@ def fbprophet_skater_testor(y :Y_TYPE, s:dict=None, k:int =1, a:A_TYPE =None,
         s['y'].append(y)
         if a is not None:
             s['a'].append(a)
-        if len(s['y']) > max(2*k+5,PROPHET_META['n_warm']):
-            x, x_std, _, _ = prophet_iskater_factory(y=s['y'], k=k, a=s['a'], freq=freq, n_max=n_max)
+        if len(s['y']) > max(2*k+5,NPROPHET_META['n_warm']):
+            x, x_std, _, _ = nprophet_iskater_factory(y=s['y'], k=k, a=s['a'], freq=freq, n_max=n_max)
         else:
             x = [y[0]] * k
             x_std = [1.0] * k
@@ -166,6 +166,6 @@ if __name__ == '__main__':
 
     k = 3
     y, a = hospital_with_exog(k=k, n=100, offset=True)
-    f = fbprophet_skater_factory
+    f = fbnprophet_skater_factory
     err2 = evaluate_mean_absolute_error(f=f, k=k, y=y, a=a, n_burn=50)
     print(err2)

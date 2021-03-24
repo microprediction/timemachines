@@ -1,7 +1,7 @@
-from timemachines.skaters.proph.prophskaterssingular import PROPHET_SKATERS_SINGULAR, PROPHET_R2_SKATERS
-from timemachines.skaters.proph.prophskaterscomposed import PROPHET_SKATERS_COMPOSED
+from timemachines.skaters.nnproph.nnprophskaterssingular import NPROPHET_SKATERS_SINGULAR, NPROPHET_R2_SKATERS
+from timemachines.skaters.nnproph.nnprophskaterscomposed import NPROPHET_SKATERS_COMPOSED
 
 
-PROPHET_SKATERS = PROPHET_SKATERS_SINGULAR + PROPHET_SKATERS_COMPOSED
+NPROPHET_SKATERS = NPROPHET_SKATERS_SINGULAR + NPROPHET_SKATERS_COMPOSED
 
 

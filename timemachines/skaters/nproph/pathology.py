@@ -1,4 +1,4 @@
-from timemachines.skaters.proph.prophiskaterfactory import prophet_iskater_factory
+from timemachines.skaters.nproph.nprophiskaterfactory import nprophet_iskater_factory
 from timemachines.skatertools.utilities.conventions import wrap
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -11,7 +11,7 @@ from pprint import pprint
 PLOTS_PATH = os.path.dirname(os.path.realpath(__file__)).replace('timemachines/timemachines','timemachines/gallery')
 
 
-#  Just some scripts that try to investigate some curious behaviour of prophet, and performance
+#  Just some scripts that try to investigate some curious behaviour of nprophet, and performance
 #  comparison against dead-simple averaging of recent values
 #  TODO: Move this to timemachines-testing
 
@@ -20,8 +20,8 @@ def is_opinonated(y, forecast:pd.DataFrame,k:int, n_recent:int, multiple:float)-
     """ Check if the forecast is far from any recent values, and thus "opinionated"
 
     :param y:          data used to fit
-    :param forecast:   dataframe produced by prophet fitting
-    :param m:          fitted facebook prophet model
+    :param forecast:   dataframe produced by nprophet fitting
+    :param m:          fitted facebook nprophet model
     :param k:          number of steps ahead
     :return:
     """
@@ -70,7 +70,7 @@ def next_opinionated_forecast(n_train,k,n_recent, multiple,name=None):
             if len(y)>i+2*k+n_train:
                 y_fit = y[i:i + n_train]
                 t_fit = t[i:i + n_train]
-                y_hats, _, forecast, m = prophet_iskater_factory(y=y_fit, k=k, t=t_fit)
+                y_hats, _, forecast, m = nprophet_iskater_factory(y=y_fit, k=k, t=t_fit)
                 if is_opinonated(y=y_fit, forecast=forecast,k=k, n_recent=n_recent, multiple=multiple):
                     y_3avg = np.mean(y[i + n_train-3:i + n_train])  # avg of last three points
                     y_true_mean = np.mean( y[i+n_train+k-1:i+n_train+k+1] ) # avg of 3 future points
@@ -116,7 +116,7 @@ if __name__=='__main__':
         err, lv_err, jpg_path = plot_next_optionated_forecast(**params)
         report = params.copy()
         report['simple_average'] = var_update(lv,lv_err)
-        report['prophet'] = var_update(pr,err)
+        report['nprophet'] = var_update(pr,err)
         pprint(report)
         report_file = jpg_path+'_summary.json'
         with open(report_file,'wt') as f:
