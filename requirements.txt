@@ -15,7 +15,6 @@ numpy>=1.19.5
 pmdarima
 pydlm
 pymoo
-pystan
 sklearn
 tdigest
 ratings>=0.0.7
