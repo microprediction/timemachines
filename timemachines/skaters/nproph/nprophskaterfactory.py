@@ -10,29 +10,7 @@ import logging
 import numpy as np
 
 logging.disable(sys.maxsize)
-logging.getLogger('fbnprophet').setLevel(logging.ERROR)
-
-
-###################################################################################################
-#                                                                                                 #
-#                      Facebook Prophet skater factory                                            #
-#                                                                                                 #
-# Wraps nprophet model with recursive use, running empirical moments, and some hyper-parameters    #
-# See https://facebook.github.io/nprophet/docs/diagnostics.html#hyperparameter-tuning              #
-#                                                                                                 #
-# Advantages:                                                                                     #
-#       - State is a simple dictionary, since nprophet itself has no notion of state               #
-#       - Supposed to work okay without any hyper-param tuning                                    #
-#       - Great documentation, response to GitHub issues and backing by Facebook devs             #
-#                                                                                                 #
-# Disadvantages:                                                                                  #
-#       - Model requires re-fitting after each and every data point                               #
-#       - Generative model isn't suggestive of strong out of sample performance (opinion)         #
-#       - Empirical results are quizzical                                                         #
-#                                                                                                 #
-# See also: nprophetiskaterfatory                                                                  #                              #
-#                                                                                                 #
-###################################################################################################
+logging.getLogger('fbnprophet').setLevel(logging.DEBUG)
 
 
 def fbnprophet_skater_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
@@ -54,6 +32,7 @@ def fbnprophet_skater_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
 
     if freq is None:
         freq = NPROPHET_META['freq']
+        
     if n_max is None:
         n_max = NPROPHET_META['n_max']
 
@@ -161,11 +140,35 @@ def fbnprophet_skater_testor(y :Y_TYPE, s:dict=None, k:int =1, a:A_TYPE =None,
 
 
 if __name__ == '__main__':
-    from timemachines.skatertools.data import hospital_with_exog
-    from timemachines.skatertools.evaluation.evaluators import evaluate_mean_absolute_error
-
-    k = 3
-    y, a = hospital_with_exog(k=k, n=100, offset=True)
+    from timemachines.skatertools.data.real import hospital_with_exog
+    from timemachines.skatertools.evaluation.evaluators import (
+        evaluate_mean_absolute_error, evaluate_mean_squared_error
+    )
+    import argparse
+    
+    
+    parser = argparse.ArgumentParser(description='Compute error on skater.')
+    parser.add_argument(
+        '-k', type=int, help='k'
+    )
+    parser.add_argument(
+        '-n', type=int, default=100, help='n'
+    )
+    parser.add_argument(
+        '-offset', type=bool, default=True, help='offset'
+    )
+    parser.add_argument(
+        '-n_burn', type=int, default=50, help='n_burn'
+    )
+    args = parser.parse_args()
+    
+    y, a = hospital_with_exog(k=args.k, n=args.n, offset=args.offset)
     f = fbnprophet_skater_factory
-    err2 = evaluate_mean_absolute_error(f=f, k=k, y=y, a=a, n_burn=50)
-    print(err2)
+    err_abs = evaluate_mean_absolute_error(
+        f=f, k=args.k, y=y, a=a, n_burn=args.n_burn
+    )
+    err_sq = evaluate_mean_squared_error(
+        f=f, k=args.k, y=y, a=a, n_burn=args.n_burn
+    )
+    print('abs error:', err_abs)
+    print('sq error:', err_sq)
