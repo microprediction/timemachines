@@ -2,31 +2,45 @@ from timemachines.skatertools.utilities.conventions import positive_log_scale, t
 
 # Some "global" nprophet defaults set outside the model
 
-NPROPHET_META={'n_warm':400,  # Default minimum number of data points before fitting
-              'freq':'H',    # Sampling frequency used if none is supplied, or t not supplied
-              'n_max':500}   # Maximum length of training data
+NPROPHET_META={
+    'n_warm':400,  # Default minimum number of data points before fitting
+    'freq':'H',    # Sampling frequency used if none is supplied, or t not supplied
+    'n_max':500    # Maximum length of training data
+}   
 
 # Some nprophet model parameters
 
-NPROPHET_MODEL = dict(changepoint_prior_scale=0.05,  # Suggested  [0.001, 0.01, 0.1, 0.5],
-                    seasonality_prior_scale = 10.0,  # Suggested  [0.01, 0.1, 1.0, 10.0],
-                    holidays_prior_scale = 10.0,  # Suggested  [0.01, 0.1, 1.0, 10.0]
-                    seasonality_mode = 'additive',  # ['additive','multiplicative']
-                    changepoint_range = 0.8,  # Suggested  [0.8-0.95]
-                    interval_width = 0.34134*2)   # So it is +/- one standard deviation
+NPROPHET_MODEL = {
+    'growth': 'linear',
+    'changepoints': None,
+    'n_changepoints': 10,
+    'changepoints_range': 0.9,
+    'trend_reg': 0,
+    'trend_reg_threshold': False,
+    'yearly_seasonality': 'auto',
+    'weekly_seasonality': 'auto',
+    'daily_seasonality': 'auto',
+    'seasonality_mode': 'additive',
+    'seasonality_reg': 0,
+    'n_forecasts': 1,
+    'n_lags': 3,
+    'num_hidden_layers': 0,
+    'd_hidden': None,
+    'ar_sparsity': None,
+    'learning_rate': None,
+    'epochs': None,
+    'batch_size': None,
+    'loss_func': 'Huber',
+    'optimizer': 'AdamW',
+    'train_speed': None,
+    'normalize': 'auto',
+    'impute_missing': True 
+}
 
-NPROPHET_MODEL_LOG_LOW = dict(changepoint_prior_scale=0.001,  # Suggested  [0.001, 0.01, 0.1, 0.5],
-                    seasonality_prior_scale = 0.01,  # Suggested  [0.01, 0.1, 1.0, 10.0],
-                    holidays_prior_scale = 0.01)  # Suggested  [0.01, 0.1, 1.0, 10.0]
-
-
-NPROPHET_MODEL_LOG_HIGH = dict(changepoint_prior_scale=0.5,  # Suggested  [0.001, 0.01, 0.1, 0.5],
-                    seasonality_prior_scale = 20.,  # Suggested  [0.01, 0.1, 1.0, 10.0],
-                    holidays_prior_scale = 20.,  # Suggested  [0.01, 0.1, 1.0, 10.0]
-                    changepoint_range = 0.95)  # Suggested  [0.8-0.95]
-
-NPROPHET_MODEL_LINEAR_LOW  = dict(changepoint_range = 0.8)  # Suggested  [0.8-0.95]
-NPROPHET_MODEL_LINEAR_HIGH = dict(changepoint_range = 0.8)  # Suggested  [0.8-0.95]
+NPROPHET_MODEL_LOG_LOW = dict()
+NPROPHET_MODEL_LOG_HIGH = dict()  
+NPROPHET_MODEL_LINEAR_LOW  = dict()
+NPROPHET_MODEL_LINEAR_HIGH = dict()
 
 
 def nprophet_params(r:float,dim:int, param_names:[str])->dict:

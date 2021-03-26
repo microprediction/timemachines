@@ -1,4 +1,5 @@
-from fbnprophet import Prophet
+from neuralprophet import NeuralProphet
+import numpy as np
 import pandas as pd
 import sys
 import logging
@@ -20,8 +21,9 @@ logging.getLogger('fbnprophet').setLevel(logging.ERROR)
 # ancillary information that the skater carries (i.e. the prediction parade etc).
 
 
-def nprophet_iskater_factory(y: [[float]], k: int, a: List = None, t: List = None, e=None, freq: str = None, n_max=1000,
-                            recursive: bool = False, model_params: dict = None, return_forecast=True):
+def nprophet_iskater_factory(y: [[float]], k: int, a: List = None, t: List = None, e=None,
+                             freq: str = None, n_max=1000, recursive: bool = False, 
+                             model_params: dict = None, return_forecast=True):
     """
     :param y:           A list of observations, each a vector.
     :param k:           Number of steps ahead to predict
@@ -51,6 +53,7 @@ def nprophet_iskater_factory(y: [[float]], k: int, a: List = None, t: List = Non
         dt = pd.date_range(start=EPOCH, periods=len(y), freq=freq)  # UTC
     else:
         freq = infer_freq_from_epoch(t)
+        print('infering freq param as {}'.format(freq))
         dt = epoch_to_naive_datetime(t)
 
     if len(dt) == len(y) + k:
@@ -60,6 +63,13 @@ def nprophet_iskater_factory(y: [[float]], k: int, a: List = None, t: List = Non
         assert len(dt) == len(y), 'Time vector t should be len(y) or len(y)+k'
         ta = None
 
+    print('y:',np.array(y).shape)
+    print('k:', k)
+    print('a:', np.array(a).shape)
+    print('t:', np.array(t).shape)
+    print('e:',e)
+    print('freq:',freq)
+    
     # Truncate history so that nprophet doesn't take forever to fit
     y_shorter = y[-n_max:]
     a_shorter = a[-(n_max + k):] if a is not None else []  # may be empty
@@ -68,41 +78,54 @@ def nprophet_iskater_factory(y: [[float]], k: int, a: List = None, t: List = Non
     # Massage data into Prophet friendly dataframe with columns y, y1, ..., yk, a0,...aj
     y_cols = ['y' + str(i) if i > 0 else 'y' for i in range(len(y_shorter[-1]))]
     if a:
-        a_cols = ['a' + str(i) for i in range(len(a_shorter[-1]))]
-        data = [list(yi) + list(ai) for yi, ai in zip(y_shorter, a_shorter[:-k])]
-        df = pd.DataFrame(columns=y_cols + a_cols, data=data)
+        # TODO: Implement names as args
+        a_cols = ['a' + str(i) for i in range(len(a_shorter[-1]))] 
+        data = [
+            list(yi) + list(ai) 
+            for yi, ai
+            in zip(y_shorter, a_shorter[:-k])
+        ]
+        df = pd.DataFrame(columns=y_cols+a_cols, data=data)
     else:
         data = [list(yi) for yi in y_shorter]
         df = pd.DataFrame(columns=y_cols, data=data)
+        
     df['ds'] = dt_shorter
-
     # Instantiate Prophet model, ensure defaults are what we think they are
     kwargs_used = dict([(k, v) for k, v in NPROPHET_MODEL.items()])
     if model_params:
         kwargs_used.update(model_params)
-    m = Prophet(**kwargs_used)
+    m = NeuralProphet(**kwargs_used)
 
     # Add regressors
     for y_col in y_cols[1:]:
-        m.add_regressor(name=y_col)
+        m.add_lagged_regressor(name=y_col)
     if a:
         for a_col in a_cols:
-            m.add_regressor(name=a_col)
+            m.add_lagged_regressor(name=a_col)
 
     # Fit the model every invocation ... there isn't any other way
     with no_stdout_stderr():
-        m.fit(df)
+        m.fit(df, freq=freq)
 
     # Make future dataframe, adding known-in-advance variables
-    future = m.make_future_dataframe(periods=k, freq=freq)
-    if a:
-        for j, a_col in enumerate(a_cols):
-            future[a_col] = [ai[j] for ai in a_shorter]  # Known in advance
-    if ta is not None:
-        future['ds'] = ta  # override with user supplied future times
+    print('df', df.shape)
+    print('df data', df)
+    future = m.make_future_dataframe(df=df, periods=k)
+    print('a_cols', a_cols)
+    print('a_shorter', np.array(a_shorter).shape)
+    print('future', future.shape)
+    print('future data', future)
+    # if a:
+    #     rel_as = df[(df['ds'] >= future['ds'].min()) \
+    #                 & (df['ds'] <= future['ds'].max())][]
+    #     print('rel_as', rel_as)
+    #     future = future.join(other=rel_as, on='ds', how='left')
+    #     
+    # if ta is not None:
+    #     future['ds'] = ta  # override with user supplied future times
 
     # Next, we wish to add contemporaneously observed variables
-    #
     # This is somewhat problematic, for how should we bring exogenously observed variables forward?
     # The simplest answer is, don't use them - only supply 1-vector y observations
     # nprophet implicitly assumes all exogenous are known, which is a pretty big shortcoming.
@@ -114,27 +137,37 @@ def nprophet_iskater_factory(y: [[float]], k: int, a: List = None, t: List = Non
     # assigned to y[1],... such as jiggling past observations. For now we use nprophet on each
     # one individually, feeding them the known in advance 'a' variables.
 
-    n_exog = len(y[0]) - 1
-    if n_exog > 0:
-        for j,y_col in enumerate(y_cols):
-            if j>0:
-                yj = [yi[j] for yi in y_shorter]
-                if recursive:
-                    yj_hat, yj_hat_std, yj_forecast, yj_m = nprophet_iskater_factory(y=yj, k=k, a=a_shorter, freq=freq,
-                                                                                    n_max=n_max, recursive=False)
-                else:
-                    yj_hat = [yj[-1]] * k
-                future[y_col] = yj + list(yj_hat)
+    # n_exog = len(y[0]) - 1
+    # if n_exog > 0:
+    #     for j,y_col in enumerate(y_cols):
+    #         if j>0:
+    #             yj = [yi[j] for yi in y_shorter]
+    #             if recursive:
+    #                 yj_hat, yj_hat_std, yj_forecast, yj_m = \
+    #                     nprophet_iskater_factory(
+    #                         y=yj, k=k, a=a_shorter, freq=freq,
+    #                         n_max=n_max, recursive=False
+    #                     )
+    #             else:
+    #                 yj_hat = [yj[-1]] * k
+    #             future[y_col] = yj + list(yj_hat)
 
     # Call the prediction function
     forecast = m.predict(future)
-    x = list(forecast['yhat'].values[-k:])  # Use m.plot(forecast) to take a peak
+    print('forecast', forecast.columns)
+    x = list(forecast['yhat1'].values[-k:])  # Use m.plot(forecast) to take a peak
 
     # Interpret confidence level difference as scale to be returned. TODO: set alpha properly so this really is 1-std
-    x_std = list([u - l for u, l in zip(forecast['yhat_upper'].values[-k:], forecast['yhat_lower'].values[-k:])])
+    # x_std = list(
+    #     [u - l for u, l 
+    #      in zip(forecast['yhat1_upper'].values[-k:], 
+    #             forecast['yhat1_lower'].values[-k:])]
+    # )
+    x_std = forecast['residual1']
 
     if return_forecast:
         return x, x_std, forecast, m
+    
     else:
         return x, x_std
 
@@ -151,13 +184,14 @@ def nprophet_fit_and_predict_simple(y: [float], k: int, freq: str = None, model_
     kwargs_used = dict([(k, v) for k, v in NPROPHET_MODEL.items()])
     if model_params:
         kwargs_used.update(model_params)
-    m = Prophet(**kwargs_used)
+    m = NeuralProphet(**kwargs_used)
     with no_stdout_stderr():
-        m.fit(df)
-    future = m.make_future_dataframe(periods=k, freq=freq)
+        m.fit(df, freq=freq)
+    future = m.make_future_dataframe(df=df, periods=k)
     forecast = m.predict(future)
-    x = forecast['yhat'].values[-k:]  # Use m.plot(forecast) to take a peak
-    x_std = [u - l for u, l in zip(forecast['yhat_upper'].values, forecast['yhat_lower'].values)]
+    x = forecast['yhat1'].values[-k:]  # Use m.plot(forecast) to take a peak
+    # x_std = [u - l for u, l in zip(forecast['yhat1_upper'].values, forecast['yhat1_lower'].values)]
+    x_std = forecast['residual1']
     return x, x_std, forecast, m
 
 
@@ -170,14 +204,15 @@ def nprophet_fit_and_predict_with_time(y: [float], k: int, t: [float], model_par
     kwargs_used = dict([(k, v) for k, v in NPROPHET_MODEL.items()])
     if model_params:
         kwargs_used.update(model_params)
-    m = Prophet(**kwargs_used)
+    m = NeuralProphet(**kwargs_used)
     with no_stdout_stderr():
-        m.fit(df)
+        m.fit(df, freq=freq)
     freq = infer_freq_from_epoch(t)
-    future = m.make_future_dataframe(periods=k, freq=freq)
+    future = m.make_future_dataframe(df=df,periods=k)
     forecast = m.predict(future)
-    x = forecast['yhat'].values[-k:]  # Use m.plot(forecast) to take a peak
-    x_std = [u - l for u, l in zip(forecast['yhat_upper'].values, forecast['yhat_lower'].values)]
+    x = forecast['yhat1'].values[-k:]  # Use m.plot(forecast) to take a peak
+    # x_std = [u - l for u, l in zip(forecast['yhat1_upper'].values, forecast['yhat1_lower'].values)]
+    x_std = forecast['residual1']
     return x, x_std, forecast, m
 
 
@@ -191,15 +226,16 @@ Tuple[List, List, Any, Any]:
     kwargs_used = dict([(k, v) for k, v in NPROPHET_MODEL.items()])
     if model_params:
         kwargs_used.update(model_params)
-    m = Prophet(**kwargs_used)
+    m = NeuralProphet(**kwargs_used)
     with no_stdout_stderr():
-        m.fit(df)
+        m.fit(df, freq=freq)
     freq = infer_freq_from_epoch(t)
-    future = m.make_future_dataframe(periods=k, freq=freq)
+    future = m.make_future_dataframe(df=df,periods=k)
     future['ds'] = dt
     forecast = m.predict(future)
-    x = forecast['yhat'].values[-k:]  # Use m.plot(forecast) to take a peak
-    x_std = [u - l for u, l in zip(forecast['yhat_upper'].values, forecast['yhat_lower'].values)]
+    x = forecast['yhat1'].values[-k:]  # Use m.plot(forecast) to take a peak
+    # x_std = [u - l for u, l in zip(forecast['yhat1_upper'].values, forecast['yhat1_lower'].values)]
+    x_std = forecast['residual1']
     return x, x_std, forecast, m
 
 
@@ -217,25 +253,26 @@ def nprophet_fit_and_predict_with_advance_vars(y: [float], k: int, t: [float], a
     kwargs_used = dict([(k, v) for k, v in NPROPHET_MODEL.items()])
     if model_params:
         kwargs_used.update(model_params)
-    m = Prophet(**kwargs_used)
+    m = NeuralProphet(**kwargs_used)
     for a_col in a_cols:
-        m.add_regressor(name=a_col)
+        m.add_lagged_regressor(name=a_col)
     with no_stdout_stderr():
-        m.fit(df)
+        m.fit(df, freq=freq)
     freq = infer_freq_from_epoch(t)
-    future = m.make_future_dataframe(periods=k, freq=freq)
+    future = m.make_future_dataframe(df=df,periods=k)
     future['ds'] = dt
     full_a_data = transpose(a)
     for a_col, a_vals in zip(a_cols, full_a_data):
         future[a_col] = a_vals
     forecast = m.predict(future)
-    x = forecast['yhat'].values[-k:]  # Use m.plot(forecast) to take a peak
-    x_std = [u - l for u, l in zip(forecast['yhat_upper'].values, forecast['yhat_lower'].values)]
+    x = forecast['yhat1'].values[-k:]  # Use m.plot(forecast) to take a peak
+    # x_std = [u - l for u, l in zip(forecast['yhat1_upper'].values, forecast['yhat1_lower'].values)]
+    x_std = forecast['residual1']
     return x, x_std, forecast, m
 
 
-def nprophet_fit_and_predict_with_exog_and_advance_vars(y: [[float]], k: int, t: [float], a: [[float]],
-                                                       model_params: dict = None) -> Tuple[List, List, Any, Any]:
+def nprophet_fit_and_predict_with_exog_and_advance_vars(
+    y: [[float]], k: int, t: [float], a: [[float]], model_params: dict = None) -> Tuple[List, List, Any, Any]:
     """ Simpler wrapper for testing - univariate w/ advance vars w/ supplied times and future times  """
     assert len(t) == len(y) + k
     assert len(a) == len(y) + k
@@ -246,6 +283,17 @@ def nprophet_fit_and_predict_with_exog_and_advance_vars(y: [[float]], k: int, t:
     df['y'] = Y[0]
     n_exog = len(y[0]) - 1
     y_cols = ['y'] + ['y' + str(i) for i in range(1, len(y[0]))]
+    if t is None:
+        if freq is None or not freq:
+            freq = NPROPHET_META['freq']  # Just assume away ...
+        else:
+            assert is_valid_freq(freq), 'Freq ' + str(freq) + ' is not a valid frequency'
+        dt = pd.date_range(start=EPOCH, periods=len(y), freq=freq)  # UTC
+    else:
+        freq = infer_freq_from_epoch(t)
+        print('infering freq param as {}'.format(freq))
+        dt = epoch_to_naive_datetime(t)
+        
     for i in range(1, n_exog + 1):
         df['y' + str(i)] = Y[i][:len(y)]
     dt = epoch_to_naive_datetime(t)
@@ -253,24 +301,25 @@ def nprophet_fit_and_predict_with_exog_and_advance_vars(y: [[float]], k: int, t:
     kwargs_used = dict([(k, v) for k, v in NPROPHET_MODEL.items()])
     if model_params:
         kwargs_used.update(model_params)
-    m = Prophet(**kwargs_used)
+    m = NeuralProphet(**kwargs_used)
     for a_col in a_cols:
-        m.add_regressor(name=a_col)
+        m.add_lagged_regressor(name=a_col)
     for y_col in y_cols[1:]:
-        m.add_regressor(name=y_col)
+        m.add_lagged_regressor(name=y_col)
     with no_stdout_stderr():
-        m.fit(df)
+        m.fit(df, freq=freq)
     freq = infer_freq_from_epoch(t)
-    future = m.make_future_dataframe(periods=k, freq=freq)
-    future['ds'] = dt
-    full_a_data = transpose(a)
-    for a_col, a_vals in zip(a_cols, full_a_data):
-        future[a_col] = a_vals
-    for i in range(1, n_exog + 1):  # Just bring forward
-        future['y' + str(i)] = Y[i] + [Y[i][-1]] * k
+    future = m.make_future_dataframe(df=df,periods=k)
+    # future['ds'] = dt
+    # full_a_data = transpose(a)
+    # for a_col, a_vals in zip(a_cols, full_a_data):
+    #     future[a_col] = a_vals
+    # for i in range(1, n_exog + 1):  # Just bring forward
+    #     future['y' + str(i)] = Y[i] + [Y[i][-1]] * k
     forecast = m.predict(future)
-    x = forecast['yhat'].values[-k:]  # Use m.plot(forecast) to take a peak
-    x_std = [u - l for u, l in zip(forecast['yhat_upper'].values, forecast['yhat_lower'].values)]
+    x = forecast['yhat1'].values[-k:]  # Use m.plot(forecast) to take a peak
+    # x_std = [u - l for u, l in zip(forecast['yhat1_upper'].values, forecast['yhat1_lower'].values)]
+    x_std = forecast['residual1']
     return x, x_std, forecast, m
 
 
@@ -291,20 +340,21 @@ def nprophet_fit_and_predict_with_exog_and_advance_vars_no_t(y: [[float]], k: in
     kwargs_used = dict([(k, v) for k, v in NPROPHET_MODEL.items()])
     if model_params:
         kwargs_used.update(model_params)
-    m = Prophet(**kwargs_used)
+    m = NeuralProphet(**kwargs_used)
     for a_col in a_cols:
-        m.add_regressor(name=a_col)
+        m.add_lagged_regressor(name=a_col)
     for y_col in y_cols[1:]:
-        m.add_regressor(name=y_col)
+        m.add_lagged_regressor(name=y_col)
     with no_stdout_stderr():
-        m.fit(df)
-    future = m.make_future_dataframe(periods=k, freq=freq)
+        m.fit(df, freq=freq)
+    future = m.make_future_dataframe(df=df, periods=k)
     full_a_data = transpose(a)
     for a_col, a_vals in zip(a_cols, full_a_data):
         future[a_col] = a_vals
     for i in range(1, n_exog + 1):  # Just bring forward
         future['y' + str(i)] = Y[i] + [Y[i][-1]] * k
     forecast = m.predict(future)
-    x = forecast['yhat'].values[-k:]  # Use m.plot(forecast) to take a peak
-    x_std = [u - l for u, l in zip(forecast['yhat_upper'].values, forecast['yhat_lower'].values)]
+    x = forecast['yhat1'].values[-k:]  # Use m.plot(forecast) to take a peak
+    # x_std = [u - l for u, l in zip(forecast['yhat1_upper'].values, forecast['yhat1_lower'].values)]
+    x_std = forecast['residual1']
     return x, x_std, forecast, m

@@ -110,13 +110,13 @@ def fbnprophet_skater_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
         return x_center, x_std_center, s
 
 
-def fbnprophet_hyperparam_skater_factory(r: R_TYPE = None, param_names: [str] = None,   **kwargs):
+def fbnprophet_hyperparam_skater_factory(r: R_TYPE = None, param_names: [str] = None, **kwargs):
     """ Useful for creating skaters based on hyper-parameters r and the
         method of modifying them suggested by the authors
      """
     assert param_names is not None
     dim = len(param_names)
-    assert 2 <= dim <= 3
+    #assert 2 <= dim <= 3
     model_params = nprophet_params(r=r,dim=dim, param_names=param_names)
     return fbnprophet_skater_factory(model_params=model_params, **kwargs)
 
@@ -152,7 +152,7 @@ def fbnprophet_skater_testor(y :Y_TYPE, s:dict=None, k:int =1, a:A_TYPE =None,
         s['y'].append(y)
         if a is not None:
             s['a'].append(a)
-        if len(s['y']) > max(2*k+5,NPROPHET_META['n_warm']):
+        if len(s['y']) > max(2*k+5, NPROPHET_META['n_warm']):
             x, x_std, _, _ = nprophet_iskater_factory(y=s['y'], k=k, a=s['a'], freq=freq, n_max=n_max)
         else:
             x = [y[0]] * k

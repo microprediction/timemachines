@@ -47,8 +47,10 @@ def fbnprophet_cautious(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE 
     return list(x_careful), x_std, s
 
 
-NPROPHET_SKATERS_SINGULAR = [fbnprophet_exogenous, fbnprophet_known, fbnprophet_univariate, fbnprophet_recursive,
-                            fbnprophet_cautious]
+NPROPHET_SKATERS_SINGULAR = [
+    fbnprophet_exogenous, fbnprophet_known, fbnprophet_univariate, 
+    fbnprophet_recursive, fbnprophet_cautious
+]
 
 
 # (1) Skaters with author-suggested two-dimensional hyper-parameter spaces
@@ -56,14 +58,14 @@ NPROPHET_SKATERS_SINGULAR = [fbnprophet_exogenous, fbnprophet_known, fbnprophet_
 def fbnprophet_exogenous_r2(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None, r:R_TYPE=None):
     """ A skater using exogenous variables, with hyper-param tuning as recommended by authors """
     assert r is not None
-    param_names = ['changepoint_prior_scale', 'seasonality_prior_scale']
+    param_names = []
     return fbnprophet_hyperparam_skater_factory(y=y, s=s, k=k, a=a, t=t, e=e, r=r, param_names=param_names)
 
 
 def fbnprophet_recursive_r2(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None, r:R_TYPE=None):
     """ Same as exogenous, but uses nprophet to predict y[1:]  """
     assert r is not None
-    param_names = ['changepoint_prior_scale', 'seasonality_prior_scale']
+    param_names = []
     return fbnprophet_hyperparam_skater_factory(y=y, s=s, k=k, a=a, t=t, e=e, r=r, param_names=param_names, recursive=True)
 
 
@@ -71,7 +73,7 @@ def fbnprophet_known_r2(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE 
     """ Uses known-in-advance but not y[1:] """
     assert r is not None
     y0 = [wrap(y)[0]]
-    param_names = ['changepoint_prior_scale', 'seasonality_prior_scale']
+    param_names = []
     return fbnprophet_hyperparam_skater_factory(y=y0, s=s, k=k, a=a, t=t, e=e, r=r, param_names=param_names, recursive=False)
 
 
@@ -79,7 +81,7 @@ def fbnprophet_univariate_r2(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_
     """ Simple univariate prediction using only y[0], and not 'a' or y[1:] """
     assert r is not None
     y0 = [wrap(y)[0]]
-    param_names = ['changepoint_prior_scale', 'seasonality_prior_scale']
+    param_names = []
     return fbnprophet_hyperparam_skater_factory(y=y0, s=s, k=k, a=None, t=t, e=e, r=r, param_names=param_names, recursive=False)
 
 

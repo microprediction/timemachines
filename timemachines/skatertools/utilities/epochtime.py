@@ -30,7 +30,7 @@ def naive_datetime_to_epoch(d:DatetimeOrList)->FloatOrList:
 
 def is_valid_freq(freq):
     try:
-        dr = pd.date_range(start=EPOCH,periods=3,freq=freq)
+        dr = pd.date_range(start=EPOCH, periods=3, freq=freq)
         return True
     except ValueError:
         return False

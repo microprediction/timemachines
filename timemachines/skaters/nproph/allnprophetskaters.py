@@ -1,7 +1,0 @@
-from timemachines.skaters.nnproph.nnprophskaterssingular import NPROPHET_SKATERS_SINGULAR, NPROPHET_R2_SKATERS
-from timemachines.skaters.nnproph.nnprophskaterscomposed import NPROPHET_SKATERS_COMPOSED
-
-
-NPROPHET_SKATERS = NPROPHET_SKATERS_SINGULAR + NPROPHET_SKATERS_COMPOSED
-
-
