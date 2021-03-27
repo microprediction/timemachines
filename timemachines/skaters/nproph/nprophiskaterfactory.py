@@ -98,11 +98,13 @@ def nprophet_iskater_factory(y: [[float]], k: int, a: List = None, t: List = Non
     m = NeuralProphet(**kwargs_used)
 
     # Add regressors
-    for y_col in y_cols[1:]:
-        m.add_lagged_regressor(name=y_col)
+    for y_col in y_cols:
+        if y_col != 'y':
+            m.add_lagged_regressor(name=y_col)
+        
     if a:
         for a_col in a_cols:
-            m.add_lagged_regressor(name=a_col)
+            m.add_future_regressor(name=a_col)
 
     # Fit the model every invocation ... there isn't any other way
     with no_stdout_stderr():
