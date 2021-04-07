@@ -45,8 +45,8 @@ setup(
     install_requires=["wheel","pathlib","numpy>=1.19.5","pandas","importlib-metadata>=1.7.0",
                       "microconventions>0.5.0","getjson","convertdate","lunarcalendar","holidays",
                       "sklearn","scipy","funcy","tdigest",
-                      "divinity","pmdarima","pydlm","tdigest","fbprophet",
-                      "momentum","humpday"],
+                      "divinity","pmdarima","pydlm"
+                      "momentum>=0.1.2","humpday","pystan==2.19.1.1","fbprophet=0.7.1"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",
