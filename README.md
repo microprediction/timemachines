@@ -1,7 +1,7 @@
 # timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![elo-ratings](https://github.com/microprediction/timeseries-elo-ratings/workflows/timeseries-elo-ratings/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Simple, evaluated time-series forecasting
-Use popular forecasting packages with one line of code
+Use popular forecasting packages with one line of code, or simple view their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html)
 
 What's different:
 
