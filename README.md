@@ -1,4 +1,4 @@
-# timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![skater-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/skater-elo-ratings/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+# timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![elo-ratings](https://github.com/microprediction/timeseries-elo-ratings/workflows/timeseries-elo-ratings/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## State machines for time-series. (Use popular packages with one line of code)
 
