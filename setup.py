@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.3.13",
+    version="0.3.14",
     description="Evaluation and standardization of popular time series and tuning packages.",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -45,7 +45,7 @@ setup(
     install_requires=["wheel","pathlib","numpy>=1.19.5","pandas","importlib-metadata>=1.7.0",
                       "microconventions>0.5.0","getjson","convertdate","lunarcalendar","holidays",
                       "sklearn","scipy","funcy","tdigest",
-                      "divinity","pmdarima","pydlm"
+                      "divinity","pmdarima","pydlm","convertdate>=2.2.0",
                       "momentum>=0.1.2","humpday","prophet>=1.0.0"],
     entry_points={
         "console_scripts": [
