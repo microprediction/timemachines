@@ -7,6 +7,11 @@ What's different:
 
    - **Simple canoncial use** of *some* functionality from packages like fbprophet, pmdarima, tsa and their ilk. 
 
+   - **Simple, ongoing empirical evaluation**. See the [leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) in
+    the accompanying repository [timemachines-testing](https://github.com/microprediction/timemachines-testing) listing Elo ratings
+     for skaters with no unassigned hyper-parameters. Assessment is always out of sample and uses *live*, constantly updating real-world data 
+     from [microprediction.org](https://www.microprediction.org/browse_streams.html).   
+
    - **Simple k-step ahead forecasts** in functional style involving [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py). 
    Time series "models" are synomymous with functions that have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
    One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
@@ -22,11 +27,6 @@ What's different:
     
    - **Simple stacking** of models with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py). The functional
    form makes other types of model combination easy as well.  
-
-   - **Simple, ongoing empirical evaluation**. See the [leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) in
-    the accompanying repository [timemachines-testing](https://github.com/microprediction/timemachines-testing) listing Elo ratings
-     for skaters with no unassigned hyper-parameters. Assessment is always out of sample and uses *live*, constantly updating real-world data 
-     from [microprediction.org](https://www.microprediction.org/browse_streams.html).   
 
   
   - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For many models state is a pure Python dictionary and thus
