@@ -46,7 +46,7 @@ setup(
                       "microconventions>0.5.0","getjson","convertdate","lunarcalendar","holidays",
                       "sklearn","scipy","funcy","tdigest",
                       "divinity","pmdarima","pydlm"
-                      "momentum>=0.1.2","humpday","pystan==2.19.1.1","fbprophet=0.7.1"],
+                      "momentum>=0.1.2","humpday","prophet>=1.0.0"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",

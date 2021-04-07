@@ -7,7 +7,7 @@ from timemachines.skatertools.utilities.epochtime import infer_freq_from_epoch, 
 from timemachines.skatertools.utilities.suppression import no_stdout_stderr
 from timemachines.skaters.proph.prophparams import PROPHET_MODEL, PROPHET_META
 from timemachines.skatertools.utilities.wrangling import transpose
-from fbprophet import Prophet
+from prophet import Prophet
 
 logging.disable(sys.maxsize)
 logging.getLogger('fbprophet').setLevel(logging.ERROR)
