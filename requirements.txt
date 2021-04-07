@@ -7,7 +7,7 @@ microconventions>0.5.0
 getjson
 deap
 divinity
-fbprophet
+fbprophet==0.7.1
 funcy
 humpday
 momentum
@@ -15,6 +15,8 @@ numpy>=1.19.5
 pmdarima
 pydlm
 pymoo
+pystan==2.19.1.1
 sklearn
 tdigest
 ratings>=0.0.7
+
