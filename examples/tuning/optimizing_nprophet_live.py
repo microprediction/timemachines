@@ -1,7 +1,7 @@
 from timemachines.skatertools.tuning.hyperempirical import optimal_r_for_stream
-from timemachines.skaters.proph.prophskaterssingular import fbprophet_univariate_r2
+from timemachines.skaters.nproph.nprophskaterssingular import fbnprophet_univariate_r2
 from humpday.optimizers.optunacube import optuna_tpe_cube
-from timemachines.skaters.proph.prophparams import PROPHET_META, prophet_params
+from timemachines.skaters.nproph.nprophparams import NPROPHET_META, nprophet_params
 from pprint import pprint
 from timemachines.skatertools.data.live import random_regular
 
@@ -11,12 +11,15 @@ from timemachines.skatertools.data.live import random_regular
 
 
 if __name__=='__main__':
-    name, url = random_regular(min_len=PROPHET_META['n_warm'])
-    print('We will find the best fbprophet hyper-parameters for '+url)
+    name, url = random_regular(min_len=NPROPHET_META['n_warm'])
+    print('We will find the best fb neural prophet hyper-parameters for '+url)
     print("Prophet will be fit for most of them, after a burn_in, and for many different hyper-params. Don't hold your breathe.")
 
-    best_r, best_value, info = optimal_r_for_stream(f=fbprophet_univariate_r2,name=name,k=10,optimizer=optuna_tpe_cube,
-                                                    n_burn=PROPHET_META['n_warm']+20,n_trials=50,n_dim=2)
+    best_r, best_value, info = optimal_r_for_stream(
+        f=fbnprophet_univariate_r2,name=name,
+        k=10,optimizer=optuna_tpe_cube,
+        n_burn=NPROPHET_META['n_warm']+20,n_trials=50,n_dim=2
+    )
     pprint(info)
     params = prophet_params(r=best_r,dim=2)
     pprint(params)
