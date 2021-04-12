@@ -1,16 +1,17 @@
-# timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![skater-elo-ratings](https://github.com/microprediction/timemachines-testing/workflows/skater-elo-ratings/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+# timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![elo-ratings](https://github.com/microprediction/timeseries-elo-ratings/workflows/timeseries-elo-ratings/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## State machines for time-series. (Use popular packages with one line of code)
+## Simple, evaluated time-series forecasting
+Use popular forecasting packages with one line of code, or view their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html)
 
 What's different:
 
    - **Simple canoncial use** of *some* functionality from packages like fbprophet, pmdarima, tsa and their ilk. 
 
+   - **Simple, ongoing empirical evaluation**. See the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) in
+    the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
+     from [microprediction.org](https://www.microprediction.org/browse_streams.html).   
+
    - **Simple k-step ahead forecasts** in functional style involving [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py). 
-   Time series "models" are synomymous with functions that have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
-   One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
-    forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However here the *caller* is expected to maintain state from one 
-    invocation (data point) to the next.  
    
    - **Simple tuning** with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/hyper.py) facilitated by [HumpDay](https://github.com/microprediction/humpday), which provides canonical functional use of scipy.optimize, ax-platform,
    hyperopt, optuna, platypus, pymoo, pySOT, skopt, dlib, nlopt, bayesian-optimization, nevergrad and more. 
@@ -22,11 +23,6 @@ What's different:
    - **Simple stacking** of models with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py). The functional
    form makes other types of model combination easy as well.  
 
-   - **Simple, ongoing empirical evaluation**. See the [leaderboards](https://github.com/microprediction/timemachines-testing/tree/main/skater_elo_ratings/leaderboards) in
-    the accompanying repository [timemachines-testing](https://github.com/microprediction/timemachines-testing) listing Elo ratings
-     for skaters with no unassigned hyper-parameters. Assessment is always out of sample and uses *live*, constantly updating real-world data 
-     from [microprediction.org](https://www.microprediction.org/browse_streams.html).   
-
   
   - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For many models state is a pure Python dictionary and thus
   trivially converted to JSON and back. 
@@ -34,6 +30,11 @@ What's different:
 **NO CLASSES**  **NO DATAFRAMES** **NO CEREMONY**   
 
 Nothing to slow you down!
+
+Here time series "models" are plain old functions. Those functions have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
+   One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
+    forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However here the *caller* is expected to maintain state from one 
+    invocation (data point) to the next.  
 
 ![](https://i.imgur.com/elu5muO.png)
 
