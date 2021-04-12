@@ -9,7 +9,6 @@ deap
 divinity
 prophet>=1.0.0
 funcy
-humpday
 momentum
 numpy>=1.19.5
 pmdarima

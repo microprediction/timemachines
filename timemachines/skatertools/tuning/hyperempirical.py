@@ -3,13 +3,13 @@ from timemachines.skatertools.tuning.hyper import optimal_r
 
 try:
     from microprediction import MicroReader
-    have_micro = True
+    using_microprediction = True
 except ImportError:
     warnings.warn('microprediction is not installed so empirical fit cannot occur. pip install microprediction')
-    have_micro = False
+    using_microprediction = False
 
 
-if have_micro:
+if using_microprediction:
 
     def optimal_r_for_stream(f, name:str, k: int, evaluator = None, optimizer = None,
                                 n_trials = None, n_dim = None,  n_burn:int = None, test_objective_first = True)->(

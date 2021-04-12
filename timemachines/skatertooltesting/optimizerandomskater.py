@@ -1,11 +1,15 @@
 from timemachines.skatertools.tuning.hyper import optimal_r
 from timemachines.skatertools.data.synthetic import brownian_with_exogenous
-from humpday.optimizers.alloptimizers import OPTIMIZERS
 from timemachines.skaters.allskaters import SKATERS_R1, SKATERS_R2, SKATERS_R3
 import time
 import random
 from pprint import pprint
 from timemachines.skaters.proph.prophparams import PROPHET_META
+
+try:
+    from humpday.optimizers.alloptimizers import OPTIMIZERS
+except ImportError:
+    raise ImportError('You need to pip install humpday')
 
 
 def optimize_random_skater():

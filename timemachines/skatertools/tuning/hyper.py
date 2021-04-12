@@ -1,11 +1,20 @@
 from timemachines.skatertools.utilities.conventions import Y_TYPE, from_space, A_TYPE
-from humpday.optimizers.alloptimizers import OPTIMIZERS
 from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error
 import traceback
 import time
 
 
-# Find optimal r for a skater
+# Find the optimal hyper-parameter r for a skater
+
+# TODO:Tidy this up
+
+try:
+    from humpday.optimizers.alloptimizers import OPTIMIZERS
+    using_humpday = True
+except:
+    using_humpday = False
+
+
 
 def infer_r_dim(skater_name):
     """ A convention for skater names """
@@ -26,6 +35,8 @@ def optimal_r(f, y:[Y_TYPE],
                           }
 
     """
+    if not using_humpday:
+        raise Exception('You must manually install humpday, with pip install humpday, in order to use this')
     if evaluator is None:
         evaluator = evaluate_mean_squared_error
 
@@ -61,6 +72,7 @@ def optimize_proph_against_hospital(k=10, n_extra=100):
            n_extra is roughly the number of times the prophet model will be called
 
     """
+    assert using_humpday,'pip install humpday'
     from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error
     from timemachines.skatertools.data.real import hospital_with_exog
     from timemachines.skaters.proph.prophparams import PROPHET_META
