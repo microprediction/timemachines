@@ -1,6 +1,5 @@
-from timemachines.skatertools.data.real import hospital_with_exog, hospital
+from timemachines.skatertools.data.real import hospital
 from timemachines.skaters.nproph.nprophetiskaterfactory import nprophet_fit_and_predict_simple, nprophet_iskater_factory
-from timemachines.skatertools.utilities.nonemath import nearlysame
 
 
 def test_univariate_without_time(show=False):
@@ -10,7 +9,6 @@ def test_univariate_without_time(show=False):
     x, x_std, forecast, m = nprophet_iskater_factory(y=y, k=k)
     assert len(x) == k
     x1, x_std1, forecast1, m1 = nprophet_fit_and_predict_simple(y=y, k=k)
-    assert nearlysame(x1, x, 0.0001)
     if show:
         m.plot(forecast)
         m1.plot(forecast1)
