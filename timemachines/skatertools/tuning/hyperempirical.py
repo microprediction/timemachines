@@ -1,5 +1,6 @@
 import warnings
-from timemachines.skatertools.tuning.hyper import optimal_r
+
+from timemachines.skatertools.tuning.hyper import using_humpday
 
 try:
     from microprediction import MicroReader
@@ -9,7 +10,9 @@ except ImportError:
     using_microprediction = False
 
 
-if using_microprediction:
+if using_microprediction and using_humpday:
+
+    from timemachines.skatertools.tuning.hyper import optimal_r
 
     def optimal_r_for_stream(f, name:str, k: int, evaluator = None, optimizer = None,
                                 n_trials = None, n_dim = None,  n_burn:int = None, test_objective_first = True)->(

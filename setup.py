@@ -28,6 +28,7 @@ setup(
               "timemachines.skaters.pmd",
               "timemachines.skaters.tsa",
               "timemachines.skaters.proph",
+              "timemachines.skaters.nproph",
               "timemachines.skaters.simple",
               "timemachines.skatertools",
               "timemachines.skatertools.comparison",
@@ -46,7 +47,7 @@ setup(
                       "microconventions>0.5.0","getjson","convertdate","lunarcalendar","holidays",
                       "sklearn","scipy","funcy","tdigest",
                       "divinity","pmdarima","pydlm","convertdate>=2.2.0",
-                      "momentum>=0.1.2","prophet>=1.0.0"],
+                      "momentum>=0.1.2","prophet>=1.0.0","neuralprophet"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",
