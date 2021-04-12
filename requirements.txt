@@ -7,11 +7,9 @@ microconventions>0.5.0
 getjson
 deap
 divinity
-prophet>=1.0.0
 funcy
 momentum
 numpy>=1.19.5
-neuralprophet
 pmdarima
 pydlm
 pymoo

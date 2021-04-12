@@ -141,7 +141,15 @@ See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or f
 ### Install
 
     pip install timemachines
-    pip install microprediction   (if you want to use live data)
+    
+Add some packages manually if you want to use them:
+
+    pip install prophet
+    pip install neuralprophet
+
+Add microprediction if you want to use live data
+
+    pip install microprediction   
 
 ### Running a model and plotting it 
 

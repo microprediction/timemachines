@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.5.0",
+    version="0.5.2",
     description="Evaluation and standardization of popular time series and tuning packages.",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -47,7 +47,7 @@ setup(
                       "microconventions>0.5.0","getjson","convertdate","lunarcalendar","holidays",
                       "sklearn","scipy","funcy","tdigest",
                       "divinity","pmdarima","pydlm","convertdate>=2.2.0",
-                      "momentum>=0.1.2","prophet>=1.0.0","neuralprophet"],
+                      "momentum>=0.1.2"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",
