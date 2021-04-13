@@ -9,19 +9,39 @@ import random
 # Live data streams at www.microprediction.com
 
 if have_micro:
-    def random_regular(min_len=500):
+
+    def random_stream_name(min_len=500,exclude_str=None, include_str=None):
         """ Randomly selected univariate series
-        :return:  y, t, url
-        """
+                :return:  y, t, url
+                """
         mr = MicroReader()
         names = mr.get_stream_names()
         okay = False
         while not okay:
             name = random.choice(names)
-            n_obs = len(mr.get_lagged_values(name=name,count=10000))
-            okay = n_obs > min_len and '~' not in name
-        url = 'https://www.microprediction.org/stream_dashboard.html?stream=' +name.replace('.json','')
+            n_obs = len(mr.get_lagged_values(name=name, count=10000))
+            okay = True
+            if exclude_str is not None and exclude_str in name:
+                okay = False
+            if include_str is not None and include_str not in name:
+                okay = False
+            if n_obs < min_len:
+                okay = False
+        url = 'https://www.microprediction.org/stream_dashboard.html?stream=' + name.replace('.json', '')
         return name, url
+
+    def random_regular(min_len=500):
+        """ Randomly selected univariate series
+        :return:  y, t, url
+        """
+        return random_stream_name(min_len=min_len,exclude_str='~')
+
+
+    def random_residual(min_len=500):
+        """ Randomly selected univariate series
+        :return:  y, t, url
+        """
+        return random_stream_name(min_len=min_len, include_str='z1~')
 
 
     def stream_data(name:str,n_obs:int):
@@ -38,6 +58,16 @@ if have_micro:
         """
         name, url = random_regular(min_len=n_obs)
         return stream_data(name=name,n_obs=n_obs)
+
+
+    def random_residual_data(n_obs=500):
+        """ Retrieve univariate time series chosen randomly from the collection at www.microprediction.org
+        :returns:  y, t
+        """
+        name, url = random_residual(min_len=n_obs)
+        return stream_data(name=name, n_obs=n_obs)
+
+
 
 
 if __name__=='__main__':
