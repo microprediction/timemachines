@@ -43,7 +43,7 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
     k = 1
     y, a = hospital_with_exog(k=k, n=450, offset=True)
-    f = fbprophet_univariate_hypocratic
+    f = nprophet_p1_hypocratic
     err2 = prior_plot(f=f, k=k, y=y, n=450, n_plot=50)
     print(err2)
     plt.show()
