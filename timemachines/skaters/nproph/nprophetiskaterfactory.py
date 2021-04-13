@@ -14,7 +14,8 @@ if using_neuralprophet:
     def nprophet_iskater_factory(y: [[float]], k: int, a: List = None, t: List = None, e=None, freq: str = None, n_max=1000,
                                 recursive: bool = False, model_params: dict = None, return_forecast=True):
         # For now we keep it simple. Will add to this over time
-        x, x_std, forecast,m = nprophet_fit_and_predict_simple(y=y,k=k,freq=freq,model_params=model_params)
+        y0s = [wrap(yi)[0] for yi in y]
+        x, x_std, forecast,m = nprophet_fit_and_predict_simple(y=y0s,k=k,freq=freq,model_params=model_params)
         return (x, x_std, forecast, m) if return_forecast else (x, x_std)
 
 

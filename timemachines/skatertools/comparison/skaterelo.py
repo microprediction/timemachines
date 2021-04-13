@@ -3,9 +3,9 @@ from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared
 import numpy as np
 from timemachines.skatertools.comparison.eloformulas import elo_update
 
-
 try:
     from microprediction import MicroReader
+
     have_micro = True
 except ImportError:
     have_micro = False
@@ -16,11 +16,11 @@ else:
     DEFAULT_DATA_SOURCE = None
 
 SKATER_F_FACTOR = 1000  # The scale factor for ratings. In chess this is set to 400.
-                     # If the matchup is considered more fluky than a single game of chess, a higher value might make sense.
-SKATER_K_FACTOR = 60   # The Elo update factor (maximum rating gain)
+# If the matchup is considered more fluky than a single game of chess, a higher value might make sense.
+SKATER_K_FACTOR = 60  # The Elo update factor (maximum rating gain)
 
 
-def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=1600, data_source =None):
+def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=1600, data_source=None):
     """ Create or update elo ratings by performing a random matchup on univariate live data
 
           elo - Dictionary containing the 'state' (i.e. elo ratings and game counts)
@@ -54,7 +54,7 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
 
     if evaluator is None:
         if elo.get('evaluator'):
-             evaluator = evaluator_from_name(elo.get('evaluator'))
+            evaluator = evaluator_from_name(elo.get('evaluator'))
         else:
             evaluator = evaluate_mean_squared_error
         elo['evaluator'] = evaluator.__name__
@@ -63,21 +63,21 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
     i1, i2 = np.random.choice(list(range(n_skaters)), size=2, replace=False)
     skater1, skater2 = elo['name'][i1], elo['name'][i2]
     fs = list()
-    for i,sn in zip([i1,i2],[skater1,skater2]):
+    for i, sn in zip([i1, i2], [skater1, skater2]):
         try:
             f = skater_from_name(sn)
-            assert f is not None,'probably just not used anymore'
+            assert f is not None, 'probably just not used anymore'
             elo['active'][i] = True
             fs.append(f)
         except Exception as e:
-            elo['active'][i]=False
+            elo['active'][i] = False
 
-    if len(fs)==2:
+    if len(fs) == 2:
         # a pitched paddle battle in a bottle
-        print(fs[0].__name__ +' vs. '+fs[1].__name__)
-        y, t = data_source(n_obs=n_burn+50)
+        print(fs[0].__name__ + ' vs. ' + fs[1].__name__)
+        y, t = data_source(n_obs=n_burn + 50)
         scores = list()
-        for i, f in zip([i1,i2],fs):
+        for i, f in zip([i1, i2], fs):
             import traceback
             try:
                 score = evaluator(f=f, y=y, k=k, a=None, t=t, e=None, n_burn=n_burn)
@@ -86,21 +86,14 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
             except Exception as e:
                 elo['traceback'][i] = traceback.format_exc()
 
-        if len(scores)==2:
+        if len(scores) == 2:
             small = tol * (abs(scores[0]) + abs(scores[1]))  # Ties
             points = 1 if scores[0] < scores[1] - small else 0 if scores[1] < scores[0] - small else 0.5
             elo1, elo2 = elo['rating'][i1], elo['rating'][i2]
-            min_games = min(elo['count'][i1],elo['count'][i2])
-            K = SKATER_K_FACTOR/2.0 if min_games > 25 else SKATER_K_FACTOR  # The Elo update scaling parameter
+            min_games = min(elo['count'][i1], elo['count'][i2])
+            K = SKATER_K_FACTOR / 2.0 if min_games > 25 else SKATER_K_FACTOR  # The Elo update scaling parameter
             elo['rating'][i1], elo['rating'][i2] = elo_update(elo1, elo2, points, k=K, f=SKATER_F_FACTOR)
             elo['count'][i1] += 1
             elo['count'][i2] += 1
 
     return elo
-
-
-
-
-
-
-
