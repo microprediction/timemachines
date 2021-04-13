@@ -102,7 +102,7 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
             elo['rating'][i1], elo['rating'][i2] = elo_update(elo1, elo2, points, k=K, f=SKATER_F_FACTOR)
             elo['count'][i1] += 1
             elo['count'][i2] += 1
-            the_winner = elo1 if points > 0.5 else elo2 if points<0.5 else 'nobody'
+            the_winner = skater1 if points > 0.5 else skater2 if points<0.5 else 'nobody'
             print('     won by '+the_winner)
 
     return elo
