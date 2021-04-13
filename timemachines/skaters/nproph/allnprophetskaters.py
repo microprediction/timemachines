@@ -1,3 +1,4 @@
 from timemachines.skaters.nproph.nprophetskaters import NPROPHET_UNIVARIATE_SKATERS
+from timemachines.skaters.nproph.nprophskaterscomposed import NPROPHET_SKATERS_COMPOSED
 
-NPROPHET_SKATERS = NPROPHET_UNIVARIATE_SKATERS
+NPROPHET_SKATERS = NPROPHET_UNIVARIATE_SKATERS + NPROPHET_SKATERS_COMPOSED

@@ -3,6 +3,8 @@ from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared
 import numpy as np
 from timemachines.skatertools.comparison.eloformulas import elo_update
 
+SLOW_SKATER_KEYWORDS = ['fbprophet','divine','pmd']
+
 try:
     from microprediction import MicroReader
 
@@ -59,9 +61,14 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
             evaluator = evaluate_mean_squared_error
         elo['evaluator'] = evaluator.__name__
 
+    # Choose two random skaters, but avoid slow ones once
     n_skaters = len(elo['name'])
     i1, i2 = np.random.choice(list(range(n_skaters)), size=2, replace=False)
     skater1, skater2 = elo['name'][i1], elo['name'][i2]
+    if any([ slow in skater1 for slow in SLOW_SKATER_KEYWORDS ]) or any([ slow in skater2 for slow in SLOW_SKATER_KEYWORDS ]):
+        i1, i2 = np.random.choice(list(range(n_skaters)), size=2, replace=False)
+        skater1, skater2 = elo['name'][i1], elo['name'][i2]
+
     fs = list()
     for i, sn in zip([i1, i2], [skater1, skater2]):
         try:
