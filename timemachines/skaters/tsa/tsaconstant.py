@@ -4,6 +4,10 @@ from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYP
 from typing import Any
 from timemachines.skaters.tsa.tsaparams import TSA_META
 from timemachines.skatertools.ensembling.ensemblefactory import precision_weighted_ensemble_factory
+import warnings
+from statsmodels.tools.sm_exceptions import ConvergenceWarning
+warnings.simplefilter('ignore', ConvergenceWarning)
+
 
 TSA_P_DEFAULT = 3
 TSA_D_DEFAULT = 0
