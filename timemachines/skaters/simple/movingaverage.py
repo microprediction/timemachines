@@ -21,7 +21,8 @@ def empirical_last_value(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =
         y0 = wrap(y)[0]       # Ignore the rest
         x = [y0]*k            # What a great prediction !
         bias, x_std, s['p'] = parade(p=s['p'], x=x, y=y0)  # update residual queue
-        return x, x_std, s
+        x_std_fallback = nonecast(x_std, fill_value=1.0)
+        return x, x_std_fallback, s
 
 
 def empirical_ema_r1(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None, r:R_TYPE=None):

@@ -33,7 +33,6 @@ def quickly_hypocratic(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_
     return hypocratic_ema_r1(y=y,s=s,k=k,a=a,t=t,e=e,r=0.75)
 
 
-
 if __name__=='__main__':
     from timemachines.skatertools.data.real import hospital_with_exog
     from timemachines.skatertools.evaluation.evaluators import evaluate_mean_absolute_error
