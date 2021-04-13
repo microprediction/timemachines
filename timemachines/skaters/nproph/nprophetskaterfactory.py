@@ -86,6 +86,7 @@ if using_neuralprophet:
             x_resid_std = nonecast(x_resid_std,1.0)
 
             # Compute center of mass between bias-corrected and uncorrected predictions
+
             x_corrected = np.array(x_resid) + np.array(x)
             x_center = nonecenter(m=[emp_mass, 1 - emp_mass], x=[x_corrected, x])
             x_std_center = nonecenter(m=[emp_std_mass, 1 - emp_std_mass], x=[x_resid_std, x_std])
@@ -98,7 +99,7 @@ if __name__=='__main__':
     from timemachines.skatertools.evaluation.evaluators import evaluate_mean_absolute_error
 
     k = 5
-    y = hospital(n=200)
+    y = hospital(n=420)
     f = nprophet_skater_factory
-    err2 = evaluate_mean_absolute_error(f=f, k=k, y=y, n_burn=50)
+    err2 = evaluate_mean_absolute_error(f=f, k=k, y=y, n_burn=400)
     print(err2)
