@@ -3,7 +3,7 @@ from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared
 import numpy as np
 from timemachines.skatertools.comparison.eloformulas import elo_update
 
-SLOW_SKATER_KEYWORDS = ['fbprophet','divine','pmd']
+SLOW_SKATER_KEYWORDS = ['divine','pmd','prophet']
 
 try:
     from microprediction import MicroReader

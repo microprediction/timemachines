@@ -2,7 +2,6 @@ from timemachines.skaters.nproph.nprophetiskaterfactory import using_neuralproph
 if using_neuralprophet:
     from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, E_TYPE, T_TYPE
     from timemachines.skatertools.composition.residualshypocratic import quickly_moving_hypocratic_residual_factory
-    from timemachines.skatertools.composition.residualcomposition import residual_chaser_factory
     from timemachines.skaters.nproph.nprophetskaters import nprophet_p1, nprophet_p2, nprophet_p3, nprophet_p5, nprophet_p8
 
 
