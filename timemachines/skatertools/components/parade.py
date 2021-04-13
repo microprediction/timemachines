@@ -1,5 +1,6 @@
-from momentum import rvar   # Could easily add skew, kurtosis
+from momentum import rvar  # Could easily add skew, kurtosis
 from typing import Union, SupportsFloat, List
+
 
 # A "parade" is a procession of l-step ahead predictions that are waiting to be judged when data arrives.
 # The predictions are stored in an array where the n'th entry will be judged after n data points arrive.
@@ -9,10 +10,10 @@ from typing import Union, SupportsFloat, List
 # for rolling statistics to be tracked separately for 1-hr, 2-hr,...10-hr ahead predictions, say.
 #
 # The usage is pretty simple. Send target y and posterior predictions (i.e. those using information y) to
-# parade_update, then  use parade_mean, parade_std
+# parade_update, then  use parade_mean, parade_std. See tsaconstant or simple.movingaverage for examples.
 
 
-def parade(p:dict, x:Union[List[SupportsFloat],None], y:Union[SupportsFloat,None],rho=0.01):
+def parade(p: dict, x: Union[List[SupportsFloat], None], y: Union[SupportsFloat, None], rho=0.01):
     """
           A 'parade' holds previous predictions and truths, and can be used to determine a running
           estimate of the empirical errors of the predictions. The usage is
@@ -34,19 +35,19 @@ def parade(p:dict, x:Union[List[SupportsFloat],None], y:Union[SupportsFloat,None
     if not p:
         k = len(x)
         p = {'predictions': [[] for _ in range(k)],  # Holds the cavalcade
-                'moments': [rvar({},rho=rho,n=5) for _ in range(k)]}  # Could use kurtosis_init here for more moment
+             'moments': [rvar({}, rho=rho, n=5) for _ in range(k)]}  # Could use kurtosis_init here for more moment
     else:
-        assert len(x) == len(p['predictions']) # 'k' is immutable
+        assert len(x) == len(p['predictions'])  # 'k' is immutable
 
     if x is None and y is None:
         # This will "reset" the running moments, but keep the existing store of predictions and observations
         p_mean, p_std = parade_mean(p), parade_std(p)
-        p['moments'] = [rvar(rho=rho,n=5) for _ in range(k)]
+        p['moments'] = [rvar(rho=rho, n=5) for _ in range(k)]
         return p_mean, p_std, p
     else:
         assessable = p['predictions'].pop(0)
         if assessable:
-            for j,xi in assessable:
+            for j, xi in assessable:
                 p['moments'][j] = rvar(p['moments'][j], y - xi)
 
         p['predictions'].append(list())
@@ -76,19 +77,16 @@ def noneneg(x):
     return -x if x is not None else None
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     from pprint import pprint
     import numpy as np
+
     y = list(range(100))
-    x = [ yi-0.5 + np.random.randn() for yi in y][1:]
+    x = [yi - 0.5 + np.random.randn() for yi in y][1:]
     p = {}
-    for xi,yi in zip(x,y):
+    for xi, yi in zip(x, y):
         _, _, p = parade(p=p, x=[xi] * 3, y=yi)
     pprint(p)
 
-
     print(parade_mean(p=p))
     print(parade_std(p=p))
-
-
-

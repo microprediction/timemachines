@@ -4,6 +4,8 @@ from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYP
 from typing import Any
 from timemachines.skaters.tsa.tsaparams import TSA_META
 from timemachines.skatertools.ensembling.ensemblefactory import precision_weighted_ensemble_factory
+from timemachines.skatertools.components.parade import parade
+from timemachines.skatertools.utilities.nonemath import nonecast
 import warnings
 from statsmodels.tools.sm_exceptions import ConvergenceWarning
 warnings.simplefilter('ignore', ConvergenceWarning)
@@ -27,7 +29,8 @@ def tsa_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
     if not s.get('y'):
         s = {'y': list(),
              'a': list(),
-             'k': k}
+             'k': k,
+             'p':{}}
     else:
         # Assert immutability of k, dimensions
         if s['y']:
@@ -49,11 +52,13 @@ def tsa_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
                 x = list( model.fit().forecast(steps=k) )
             except:
                 x = [wrap(y)[0]]*k
-            x_std = [1.0]*k
         else:
             x = [y[0]] * k
-            x_std = [1.0] * k
-        return x, x_std, s
+
+        y0 = wrap(y)[0]
+        _we_ignore_bias, x_std, s['p'] = parade(p=s['p'], x=x, y=y0)
+        x_std_fallback = nonecast(x_std, fill_value=1.0)
+        return x, x_std_fallback, s
 
 
 
