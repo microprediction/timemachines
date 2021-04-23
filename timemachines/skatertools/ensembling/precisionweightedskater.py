@@ -10,7 +10,8 @@ def normalize(w):
 
 
 def precision_weighted_skater(y,s,k,a,t,e,r=0.5):
-    """
+    """ Not a skater in the usual sense since 'y' here takes a rather particular form,
+        and it is intended to be used as with the ensemblefactory
 
        Treats y[1],y[3],y[5]... as unbiased estimates of y[0]
        Treats y[2],y[4],...     as std

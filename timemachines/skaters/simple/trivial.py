@@ -13,7 +13,8 @@ def trivial_last_value(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =No
     else:
         y0 = wrap(y)[0]       # Ignore the rest
         x = [y0]*k            # What a great prediction !
-        return x, 1.0, {}
+        x_std = [0.0]*k       # What a great std error estimate !
+        return x, x_std, {}
 
 
 def trivial_ema_r1(y :Y_TYPE, s, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None, r:R_TYPE=None):
@@ -33,8 +34,7 @@ def trivial_ema_r1(y :Y_TYPE, s, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_T
         return None, s, None
     else:
         s['x'] = s['rho']*s['x'] + (1-s['rho'])*y0         # Make me better !
-        x = [ s['x']*k ]
-        return x, [1.0]*k, s
+        return [s['x']]*k, [1.0]*k, s
 
 
 if __name__=='__main__':

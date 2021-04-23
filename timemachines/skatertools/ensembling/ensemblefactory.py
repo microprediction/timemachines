@@ -23,6 +23,8 @@ def ensemble_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE = N
         return None, None, s
     else:
         # Apply models, keeping only the point estimate
+        # This constructs a flattenned list of child predictions and their standard deviations,
+        # but for now only uses the k-step ahead predictions, not k-1, k-2,...
         xjs = list()
         rs = rs or [None for _ in fs]
         for j, (f, r) in enumerate(zip(fs, rs)):
@@ -30,10 +32,11 @@ def ensemble_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE = N
                 xj, xj_std, s['s_fs'][j] = f(y=y, s=s['s_fs'][j], k=k, a=a, t=t, e=e, r=r)
             else:
                 xj, xj_std, s['s_fs'][j] = f(y=y, s=s['s_fs'][j], k=k, a=a, t=t, e=e)
-            xjs.append(xj[-1])
+            xjs.append(xj[-1])  # <--- Only use the k-step forward prediction and toss out the rest (a bit lazy)
             if include_std:
                 xjs.append(xj_std[-1])
 
+        # Next we'll pass the child predictions to a stateless combining model
         s['n_obs']+=1
         if s['n_obs']<10:
             return [wrap(y)[0]]*k, [wrap(y)[0]]*k, s
