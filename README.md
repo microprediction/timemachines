@@ -5,7 +5,7 @@ Use popular forecasting packages with one line of code, or view their [Elo ratin
 
 What's different:
 
-   - **Simple canoncial use** of *some* functionality from packages like fbprophet, pmdarima, tsa and their ilk. 
+   - **Simple canonical use** of *some* functionality from packages like fbprophet, pmdarima, tsa and their ilk. 
 
    - **Simple, ongoing empirical evaluation**. See the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) in
     the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
