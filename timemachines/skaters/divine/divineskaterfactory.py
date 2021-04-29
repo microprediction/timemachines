@@ -4,6 +4,8 @@ from timemachines.skatertools.utilities.conventions import Y_TYPE, K_TYPE
 from timemachines.skatertools.utilities.suppression import no_stdout_stderr
 from timemachines.skatertools.visualization.priorplot import prior_plot
 from timemachines.skatertools.utilities.conventions import wrap
+from timemachines.skatertools.components.parade import parade
+from timemachines.skatertools.utilities.nonemath import nonecast
 from timemachines.skaters.divine.divineparams import MIN_N_WARM, DIVINE_MODEL
 from copy import deepcopy
 
