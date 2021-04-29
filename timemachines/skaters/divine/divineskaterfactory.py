@@ -29,6 +29,9 @@ def divinity_univariate_factory(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None,
     if not s:
         s = dict(y=[])
 
+    if not s.get('p'):
+        s['p'] = {}   # Initialize prediction parade
+
     if y0 is None:
         return None, None, s   # Ignore suggestion to fit offline
 
