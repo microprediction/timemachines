@@ -46,8 +46,9 @@ def divinity_univariate_factory(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None,
             model = dv.divinity(forecast_length=k,**kwargs)
             model.fit(np.array(s['y']))
         x = list(model.predict())
-        x_std = [1.0]*k # TODO: fixme
-        return x, x_std, s
+        _we_ignore_bias, x_std, s['p'] = parade(p=s['p'], x=x, y=y0)
+        x_std_fallback = nonecast(x_std, fill_value=1.0)
+        return x, x_std_fallback, s
 
 
 if __name__=='__main__':
