@@ -4,6 +4,8 @@ from timemachines.skatertools.utilities.conventions import Y_TYPE, K_TYPE
 from timemachines.skatertools.utilities.suppression import no_stdout_stderr
 from timemachines.skatertools.visualization.priorplot import prior_plot
 from timemachines.skatertools.utilities.conventions import wrap
+from timemachines.skatertools.components.parade import parade
+from timemachines.skatertools.utilities.nonemath import nonecast
 from timemachines.skaters.divine.divineparams import MIN_N_WARM, DIVINE_MODEL
 from copy import deepcopy
 
@@ -27,6 +29,9 @@ def divinity_univariate_factory(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None,
     if not s:
         s = dict(y=[])
 
+    if not s.get('p'):
+        s['p'] = {}   # Initialize prediction parade
+
     if y0 is None:
         return None, None, s   # Ignore suggestion to fit offline
 
@@ -46,8 +51,9 @@ def divinity_univariate_factory(y:Y_TYPE, s, k:K_TYPE, a=None, t=None, e=None,
             model = dv.divinity(forecast_length=k,**kwargs)
             model.fit(np.array(s['y']))
         x = list(model.predict())
-        x_std = [1.0]*k # TODO: fixme
-        return x, x_std, s
+        _we_ignore_bias, x_std, s['p'] = parade(p=s['p'], x=x, y=y0)
+        x_std_fallback = nonecast(x_std, fill_value=1.0)
+        return x, x_std_fallback, s
 
 
 if __name__=='__main__':
