@@ -154,6 +154,7 @@ are not added by default. Add them manually if you want to use them:
     pip install neuralprophet
     pip install pydlm
     pip install divinity
+    pip install pmdarima
     
 Add matplotlib if you want to use plotting utilities provides
 
