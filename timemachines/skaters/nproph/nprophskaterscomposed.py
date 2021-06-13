@@ -1,4 +1,4 @@
-from timemachines.skaters.nproph.nprophetiskaterfactory import using_neuralprophet
+from timemachines.skaters.nproph.nprophetinclusion import using_neuralprophet, NeuralProphet
 if using_neuralprophet:
     from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, E_TYPE, T_TYPE
     from timemachines.skatertools.composition.residualshypocratic import quickly_moving_hypocratic_residual_factory
@@ -37,6 +37,7 @@ else:
 
 
 if __name__ == '__main__':
+    assert using_neuralprophet,'pip install neuralprophet'
     from timemachines.skatertools.data.real import hospital_with_exog
     from timemachines.skatertools.visualization.priorplot import prior_plot
     import matplotlib.pyplot as plt

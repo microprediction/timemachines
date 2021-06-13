@@ -1,4 +1,4 @@
-import matplotlib.pyplot as plt
+
 import numpy as np
 from timemachines.skatertools.data.synthetic import brownian_with_exogenous, brownian_with_noise
 from timemachines.skating import prior
@@ -6,12 +6,21 @@ from timemachines.skatertools.utilities.conventions import wrap
 
 # Quick ways to inspect skaters
 
+try:
+    import matplotlib.pyplot as plt
+    using_matplotlib = True
+except ImportError:
+    using_matplotlib = False
+    plt = None
+
 
 def prior_plot(f, y=None, k=None, t=None, e=None, r=None, x0=np.nan, n=150, n_plot=25):
     """
          Apply state machine to univariate series,
          Show observations and out of sample predictions predictions
     """
+    assert using_matplotlib, 'pip install matplotlib'
+
     if y is None:
        y = brownian_with_noise(n=n)
 
@@ -28,7 +37,9 @@ def prior_plot_exogenous(f, y=None, k=None, a=None, t=None, e=None, r=None, x0=n
     """
           Apply state machine to univariate series,
           Show observations, out of sample predictions predictions, and exogenous variables
-     """
+    """
+    assert using_matplotlib, 'pip install matplotlib'
+
     if y is None:
        y = brownian_with_exogenous(n)
 
@@ -48,6 +59,7 @@ def plot_with_last_value(t, x, y, k, n_plot:int):
     :param n_plot:    Number of examples to plot (from end)
     :return:
     """
+    assert using_matplotlib, 'pip install matplotlib'
     assert isinstance(x[0],float)
     try:
         y0 = [y_[0] for y_ in y]

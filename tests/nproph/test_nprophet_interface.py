@@ -1,5 +1,5 @@
 from timemachines.skatertools.data.real import hospital
-from timemachines.skaters.nproph.nprophetiskaterfactory import using_neuralprophet
+from timemachines.skaters.nproph.nprophetinclusion import using_neuralprophet
 if using_neuralprophet:
     from timemachines.skaters.nproph.nprophetiskaterfactory import nprophet_fit_and_predict_simple, nprophet_iskater_factory
 

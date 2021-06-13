@@ -1,9 +1,9 @@
-from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
-from typing import Any
-from timemachines.skatertools.components.parade import parade
-
-from timemachines.skaters.nproph.nprophetiskaterfactory import using_neuralprophet
+from timemachines.skaters.nproph.nprophetinclusion import using_neuralprophet,NeuralProphet
 if using_neuralprophet:
+    from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
+    from typing import Any
+    from timemachines.skatertools.components.parade import parade
+    from timemachines.skaters.nproph.nprophetiskaterfactory import using_neuralprophet
     from timemachines.skaters.nproph.nprophetiskaterfactory import nprophet_iskater_factory
     from timemachines.skatertools.utilities.nonemath import nonecenter
     from timemachines.skaters.proph.prophparams import PROPHET_META, prophet_params

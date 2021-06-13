@@ -140,16 +140,30 @@ See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or f
 
 ### Install
 
+We've moved to bare-bones dependencies because some timeseries packages are not keeping up with changes to operating system or hardware (like M1 for example), and 
+also because the statistical evidence for their inclusion is less than overwhelming. 
+
     pip install timemachines
     
-Add some packages manually if you want to use them:
+This gives you access to the home grown packages and to scipy/tsa models. The popular packages
+are not added by default. Add them manually if you want to use them:
 
     pip install prophet
     pip install neuralprophet
+    pip install pydlm
+    pip install divinity
+    
+Add matplotlib if you want to use plotting utilities provides
+
+    pip install matplotlib 
 
 Add microprediction if you want to use live data
 
     pip install microprediction   
+
+You might try adding the pip argument to skip pep517 if you run into trouble on M1 chips
+
+    pip install whatever --no-use-pep517
 
 ### Running a model and plotting it 
 

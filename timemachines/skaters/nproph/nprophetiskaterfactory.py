@@ -1,15 +1,9 @@
-import pandas as pd
-from typing import List, Tuple, Any
-from timemachines.skatertools.utilities.conventions import wrap
-from timemachines.skaters.nproph.nprophparams import NPROPHET_MODEL, NPROPHET_META
-
-try:
-    from neuralprophet import NeuralProphet
-    using_neuralprophet = True
-except ImportError:
-    using_neuralprophet = False
-
+from timemachines.skaters.nproph.nprophetinclusion import using_neuralprophet, NeuralProphet
 if using_neuralprophet:
+    import pandas as pd
+    from typing import List, Tuple, Any
+    from timemachines.skatertools.utilities.conventions import wrap
+    from timemachines.skaters.nproph.nprophparams import NPROPHET_MODEL, NPROPHET_META
 
     def nprophet_iskater_factory(y: [[float]], k: int, a: List = None, t: List = None, e=None, freq: str = None, n_max=1000,
                                 recursive: bool = False, model_params: dict = None, return_forecast=True):
@@ -47,6 +41,7 @@ if using_neuralprophet:
 
 
 if __name__=='__main__':
+    assert using_neuralprophet,'pip install neuralprophet'
     from timemachines.skatertools.data.real import hospital
 
     k = 3

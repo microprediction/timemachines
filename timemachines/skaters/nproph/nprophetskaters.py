@@ -1,4 +1,4 @@
-from timemachines.skaters.nproph.nprophetiskaterfactory import using_neuralprophet
+from timemachines.skaters.nproph.nprophetiskaterfactory import using_neuralprophet, NeuralProphet
 
 if using_neuralprophet:
     from timemachines.skaters.nproph.nprophetskaterfactory import nprophet_skater_factory
