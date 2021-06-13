@@ -5,7 +5,7 @@ Use popular forecasting packages with one line of code, or view their [Elo ratin
 
 What's different:
 
-   - **Simple canonical use** of *some* functionality from packages like fbprophet, pmdarima, tsa and their ilk. 
+   - **Simple canonical use** of *some* functionality from packages like fbprophet, pmdarima, tsa, pmdarima, neuralprophet and their ilk. 
 
    - **Simple alternatives** to popular time series packages that are often faster, lighter and more accurate (e.g. [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py))
 
