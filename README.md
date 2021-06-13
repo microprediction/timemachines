@@ -40,6 +40,21 @@ Here time series "models" are plain old functions. Those functions have a "skate
 
 ![](https://i.imgur.com/elu5muO.png)
 
+### Running a model and plotting it 
+
+    from timemachines.skatertools.data import hospital_with_exog
+    from timemachines.skatertools.visualization.priorplot import prior_plot
+    import matplotlib.pyplot as plt
+    
+    # Get some data
+    k = 1
+    y, a = hospital_with_exog(k=k, n=450, offset=True)
+    
+    # Run the model and plot it 
+    err2 = prior_plot(f=fbprophet_exogenous, k=k, y=y, n=450, n_plot=50)
+    
+    plt.show()
+
 ## The Skater signature 
 
       x, w, s = f(   y:Union[float,[float]],               # Contemporaneously observerd data, 
@@ -136,7 +151,7 @@ when making conditional predictions. This also eyes lambda-based deployments and
      
 See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or file an issue if anything offends you greatly. 
  
-## Usage 
+## Related illustrations 
 
 - See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 
@@ -168,20 +183,6 @@ You might try adding the pip argument to skip pep517 if you run into trouble on 
 
     pip install whatever --no-use-pep517
 
-### Running a model and plotting it 
-
-    from timemachines.skatertools.data import hospital_with_exog
-    from timemachines.skatertools.visualization.priorplot import prior_plot
-    import matplotlib.pyplot as plt
-    
-    # Get some data
-    k = 1
-    y, a = hospital_with_exog(k=k, n=450, offset=True)
-    
-    # Run the model and plot it 
-    err2 = prior_plot(f=fbprophet_exogenous, k=k, y=y, n=450, n_plot=50)
-    
-    plt.show()
     
 ### Tuning hyper-params
 
