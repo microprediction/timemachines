@@ -151,11 +151,11 @@ when making conditional predictions. This also eyes lambda-based deployments and
      
 See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or file an issue if anything offends you greatly. 
  
-## Related illustrations 
+### Related illustrations 
 
 - See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 
-### Install
+## Install
 
 We've moved to bare-bones dependencies because some timeseries packages are not keeping up with changes to operating system or hardware (like M1 for example), and 
 also because the statistical evidence for their inclusion is less than overwhelming. 
