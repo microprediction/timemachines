@@ -1,5 +1,8 @@
 from timemachines.skatertools.visualization.priorplot import prior_plot_exogenous
-from statsmodels.tsa.arima.model import ARIMA
+try:
+  from statsmodels.tsa.arima.model import ARIMA
+except ImportError:
+  from statsmodels.tsa.arima_model import ARIMA
 from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
 from typing import Any
 from timemachines.skaters.tsa.tsaparams import TSA_META
