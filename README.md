@@ -99,18 +99,15 @@ A vector of known-in-advance variables.
 
 ### Skater "t" argument 
 
-Epoch time of the observation
+Epoch time of the observation. 
 
 ### Skater "e" argument ("expiry")
 
-The use of *e* is a fairly *weak* convention that many skaters ignore. In theory, a large expiry *e* can be used as a hint to the callee that
- there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation. A zero might suggest that there isn't even time for a "proper" prediction to be made, and we are still in the burn-in period as far as assessment or usage is concerned. However, this is between the caller and it's priest really - or its prophet we should say. Some skaters, such
- as the Facebook prophet skater, do a full 'fit' every invocation so this is meaningless. Other skaters
-  no separate notion of 'fit' versus 'update' because everything is incremental. 
+Seconds allowed for computation. See remark below. 
    
 ## Skater "r" argument ("hype(r) pa(r)amete(r)s")
 
-A scalar in the closed interval \[0,1\] represents *all* hyper-parameters. This step may seem unnatural, but is slighly less unnatural if [conventions](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/utilities/conventions.py) are followed that inflate \[0,1\] into the square \[0,1\]^2 or the cube \[0,1\]^3. See the functions **to_space** and **from_space**. 
+A scalar in the closed interval \[0,1\] represents *all* hyper-parameters. See comments below. 
 
 ### Return values
 
@@ -125,7 +122,12 @@ Two vectors and the posterior state. The first set of *k* numbers can be *interp
 In returning state, the intent is that the *caller* might carry the state from one invocation to the next verbatim. This is arguably more convenient than having the predicting object maintain state, because the caller can "freeze" the state as they see fit, as 
 when making conditional predictions. This also eyes lambda-based deployments and *encourages* tidy use of internal state - not that we succeed
  when calling down to statsmodels (though prophet, and others including the home grown models use simple dictionaries, making serialization trivial). 
+ 
+You'll notice also that parameter use seems limited. This is deliberate. A skater is morally a "bound" model (i.e. fixed hyper-parameters) and ready to use. Any fitting, estimation or updating is the skater's internal responsibility. That said, it is sometimes useful to enlarge the skater concept to include hyper-paramters, as this enourages a more standardized way to expose and fit them. The use of a single scalar for hyper-parameters may seem unnatural, but is slighly less unnatural if [conventions](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/utilities/conventions.py) are followed that inflate \[0,1\] into the square \[0,1\]^2 or the cube \[0,1\]^3. See the functions **to_space** and **from_space**. This also makes it trivial for anyone to design black box optimization routines that can work on any skater, without knowing its working. The humpday package makes this trivial - albeit time-consuming. 
 
+The use of *e* is a fairly *weak* convention that many skaters ignore. In theory, a large expiry *e* can be used as a hint to the callee that
+ there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation. A zero might suggest that there isn't even time for a "proper" prediction to be made, and we are still in the burn-in period as far as assessment or usage is concerned. However, this is between the caller and it's priest really - or its prophet we should say. Some skaters, such
+ as the Facebook prophet skater, do a full 'fit' every invocation so this is meaningless. Other skaters don't even have a separate notion of 'fit' versus 'update' because everything is incremental. 
     
 ### Summary of conventions: 
 
