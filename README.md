@@ -162,7 +162,7 @@ See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or f
 ## Install
 
 We've moved to bare-bones dependencies because some timeseries packages are not keeping up with changes to dependent packages (as with STAN releases), or operating system or hardware quirks (like Apple M1 for example), and 
-also because the statistical evidence for their inclusion is less than overwhelming. So ...
+also because the statistical evidence for their inclusion is less than overwhelming ([ahem](https://www.microprediction.com/blog/prophet). So ...
 
     pip install --upgrade pip
     pip install timemachines
