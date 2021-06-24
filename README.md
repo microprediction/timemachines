@@ -36,7 +36,7 @@ Nothing to slow you down!
 Here time series "models" are plain old functions. Those functions have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
    One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
     forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However here the *caller* is expected to maintain state from one 
-    invocation (data point) to the next.  
+    invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
 
 ![](https://i.imgur.com/elu5muO.png)
 
@@ -205,4 +205,5 @@ If you are the maintainer of a time series package, we'd love your feedback and 
    as *the right way* to write time series packages - more a way of exposing their functionality for comparisons. 
   If you are interested in design thoughts for time series maybe participate in this [thread](https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1). 
 
-See also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md)
+## FAQ 
+See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md)
