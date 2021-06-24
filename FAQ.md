@@ -3,7 +3,7 @@
     
 ### FAQ 1: Why not have the model persist the state?
 
-Answer: Well, you can trivially turn any skater function into a callable that does that, should you wish: 
+Answer (A): Well, you can trivially turn any skater function into a callable that does that, should you wish: 
 
        class Predictor:
    
@@ -17,13 +17,16 @@ Answer: Well, you can trivially turn any skater function into a callable that do
 
 or write a decorator. Whatever, it's Python. 
 
-Answer: The intent is to produce simple lambda-friendly models and,
+Answer (B): The intent is to produce simple lambda-friendly models and,
 
-- a *reasonable* way to map the most important hyper-parameter choices (we hope),
+### FAQ 2: What's with the z-curves?
+
+The desire here is realizing the full tensor product of time-series models and hyper-parameter techniques. So we hope for:
+- a *reasonable* way to map the most important hyper-parameter choices,
 - that imposes some geometric discipline on the hyper-parameter space in the first place, and
 - facilitates comparison of different ways to search hyper-parameters, across packages which have *entirely different conventions* and hyper-parameter spaces. 
 
-### FAQ 2: Why not use the packages, like prophet, directly?
+### FAQ 3: Why not use the packages, like prophet, directly?
 
 Answer: Maybe you should. Observe that this package wraps *some* functionality, not all by any means. You should use the original
 packages for maximum flexibility. However, as noted, you *might* like this package if you want to be able to do this:
@@ -47,7 +50,7 @@ There are also limitations of the skater approach. The simple data model in *y*,
 easily be represented by a vector of fixed length (you might consider a dictionary interface instead, as with
 the river package). 
 
-### FAQ 3: Only Point Estimates and Confidence Intervals?  
+### FAQ 3: Why Only Point Estimates and Confidence Intervals?  
 
 Yes, the skater does not return a full distribution - unless you smuggle it into the state. 
 However this package was motivated by the desire to create better free turnkey distributional forecasts, at [microprediction.org](https://www.microprediction.org), and you might infer that skaters returning two numbers per horizon might be useful 
