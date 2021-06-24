@@ -5,9 +5,9 @@ Use popular forecasting packages with one line of code, or view their [Elo ratin
 
 What's different:
 
-   - **Simple canonical functional use** of *some* functionality from packages like fbprophet, pmdarima, tsa, pmdarima, neuralprophet and their ilk. 
+   - **Simple canonical functional use** of *some* functionality from packages like fbprophet, pmdarima, tsa, pmdarima, neuralprophet and their ilk. Sadly most of these are slow but...
 
-   - **Simple alternatives** to popular time series packages that are often faster, lighter and more accurate (e.g. [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py))
+   - **Simple fast accurate alternatives** to popular time series packages that are often faster, lighter and more accurate (e.g. [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py))
 
    - **Simple, ongoing empirical evaluation**. See the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) in
     the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
