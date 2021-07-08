@@ -44,7 +44,7 @@ def run_orbit_lgt(data,k,seasonality):
 def orbit_lgt_skater_factory(y,s,k,e,seasonality):
 
 
-    y = [y]
+    y = wrap(y)
 
 
     if not s.get('y'):
