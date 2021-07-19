@@ -54,6 +54,8 @@ if using_prophet:
 
         assert 0 <= emp_mass <= 1
         assert 0 <= emp_std_mass <= 1
+        if e is None:
+          e = 1  # 'Providing e=None to prophet is not recommended. Use e<0 to skip a fitting or e>0 to fit.'
 
         if freq is None:
             freq = PROPHET_META['freq']
@@ -87,8 +89,9 @@ if using_prophet:
                 assert isinstance(t,float), 'epoch time please'
                 s['t'].append(t)
 
-            if len(s['y']) > max(2 * k + 5, PROPHET_META['n_warm']):
+            if e is not None and (e>0) and (len(s['a'])>k) and (len(s['y'])>10):
                 # Offset y, t, a are supplied to prophet interface
+                # Prophet requires several non-nan rows
                 t_arg = s['t'][k:] if t is not None else None
                 a_arg = s['a']
                 y_arg = s['y'][k:]
@@ -98,7 +101,7 @@ if using_prophet:
                 s['m'] = True # Flag indicating a model has been fit (there is no point keeping the model itself, however)
             else:
                 x = [y[0]] * k
-                x_std = None
+                x_std = [1] * k
 
             # Get running mean prediction errors from the prediction parade
             x_resid, x_resid_std, s['p'] = parade(p=s['p'], x=x, y=y[0])

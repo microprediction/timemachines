@@ -1,5 +1,5 @@
 from timemachines.skatertools.utilities.conventions import Y_TYPE, from_space, A_TYPE
-from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error
+from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error_with_sporadic_fit
 import traceback
 import time
 
@@ -38,7 +38,7 @@ def optimal_r(f, y:[Y_TYPE],
     if not using_humpday:
         raise Exception('You must manually install humpday, with pip install humpday, in order to use this')
     if evaluator is None:
-        evaluator = evaluate_mean_squared_error
+        evaluator = evaluate_mean_squared_error_with_sporadic_fit
 
     if n_dim is None:
         n_dim = infer_r_dim(f.__name__)
@@ -73,11 +73,11 @@ def optimize_proph_against_hospital(k=10, n_extra=100):
 
     """
     assert using_humpday,'pip install humpday'
-    from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error
+    from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error_with_sporadic_fit
     from timemachines.skatertools.data.real import hospital_with_exog
     from timemachines.skaters.proph.prophparams import PROPHET_META
     from humpday.optimizers.optunacube import optuna_tpe_cube
-    evaluator = evaluate_mean_squared_error
+    evaluator = evaluate_mean_squared_error_with_sporadic_fit
     n_burn = PROPHET_META['n_warm'] + k + 1
     y, a = hospital_with_exog(k=k, n=n_burn+n_extra, offset=True)
 

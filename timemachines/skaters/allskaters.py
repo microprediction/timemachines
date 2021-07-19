@@ -8,6 +8,7 @@ from timemachines.skaters.simple.hypocraticensemble import HYPOCRATIC_ENSEMBLE_S
 from timemachines.skaters.pmd.allpmdskaters import PMD_SKATERS
 from timemachines.skaters.tsa.alltsaskaters import TSA_SKATERS
 from timemachines.skaters.nproph.allnprophetskaters import NPROPHET_SKATERS
+from timemachines.skaters.orbit.allorbitskaters import ORBIT_SKATERS
 
 SKATERS_R3 = []
 SKATERS_R2 = PROPHET_R2_SKATERS
@@ -17,7 +18,7 @@ SKATERS_R1 = EMA_R1_SKATERS
 
 # And with no hyper-params...
 SKATERS = EMA_SKATERS + PROPHET_SKATERS + DIVINE_SKATERS + DLM_SKATERS + \
-          THINKING_SKATERS + PMD_SKATERS + TSA_SKATERS + NPROPHET_SKATERS + HYPOCRATIC_ENSEMBLE_SKATERS
+          THINKING_SKATERS + PMD_SKATERS + TSA_SKATERS + NPROPHET_SKATERS + HYPOCRATIC_ENSEMBLE_SKATERS + ORBIT_SKATERS
 
 
 def skater_from_name(name):

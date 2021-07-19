@@ -193,4 +193,4 @@ if using_prophet:
 
 
 if __name__ == '__main__':
-    test_with_exog_and_advance_vars(show=True)
+    test_skater_with_a()

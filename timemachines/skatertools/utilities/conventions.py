@@ -18,6 +18,8 @@ K_TYPE = int  # Number of steps ahead to forecast - usually integer
 A_TYPE = Y_TYPE  # Known-in advance or other action-conditional variables
 T_TYPE = Union[float, int]  # Epoch time of observation
 E_TYPE = Union[float, int]  # Expiry in seconds (i.e. how long should callee spend computing)
+E_TYPE_LIST = List[E_TYPE]
+E_TYPE_OR_LIST = Union[ E_TYPE, List[E_TYPE]]
 R_TYPE = float  # Hype(r) Pa(r)amete(r)s for the model
 
 
@@ -65,33 +67,15 @@ X_TYPE = Union[float, None]  # A point estimate, or some other anchor point deem
 W_TYPE = Any  # (W)hatever else callee chooses to emit, such as a conf interval
 
 
+def e_burn(n_burn=400, n=402, e_burn=-1, e_test=1000):
+    """
+        A vector of -1's followed by a large value
+        This is typically the 'e' that will be used when sending historical data to a skater helper function
+
+    """
+    return [e_burn] * n_burn + [e_test] * (n - n_burn)
 
 
-
-
-
-
-def initialize_buffers(s, y: Y_TYPE, a:A_TYPE=None):   # FIXME: kill this
-    s['n_obs'] = 0
-    s['dim'] = dimension(y)
-    s['a_dim'] = dimension(a)
-    s['buffer'] = list()  # Target
-    if s['dim'] > 1:
-        s['exogenous'] = list()  # Exogenous, the rest of y
-    s['model'] = None
-    s['advance'] = list()  # Variables known in advance
-    s['staleness'] = 0
-    return s
-
-
-def update_buffers(s, a: A_TYPE, exog: [float], y0: float):
-    # Store "target" and other observations or vars known in advance
-    s['buffer'].append(y0)
-    if exog is not None:
-        s['exogenous'].append(exog)
-    if a is not None:
-        s['advance'].append(a)
-    return s
 
 
 # The remainder of this module establishes space-filling curve conventions that apply to a and r

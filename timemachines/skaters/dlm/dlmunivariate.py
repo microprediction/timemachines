@@ -33,6 +33,10 @@ if using_dlm:
                 - The hyper-parameter controls 'auto_degree', 'trend_degree',  'period'
 
             :returns: x, x_std, s
+
+            This guy will take a hint if e>10 but regardless, will occasionally perform a tuning
+            of parameters.
+
         """
         assert r is not None, 'Requires hyper-parameter (interpreted in dimension 3) '
         if not s:
@@ -51,13 +55,14 @@ if using_dlm:
             y0_passed_in = None if np.isnan(y0) else y0  # pydlm uses None for missing values
             s['model'].append([y0_passed_in])
             num_obs = len(s['model'].data) if s.get('model') else 0
-            if num_obs % s['n_fit'] == s['n_fit'] - 1:
+            if (num_obs % s['n_fit'] == s['n_fit'] - 1 ) or (e is not None and e>10):
                 # Perform periodic tuning of discount factors
                 _, _, s = dlm_univariate_r3(y=None, s=s, k=k, a=a, t=t, e=1000, r=r)
             s['model'].fitForwardFilter()
             return _dlm_prediction_helper(s=s, k=k, y=y)
 
-        if y is None and e > 60:
+        if y is None and e > 0:
+            # Not sure I like this style, versus a separate fit function for clarity
             s['model'].tune()  # Tunes discount factors
             s['model'].fit()
             return None, None, s

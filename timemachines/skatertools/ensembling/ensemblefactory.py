@@ -2,6 +2,11 @@ from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, E_TYP
 from typing import Any, List
 from timemachines.skatertools.ensembling.precisionweightedskater import precision_weighted_skater
 
+# Some r values to use when ensembling
+R_PRECISION = 0.5    # (i.e. precision weighting)
+R_BALANCED = 0.25
+R_AGGRESSIVE = 0.90
+
 
 def ensemble_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None,
                      fs: List = None, rs: List = None, g=None, r=None, include_std=True) -> ([float], Any, Any):

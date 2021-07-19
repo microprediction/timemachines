@@ -1,4 +1,5 @@
 from timemachines.skaters.flux.fluxinclusion import using_pyflux,pf
+from timemachines.skatertools.utilities.conventions import Y_TYPE,A_TYPE, dimension
 if using_pyflux:
     import pandas as pd
     from timemachines.skatertools.visualization.priorplot import prior_plot_exogenous
@@ -6,6 +7,28 @@ if using_pyflux:
         R_TYPE
 
     # TODO: Span models at https://pyflux.readthedocs.io/en/latest/gpnar.html with r
+
+    def initialize_buffers(s, y: Y_TYPE, a: A_TYPE = None):  # FIXME: kill this
+        s['n_obs'] = 0
+        s['dim'] = dimension(y)
+        s['a_dim'] = dimension(a)
+        s['buffer'] = list()  # Target
+        if s['dim'] > 1:
+            s['exogenous'] = list()  # Exogenous, the rest of y
+        s['model'] = None
+        s['advance'] = list()  # Variables known in advance
+        s['staleness'] = 0
+        return s
+
+
+    def update_buffers(s, a: A_TYPE, exog: [float], y0: float):
+        # Store "target" and other observations or vars known in advance
+        s['buffer'].append(y0)
+        if exog is not None:
+            s['exogenous'].append(exog)
+        if a is not None:
+            s['advance'].append(a)
+        return s
 
 
     def flux_hyperparams(s, r: R_TYPE):

@@ -1,5 +1,5 @@
 from timemachines.skatertools.data.synthetic import brownian_with_noise, brownian_with_exogenous
-from timemachines.skating import prior, residuals
+from timemachines.skating import prior, residuals, prior_with_sporadic_fit
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from scipy.stats import energy_distance
 import numpy as np
@@ -15,39 +15,42 @@ def evaluator_from_name(name):
     return valid[0] if len(valid)==1 else None
 
 
-def evaluate_sklearn_metric(f, y, k:int, a=None, t=None, e=None, r=None, metric=None, n_burn=None)->float:
-    """ Compute prior for skater and evaluate an sklearn metric """
-    assert metric is not None
-    assert n_burn is not None
-    x, x_std = prior(f=f, y=y, k=k, a=a, t=t, r=r, e=e )
+def evaluate_sklearn_metric(f, y, k:int, a=None, t=None, e_fit=60, e_nofit=-1, metric=None, r=None)->float:
+    """ Compute prior for skater and evaluate an sklearn metric
+
+           n_test:   Number of data points to test with
+
+        Trains on history then computes several test samples
+    """
+    return evaluate_sklearn_metric_with_sporadic_fit(f=f,y=y,k=k,a=a,t=t,e_fit=e_fit, e_nofit=e_nofit, r=r, fit_frequency=1, metric=metric )
+
+
+def evaluate_sklearn_metric_with_sporadic_fit(f, y, k:int, a=None, t=None, e=None, r=None, metric=None,
+                                              n_test:int=10, e_fit=60,  e_nofit=-1, fit_frequency:int=100)->float:
+    x, x_std = prior_with_sporadic_fit(f=f, y=y, k=k, a=a, t=t, r=r, n_test=n_test,
+                                       e_fit=e_fit,  e_nofit=e_nofit, fit_frequency=fit_frequency)
     yt = targets(y)
-    xk = [ xt[-1] for xt in x ]  # k-steps ahead
-    return metric(yt[n_burn:], xk[n_burn:] )
+    xk = [xt[-1] for xt in x]
+    return metric(yt[-n_test:], xk[-n_test:])
 
 
-def evaluate_mean_squared_error(f, y, k:int, a=None, t=None, e=None, r=None, n_burn=None)->float:
-    assert n_burn is not None
-    return evaluate_sklearn_metric(f=f, y=y, k=k, a=a, t=t, e=e, r=r, metric=mean_squared_error, n_burn=n_burn)
+def evaluate_mean_squared_error_with_sporadic_fit(f, y, k:int, a=None, t=None, r=None, n_test:int=10, e_fit=60, e_nofit=-1, fit_frequency:int=100)->float:
+    return evaluate_sklearn_metric_with_sporadic_fit(f=f, y=y, k=k, a=a, t=t, r=r, metric=mean_squared_error, e_fit=e_fit, e_nofit=e_nofit, n_test=n_test, fit_frequency=fit_frequency)
 
 
-def evaluate_mean_absolute_error(f, y, k:int, a=None, t=None, e=None, r=None, n_burn=None )->float:
-    assert n_burn is not None
-    return evaluate_sklearn_metric(f=f, y=y, k=k, a=a, t=t, e=e, r=r, metric=mean_absolute_error, n_burn=n_burn )
-
-
-def hospital_mean_square_error(f, k:int=1, n=120, n_burn=30, r=None)->float:
+def hospital_mean_square_error_with_sporadic_fit(f, k:int=1, n=120, r=None, n_test:int=10, e_fit=60, e_nofit=-1, fit_frequency:int=100)->float:
     """ Useful for a quick test of a skater, univariate and random hyper-param """
     y = hospital()[:n]
-    return evaluate_mean_squared_error(f=f, y=y, k=k, r=r, n_burn=n_burn)
+    return evaluate_mean_squared_error_with_sporadic_fit(f=f, y=y, k=k, r=r, e_fit=e_fit, n_test=n_test, e_nofit=e_nofit, fit_frequency=fit_frequency)
 
 
-def hospital_exog_mean_square_error(f, k, n=120, n_burn=30, r=None)->float:
+def hospital_exog_mean_square_error_with_sporadic_fit(f, k, n=120, r=None, n_test:int=10, e_fit=60, e_nofit=-1, fit_frequency:int=100)->float:
     """ Useful for a quick test of a skater w/ exogenous inputs and known-in-advance variables """
     y, a = hospital_with_exog(n=n,k=k)
-    return evaluate_mean_squared_error(f=f, y=y, a=a, k=k, r=r, n_burn=n_burn)
+    return evaluate_mean_squared_error_with_sporadic_fit(f=f, y=y, a=a, k=k, r=r, n_test=n_test, e_fit=e_fit, e_nofit=e_nofit, fit_frequency=fit_frequency)
 
 
-# Energy distance between simple of consecutive epochs
+# Energy distance between consecutive epochs
 # (a more speculative way to evaluate point estimates)
 
 
@@ -83,4 +86,4 @@ def exogenous_energy(f, n=500, **kwargs):
     return evaluate_energy(f=f, y=ys, **kwargs)
 
 
-EVALUATORS = [ evaluate_mean_squared_error, evaluate_mean_absolute_error ]
+EVALUATORS = [evaluate_mean_squared_error_with_sporadic_fit]

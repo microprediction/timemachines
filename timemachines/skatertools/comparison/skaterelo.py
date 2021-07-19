@@ -1,5 +1,5 @@
 from timemachines.skaters.allskaters import SKATERS, skater_from_name  # Only those with no hyper-params
-from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error, evaluator_from_name
+from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error_with_sporadic_fit, evaluator_from_name
 import numpy as np
 from timemachines.skatertools.comparison.eloformulas import elo_update
 
@@ -58,7 +58,7 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
         if elo.get('evaluator'):
             evaluator = evaluator_from_name(elo.get('evaluator'))
         else:
-            evaluator = evaluate_mean_squared_error
+            evaluator = evaluate_mean_squared_error_with_sporadic_fit
         elo['evaluator'] = evaluator.__name__
 
     # Choose two random skaters, but avoid slow ones once
@@ -87,7 +87,7 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
         for i, f in zip([i1, i2], fs):
             import traceback
             try:
-                score = evaluator(f=f, y=y, k=k, a=None, t=t, e=None, n_burn=n_burn)
+                score = evaluator(f=f, y=y, k=k, a=None, t=t, e_fit=15, e_nofit=-1, n_test=20, fit_frequency=200)
                 elo['traceback'][i] = 'passing'
                 scores.append(score)
             except Exception as e:
