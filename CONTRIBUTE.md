@@ -2,16 +2,16 @@
 # Time-machines contributors guide
 
 Here are some new notes for contributors to the timemachines package. You can also talk to a human. I try to jump on 
-a Google Meet twice a week and the details are in the microprediction [knowledge center](https://www.microprediction.com/knowledge-center). I'm not
-so good at scheduling calls outside of these times and frankly that tends to be counter to my productivity anyway. So just jump on some Tuesday night or 
-Friday noon if you are keen to contribute to this package, or anything else that relates to open source community prediction. 
+a Google Meet twice a week and the details are in the microprediction [knowledge center](https://www.microprediction.com/knowledge-center). 
+
+Contribution qualifies for monthly [contributor prizes](https://www.microprediction.com/competitions/best-project-contributor) and you can ignore the end-date there if there is one.   
 
 There are two principle ways you can contribute to the timemachines package:
 
   - Contribute a "skater":
-    - A skater is a univariate forecast, preferably one that is fast.
-    - For example one that uses a package not already incorporated
-    - Or a clever ensembling or stacking of existing forecasting
+    - A univariate k-step ahead forecaster, preferably one that is fast.
+    - For example one that uses a package not already incorporated, possibly from [this list](https://www.microprediction.com/blog/popular-timeseries-packages)
+    - Or a clever ensembling or stacking of existing skaters
     
   - Publish live data on an ongoing basis
     - This can help make the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) better.
@@ -34,20 +34,20 @@ Then your regular job can do the following:
 This will create a stream like [airport short term parking](https://www.microprediction.org/stream_dashboard.html?stream=airport-ewr-short-term_parking_a_b_c) and a bunch of
 hungry time-series algorithms will come to it. The remainder of this note deals only with skater creation. 
 
-## One creating a skater function ...
+## On creating a skater function ...
 
    - Read the [README](https://github.com/microprediction/timemachines) to understand what a skater is and what it is not. The good news is that a skater
    is merely a function. The bad news is that the function must accomodate a few conventions. 
    
    
-        x, w, s = f(   y:Union[float,[float]],       # Contemporaneously observered data, 
+             x, w, s = f(   y:Union[float,[float]],       # Contemporaneously observered data, 
                                                       # ... including exogenous variables in y[1:], if any. 
-             s=None,                                  # Prior state
-             k:float=1,                               # Number of steps ahead to forecast. Typically integer. 
-             a:[float]=None,                          # Variable(s) known in advance, or conditioning
-             t:float=None,                            # Time of observation (epoch seconds)
-             e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
-             r:float=None)
+                  s=None,                                  # Prior state
+                  k:float=1,                               # Number of steps ahead to forecast. Typically integer. 
+                  a:[float]=None,                          # Variable(s) known in advance, or conditioning
+                  t:float=None,                            # Time of observation (epoch seconds)
+                  e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
+                  r:float=None)
 
    - Your function must take either a scalar y or a list. If the latter, your skater should interpret the first entry y[0] as the quantity
    that needs forecasting, whereas y[1:] are merely helpful. If your model doesn't consider exogenous variables then the first line should probably be:
@@ -216,9 +216,17 @@ set a crawler loose that is informed in some way. You can see the pattern in the
         skater.set_repository(
             'https://github.com/microprediction/microprediction/blob/master/crawler_examples/datable_llama.py')
         skater.run()
+        
+    
 
 As you can see this leans heavily on the StreamSkater class. This an other methods are explained in the [crawler examples](https://github.com/microprediction/microprediction/tree/master/crawler_examples) folder. 
 
-## More help
+## More help / discussion
 
 As noted, I try to jump on a Google Meet twice a week and the details are in the microprediction [knowledge center](https://www.microprediction.com/knowledge-center). My arrival rate is higher on Fridays than Tuesdays :)
+
+I'm not so good at scheduling calls outside of these times and frankly that tends to be counter to my productivity anyway. So just jump on some Tuesday night or 
+Friday noon if you are keen to contribute to this package, or anything else that relates to open source community prediction. 
+
+
+![](https://i.imgur.com/l14hKmr.jpg)
