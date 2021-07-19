@@ -2,9 +2,7 @@
 # Time-machines contributors guide
 
 Here are some new notes for contributors to the timemachines package. You can also talk to a human. I try to jump on 
-a Google Meet twice a week and the details are in the microprediction [knowledge center](https://www.microprediction.com/knowledge-center). I'm not
-so good at scheduling calls outside of these times and frankly that tends to be counter to my productivity anyway. So just jump on some Tuesday night or 
-Friday noon if you are keen to contribute to this package, or anything else that relates to open source community prediction. 
+a Google Meet twice a week and the details are in the microprediction [knowledge center](https://www.microprediction.com/knowledge-center). 
 
 There are two principle ways you can contribute to the timemachines package:
 
@@ -216,13 +214,17 @@ set a crawler loose that is informed in some way. You can see the pattern in the
         skater.set_repository(
             'https://github.com/microprediction/microprediction/blob/master/crawler_examples/datable_llama.py')
         skater.run()
+        
+    
 
 As you can see this leans heavily on the StreamSkater class. This an other methods are explained in the [crawler examples](https://github.com/microprediction/microprediction/tree/master/crawler_examples) folder. 
 
-## More help
+## More help / discussion
 
 As noted, I try to jump on a Google Meet twice a week and the details are in the microprediction [knowledge center](https://www.microprediction.com/knowledge-center). My arrival rate is higher on Fridays than Tuesdays :)
 
+I'm not so good at scheduling calls outside of these times and frankly that tends to be counter to my productivity anyway. So just jump on some Tuesday night or 
+Friday noon if you are keen to contribute to this package, or anything else that relates to open source community prediction. 
 
 
 ![](https://i.imgur.com/l14hKmr.jpg)
