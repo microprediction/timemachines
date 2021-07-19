@@ -21,11 +21,12 @@ There are two principle ways you can contribute to the timemachines package:
     data point and publishes it. 
     
     
-         pip install microprediction
-         from microprediction import MicroWriter, new_key
-         write_key = new_key(difficulty=12)  # <--- Takes a long time, sorry
-         writer = MicroWriter(write_key=write_key)
-         writer.set(name='my_own_stream.json',value=3.14157)  # <--- Must end in .json 
+           pip install microprediction
+           from microprediction import MicroWriter, new_key
+           write_key = new_key(difficulty=12)  # <--- Takes a long time, sorry
+           writer = MicroWriter(write_key=write_key)
+           writer.set(name='my_own_stream.json',value=3.14157)  # <--- Must end in .json 
+
 
 The remainder of this note deals only with skater creation. 
 
