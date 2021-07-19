@@ -50,12 +50,12 @@ See  [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/C
     from timemachines.skatertools.visualization.priorplot import prior_plot
     import matplotlib.pyplot as plt
     
-    # Get some data
+    # Get some data - including variables known in advance:
     k = 1
     y, a = hospital_with_exog(k=k, n=450, offset=True)
     
     # Run the model and plot it 
-    err2 = prior_plot(f=fbprophet_exogenous, k=k, y=y, n=450, n_plot=50)
+    prior_plot(f=fbprophet_exogenous, k=k, y=y, n=450, n_plot=50)
     
     plt.show()
 
