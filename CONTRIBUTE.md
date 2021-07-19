@@ -35,19 +35,21 @@ The remainder of this note deals only with skater creation.
    is merely a function. The bad news is that the function must accomodate a few conventions. 
    
    
-       x, w, s = f(   y:Union[float,[float]],       # Contemporaneously observered data, 
-                                                     # ... including exogenous variables in y[1:], if any. 
-            s=None,                                  # Prior state
-            k:float=1,                               # Number of steps ahead to forecast. Typically integer. 
-            a:[float]=None,                          # Variable(s) known in advance, or conditioning
-            t:float=None,                            # Time of observation (epoch seconds)
-            e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
-            r:float=None)
+        x, w, s = f(   y:Union[float,[float]],       # Contemporaneously observered data, 
+                                                      # ... including exogenous variables in y[1:], if any. 
+             s=None,                                  # Prior state
+             k:float=1,                               # Number of steps ahead to forecast. Typically integer. 
+             a:[float]=None,                          # Variable(s) known in advance, or conditioning
+             t:float=None,                            # Time of observation (epoch seconds)
+             e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
+             r:float=None)
 
    - Your function must take either a scalar y or a list. If the latter, your skater should interpret the first entry y[0] as the quantity
    that needs forecasting, whereas y[1:] are merely helpful. If your model doesn't consider exogenous variables then the first line should probably be:
    
-         y0 = wrap(y)[0]    
+   
+           y0 = wrap(y)[0]    
+   
    
    - Your function must return a list or vector x of length k where x[0] is 1 step ahead, x[1] is 2 steps ahead and so forth. Ideally this is done in 
    a fast, incremental manner. Every time a number arrives the predictions for the next k are spat out. It is okay to create skaters that are slow and
@@ -64,10 +66,10 @@ The remainder of this note deals only with skater creation.
    the use of the *parade*:
    
        
-        x = [y0]*k            # What a great prediction !
-        bias, x_std, s['p'] = parade(p=s['p'], x=x, y=y0)  # update residual queue
-        x_std_fallback = nonecast(x_std, fill_value=1.0)
-        return x, x_std_fallback, s
+          x = [y0]*k            # What a great prediction !
+          bias, x_std, s['p'] = parade(p=s['p'], x=x, y=y0)  # update residual queue
+          x_std_fallback = nonecast(x_std, fill_value=1.0)
+          return x, x_std_fallback, s
       
       
  Aside: You can read the code for parade in [/components/parade.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/components/parade.py) and, as stated there,
@@ -78,7 +80,9 @@ The remainder of this note deals only with skater creation.
     for rolling statistics to be tracked separately for 1-hr, 2-hr,...10-hr ahead predictions, say. Anyway ... YOU DON'T NEED TO CARE ABOUT THIS but you do probably need
     to include the line 
     
-         bias, x_std, s['p'] = parade(p=s['p'], x=x, y=y0) 
+    
+           bias, x_std, s['p'] = parade(p=s['p'], x=x, y=y0) 
+    
     
   in your skater unless you have a better way to estimate the skater's error. End of aside.  
 
@@ -90,13 +94,13 @@ The remainder of this note deals only with skater creation.
    it is, I hope, pretty obvious that this block of code warms up the state s:
    
    
-        if not s.get('y'):
-        s = {'y': list(),
-             'a': list(),
-             'k': k,
-             'p':{}}
+           if not s.get('y'):
+           s = {'y': list(),
+               'a': list(),
+               'k': k,
+               'p':{}}
 
-
+ 
    Actually it doesn't do much, as you can also see, because it doesn't want to spend energy estimating a time-series model until there is enough data. Which brings me to the e argument
    
    - Your skater should interpret the e argument before embarking on expensive computation. 
