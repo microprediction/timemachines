@@ -34,7 +34,7 @@ Then your regular job can do the following:
 This will create a stream like [airport short term parking](https://www.microprediction.org/stream_dashboard.html?stream=airport-ewr-short-term_parking_a_b_c) and a bunch of
 hungry time-series algorithms will come to it. The remainder of this note deals only with skater creation. 
 
-## One creating a skater function ...
+## On creating a skater function ...
 
    - Read the [README](https://github.com/microprediction/timemachines) to understand what a skater is and what it is not. The good news is that a skater
    is merely a function. The bad news is that the function must accomodate a few conventions. 
