@@ -10,8 +10,8 @@ There are two principle ways you can contribute to the timemachines package:
 
   - Contribute a "skater":
     - A skater is a univariate forecast, preferably one that is fast.
-    - For example one that uses a package not already incorporated
-    - Or a clever ensembling or stacking of existing forecasting
+    - For example one that uses a package not already incorporated, possibly from [this list](https://www.microprediction.com/blog/popular-timeseries-packages)
+    - Or a clever ensembling or stacking of existing skaters
     
   - Publish live data on an ongoing basis
     - This can help make the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) better.
