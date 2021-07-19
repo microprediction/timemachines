@@ -4,7 +4,7 @@
 Here are some new notes for contributors to the timemachines package. You can also talk to a human. I try to jump on 
 a Google Meet twice a week and the details are in the microprediction [knowledge center](https://www.microprediction.com/knowledge-center). 
 
-Contribution qualifies for monthly [contributor prizes](https://www.microprediction.com/competitions/best-project-contributor).  
+Contribution qualifies for monthly [contributor prizes](https://www.microprediction.com/competitions/best-project-contributor) and you can ignore the end-date there if there is one.   
 
 There are two principle ways you can contribute to the timemachines package:
 
