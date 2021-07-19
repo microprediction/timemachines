@@ -40,6 +40,10 @@ Here time series "models" are plain old functions. Those functions have a "skate
 
 ![](https://i.imgur.com/elu5muO.png)
 
+### New contributor guide:
+    
+See  [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
+
 ### Running a model and plotting it 
 
     from timemachines.skatertools.data import hospital_with_exog

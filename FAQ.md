@@ -1,5 +1,9 @@
 
 
+### FAQ 0: This is great, how can I help?
+    
+See  [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
+    
     
 ### FAQ 1: Why not have the model persist the state?
 
