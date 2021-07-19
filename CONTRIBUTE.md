@@ -222,3 +222,7 @@ As you can see this leans heavily on the StreamSkater class. This an other metho
 ## More help
 
 As noted, I try to jump on a Google Meet twice a week and the details are in the microprediction [knowledge center](https://www.microprediction.com/knowledge-center). My arrival rate is higher on Fridays than Tuesdays :)
+
+
+
+![](https://i.imgur.com/l14hKmr.jpg)
