@@ -1,6 +1,6 @@
 import pandas as pd
 from timemachines.skatertools.utilities.conventions import wrap
-from timemachines.skaters.orbit.orbitinclusion import using_orbit, LGTMAP, LGTAggregated, LGTFull
+from timemachines.skaters.uberorbit.orbitinclusion import using_orbit, LGTMAP, LGTAggregated, LGTFull
 
 
 if using_orbit:
@@ -40,7 +40,7 @@ if using_orbit:
 
     def run_orbit_lgt(data,k,seasonality):
 
-        #It seems orbit needs a two column dataframe of an index column and
+        #It seems uberorbit needs a two column dataframe of an index column and
         #measuremnt column in order to work. It also seems to need enough
         #space in the dataframe to insert the values it predicts.
         df = pd.DataFrame(data).reset_index().rename(columns={0:"response_col",'index':"date_col"})

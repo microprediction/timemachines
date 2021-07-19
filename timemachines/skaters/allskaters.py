@@ -8,7 +8,7 @@ from timemachines.skaters.simple.hypocraticensemble import HYPOCRATIC_ENSEMBLE_S
 from timemachines.skaters.pmd.allpmdskaters import PMD_SKATERS
 from timemachines.skaters.tsa.alltsaskaters import TSA_SKATERS
 from timemachines.skaters.nproph.allnprophetskaters import NPROPHET_SKATERS
-from timemachines.skaters.orbit.allorbitskaters import ORBIT_SKATERS
+from timemachines.skaters.uberorbit.allorbitskaters import ORBIT_SKATERS
 
 SKATERS_R3 = []
 SKATERS_R2 = PROPHET_R2_SKATERS
