@@ -9,7 +9,7 @@ Contribution qualifies for monthly [contributor prizes](https://www.micropredict
 There are two principle ways you can contribute to the timemachines package:
 
   - Contribute a "skater":
-    - A skater is a univariate forecast, preferably one that is fast.
+    - A univariate k-step ahead forecaster, preferably one that is fast.
     - For example one that uses a package not already incorporated, possibly from [this list](https://www.microprediction.com/blog/popular-timeseries-packages)
     - Or a clever ensembling or stacking of existing skaters
     
