@@ -18,17 +18,21 @@ There are two principle ways you can contribute to the timemachines package:
     - However only "live" data is ideal, to prevent algorithms from memorizing
     - See [instructions for publishing data](https://www.microprediction.com/get-predictions) at www.microprediction.com (maybe jump to 
     https://www.microprediction.com/python-4). Basically what you need to do is set up a cron job or similar that periodically grabs a live
-    data point and publishes it. 
-    
+    data point and publishes it. First:
+
     
            pip install microprediction
-           from microprediction import MicroWriter, new_key
+           from microprediction import new_key
            write_key = new_key(difficulty=12)  # <--- Takes a long time, sorry
+           
+Then your regular job can do the following: 
+         
+           from microprediction import MicroWriter
            writer = MicroWriter(write_key=write_key)
            writer.set(name='my_own_stream.json',value=3.14157)  # <--- Must end in .json 
 
-
-The remainder of this note deals only with skater creation. 
+This will create a stream like [airport short term parking](https://www.microprediction.org/stream_dashboard.html?stream=airport-ewr-short-term_parking_a_b_c) and a bunch of
+hungry time-series algorithms will come to it. The remainder of this note deals only with skater creation. 
 
 ## One creating a skater function ...
 
