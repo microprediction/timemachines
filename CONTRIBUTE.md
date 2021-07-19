@@ -40,14 +40,14 @@ hungry time-series algorithms will come to it. The remainder of this note deals 
    is merely a function. The bad news is that the function must accomodate a few conventions. 
    
    
-        x, w, s = f(   y:Union[float,[float]],       # Contemporaneously observered data, 
+             x, w, s = f(   y:Union[float,[float]],       # Contemporaneously observered data, 
                                                       # ... including exogenous variables in y[1:], if any. 
-             s=None,                                  # Prior state
-             k:float=1,                               # Number of steps ahead to forecast. Typically integer. 
-             a:[float]=None,                          # Variable(s) known in advance, or conditioning
-             t:float=None,                            # Time of observation (epoch seconds)
-             e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
-             r:float=None)
+                  s=None,                                  # Prior state
+                  k:float=1,                               # Number of steps ahead to forecast. Typically integer. 
+                  a:[float]=None,                          # Variable(s) known in advance, or conditioning
+                  t:float=None,                            # Time of observation (epoch seconds)
+                  e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
+                  r:float=None)
 
    - Your function must take either a scalar y or a list. If the latter, your skater should interpret the first entry y[0] as the quantity
    that needs forecasting, whereas y[1:] are merely helpful. If your model doesn't consider exogenous variables then the first line should probably be:
