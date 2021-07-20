@@ -182,15 +182,17 @@ if using_prophet:
 
     def test_skater_with_a():
         k = 3
-        y, a = hospital_with_exog(k=k, n=100)
-        f1 = fbprophet_skater_factory
+        y, a = hospital_with_exog(k=k, n=500)
         s1 = {}
-
-        for yt, at in zip(y, a):
-            x1, x1_std, s1 = f1(y=yt, s=s1, k=k, a=at)
+        e = [-1]*400+[1]*10
+        for yt, at, et in zip(y, a, e):
+            x1, x1_std, s1 = fbprophet_skater_factory(y=yt, s=s1, k=k, a=at, e=et)
             if s1.get('m'):
                 break  # Stop after first fit
 
 
 if __name__ == '__main__':
+    import time
+    st = time.time()
     test_skater_with_a()
+    print(time.time()-st)

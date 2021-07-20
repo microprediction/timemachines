@@ -2,6 +2,7 @@ from timemachines.skaters.allskaters import SKATERS, skater_from_name  # Only th
 from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error_with_sporadic_fit, evaluator_from_name
 import numpy as np
 from timemachines.skatertools.comparison.eloformulas import elo_update
+import time
 
 SLOW_SKATER_KEYWORDS = ['divine','pmd','prophet']
 
@@ -87,7 +88,11 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
         for i, f in zip([i1, i2], fs):
             import traceback
             try:
-                score = evaluator(f=f, y=y, k=k, a=None, t=t, e_fit=15, e_nofit=-1, n_test=20, fit_frequency=200)
+                st = time.time()
+                score = evaluator(f=f, y=y, k=k, a=None, t=t, e_fit=15, e_nofit=-1, n_test=50, fit_frequency=100)
+                if not 'seconds' in elo:
+                    elo['seconds'] = dict()
+                elo['seconds'][i] = time.time()-st
                 elo['traceback'][i] = 'passing'
                 scores.append(score)
             except Exception as e:

@@ -1,8 +1,8 @@
 from timemachines.skaters.tsa.tsaconstant import tsa_p1_d0_q0, tsa_aggressive_ensemble
-from timemachines.skaters.tsa.tsahypocratic import quickly_hypocratic_tsa_d0
+from timemachines.skaters.tsa.tsahypocratic import tsa_quickly_hypocratic_d0_ensemble
 from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_error_with_sporadic_fit
 
-TSA_TO_TEST = [ tsa_p1_d0_q0, tsa_aggressive_ensemble, quickly_hypocratic_tsa_d0 ]
+TSA_TO_TEST = [ tsa_p1_d0_q0, tsa_aggressive_ensemble, tsa_quickly_hypocratic_d0_ensemble ]
 
 
 def test_tsa():

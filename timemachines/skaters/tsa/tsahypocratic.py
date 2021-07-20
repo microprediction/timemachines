@@ -25,12 +25,12 @@ def hypocratic_tsa_d0_factory(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =Non
     return x_resid, x_std, s
 
 
-def slowly_hypocratic_tsa_d0(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None):
+def tsa_slowly_hypocratic_d0_ensemble(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None):
     return hypocratic_tsa_d0_factory(y=y,s=s,k=k,a=a,t=t,e=e,r=0.95)
 
 
-def quickly_hypocratic_tsa_d0(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None):
+def tsa_quickly_hypocratic_d0_ensemble(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None):
     return hypocratic_tsa_d0_factory(y=y,s=s,k=k,a=a,t=t,e=e,r=0.75)
 
 
-TSA_DO_HYPOCRATIC_SKATERS = [slowly_hypocratic_tsa_d0, quickly_hypocratic_tsa_d0]
+TSA_DO_HYPOCRATIC_SKATERS = [tsa_slowly_hypocratic_d0_ensemble, tsa_quickly_hypocratic_d0_ensemble]

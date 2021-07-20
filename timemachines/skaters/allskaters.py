@@ -26,7 +26,24 @@ def skater_from_name(name):
     return valid[0] if len(valid)==1 else None
 
 
+PYPI = {'tsa':'statsmodel',
+        'fbprophet':'prophet',
+        'pmd':'pmdarima',
+        'flux':'pyflux',
+        'nprophet':'neuralprophet',
+        'dlm':'pydlm',
+        'divine':'divinity',
+        'orbit':'orbit'}
+
+
+def pypi_from_name(name):
+    stem = name.split('_')[0]
+    short_name = PYPI.get(stem)
+    stub = 'https://pypi.org/project/'
+    return stub+short_name if short_name else stub+'timemachines'
+
+
 if __name__=='__main__':
     from pprint import pprint
-    pprint([sk.__name__ for sk in SKATERS])
+    pprint([(sk.__name__,pypi_from_name(sk.__name__)) for sk in SKATERS])
     print(len(SKATERS))
