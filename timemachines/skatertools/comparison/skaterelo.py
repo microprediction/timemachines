@@ -67,12 +67,14 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
         if elo.get('evaluator'):
             eval_name = elo['evaluator']
             try:
-                evaluator = evaluator_from_name(elo.get('evaluator'))
+                evaluator = evaluator_from_name(eval_name)
             except:
+                print('Could not retrieve '+eval_name+' so reverting.')
                 evaluator = evaluate_mean_squared_error_with_sporadic_fit
         else:
             evaluator = evaluate_mean_squared_error_with_sporadic_fit
-        elo['evaluator'] = evaluator.__name__
+        print('Evaluating using '+str(evaluator.__name__))
+    elo['evaluator'] = evaluator.__name__
 
     # Choose two random skaters, but avoid slow ones once
     n_skaters = len(elo['name'])
