@@ -1,3 +1,3 @@
 
 
-TSA_META = dict(n_warm=100)
+TSA_META = dict(n_warm=20)

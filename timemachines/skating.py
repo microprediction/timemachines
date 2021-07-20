@@ -37,6 +37,7 @@ def posterior(f:Callable,       # "Model" to run forward through observations
     t = [None for _ in y] if t is None else t
     e = [None for _ in y] if e is None else e
 
+
     # Hyper-param must be in [0,1]
     if r is not None:
         assert 0 <= r <= 1

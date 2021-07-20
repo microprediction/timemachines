@@ -46,6 +46,8 @@ def prior_plot_exogenous(f, y=None, k=None, a=None, t=None, e=None, r=None, x0=n
     if t is None:
        t = range(len(y))
 
+    e = [ None]*(len(y)-n_plot) + [10]*n_plot
+
     x,x_std = prior(f=f, y=y, k=k, a=a, t=t, e=e, r=r, x0=x0)
     xk = [xt[-1] for xt in x]
     plot_with_last_value(t=t, x=xk, y=y, k=k, n_plot=n_plot)
