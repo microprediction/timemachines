@@ -1,4 +1,4 @@
-from timemachines.skaters.allskaters import SKATERS, skater_from_name  # Only those with no hyper-params
+from timemachines.skaters.allskaters import SKATERS, skater_from_name, pypi_from_name  # Only those with no hyper-params
 from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error_with_sporadic_fit, evaluator_from_name
 import numpy as np
 from timemachines.skatertools.comparison.eloformulas import elo_update
@@ -46,6 +46,12 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
         elo['active'] = [True for _ in SKATERS]
 
     else:
+        # New fields ... one-off fix
+        if not 'pypi' in elo:
+            elo['pypi'] = [ pypi_from_name(nm) for nm in elo['name']]
+        if not 'seconds' in elo:
+            elo['seconds'] = [-1 for nm in elo['name']]
+
         # Check for newcomers
         new_names = [f.__name__ for f in SKATERS if f.__name__ not in elo['name']]
         for new_name in new_names:
@@ -54,6 +60,8 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
             elo['rating'].append(initial_elo)
             elo['traceback'].append('not yet run')
             elo['active'].append(True)
+            elo['seconds'].append(-1)
+            elo['pypi'].append(pypi_from_name(new_name))
 
     if evaluator is None:
         if elo.get('evaluator'):
@@ -90,13 +98,12 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
             try:
                 st = time.time()
                 score = evaluator(f=f, y=y, k=k, a=None, t=t, e_fit=15, e_nofit=-1, n_test=50, fit_frequency=100)
-                if not 'seconds' in elo:
-                    elo['seconds'] = dict()
                 elo['seconds'][i] = time.time()-st
                 elo['traceback'][i] = 'passing'
                 scores.append(score)
             except Exception as e:
                 elo['traceback'][i] = traceback.format_exc()
+                elo['seconds'][i] = st-time.time() # Time taken to fail, as -ve number
 
         if len(scores) == 2:
             small = tol * (abs(scores[0]) + abs(scores[1]))  # Ties
