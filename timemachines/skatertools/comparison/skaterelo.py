@@ -63,6 +63,7 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
             elo['seconds'].append(-1)
             elo['pypi'].append(pypi_from_name(new_name))
 
+    evaluator = evaluate_mean_squared_error_with_sporadic_fit
     if evaluator is None:
         if elo.get('evaluator'):
             eval_name = elo['evaluator']
