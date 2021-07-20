@@ -1,4 +1,4 @@
-from timemachines.skatertools.data.real import hospital_with_exog, hospital
+from timemachines.skatertools.data.real import hospital
 import random
 from timemachines.skaters.bats.batsinclusion import using_bats
 

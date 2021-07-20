@@ -44,10 +44,6 @@ if using_bats:
         return bats_factory(y=y, s=s, k=k, a=a, t=t, e=e, use_damped_trend=True, use_arma_errors=False,
                             use_box_cox=True)
 
-    def bats_arma_bc(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None, r: R_TYPE = None):
-        return bats_factory(y=y, s=s, k=k, a=a, t=t, e=e, use_trend=False, use_arma_errors=True, use_box_cox=True)
-
-
     def bats_damped_arma_bc(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None, r: R_TYPE = None):
         return bats_factory(y=y, s=s, k=k, a=a, t=t, e=e, use_damped_trend=True, use_arma_errors=True, use_box_cox=True)
 
