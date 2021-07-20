@@ -44,6 +44,7 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
         elo['rating'] = [initial_elo for _ in SKATERS]
         elo['traceback'] = ['not yet run' for _ in SKATERS]
         elo['active'] = [True for _ in SKATERS]
+        elo['pypi'] = [pypi_from_name(nm) for nm in elo['name']]
 
     else:
         # New fields ... one-off fix
@@ -51,6 +52,7 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
             elo['pypi'] = [ pypi_from_name(nm) for nm in elo['name']]
         if not 'seconds' in elo:
             elo['seconds'] = [-1 for nm in elo['name']]
+        elo['pypi'] = [pypi_from_name(nm) for nm in elo['name']]
 
         # Check for newcomers
         new_names = [f.__name__ for f in SKATERS if f.__name__ not in elo['name']]
