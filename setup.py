@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.10.4",
+    version="0.11.0",
     description="Evaluation and standardization of popular time series packages",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -31,6 +31,7 @@ setup(
               "timemachines.skaters.nproph",
               "timemachines.skaters.simple",
               "timemachines.skaters.uberorbit",
+              "timemachines.skaters.bats"
               "timemachines.skatertools",
               "timemachines.skatertools.comparison",
               "timemachines.skatertools.components",

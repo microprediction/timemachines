@@ -89,7 +89,7 @@ if using_prophet:
                 assert isinstance(t,float), 'epoch time please'
                 s['t'].append(t)
 
-            if e is not None and (e>0) and (len(s['a'])>k) and (len(s['y'])>10):
+            if e is not None and (e>0) and ((a is None) or (len(s['a'])>k)) and (len(s['y'])>10):
                 # Offset y, t, a are supplied to prophet interface
                 # Prophet requires several non-nan rows
                 t_arg = s['t'][k:] if t is not None else None

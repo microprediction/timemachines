@@ -6,7 +6,7 @@ if using_neuralprophet:
     from timemachines.skaters.nproph.nprophetiskaterfactory import using_neuralprophet
     from timemachines.skaters.nproph.nprophetiskaterfactory import nprophet_iskater_factory
     from timemachines.skatertools.utilities.nonemath import nonecenter
-    from timemachines.skaters.proph.prophparams import PROPHET_META, prophet_params
+    from timemachines.skaters.nproph.nprophparams import NPROPHET_META
     from timemachines.skatertools.utilities.nonemath import nonecast
     import sys
     import logging
@@ -36,9 +36,9 @@ if using_neuralprophet:
         assert 0 <= emp_std_mass <= 1
 
         if freq is None:
-            freq = PROPHET_META['freq']
+            freq = NPROPHET_META['freq']
         if n_max is None:
-            n_max = PROPHET_META['n_max']
+            n_max = NPROPHET_META['n_max']
 
         y = wrap(y)
         a = wrap(a)
@@ -67,8 +67,8 @@ if using_neuralprophet:
                 assert isinstance(t,float), 'epoch time please'
                 s['t'].append(t)
 
-            if len(s['y']) > max(2 * k + 5, PROPHET_META['n_warm']):
-                # Offset y, t, a are supplied to prophet interface
+            if len(s['y']) > max(2 * k + 5, NPROPHET_META['n_warm']) and (e is not None and e>0):
+                # Offset y, t, a are supplied to nprophet interface
                 t_arg = s['t'][k:] if t is not None else None
                 a_arg = s['a']
                 y_arg = s['y'][k:]

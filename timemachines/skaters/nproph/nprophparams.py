@@ -1,7 +1,7 @@
 
-NPROPHET_META={'n_warm':400,  # Default minimum number of data points before fitting
+NPROPHET_META={'n_warm':20,  # Default minimum number of data points before fitting
               'freq':'H',    # Sampling frequency used if none is supplied, or t not supplied
-              'n_max':500}   # Maximum length of training data
+              'n_max':1000}   # Maximum length of training data
 
 
 NPROPHET_MODEL = dict(n_lags=2,

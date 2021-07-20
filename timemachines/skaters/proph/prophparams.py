@@ -2,9 +2,9 @@ from timemachines.skatertools.utilities.conventions import positive_log_scale, t
 
 # Some "global" prophet defaults set outside the model
 
-PROPHET_META={'n_warm':400,  # Default minimum number of data points before fitting
+PROPHET_META={'n_warm':20,   # Default minimum number of data points before fitting
               'freq':'H',    # Sampling frequency used if none is supplied, or t not supplied
-              'n_max':500}   # Maximum length of training data
+              'n_max':1000}   # Maximum length of training data
 
 # Some prophet model parameters
 

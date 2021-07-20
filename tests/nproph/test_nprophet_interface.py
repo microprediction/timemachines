@@ -17,3 +17,5 @@ if using_neuralprophet:
             plt.show()
 
 
+if __name__=='__main__':
+    test_univariate_without_time(show=True)

@@ -9,6 +9,7 @@ from timemachines.skaters.pmd.allpmdskaters import PMD_SKATERS
 from timemachines.skaters.tsa.alltsaskaters import TSA_SKATERS
 from timemachines.skaters.nproph.allnprophetskaters import NPROPHET_SKATERS
 from timemachines.skaters.uberorbit.allorbitskaters import ORBIT_SKATERS
+from timemachines.skaters.bats.allbatsskaters import BATS_SKATERS
 
 SKATERS_R3 = []
 SKATERS_R2 = PROPHET_R2_SKATERS
@@ -18,7 +19,8 @@ SKATERS_R1 = EMA_R1_SKATERS
 
 # And with no hyper-params...
 SKATERS = EMA_SKATERS + PROPHET_SKATERS + DIVINE_SKATERS + DLM_SKATERS + \
-          THINKING_SKATERS + PMD_SKATERS + TSA_SKATERS + NPROPHET_SKATERS + HYPOCRATIC_ENSEMBLE_SKATERS + ORBIT_SKATERS
+          THINKING_SKATERS + PMD_SKATERS + TSA_SKATERS + NPROPHET_SKATERS +\
+          HYPOCRATIC_ENSEMBLE_SKATERS + ORBIT_SKATERS +BATS_SKATERS
 
 
 def skater_from_name(name):
@@ -33,7 +35,10 @@ PYPI = {'tsa':'statsmodels',
         'nprophet':'neuralprophet',
         'dlm':'pydlm',
         'divine':'divinity',
-        'orbit':'orbit'}
+        'orbit':'orbit',
+        'bats':'tbats',
+        'ats':'auto_ts',
+        'glu':'gluonts'}
 
 
 def pypi_from_name(name):

@@ -9,9 +9,12 @@ if using_neuralprophet:
 
     def test_ensemble():
         for f in NPROPHET_TO_TEST:
-            err = hospital_mean_square_error_with_sporadic_fit(f=f, k=5, n=150)
+            err = hospital_mean_square_error_with_sporadic_fit(f=f, k=5, n=100, fit_frequency=70)
 
 
 
 if __name__=='__main__':
+    import time
+    st = time.time()
     test_ensemble()
+    print(time.time()-st)
