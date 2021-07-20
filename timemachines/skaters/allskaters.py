@@ -26,7 +26,7 @@ def skater_from_name(name):
     return valid[0] if len(valid)==1 else None
 
 
-PYPI = {'tsa':'statsmodel',
+PYPI = {'tsa':'statsmodels',
         'fbprophet':'prophet',
         'pmd':'pmdarima',
         'flux':'pyflux',
