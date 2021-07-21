@@ -40,7 +40,7 @@ and, as noted, facilitates comparison of different ways to search hyper-paramete
 
 Answer (A) They kinda suck, for one thing. Perhaps that's why 15,000 people read [this article](https://www.microprediction.com/blog/prophet) in a single day. Don't be the last.  
 
-Answer (B) In all seriousness, knock yourself out. Use whatever you like. Observe that this package wraps *some* functionality, not all by any means, of some popular open source packages. But honestly the slow ones are here, along with the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html), mostly to reassure you that speed comes for free. You're probably gaining accuracy, not losing it, when you ignore the latest exhortation to use FAANG-XYZ written by some noob on Towards Data Science.  
+Answer (B) In all seriousness, knock yourself out. Use whatever you like. Observe that this package wraps *some* functionality, not all by any means, of some popular open source packages. But honestly the slow ones are here, along with the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html), mostly to reassure you that speed comes for free. You're probably gaining accuracy, not losing it, when you adopt a faster algorithm and ignore the latest exhortation to use FAANG-XYZ, written by some noob on Towards Data Science.   
 
 Answer (C). Given the above, you might not want to wed yourself to the quirks of a particular packages' API. You *might* like this package if you want to be able to do this:
 
