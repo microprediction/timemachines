@@ -46,8 +46,8 @@ The suggested install is:
     pip install --upgrade pip
     pip install timemachines
 
-Check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html). Those
- are a rough guide for other packages you may choose to install - they aren't in by default. 
+Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to decide which
+packages you want to utilize - they aren't in by default. 
 
     pip install river 
     pip install tbats
