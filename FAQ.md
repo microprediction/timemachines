@@ -46,6 +46,8 @@ Answer (C). Given the above, you might not want to wed yourself to the quirks of
         for yi,ai in zip(y,a[k:]): 
             xi, xi_std, s = f(y=yi,s=s,k=k,a=ai)
 
+and swap out *f* when it doesn't perform for you. 
+
 Notice what isn't here: 
  - Pandas dataframes
  - A long list of methods and properties 
