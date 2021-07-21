@@ -143,7 +143,7 @@ one invocation to the next.
 
 ### Skater "a" argument 
 
-A vector of known-in-advance variables. 
+A vector of known-in-advance variables. You can also use the "a" argument for conditional prediction. This is a nice advantage of keeping skaters pure - though the caller might need to make a copy of the prior state if she intends to reuse it. 
 
 ### Skater "t" argument 
 
