@@ -5,7 +5,9 @@ Use popular forecasting packages with one line of code, or view their [Elo ratin
 
 What's different:
 
-   - **Simple k-step ahead forecasts** in functional style involving  
+   - **Simple k-step ahead forecasts** There are no "models" here, only forecast functions:
+       
+          x, x_hat, s = f(y,k,s)
 
    - **Simple canonical use** of *some* functionality from packages like river, fbprophet, pmdarima, tbats, tsa, neuralprophet, orbit and their ilk. Sadly most of these are slow but...
 
