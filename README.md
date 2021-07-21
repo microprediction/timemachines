@@ -103,7 +103,9 @@ This will accumulate 3-step ahead prediction vectors. Or if you prefer...
   
 ## The Skater signature 
 
-      x, w, s = f(   y:Union[float,[float]],               # Contemporaneously observerd data, 
+Okay, here's a little more about "skater" functions. I'm repeating myself but the good thing is, this is the only thing you need to know, really. 
+
+      x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
                 s=None,                                  # Prior state
                 k:float=1,                               # Number of steps ahead to forecast. Typically integer. 
