@@ -181,13 +181,15 @@ The use of *e* is a fairly weak convention. In theory:
 
    - A large expiry *e* can be used as a hint to the callee that
  there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation. 
-   - A negative *e* suggests that there isn't even time for a "proper" prediction to be made, never mind a model fit. It suggests that we are still in a burn-in period where the caller doesn't care too much, if at all, about the quality of prediction. The callee (i.e. the skater) should, however, process this observation because this is the only way it can receive history.  
+   - A negative *e* suggests that there isn't even time for a "proper" prediction to be made, never mind a model fit. It suggests that we are still in a burn-in period where the caller doesn't care too much, if at all, about the quality of prediction. The callee (i.e. the skater) should, however, process this observation *somehow* because this is the only way it can receive history. There won't be another chance. Thus some skaters will use e<0 as a hint to dump the obervation into a buffer so it can be used in the next model fit. They return a naive forecast, confident that this won't matter.  
  
-Some skaters are so fast that a separate notion of 'fit' versus 'update' is irrelevant. Other skaters will periodically fit whether or not e>0 is passed. You'll notice that the Elo rating code passes a sequence of e's something looking like:
+Some skaters are so fast that a separate notion of 'fit' versus 'update' is irrelevant. Other skaters will periodically fit whether or not e>0 is passed. 
+
+The "e" conventions are useful for testing and assessment. You'll notice that the Elo rating code passes a sequence of e's something looking like:
 
      -1, -1, -1, ... -1 1000 1000 1000 1000 1000 ...
      
-because it wants to allow the skaters to receive some history before they are evaluated. 
+because it wants to allow the skaters to receive some history before they are evaluated. On the other hand, waiting for Facebook prophet to fit itself 500 times is a bit like waiting for the second coming of Christ. 
     
 ### Summary of conventions: 
 
