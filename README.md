@@ -12,7 +12,7 @@ What's different:
        These functions are called skaters. 
 
    - **Simple canonical use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
-   Uber [orbit](https://eng.uber.com/orbit/) and more. Sadly most of these are slow but...
+   Uber [orbit](https://eng.uber.com/orbit/) and more. 
 
    - **Simple fast accurate alternatives** to popular time series packages (for example [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) skaters perform well in the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html))
 
