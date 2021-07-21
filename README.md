@@ -55,7 +55,6 @@ packages you want to utilize - they aren't in by default.
     pip install pydlm
     pip install divinity
     pip install pmdarima
-    pip install pyflux
     pip install prophet
     pip install neuralprophet
     
