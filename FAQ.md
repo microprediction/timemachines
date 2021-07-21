@@ -25,7 +25,7 @@ Answer (B): The intent is to produce simple web-service friendly models.
 
 Answer (C): It's as pure as the driven snow. Or as least as pure as "s". 
 
-### FAQ 2: What's with the z-curves?
+### FAQ 2: What's with the z-curves and *r* parameter?
 
 The idea is that *any* black-box optimizer should be able to optimize *any* time-series model without a human providing interpretation of hyper-parameters. So we force skaters to expose at most a single scalar hyper-parmeter, but also supply suggested space-filling curves. This...
 
@@ -34,12 +34,13 @@ The idea is that *any* black-box optimizer should be able to optimize *any* time
 
 and, as noted, facilitates comparison of different ways to search hyper-parameters, across packages which have *entirely different conventions* and hyper-parameter spaces. 
 
-### FAQ 3: Why not use the packages, like prophet, directly?
+### FAQ 3: Why not use the "big name" packages, like prophet, directly?
 
-Answer (A) Well 15,000 people read [this article](https://www.microprediction.com/blog/prophet) in a single day. Are you the last to do so?
+Answer (A) They kinda suck, for one thing. Perhaps that's why 15,000 people read [this article](https://www.microprediction.com/blog/prophet) in a single day. Don't be the last.  
 
-Answer (B) Maybe you should. Observe that this package wraps *some* functionality, not all by any means. You should use the original
-packages for maximum flexibility. However, as noted, you *might* like this package if you want to be able to do this:
+Answer (B) In all seriousness, knock yourself out. Use whatever you like. Observe that this package wraps *some* functionality, not all by any means, of some popular open source packages. But honestly the slow ones are here, along with the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html), mostly to reassure you that speed comes for free here. You're probably not losing accuracy. 
+
+Answer (C). Given the above, you might not want to wed yourself to the quirks of a particular packages' API. You *might* like this package if you want to be able to do this:
 
         s,k = {}, 3
         for yi,ai in zip(y,a[k:]): 
@@ -56,11 +57,12 @@ Notice what isn't here:
  - Possible conflation of 3-step ahead prediction with the 1-step ahead prediction applied three times, 
  - Datetime manipulation, and conventions like '5min' which not everyone agrees on. 
 
-There are also limitations of the skater approach. The simple data model in *y*, *a* is not well suited to problems where exogenous data comes and goes, and therefore cannot
-easily be represented by a vector of fixed length (you might consider a dictionary interface instead, as with
-the river package). 
+### FAQ 4: What are the drawbacks? 
 
-### FAQ 3: Why do skaters only return two numbers per horizon, instead of a full distribution? 
+There are also limitations of the skater approach. The simple data model in *y*, *a* is not well suited to problems where exogenous data comes and goes, and therefore cannot easily be represented by a vector of fixed length. You might consider a dictionary interface instead, as with
+the river package. 
+
+### FAQ 5: Why do skaters only return two numbers per horizon, instead of a full distribution? 
 
 Yes, the skater does not return a full distribution - unless you smuggle it into the state. 
 However this package was motivated by the desire to create better free turnkey distributional forecasts, at [microprediction.org](https://www.microprediction.org), and you might infer that skaters returning two numbers per horizon might be useful 
