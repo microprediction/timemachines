@@ -5,7 +5,7 @@ Use popular forecasting packages with one line of code, or view their [Elo ratin
 
 What's different:
 
-   - **Simple k-step ahead forecasts** There are no "models" here, only forecast functions:
+   - **Simple k-step ahead forecasts** There are no "models" here requiring setup, only forecast functions:
        
           x, x_hat, s = f(y,k,s)
 
