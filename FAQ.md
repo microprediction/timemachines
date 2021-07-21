@@ -21,18 +21,24 @@ Answer (A): Well, you can trivially turn any skater function into a callable tha
 
 or write a decorator. Whatever, it's Python. 
 
-Answer (B): The intent is to produce simple lambda-friendly models and,
+Answer (B): The intent is to produce simple web-service friendly models. 
+
+Answer (C): It's as pure as the driven snow. Or as least as pure as "s". 
 
 ### FAQ 2: What's with the z-curves?
 
-The desire here is realizing the full tensor product of time-series models and hyper-parameter techniques. So we hope for:
-- a *reasonable* way to map the most important hyper-parameter choices,
+The idea is that *any* black-box optimizer should be able to optimize *any* time-series model without a human providing interpretation of hyper-parameters. So we force skaters to expose at most a single scalar hyper-parmeter, but also supply suggested space-filling curves. This...
+
+- is hopefully a *reasonable* way to map the most important hyper-parameter choices,
 - that imposes some geometric discipline on the hyper-parameter space in the first place, and
-- facilitates comparison of different ways to search hyper-parameters, across packages which have *entirely different conventions* and hyper-parameter spaces. 
+
+and, as noted, facilitates comparison of different ways to search hyper-parameters, across packages which have *entirely different conventions* and hyper-parameter spaces. 
 
 ### FAQ 3: Why not use the packages, like prophet, directly?
 
-Answer: Maybe you should. Observe that this package wraps *some* functionality, not all by any means. You should use the original
+Answer (A) Well 15,000 people read [this article](https://www.microprediction.com/blog/prophet) in a single day. Are you the last to do so?
+
+Answer (B) Maybe you should. Observe that this package wraps *some* functionality, not all by any means. You should use the original
 packages for maximum flexibility. However, as noted, you *might* like this package if you want to be able to do this:
 
         s,k = {}, 3
