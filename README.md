@@ -103,7 +103,7 @@ This will accumulate 3-step ahead prediction vectors. Or if you prefer...
   
 ## The Skater signature 
 
-Okay, here's a little more about "skater" functions. I'm repeating myself but the good thing is, this is the only thing you need to know, really. 
+Okay, here's a little more about "skater" functions. I'm repeating myself somewhat but the good thing is, this is the only thing you need to know. Morally this package is a mere collection of skater functions and they all operate like this: 
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
@@ -114,7 +114,7 @@ Okay, here's a little more about "skater" functions. I'm repeating myself but th
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s in R^n)
 
-The function is intended to be applied repeatedly. For example one could harvest
+Evidently, the function is intended to be applied repeatedly. For example one could harvest
 a sequence of the model predictions as follows:
 
     def posteriors(f,y):
@@ -125,7 +125,7 @@ a sequence of the model predictions as follows:
             x.append(xi)
         return x
  
- or see the prominently positioned [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py). Notice the use of s={} on first invocation. 
+or see the prominently positioned [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py). Notice the use of s={} on first invocation. 
  
 ### Skater "y" argument
 
@@ -134,7 +134,7 @@ A skater function *f* takes a vector *y*, where the quantity to be predicted is 
 
 ### Skater "s" argument
  
-The state. Pass empty dict the first time. 
+The state. The convention is that the caller passes the skater an empty dict on the first invocation, or to reset it. Thus the callee must initialize state if it receives an empty dictionary. It should return to the caller anything it will need for the next invocation. Skaters are pure in that sense.  
 
 ### Skater "k" argument 
 
