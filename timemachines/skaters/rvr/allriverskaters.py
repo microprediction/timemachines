@@ -1,0 +1,3 @@
+from timemachines.skaters.rvr.rvrconstant import RIVER_CONSTANT_SKATERS
+
+RIVER_SKATERS = RIVER_CONSTANT_SKATERS

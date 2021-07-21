@@ -25,7 +25,6 @@ What's different:
    - **Simple stacking** of models with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py). The functional
    form makes other types of model combination easy as well.  
 
-  
   - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For many models state is a pure Python dictionary and thus
   trivially converted to JSON and back. 
 
@@ -38,13 +37,59 @@ Here time series "models" are plain old functions. Those functions have a "skate
     forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However here the *caller* is expected to maintain state from one 
     invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
 
-![](https://i.imgur.com/elu5muO.png)
-
 ### New contributor guide:
     
 See  [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
 
-### Running a model and plotting it 
+## Install
+
+The suggested install is:  
+
+    pip install --upgrade pip
+    pip install timemachines
+
+Check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html). Those
+ are a rough guide for other packages you may choose to install - they aren't in by default. 
+
+    pip install river 
+    pip install tbats
+    pip install orbit
+    pip install pydlm
+    pip install divinity
+    pip install pmdarima
+    pip install pyflux
+    pip install prophet
+    pip install neuralprophet
+    
+Then add matplotlib if you want to use plotting utilities provides
+
+    pip install matplotlib 
+
+And add microprediction if you want to use live data
+
+    pip install microprediction   
+    
+I'm reluctant to put anything beyond statsmodels in the timemachines package requirements until there
+is statistical justification. See my [review of prophet](https://www.microprediction.com/blog/prophet) for example, which
+is seemingly both slow and innacurate. However river won't slow you down. By the way the apple m1 situation is fluid. I'd suggest you first get numpy, cython, pandas to work. 
+You might try adding the pip argument to skip pep517 if you run into trouble:
+ 
+    pip install whatever --no-use-pep517
+
+
+### Quick start 
+
+My hope is that the [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities also
+serve as demonstrations of how to use any given skater in this library. If f is a skater then you call it repeatedly:
+
+    from timemachines.skaters.simple.thinking import thinking_slow_and_fast
+    y = np.cumsum(np.random.randn(1000))
+    s = {}
+    for yi in y:
+        xi, x_std, s = thinking_slow_and_fast(y=yi, s=s, k=3)
+        x.append(xi)
+     
+This will accumulate 3-step ahead prediction vectors. Or if you prefer...
 
     from timemachines.skatertools.data import hospital_with_exog
     from timemachines.skatertools.visualization.priorplot import prior_plot
@@ -52,13 +97,13 @@ See  [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/C
     
     # Get some data - including variables known in advance:
     k = 1
-    y, a = hospital_with_exog(k=k, n=450, offset=True)
-    
+    y, a = hospital_with_exog(k=k, n=450, offset=True)  
     # Run the model and plot it 
-    prior_plot(f=fbprophet_exogenous, k=k, y=y, n=450, n_plot=50)
-    
-    plt.show()
-
+    prior_plot(f=thinking_slow_and_fast, k=k, y=y, n=450, n_plot=50)
+  
+  
+![](https://i.imgur.com/elu5muO.png)
+  
 ## The Skater signature 
 
       x, w, s = f(   y:Union[float,[float]],               # Contemporaneously observerd data, 
@@ -163,35 +208,7 @@ See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or f
 
 - See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 
-## Install
 
-We've moved to bare-bones dependencies because some timeseries packages are not keeping up with changes to dependent packages (as with STAN releases), or operating system or hardware quirks (like Apple M1 for example), and 
-also because the statistical evidence for their inclusion is less than overwhelming ([ahem](https://www.microprediction.com/blog/prophet). So ...
-
-    pip install --upgrade pip
-    pip install timemachines
-    
-This gives you access to the home grown packages and to scipy/tsa models. Those perform well. The popular packages and some others are not added by default. But add them manually if you want to use them:
-
-    pip install prophet
-    pip install neuralprophet
-    pip install pydlm
-    pip install divinity
-    pip install pmdarima
-    
-Add matplotlib if you want to use plotting utilities provides
-
-    pip install matplotlib 
-
-Add microprediction if you want to use live data
-
-    pip install microprediction   
-
-### Apple M1
-
-A fluid situation. You might try adding the pip argument to skip pep517 if you run into trouble on M1 chips
-
-    pip install whatever --no-use-pep517
 
     
 ### Tuning hyper-params
@@ -203,11 +220,14 @@ A fluid situation. You might try adding the pip argument to skip pep517 if you r
 
 If you'd like to contribute to this standardizing and benchmarking effort, here are some ideas:
 
+- Read the  [contributor guide](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
 - See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
 - Think about the most important hyper-parameters and consider "warming up" the mapping (0,1)->hyper-params by testing on real data. There is a [tutorial](https://www.microprediction.com/python-3) on retrieving live data, or use the [real data](https://pypi.org/project/realdata/) package, if that's simpler.
 - The [comparison of hyper-parameter optimization packages](https://www.microprediction.com/blog/optimize) might also be helpful.  
+- Read the  [contributor guide](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
 
-If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here that incorporates your library, do yourself a favor and also enable "supporting" on your repo. Nothing here is put forward
+If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here
+ that incorporates your library, do yourself a favor and also enable "supporting" on your repo. Nothing here is put forward
    as *the right way* to write time series packages - more a way of exposing their functionality for comparisons. 
   If you are interested in design thoughts for time series maybe participate in this [thread](https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1). 
 
