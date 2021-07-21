@@ -69,7 +69,7 @@ And add microprediction if you want to use live data
     
 I'm reluctant to put anything beyond statsmodels in the timemachines package requirements until there
 is statistical justification. See my [review of prophet](https://www.microprediction.com/blog/prophet) for example, which
-is seemingly both slow and innacurate. However river won't slow you down. By the way the apple m1 situation is fluid. I'd suggest you first get numpy, cython, pandas to work. 
+is seemingly both slow and innacurate (but on the other hand, river won't slow you down). By the way, the apple m1 install situation is fluid. I'd suggest you first get numpy, cython, pandas to work. 
 You might try adding the pip argument to skip pep517 if you run into trouble:
  
     pip install whatever --no-use-pep517
