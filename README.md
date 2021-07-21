@@ -1,6 +1,6 @@
 # timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## Fast, incremental, time-series forecasting ([article](https://www.microprediction.com/blog/timemachines))
+## Fast, incremental, time-series forecasting
 Use popular forecasting packages with one line of code, or view their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html)
 
 What's different:
@@ -14,7 +14,7 @@ What's different:
    - **Simple canonical use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
    Uber [orbit](https://eng.uber.com/orbit/) and more. 
 
-   - **Simple fast accurate alternatives** to popular time series packages (for example [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) skaters perform well in the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html))
+   - **Simple fast accurate alternatives** to popular time series packages (for example [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) skaters perform well in the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html)) and better than the brand names (see  ([article](https://www.microprediction.com/blog/timemachines) comparing "thinking" to both Facebook prophet and Neural Prophet).
 
    - **Ongoing, incremental, empirical evaluation**. Again, see the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) produced by
     the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
