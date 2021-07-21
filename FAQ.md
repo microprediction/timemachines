@@ -60,7 +60,7 @@ There are also limitations of the skater approach. The simple data model in *y*,
 easily be represented by a vector of fixed length (you might consider a dictionary interface instead, as with
 the river package). 
 
-### FAQ 3: Why Only Point Estimates and Confidence Intervals?  
+### FAQ 3: Why do skaters only return two numbers per horizon, instead of a full distribution? 
 
 Yes, the skater does not return a full distribution - unless you smuggle it into the state. 
 However this package was motivated by the desire to create better free turnkey distributional forecasts, at [microprediction.org](https://www.microprediction.org), and you might infer that skaters returning two numbers per horizon might be useful 
