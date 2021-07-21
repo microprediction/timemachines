@@ -23,7 +23,7 @@ or write a decorator. Whatever, it's Python.
 
 Answer (B): The intent is to produce simple web-service friendly models. 
 
-Answer (C): It's as pure as the driven snow. Or as least as pure as "s". 
+Answer (C): It's pure.  
 
 Answer (D): The caller can request conditional predictions easily. 
 
