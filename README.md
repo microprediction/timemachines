@@ -151,7 +151,7 @@ Epoch time of the observation.
 
 ### Skater "e" argument ("expiry")
 
-Seconds allowed for computation. See remark below. 
+Suggests a number of seconds allowed for computation, though skater's don't necessarily comply. See remarks below. 
    
 ## Skater "r" argument ("hype(r) pa(r)amete(r)s")
 
@@ -175,9 +175,19 @@ You'll notice also that parameter use seems limited. This is deliberate. A skate
 
 The use of a single scalar for hyper-parameters may seem unnatural, but is slighly less unnatural if [conventions](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/utilities/conventions.py) are followed that inflate \[0,1\] into the square \[0,1\]^2 or the cube \[0,1\]^3. See the functions **to_space** and **from_space**. This also makes it trivial for anyone to design black box optimization routines that can work on any skater, without knowing its working. The humpday package makes this trivial - albeit time-consuming. 
 
-The use of *e* is a fairly *weak* convention that many skaters ignore. In theory, a large expiry *e* can be used as a hint to the callee that
- there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation. A zero might suggest that there isn't even time for a "proper" prediction to be made, and we are still in the burn-in period as far as assessment or usage is concerned. However, this is between the caller and it's priest really - or its prophet we should say. Some skaters, such
- as the Facebook prophet skater, do a full 'fit' every invocation so this is meaningless. Other skaters don't even have a separate notion of 'fit' versus 'update' because everything is incremental. 
+### More on the e argument ...
+
+The use of *e* is a fairly weak convention. In theory:
+
+   - A large expiry *e* can be used as a hint to the callee that
+ there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation. 
+   - A negative *e* suggests that there isn't even time for a "proper" prediction to be made, never mind a model fit. It suggests that we are still in a burn-in period where the caller doesn't care too much, if at all, about the quality of prediction. The callee (i.e. the skater) should, however, process this observation because this is the only way it can receive history.  
+ 
+Some skaters are so fast that a separate notion of 'fit' versus 'update' is irrelevant. Other skaters will periodically fit whether or not e>0 is passed. You'll notice that the Elo rating code passes a sequence of e's something looking like:
+
+     -1, -1, -1, ... -1 1000 1000 1000 1000 1000 ...
+     
+because it wants to allow the skaters to receive some history before they are evaluated. 
     
 ### Summary of conventions: 
 
