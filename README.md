@@ -18,9 +18,6 @@ What's different:
    - **Ongoing, incremental, empirical evaluation**. Again, see the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) produced by
     the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
      from [microprediction.org](https://www.microprediction.org/browse_streams.html).   
-
-   - **Simple tuning** with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/hyper.py) facilitated by [HumpDay](https://github.com/microprediction/humpday), which provides canonical functional use of scipy.optimize, ax-platform,
-   hyperopt, optuna, platypus, pymoo, pySOT, skopt, dlib, nlopt, bayesian-optimization, nevergrad and more. 
     
    - **Simple stacking, ensembling and combining** of models. The function form makes it easy to do this
    with one line of code, quite often (again, see [thinking.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) for an illustration, 
@@ -208,10 +205,10 @@ See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or f
 
 - See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 
-
-
-    
 ### Tuning hyper-params
+
+It's also dead easy (though possibly time-consuming) to hyper-optimize skaters offline. By convention they only admit a single hyper-parameter, if any. This means you can, with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/hyper.py) use [HumpDay](https://github.com/microprediction/humpday) to call down to scipy.optimize, ax-platform,
+   hyperopt, optuna, platypus, pymoo, pySOT, skopt, dlib, nlopt, bayesian-optimization, nevergrad or your favourite black-box optimizer.  
 
 - See [examples/tuning](https://github.com/microprediction/timemachines/tree/main/examples/tuning)
 - See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
