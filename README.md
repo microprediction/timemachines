@@ -7,7 +7,7 @@ What's different:
 
    - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only forecast functions:
        
-          x, x_hat, s = f(y,k,s)
+          x, x_hat, s = f(y,s,k)
        
        These functions are called skaters. 
 
