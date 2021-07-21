@@ -25,6 +25,8 @@ Answer (B): The intent is to produce simple web-service friendly models.
 
 Answer (C): It's as pure as the driven snow. Or as least as pure as "s". 
 
+Answer (D): The caller can request conditional predictions easily. 
+
 ### FAQ 2: What's with the z-curves and *r* parameter?
 
 The idea is that *any* black-box optimizer should be able to optimize *any* time-series model without a human providing interpretation of hyper-parameters. So we force skaters to expose at most a single scalar hyper-parmeter, but also supply suggested space-filling curves. This...
