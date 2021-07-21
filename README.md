@@ -24,7 +24,7 @@ What's different:
    with one line of code, quite often (again, see [thinking.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) for an illustration, 
    or [prophetskaterscomposed.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py)).
 
-  - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For many models state is a pure Python dictionary and thus trivially converted to JSON and back. 
+  - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary. Thus it is trivially converted to JSON and back, for instance in a web application.  
 
 **NO CLASSES**  **NO DATAFRAMES** **NO CEREMONY**   
 
