@@ -1,13 +1,15 @@
 # timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## Fast, incremental, pure-functional, time-series forecasting ([article](https://www.microprediction.com/blog/timemachines))
+## Fast, incremental, time-series forecasting ([article](https://www.microprediction.com/blog/timemachines))
 Use popular forecasting packages with one line of code, or view their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html)
 
 What's different:
 
-   - **Simple k-step ahead forecasts** There are no "models" here requiring setup, only forecast functions:
+   - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only forecast functions:
        
           x, x_hat, s = f(y,k,s)
+       
+       These functions are called skaters. 
 
    - **Simple canonical use** of *some* functionality from packages like river, fbprophet, pmdarima, tbats, tsa, neuralprophet, orbit and their ilk. Sadly most of these are slow but...
 
