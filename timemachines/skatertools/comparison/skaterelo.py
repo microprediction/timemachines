@@ -4,7 +4,7 @@ import numpy as np
 from timemachines.skatertools.comparison.eloformulas import elo_update
 import time
 
-SLOW_SKATER_KEYWORDS = ['divine','pmd','prophet']
+SLOW_SKATER_KEYWORDS = ['divine','pmd','prophet','bats','tsa']
 
 try:
     from microprediction import MicroReader
