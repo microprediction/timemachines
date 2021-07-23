@@ -15,7 +15,7 @@ if using_neuralprophet:
 
     def nprophet_fit_and_predict_simple(y: [float], k: int, freq: str = None, model_params: dict = None) -> Tuple[
         List, List, Any, Any]:
-        """ Simpler wrapper for testing - univariate only """
+        """ Simpler wrapper for offlinetesting - univariate only """
         assert isinstance(y[0],float)
         freq = freq or NPROPHET_META['freq']
         used_params = NPROPHET_MODEL

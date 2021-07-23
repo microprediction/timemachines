@@ -15,7 +15,7 @@ if using_prophet:
 
     #  Just some scripts that try to investigate some curious behaviour of prophet, and performance
     #  comparison against dead-simple averaging of recent values
-    #  TODO: Move this to timemachines-testing
+    #  TODO: Move this to timemachines-offlinetesting
 
 
     def is_opinonated(y, forecast:pd.DataFrame,k:int, n_recent:int, multiple:float)->bool:

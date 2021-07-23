@@ -5,12 +5,30 @@ from timemachines.skaters.bats.batsinclusion import using_bats
 from timemachines.skatertools.utilities.conventions import wrap
 from timemachines.skaters.bats.batsifactory import bats_iskater_factory
 import numpy as np
+from timemachines.skatertools.batch.batchskater import batch_skater_factory
 
 
 if using_bats:
     from tbats import TBATS
 
     def bats_factory(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None, r:R_TYPE=None,
+                     emp_mass: float = 0.0,
+                     use_box_cox=None, box_cox_bounds=(0, 1),
+                     use_trend=None, use_damped_trend=None,
+                     seasonal_periods=None, use_arma_errors=True
+                     ):
+        return batch_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e,r=r,
+                                    iskater=bats_iskater_factory,
+                                    iskater_kwargs={'use_box_cox':use_box_cox,
+                                                    'box_cox_bounds':box_cox_bounds,
+                                                    'use_trend':use_trend,
+                                                    'use_damped_trend':use_damped_trend,
+                                                     'seasonal_periods':seasonal_periods,
+                                                    'use_arma_errors':use_arma_errors},
+                                    min_e=0, emp_mass=emp_mass, emp_std_mass=1.0, n_warm=10)
+
+
+    def bats_factory_old(y :Y_TYPE, s, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None, r:R_TYPE=None,
                      emp_mass: float = 0.0,
                      use_box_cox=None, box_cox_bounds=(0, 1),
                      use_trend=None, use_damped_trend=None,

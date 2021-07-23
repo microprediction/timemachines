@@ -27,7 +27,7 @@ def regress_change_on_first_known(y:Y_TYPE, s:dict, k, a:A_TYPE=None, t:T_TYPE =
 
 
 def regress_level_on_first_known(y:Y_TYPE, s:dict, k, a:A_TYPE=None, t:T_TYPE =None, e:E_TYPE =None)->([float] , Any , Any):
-    """ Very basic online regression skater, mostly for testing
+    """ Very basic online regression skater, mostly for offlinetesting
            - Only one known in advance variable is utilized
            - Last value is ignored, unless a is None in which case we return 0.0
            - Empirical std is returned

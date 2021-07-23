@@ -2,7 +2,7 @@ import csv
 import numpy as np
 
 # Not intended as a repo of data.
-# Just a couple of examples for testing without introduction of internet latency.
+# Just a couple of examples for offlinetesting without introduction of internet latency.
 # See also data.live
 
 

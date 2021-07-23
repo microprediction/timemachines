@@ -13,6 +13,8 @@ except ImportError:
 
 
 def optimize_random_skater():
+    print('Available optimizers...')
+    print([o.__name__ for o in OPTIMIZERS])
     start_time = time.time()
     optimizer = random.choice(OPTIMIZERS)
     f = random.choice(SKATERS_R1+SKATERS_R2+SKATERS_R3)

@@ -5,7 +5,7 @@ from timemachines.skatertools.ensembling.ensemblefactory import precision_weight
 from typing import Any
 
 # Composition of fast and slow moving averages
-# Mostly for testing, no idea if these make any sense
+# Mostly for offlinetesting, no idea if these make any sense
 
 
 def thinking_slow_and_fast(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None)->([float] , Any , Any):

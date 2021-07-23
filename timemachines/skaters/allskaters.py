@@ -11,19 +11,24 @@ from timemachines.skaters.nproph.allnprophetskaters import NPROPHET_SKATERS
 from timemachines.skaters.uberorbit.allorbitskaters import ORBIT_SKATERS
 from timemachines.skaters.bats.allbatsskaters import BATS_SKATERS
 from timemachines.skaters.rvr.allriverskaters import RIVER_SKATERS
+from timemachines.skaters.sk.allskskaters import SK_SKATERS
 
+
+# Listing of skaters with no hyper-parameters
+SKATERS = EMA_SKATERS + PROPHET_SKATERS + DIVINE_SKATERS + DLM_SKATERS + \
+          THINKING_SKATERS + PMD_SKATERS + TSA_SKATERS + NPROPHET_SKATERS +\
+          HYPOCRATIC_ENSEMBLE_SKATERS + ORBIT_SKATERS + BATS_SKATERS + RIVER_SKATERS + SK_SKATERS
+
+LEFT_OUT_FOR_NOW = LINEAR_SKATERS # + ...
+
+# Skaters designed for online use
+FAST_SKATERS = EMA_SKATERS + THINKING_SKATERS + HYPOCRATIC_ENSEMBLE_SKATERS + RIVER_SKATERS
+
+
+# Some skaters with hyper-parameters for tuning
 SKATERS_R3 = []
 SKATERS_R2 = PROPHET_R2_SKATERS
 SKATERS_R1 = EMA_R1_SKATERS
-
-# Leaving out LINEAR_SKATERS
-
-# And with no hyper-params...
-SKATERS = EMA_SKATERS + PROPHET_SKATERS + DIVINE_SKATERS + DLM_SKATERS + \
-          THINKING_SKATERS + PMD_SKATERS + TSA_SKATERS + NPROPHET_SKATERS +\
-          HYPOCRATIC_ENSEMBLE_SKATERS + ORBIT_SKATERS +BATS_SKATERS + RIVER_SKATERS
-
-FAST_SKATERS = EMA_SKATERS + THINKING_SKATERS + HYPOCRATIC_ENSEMBLE_SKATERS + RIVER_SKATERS
 
 
 def skater_from_name(name):
@@ -42,7 +47,8 @@ PYPI = {'tsa':'statsmodels',
         'bats':'tbats',
         'ats':'auto_ts',
         'glu':'gluonts',
-        'flux':'pyflux'}
+        'flux':'pyflux',
+        'sk':'sktime'}
 
 
 def pypi_from_name(name):

@@ -44,6 +44,12 @@ def hospital_mean_square_error_with_sporadic_fit(f, k:int=1, n=120, r=None, n_te
     return evaluate_mean_squared_error_with_sporadic_fit(f=f, y=y, k=k, r=r, e_fit=e_fit, n_test=n_test, e_nofit=e_nofit, fit_frequency=fit_frequency)
 
 
+def hospital_mean_square_error(f, k:int=1, n=120, r=None, n_test:int=10, e_fit=60, e_nofit=-1)->float:
+    """ Useful for a quick test of a skater, univariate and random hyper-param """
+    return hospital_mean_square_error_with_sporadic_fit(f=f, k=k, n=n, r=r, e_fit=e_fit, n_test=n_test, e_nofit=e_nofit, fit_frequency=1)
+
+
+
 def hospital_exog_mean_square_error_with_sporadic_fit(f, k, n=120, r=None, n_test:int=10, e_fit=60, e_nofit=-1, fit_frequency:int=100)->float:
     """ Useful for a quick test of a skater w/ exogenous inputs and known-in-advance variables """
     y, a = hospital_with_exog(n=n,k=k)

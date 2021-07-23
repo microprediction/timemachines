@@ -1,4 +1,4 @@
-from timemachines.skatertooltesting.allregressiontests import REGRESSION_TESTS
+from timemachines.skatertools.testing.allregressiontests import REGRESSION_TESTS
 import time
 import random
 TIMEOUT = 60*5

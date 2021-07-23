@@ -35,7 +35,7 @@ def tsa_theta_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
         components are positive. If either of these conditions is False,
         then it uses an additive decomposition.
     difference : bool, default False
-        A flag indicating to difference the data before testing for
+        A flag indicating to difference the data before offlinetesting for
         seasonality."""
 
     y = wrap(y)

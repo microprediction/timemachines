@@ -1,16 +1,18 @@
 
-# Facebook Prophet
+# Facebook Prophet skaters
 
-The most popular time series package. 
+The most popular time series package, so it seems like it should be included if only for comparison 
 
-### Online ... not so much 
-
-This is fundamentally not incremental, see [this thread](https://github.com/facebook/prophet/issues/46), to wit:
-
+- But not incremental. See [this thread](https://github.com/facebook/prophet/issues/46), to wit:
 *The online learning used by some sklearn models is pretty fundamentally different from how Stan models are fit, I don't think we are going to have a partial_fit like that in the future.* 
 
-So, we fit model after each data point. Fortunately, prophet is "reasonably" fast to fit. 
+- The generative model is unlikely to work well for general time-series. See my analysis in the blog article titled [Is Facebook Prophet the Time-Series Messiah, or Just a Very Naughty Boy? ](https://www.microprediction.com/blog/prophet)
 
+### Skater implementation
+
+- Probably too many lines of code. 
+- Predates some utilities for skater creation
+- The sktime (sk) or tbats (bats) skaters are simpler examples to mimic
 
 ### Methodology 
 

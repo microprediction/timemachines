@@ -145,11 +145,11 @@ if using_prophet:
             return x, x_std
 
 
-    # The rest of this module contains redundant special cases of the above, purely for testing.
+    # The rest of this module contains redundant special cases of the above, purely for offlinetesting.
 
     def prophet_fit_and_predict_simple(y: [float], k: int, freq: str = None, model_params: dict = None) -> Tuple[
         List, List, Any, Any]:
-        """ Simpler wrapper for testing - univariate only """
+        """ Simpler wrapper for offlinetesting - univariate only """
 
         df = pd.DataFrame(columns=['y'], data=y)
         freq = freq or PROPHET_META['freq']
@@ -169,7 +169,7 @@ if using_prophet:
 
     def prophet_fit_and_predict_with_time(y: [float], k: int, t: [float], model_params: dict = None) -> Tuple[
         List, List, Any, Any]:
-        """ Simpler wrapper for testing - univariate only w/ supplied times """
+        """ Simpler wrapper for offlinetesting - univariate only w/ supplied times """
 
         df = pd.DataFrame(columns=['y'], data=y)
         df['ds'] = epoch_to_naive_datetime(t)
@@ -189,7 +189,7 @@ if using_prophet:
 
     def prophet_fit_and_predict_with_time_and_advance_time(y: [float], k: int, t: [float], model_params: dict = None) -> \
     Tuple[List, List, Any, Any]:
-        """ Simpler wrapper for testing - univariate only w/ supplied times and future times  """
+        """ Simpler wrapper for offlinetesting - univariate only w/ supplied times and future times  """
         assert len(t) == len(y) + k
         df = pd.DataFrame(columns=['y'], data=y)
         dt = epoch_to_naive_datetime(t)
@@ -211,7 +211,7 @@ if using_prophet:
 
     def prophet_fit_and_predict_with_advance_vars(y: [float], k: int, t: [float], a: [[float]],
                                                   model_params: dict = None) -> Tuple[List, List, Any, Any]:
-        """ Simpler wrapper for testing - univariate w/ advance vars w/ supplied times and future times  """
+        """ Simpler wrapper for offlinetesting - univariate w/ advance vars w/ supplied times and future times  """
         assert len(t) == len(y) + k
         assert len(a) == len(y) + k
         assert isinstance(y[0], float)
@@ -242,7 +242,7 @@ if using_prophet:
 
     def prophet_fit_and_predict_with_exog_and_advance_vars(y: [[float]], k: int, t: [float], a: [[float]],
                                                            model_params: dict = None) -> Tuple[List, List, Any, Any]:
-        """ Simpler wrapper for testing - univariate w/ advance vars w/ supplied times and future times  """
+        """ Simpler wrapper for offlinetesting - univariate w/ advance vars w/ supplied times and future times  """
         assert len(t) == len(y) + k
         assert len(a) == len(y) + k
         assert isinstance(y[0], List)
@@ -282,7 +282,7 @@ if using_prophet:
 
     def prophet_fit_and_predict_with_exog_and_advance_vars_no_t(y: [[float]], k: int, freq: str, a: [[float]],
                                                                 model_params: dict = None) -> Tuple[List, List, Any, Any]:
-        """ Simpler wrapper for testing - univariate w/ advance vars w/ supplied times and future times  """
+        """ Simpler wrapper for offlinetesting - univariate w/ advance vars w/ supplied times and future times  """
         assert len(a) == len(y) + k
         assert isinstance(y[0], List)
         a_cols = ['a' + str(i) for i in range(len(a[0]))]

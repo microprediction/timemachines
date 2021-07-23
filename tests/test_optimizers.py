@@ -6,7 +6,6 @@ if using_humpday:
 
     # Just to check if someone (ahem) breaks humpday
 
-
     def test_optimizers():
         n_trials = 10
         n_dim = random.choice([2,3])
@@ -16,4 +15,5 @@ if using_humpday:
 
 
 if __name__=='__main__':
+    assert using_humpday,'pip install humpday'
     test_optimizers()

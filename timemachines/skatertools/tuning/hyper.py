@@ -9,9 +9,10 @@ import time
 # TODO:Tidy this up
 
 try:
+    import humpday
     from humpday.optimizers.alloptimizers import OPTIMIZERS
     using_humpday = True
-except:
+except ImportError:
     using_humpday = False
 
 

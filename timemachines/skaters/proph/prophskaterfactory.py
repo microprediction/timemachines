@@ -130,7 +130,7 @@ if using_prophet:
     def fbprophet_skater_testor(y :Y_TYPE, s:dict=None, k:int =1, a:A_TYPE =None,
                          t:T_TYPE=None, e:E_TYPE =None, r:R_TYPE =None, freq=None, n_max=None):
         """ A default facebook prophet usage, with no hyper-parameters and no prediction parade """
-        # For testing
+        # For offlinetesting
 
         if freq is None:
             freq = PROPHET_META['freq']
