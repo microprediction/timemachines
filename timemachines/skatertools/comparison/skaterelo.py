@@ -87,6 +87,9 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
         if any([ slow in skater1 for slow in SLOW_SKATER_KEYWORDS ]) or any([ slow in skater2 for slow in SLOW_SKATER_KEYWORDS ]):
             i1, i2 = np.random.choice(list(range(n_skaters)), size=2, replace=False)
             skater1, skater2 = elo['name'][i1], elo['name'][i2]
+    if any([ slow in skater1 for slow in SLOW_SKATER_KEYWORDS ]) and any([ slow in skater2 for slow in SLOW_SKATER_KEYWORDS ]):
+        i1, i2 = np.random.choice(list(range(n_skaters)), size=2, replace=False)
+        skater1, skater2 = elo['name'][i1], elo['name'][i2]
 
 
     fs = list()
