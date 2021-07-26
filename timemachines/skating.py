@@ -31,6 +31,7 @@ def posterior(f:Callable,       # "Model" to run forward through observations
          returns:  x:     [ [float] ]    list of all prediction vectors
                    x_std: [ [float] ]    list of all std vectors
     """
+    assert k<len(y)
 
     # Broadcasting
     a = [None for _ in y] if a is None else a
