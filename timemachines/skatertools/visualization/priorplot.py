@@ -14,7 +14,7 @@ except ImportError:
     plt = None
 
 
-def prior_plot(f, y=None, k=None, t=None, e=None, r=None, x0=np.nan, n=150, n_plot=25):
+def prior_plot(f, y=None, k=1, t=None, e=None, r=None, x0=np.nan, n=150, n_plot=25):
     """
          Apply state machine to univariate series,
          Show observations and out of sample predictions predictions

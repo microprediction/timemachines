@@ -79,24 +79,24 @@ You might try adding the pip argument to skip pep517 if you run into trouble:
 My hope is that the [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities also
 serve as demonstrations of how to use any given skater in this library. If f is a skater then you call it repeatedly:
 
-    from timemachines.skaters.simple.thinking import thinking_slow_and_fast
+    from timemachines.skaters.simple.thinking import thinking_slow_and_fast 
+    import numpy as np
     y = np.cumsum(np.random.randn(1000))
     s = {}
+    x = list()
     for yi in y:
         xi, x_std, s = thinking_slow_and_fast(y=yi, s=s, k=3)
         x.append(xi)
      
-This will accumulate 3-step ahead prediction vectors. Or if you prefer...
+This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
 
-    from timemachines.skatertools.data import hospital_with_exog
+    from timemachines.skaters.simple.thinking import thinking_slow_and_slow
     from timemachines.skatertools.visualization.priorplot import prior_plot
+    from timemachines.skatertools.data.real import hospital
     import matplotlib.pyplot as plt
-    
-    # Get some data - including variables known in advance:
-    k = 1
-    y, a = hospital_with_exog(k=k, n=450, offset=True)  
-    # Run the model and plot it 
-    prior_plot(f=thinking_slow_and_fast, k=k, y=y, n=450, n_plot=50)
+    y = hospital(n=200)
+    prior_plot(f=thinking_slow_and_slow,y=y)
+    plt.show()
   
   
 ![](https://i.imgur.com/elu5muO.png)
