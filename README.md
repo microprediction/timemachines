@@ -98,6 +98,7 @@ This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
     prior_plot(f=thinking_slow_and_slow,y=y)
     plt.show()
   
+There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
 ![](https://i.imgur.com/elu5muO.png)
   
