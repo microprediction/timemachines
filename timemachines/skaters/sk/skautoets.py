@@ -1,7 +1,8 @@
 from timemachines.skaters.sk.skinclusion import using_sktime
+from timemachines.skaters.pmd.pmdinclusion import using_pmd
 
 
-if using_sktime:
+if using_sktime and using_pmd:
     from timemachines.skaters.sk.skwrappers import sk_autoets_iskater
     from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE
     from timemachines.skatertools.batch.batchskater import batch_skater_factory

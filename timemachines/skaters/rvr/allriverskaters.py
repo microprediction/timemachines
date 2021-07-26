@@ -1,3 +1,5 @@
 from timemachines.skaters.rvr.rvrconstant import RIVER_CONSTANT_SKATERS
+from timemachines.skaters.rvr.rvrensembles import RIVER_ENSEMBLE_SKATERS
+from timemachines.skaters.rvr.rvrhypocratic import RIVER_HYPOCRATIC_SKATERS
 
-RIVER_SKATERS = RIVER_CONSTANT_SKATERS
+RIVER_SKATERS = RIVER_CONSTANT_SKATERS + RIVER_HYPOCRATIC_SKATERS + RIVER_ENSEMBLE_SKATERS
