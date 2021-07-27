@@ -27,6 +27,7 @@ if using_sktime and using_pmd:
 
     def sk_ae_mul(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None, r: R_TYPE = None,
                   emp_mass=0.0):
+        # Will fail if y<0
         return sk_ae_factory(y=y, s=s, k=k, a=a, t=t, e=e, r=r, emp_mass=emp_mass, trend='mul', damped=False)
 
 
@@ -37,10 +38,11 @@ if using_sktime and using_pmd:
 
     def sk_ae_mul_damped(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None, r: R_TYPE = None,
                          emp_mass=0.0):
+        # will fail if y<0
         return sk_ae_factory(y=y, s=s, k=k, a=a, t=t, e=e, r=r, emp_mass=emp_mass, trend='mul', damped=True)
 
 
-    SK_AE_SKATERS = [sk_ae, sk_ae_add, sk_ae_mul, sk_ae_add_damped, sk_ae_mul_damped]
+    SK_AE_SKATERS = [sk_ae, sk_ae_add, sk_ae_add_damped]
 
 else:
     SK_AE_SKATERS = []

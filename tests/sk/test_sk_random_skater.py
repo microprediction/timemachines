@@ -17,6 +17,7 @@ if using_sktime:
 
 if __name__ == '__main__':
     import time
-    st = time.time()
-    test_random_skater()
-    print(time.time()-st)
+    for _ in range(100):
+        st = time.time()
+        test_random_skater()
+        print(time.time()-st)
