@@ -34,7 +34,14 @@ Then your regular job can do the following:
 This will create a stream like [airport short term parking](https://www.microprediction.org/stream_dashboard.html?stream=airport-ewr-short-term_parking_a_b_c) and a bunch of
 hungry time-series algorithms will come to it. The remainder of this note deals only with skater creation. 
 
+## On creating a skater function (batch edition)
+
+Want to shove a batch-oriented model in for the purpose (mostly) of comparison against faster things? No problem. The "modern" way is illustrated by 
+[skautoarima](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/sk/skautoarima.py) and it uses the 
+[batch_skater_factory](https://github.com/microprediction/timemachines/blob/a3430520b04807026055d9f2ba2379481ef3d641/timemachines/skatertools/batch/batchskater.py#L8). 
+
 ## On creating a skater function ...
+Now if you want more freedom that that...
 
    - Read the [README](https://github.com/microprediction/timemachines) to understand what a skater is and what it is not. The good news is that a skater
    is merely a function. The bad news is that the function must accomodate a few conventions. 
