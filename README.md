@@ -51,7 +51,7 @@ packages you want to utilize - they aren't in by default.
 
     pip install river 
     pip install tbats
-    pip install orbit
+    pip install orbit-ml
     pip install pydlm
     pip install divinity
     pip install pmdarima
