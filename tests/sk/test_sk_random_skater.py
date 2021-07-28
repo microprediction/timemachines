@@ -11,8 +11,9 @@ if using_sktime:
         n = 100
         f = random.choice(SK_SKATERS)
         y = hospital(n=n)
+        neg_y = [-yt for yt in y]
         e = [-1]*90+[100]+[-1]*90
-        x, x_std = prior(f=f, y=y, k=k, e=e )
+        x, x_std = prior(f=f, y=neg_y, k=k, e=e )
 
 
 if __name__ == '__main__':
