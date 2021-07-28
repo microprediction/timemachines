@@ -117,9 +117,10 @@ Now if you want more freedom that that...
    
    - Your skater should interpret the e argument before embarking on expensive computation. 
    
-       e < 0     ... skater should not do anything energetic <-- treat this as a burn-in period
-       e = 0     ... skater should do what it pleases (though presumably respond reasonably quickly!)
-       e =100    ... skater should feel free to spend 100 seconds performing some periodic refitting, or whatever. 
+      * e < 0     ... skater should not do anything energetic <-- treat this as a burn-in period
+      * e = 0     ... skater should do what it pleases (though presumably respond reasonably quickly!)
+      * e = 55.7  ... skater should feel free to spend 55.7 seconds performing some periodic refitting, or whatever. 
+      * e =100    ... skater should feel free to spend 100 seconds performing some periodic refitting, or whatever. 
 
    Bear in mind that there is no convention for providing a skater with historical data beyond this. The only way for the caller to do this is by passing
    the historical data one point at a time with e<0 set. Obviously, the skater code doesn't know what machine it will be run on but that's too bad. 
