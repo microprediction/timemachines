@@ -28,7 +28,7 @@ def ensemble_factory(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None, t: T_TYPE = N
         return None, None, s
     else:
         # Apply models, keeping only the point estimate
-        # This constructs a flattenned list of child predictions and their standard deviations,
+        # This constructs a flat list of child predictions and their standard deviations,
         # but for now only uses the k-step ahead predictions, not k-1, k-2,...
         xjs = list()
         rs = rs or [None for _ in fs]
