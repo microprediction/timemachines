@@ -22,7 +22,10 @@ def elo_ensemble_factory(y: Y_TYPE, s: dict, k: int = 1, a:A_TYPE = None, t:T_TY
         assert connected_to_internet(), 'cannot get best skaters without internet connection'
         top_rated_skaters = top_rated_models(k=k,n=n,category=category,max_seconds=max_seconds,min_count=min_count,
                                          require_passing=require_passing, ignore_elo=True)
+        if len(top_rated_skaters)<=1:
+            raise Exception('Could not find enough rated models')
         s['top_rated_skaters'] = top_rated_skaters
+
 
     return precision_weighted_ensemble_factory(fs=s['top_rated_skaters'], y=y, s=s, k=k, a=a, t=t, e=e, r=r)
 
