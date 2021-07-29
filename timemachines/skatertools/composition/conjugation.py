@@ -46,7 +46,7 @@ def conjugation_factory(y :Y_TYPE, s:dict, k:int, a:A_TYPE =None, t:T_TYPE =None
 
 def exp_conjugation_factory(y :Y_TYPE, s:dict, k:int, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None, r=None, f=None, f_kwargs=None)->([float] , Any , Any):
     """
-       For when models only work on (0,\inf) 
+       For when models only work on (0,inf)
        e.g. multiplicative errors etc 
     """
     assert f is not None
