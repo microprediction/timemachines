@@ -117,9 +117,10 @@ Now if you want more freedom that that...
    
    - Your skater should interpret the e argument before embarking on expensive computation. 
    
-       e < 0     ... skater should not do anything energetic <-- treat this as a burn-in period
-       e = 0     ... skater should do what it pleases (though presumably respond reasonably quickly!)
-       e =100    ... skater should feel free to spend 100 seconds performing some periodic refitting, or whatever. 
+      * e < 0     ... skater should not do anything energetic <-- treat this as a burn-in period
+      * e = 0     ... skater should do what it pleases (though presumably respond reasonably quickly!)
+      * e = 55.7  ... skater should feel free to spend 55.7 seconds performing some periodic refitting, or whatever. 
+      * e =100    ... skater should feel free to spend 100 seconds performing some periodic refitting, or whatever. 
 
    Bear in mind that there is no convention for providing a skater with historical data beyond this. The only way for the caller to do this is by passing
    the historical data one point at a time with e<0 set. Obviously, the skater code doesn't know what machine it will be run on but that's too bad. 
@@ -200,9 +201,10 @@ can pip install the package should they wish to be able to use your skater.
 
 ## Steps to incorporate a skater into the Elo ratings
 
-This part should get your excited, and it is pretty automatic. Of course, you want to see your skater climb the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html). The Elo
-ratings are a by-product of regular testing of the package. I use Elo ratings because they are incremental and we can avoid putting strain on the servers provided by our friends at GitHub who support
-open source work like this. You don't need to do much for this, merely include a list of 'bound' skaters (i.e. no hyper-param *r* expected) in a fashion similar to what I've done for 
+This part should get you excited, and it is pretty automatic. Of course, you want to see your skater climb the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) which are a by-product of regular testing of the package. I use Elo ratings because they are incremental and we can avoid putting strain on the servers provided by our friends at GitHub who support
+open source work like this. 
+
+You don't need to do much for this, merely include a list of 'bound' skaters (i.e. no hyper-param *r* expected) in a fashion similar to what I've done for 
 [allpmdskaters](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/dlm/alldlmskaters.py). Finally, you can reference this when making a change to 
 [skaters/allskaters.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/allskaters.py) which is the list of all skater lists. See the previous comment about not assuming
 existence of a package, however. Your list should be empty if your skater uses the package infrequently_maintained_and_certain_to_crash_on_m1 and the user has not pip installed that. 
