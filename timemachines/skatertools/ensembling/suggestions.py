@@ -1,6 +1,6 @@
 K_LEADERBOARD_TYPES = ['univariate','residual']
 from getjson import getjson
-from timemachines.skaters.allskaters import skater_from_name
+from timemachines.skaters.localskaters import local_skater_from_name
 
 
 # Utilities for grabbing suggested models from the Elo ratings
@@ -52,7 +52,7 @@ def top_rated_models(k:int, n=5, category='univariate', max_seconds=10, min_coun
 
     for r in rcm:
         try:
-            skater = skater_from_name(r[1])
+            skater = local_skater_from_name(r[1])
             loaded.append(skater)
             if len(loaded)==n:
                 break

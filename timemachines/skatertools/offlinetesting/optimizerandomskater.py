@@ -1,6 +1,6 @@
 from timemachines.skatertools.tuning.hyper import optimal_r
 from timemachines.skatertools.data.synthetic import brownian_with_exogenous
-from timemachines.skaters.allskaters import SKATERS_R1, SKATERS_R2, SKATERS_R3
+from timemachines.skaters.localskaters import SKATERS_R1, SKATERS_R2, SKATERS_R3
 import time
 import random
 from pprint import pprint

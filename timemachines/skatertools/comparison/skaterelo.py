@@ -1,8 +1,8 @@
-from timemachines.skaters.allskaters import SKATERS, skater_from_name, pypi_from_name  # Only those with no hyper-params
 from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error_with_sporadic_fit, evaluator_from_name
 import numpy as np
 from timemachines.skatertools.comparison.eloformulas import elo_update
 import time
+from timemachines.skatertools.utilities.locations import pypi_from_name
 
 SLOW_SKATER_KEYWORDS = ['divine','fbprophet','arma','tsa_p3','bats_damped','tsa_aggressive','tsa_balanced','tsa_precision']
 
@@ -33,6 +33,10 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
 
         Speed is *not* taken into account, yet.
     """
+    # Lazy import because networked skaters shouldn't be initialized too early
+    from timemachines.skaters.allskaters import SKATERS, \
+        skater_from_name  # Only those with no hyper-params
+
     if data_source is None:
         data_source = DEFAULT_DATA_SOURCE
         assert data_source is not None, "If microprediction is not installed you must supply a different data_source function that returns y, t "
