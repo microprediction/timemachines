@@ -67,6 +67,7 @@ def top_rated_models(k:int, n=5, category='univariate', max_seconds=10, min_coun
     for r in rcm:
         try:
             skater = local_skater_from_name(r[1])
+            assert skater is not None
             loaded.append(skater)
             if len(loaded)==n:
                 break
