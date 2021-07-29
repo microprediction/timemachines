@@ -5,7 +5,8 @@ from timemachines.skaters.uberorbit.orbitinclusion import using_orbit, LGTMAP, L
 
 if using_orbit:
 
-    def orbit_lgt_skater_factory(y, s, k, e, seasonality):
+    def orbit_lgt_skater_factory(y, s, k, a=None, t=None, e=None, seasonality=None):
+        assert seasonality is not None
 
         y = wrap(y)
 
@@ -76,10 +77,10 @@ if using_orbit:
         return x, x_std
 
 
-    def orbit_lgt_12(y,s,k,e):
-        return orbit_lgt_skater_factory(y, s, k, e, seasonality=12)
+    def orbit_lgt_12(y,s,k,a=None, t=None,e=None):
+        return orbit_lgt_skater_factory(y=y, s=s, k=k, a=a,t=t,e=e, seasonality=12)
 
 
-    def orbit_lgt_24(y,s,k,e):
-        return orbit_lgt_skater_factory(y, s, k, e, seasonality=24)
+    def orbit_lgt_24(y,s,k,a=None, t=None,e=None):
+        return orbit_lgt_skater_factory(y, s, k, a=a,t=t,e=e, seasonality=24)
 
