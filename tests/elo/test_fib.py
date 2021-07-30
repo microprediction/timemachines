@@ -1,4 +1,4 @@
-from timemachines.skatertools.ensembling.suggestions import closest_fib
+from timemachines.skatertools.recommendations.suggestions import closest_fib
 
 
 def test_closest():

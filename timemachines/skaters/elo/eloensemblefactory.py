@@ -1,6 +1,6 @@
 from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, T_TYPE, E_TYPE
 from typing import Any
-from timemachines.skatertools.ensembling.suggestions import top_rated_models
+from timemachines.skatertools.recommendations.suggestions import top_rated_models
 from timemachines.skatertools.ensembling.ensemblefactory import precision_weighted_ensemble_factory
 from timemachines.skatertools.utilities.internet import connected_to_internet
 

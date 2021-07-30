@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.12.8",
+    version="0.12.9",
     description="Evaluation and standardization of popular time series packages",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -45,7 +45,8 @@ setup(
               "timemachines.skatertools.tuning",
               "timemachines.skatertools.utilities",
               "timemachines.skatertools.visualization",
-              "timemachines.skatertools.batch"],
+              "timemachines.skatertools.batch",
+              "timemachines.skatertools.recommendations"],
     test_suite='pytest',
     tests_require=['pytest','microprediction'],
     include_package_data=True,

@@ -43,7 +43,7 @@ def top_rated(k:int, category='univariate', max_seconds=10, min_count=10, requir
     rd = get_ratings(k=k_closest,category=category)
     rd_zip = zip( rd['name'], rd['count'], rd['rating'],rd['traceback'],rd['seconds'], rd['pypi'] )
     return sorted([(rtng,nm,pypi) for nm,cnt,rtng,trcbck,scnds,pypi in rd_zip if
-                   (scnds<=max_seconds) and
+                   ((scnds>=0) and (scnds<=max_seconds)) and
                    (trcbck=='passing' or (not require_passing)) and
                    (cnt>=min_count) and
                    ((not 'elo' in nm) or not ignore_elo)
