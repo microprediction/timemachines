@@ -49,14 +49,15 @@ The suggested install is:
 Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to decide which
 packages you want to utilize - they aren't in by default. 
 
-    pip install river 
-    pip install tbats
-    pip install orbit-ml
-    pip install pydlm
-    pip install divinity
-    pip install pmdarima
-    pip install prophet
-    pip install neuralprophet
+    pip install --upgrade river 
+    pip install --ugprade sktime
+    pip install --upgrade tbats
+    pip install --upgrade orbit-ml
+    pip install --upgrade pydlm
+    pip install --upgrade divinity
+    pip install --upgrade pmdarima
+    pip install --upgrade prophet
+    pip install --upgrade neuralprophet
     
 Then add matplotlib if you want to use plotting utilities provides
 
