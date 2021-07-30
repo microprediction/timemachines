@@ -38,6 +38,8 @@ def batch_skater_factory(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = Non
 
     using_a = a is not None
     using_t = t is not None
+    if e is None:
+        e = 0
 
     if not s.get('y'):
         # On the first invocation we initialize, and freeze the pattern of usage
@@ -74,7 +76,7 @@ def batch_skater_factory(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = Non
         # Decide whether to call batch
         warm_enough = len(s['y']) >= n_warm
         enough_a = (a is None) or (len(s['a']) > k)
-        caller_wants = e > min_e
+        caller_wants = e >= min_e
         do_call = caller_wants and enough_a and warm_enough
 
         if do_call:
