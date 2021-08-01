@@ -158,18 +158,18 @@ See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or f
  
 ## On testing a skater function 
 
-At minimum, please add a test script like [tests/simple/test_simple.py](https://github.com/microprediction/timemachines/blob/main/tests/simple/test_simple.py). This one uses a canned
-time-series of hospital wait times. 
+At minimum, please add a test script like [tests/simple/test_simple.py](https://github.com/microprediction/timemachines/blob/main/tests/simple/test_simple.py). This one uses a canned time-series of hospital wait times. 
 
-    from timemachines.skaters.simple.movingaverage import precision_ema_ensemble, aggressive_ema_ensemble
-    from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_error
+      from timemachines.skaters.simple.movingaverage import precision_ema_ensemble, aggressive_ema_ensemble
+      from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_error_with_sporadic_fit, hospital_exog_mean_square_error_with_sporadic_fit
 
-    SIMPLE_TO_TEST = [ precision_ema_ensemble, aggressive_ema_ensemble ]
+      SIMPLE_TO_TEST = [ precision_ema_ensemble, aggressive_ema_ensemble ]
 
-    def test_ensemble():
-        for f in SIMPLE_TO_TEST:
-           err = hospital_mean_square_error(f=f, k=5, n=150)
 
+      def test_ensemble():
+          for f in SIMPLE_TO_TEST:
+              err = hospital_mean_square_error_with_sporadic_fit(f=f, k=5, n=150, fit_frequency=1)
+              
 Please ensure this test runs quickly. 
 
 ## On hyper-optimizing a skater function 
