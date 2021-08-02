@@ -175,8 +175,8 @@ Please ensure this test runs quickly.
 ## On hyper-optimizing a skater function 
 
 This is up to you. If you need real-world data, you have it. Peruse the [knowledge center](https://www.microprediction.com/knowledge-center) or jump to this [notebook](https://github.com/microprediction/microprediction/blob/master/notebook_examples/Python_Module_3_Getting_History.ipynb) showing
-how to retrieve recently created live data. As note, I don't care too much for stale historical data and you're advised to use the fresh bait to avoid over-fitting and sneaky kinds of self-deception that arise 
-over time. 
+how to retrieve recently created live data. As noted, you're advised to use the fresh bait to avoid over-fitting and sneaky kinds of self-deception that arise 
+over time when historical data is used.  
 
 You may have noticed the *r* argument in the skater signature. Your skater (or skater factory) *might* want to accept an *r* value if you think there is value in hyper-parameters. However the intent of the time-machines library is the provision of 
   a number of purely autonomous forecasting methods, so if *r* is extremely important and needs to be fit for each and every time-series your method might be a little out of scope. That's
