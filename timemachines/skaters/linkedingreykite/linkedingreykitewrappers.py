@@ -1,6 +1,6 @@
 from timemachines.skaters.linkedingreykite.linkedingreykiteinclusion import using_greykite
 
- if using_greykite:
+if using_greykite:
     import numpy as np
     import pandas as pd
     from greykite.framework.templates.autogen.forecast_config import ForecastConfig
