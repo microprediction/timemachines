@@ -1,7 +1,7 @@
 # timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Fast, incremental, time-series prediction
-Use popular forecasting packages with one line of code. Or just browse their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to help decide which to try out first. 
+... and some slow ones. Use popular forecasting packages with one line of code. Or just browse their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to help decide which to try out first. There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. 
 
 What's different:
 
@@ -44,19 +44,21 @@ See  [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/C
 The suggested install is:  
 
     pip install --upgrade pip
+    pip install --upgrade numpy
     pip install timemachines
 
 Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to decide which
 packages you want to utilize - they aren't in by default. 
 
-    pip install river 
-    pip install tbats
-    pip install orbit-ml
-    pip install pydlm
-    pip install divinity
-    pip install pmdarima
-    pip install prophet
-    pip install neuralprophet
+    pip install --upgrade river 
+    pip install --ugprade sktime
+    pip install --upgrade tbats
+    pip install --upgrade orbit-ml
+    pip install --upgrade pydlm
+    pip install --upgrade divinity
+    pip install --upgrade pmdarima
+    pip install --upgrade prophet
+    pip install --upgrade neuralprophet
     
 Then add matplotlib if you want to use plotting utilities provides
 
