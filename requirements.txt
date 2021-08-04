@@ -8,7 +8,7 @@ getjson
 momentum
 numpy>=1.19.5
 sklearn
-statsmodels
+statsmodels>=0.12.2
 
 
 

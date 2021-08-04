@@ -35,6 +35,7 @@ setup(
               "timemachines.skaters.rvr",
               "timemachines.skaters.sk",
               "timemachines.skaters.elo",
+              "timemachines.skaters.smdk",
               "timemachines.skatertools",
               "timemachines.skatertools.comparison",
               "timemachines.skatertools.components",
