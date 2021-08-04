@@ -44,6 +44,7 @@ See  [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/C
 The suggested install is:  
 
     pip install --upgrade pip
+    pip install --upgrade numpy
     pip install timemachines
 
 Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to decide which
