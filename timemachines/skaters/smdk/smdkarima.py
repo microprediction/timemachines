@@ -1,3 +1,0 @@
-# primitives for ARMA models
-
-

@@ -1,5 +1,5 @@
-from timemachines.skaters.smdk.smdkinclusion import using_latest_simdkalman
-if using_latest_simdkalman:
+from timemachines.skaters.smdk.smdkinclusion import using_simdkalman
+if using_simdkalman:
 
     from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
     from timemachines.skatertools.components.parade import parade
@@ -7,7 +7,7 @@ if using_latest_simdkalman:
     import numpy as np
     import random
     from timemachines.skatertools.ensembling.precisionweightedskater import precision_weighted_skater
-    from simdkalman.primitives import ddot, ddot_t_right, _update
+    from simdkalman.primitives import ddot, ddot_t_right, dinv
 
     # Pronounced "sim-d-k ARMA factory", not "simd-karma-factory"
 
@@ -38,8 +38,8 @@ if using_latest_simdkalman:
         return [(np.random.rand() - 0.5) * theta_decay(j) for j in range(q)]
 
 
-    def smkd_arma_agents_factory(y: Y_TYPE, n_agents: int, max_p: int, max_q:int, s, k: int, a: A_TYPE = None, t: T_TYPE = None,
-                                 e: E_TYPE = None, r: R_TYPE = None):
+    def smdk_arma_factory(y: Y_TYPE, n_agents: int, max_p: int, max_q:int, s, k: int, a: A_TYPE = None, t: T_TYPE = None,
+                          e: E_TYPE = None, r: R_TYPE = None):
         """
 
               max_p - Maximum AR order
@@ -48,7 +48,6 @@ if using_latest_simdkalman:
         """
         n_states = max(max_p, max_q+1)
         n_obs = 1  # May generalize later
-        assert r is not None
         assert n_states >= 2
         y0 = wrap(y)[0]
         if not s.get('n_states'):
@@ -79,10 +78,12 @@ if using_latest_simdkalman:
             # Kalman updates
             prior_mean = ddot(s['A'], s['m'])  # A * m
             prior_cov = ddot(s['A'], ddot_t_right(s['P'], s['A'])) + dt * s['Q']  # A * P * A.t + Q
+            measurement = np.array([[[y0]]])
             posterior_mean, posterior_cov, K, ll = _update(prior_mean=prior_mean, prior_covariance=prior_cov,
                                                            observation_model=s['H'], observation_noise=s['R'],
+                                                           measurement=measurement,
                                                            log_likelihood=True)
-            s['m'] = np.transpose(posterior_mean, axes=(0, 2, 1))
+            s['m'] = posterior_mean
             s['P'] = posterior_cov
 
             # Compute k-step ahead predictions for each agent
@@ -95,20 +96,21 @@ if using_latest_simdkalman:
                     j_posterior_mean = ddot(s['powers_of_A'][j - 1, :, :, :], posterior_mean)
                 j_y_hat = ddot(s['H'], j_posterior_mean)
                 for ndx in range(n_agents):
-                    agent_xs[ndx][k] = j_y_hat[ndx, 0, 0]
+                    agent_xs[ndx][j] = j_y_hat[ndx, 0, 0]
 
             # Update agent prediction parades and get their empirical standard errors
             for ndx in range(n_agents):
-                _discard_bias, agent_stds[ndx], s['parades'][ndx] = parade(p=s['parades'][ndx], x=agent_xs[ndx], y=y0)
+                _discard_bias, agent_std_j, s['parades'][ndx] = parade(p=s['parades'][ndx], x=agent_xs[ndx], y=y0)
+                agent_stds[ndx] = nonecast(agent_std_j, fill_value=1.0)
 
             # Create the exogenous vector that the precision weighted skater expects.
             # (i.e. y_for_pws[1:] has agent predictions interlaced with their empirical means)
             y_for_pws = [y0]
-            s['fitness'] = [ 0.0 for _ in range(n_agents)]
+            s['fitness'] = []
             for agent_x, agent_std in zip(agent_xs, agent_stds):
                 y_for_pws.append(agent_x[-1])
                 y_for_pws.append(agent_std[-1])
-                s['fitness'].append(agent_std[-1])
+                s['fitness'].append(1./(1e-6+agent_std[-1]))
 
             # Call the precision weighted skater
             x, x_std, s['s_pks'] = precision_weighted_skater(y=y_for_pws, s=s['s_pws'], k=k, a=a, t=t, e=e)
@@ -135,11 +137,11 @@ if using_latest_simdkalman:
         s = {'n_states': n_states,
              'n_agents': n_agents,
              'n_measurements': 0,
-             'm': np.zeros((n_agents, 1, n_states)),
+             'm': np.zeros((n_agents, n_states,1)),
              'P': np.zeros((n_agents, n_states, n_states)),
-             'H': np.zeros((n_agents, n_states, n_obs)),
+             'H': np.zeros((n_agents, n_obs, n_states)),
              'R': np.zeros((n_agents, n_obs, n_obs)),
-             'Q': np.zero((n_agents, n_states, n_states)),
+             'Q': np.zeros((n_agents, n_states, n_states)),
              'A': np.zeros((n_agents, n_states, n_states)),
              'fitness': [1. for _ in range(n_agents)],
              'prev_t': None,
@@ -151,12 +153,12 @@ if using_latest_simdkalman:
         s['theta'] = [random_theta(q) for q in qs]
         s['parades'] = [{} for _ in range(n_agents)]  # Track empirical errors individually (somewhat inefficient)
         s['stale'] = [True for _ in range(n_agents)]
-        s['r_var'] = [np.exponential() ** 4 for _ in range(n_agents)]
-        s['q_var'] = [np.exponential() ** 4 for _ in range(n_agents)]
-        s['powers_of_A'] = np.array((k, n_agents, n_states, n_states))
+        s['r_var'] = [np.random.exponential() ** 4 for _ in range(n_agents)]
+        s['q_var'] = [np.random.exponential() ** 4 for _ in range(n_agents)]
+        s['powers_of_A'] = np.ndarray((k, n_agents, n_states, n_states))
         # Initialize random states
         for ndx in range(n_agents):
-            s['m'][ndx, :, :] = np.array([[x0 for _ in range(n_states)]])
+            s['m'][ndx, :, 0] = [x0 for _ in range(n_states)]
             s['P'][ndx, :, :] = (np.random.exponential() ** 4) * np.eye(n_states)
         return s
 
@@ -164,19 +166,18 @@ if using_latest_simdkalman:
     def smdk_arma_update_stale(s,k):
         n_states = s['n_states']
         n_obs = 1
-        for ndx, (pdtd, ph, tht, r_var, q_var) in enumerate(
-                zip(s['updated'], s['phi'], s['theta'], s['r_var'], s['q_var'])):
+        for ndx, (stl, ph, tht, r_var, q_var) in enumerate(
+                zip(s['stale'], s['phi'], s['theta'], s['r_var'], s['q_var'])):
             p = len(ph)
             q = len(tht)
-            if not pdtd:
+            if stl:
                 A_ = np.zeros((n_states, n_states))
                 A_[0, :p] = ph
                 for j in range(n_states - 1):
                     A_[j + 1, j] = 1.
                 s['A'][ndx, :, :] = A_
-                H_ = np.zeros((n_states, 1))
-                H_[0, 0] = 1
-                H_[0, 1:q + 1] = ph
+                H_ = np.ndarray((1,n_states))
+                H_[0,:] = [1] + tht + [0 for _ in range(n_states-len(tht)-1)]
                 s['H'][ndx, :, :] = H_
                 Q_ = np.zeros((n_states, n_states))
                 Q_[0, 0] = q_var
@@ -189,3 +190,32 @@ if using_latest_simdkalman:
                     s['powers_of_A'][j, ndx, :, :] = ddot(s['powers_of_A'][j - 1, ndx, :, :], A_)
         return s
 
+    def _update(prior_mean, prior_covariance, observation_model, observation_noise, measurement, log_likelihood=False):
+
+        # y - H * mp
+        v = measurement - ddot(observation_model, prior_mean)
+
+        # H * Pp * H.t + R
+        S = ddot(observation_model, ddot_t_right(prior_covariance, observation_model)) + observation_noise
+        invS = dinv(S)
+
+        # Kalman gain: Pp * H.t * invS
+        K = ddot(ddot_t_right(prior_covariance, observation_model), invS)
+
+        # K * v + mp
+        posterior_mean = ddot(K, v) + prior_mean
+
+        # Pp - K * H * Pp
+        posterior_covariance = prior_covariance - ddot(K, ddot(observation_model, prior_covariance))
+
+        # inv-chi2 test var
+        # outlier_test = np.sum(v * ddot(invS, v), axis=0)
+        if log_likelihood:
+            l = np.ravel(ddot(v.transpose((0,2,1)), ddot(invS, v)))
+            l += np.log(np.linalg.det(S))
+            l *= -0.5
+            return posterior_mean, posterior_covariance, K, l
+        else:
+            return posterior_mean, posterior_covariance, K
+
+        return posterior_mean, posterior_covariance
