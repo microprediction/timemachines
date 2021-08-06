@@ -3,6 +3,7 @@ try:
     using_simdkalman = True
 except ImportError:
     using_simdkalman = False
+    using_latest_simdkalman = False
 
 
 if using_simdkalman:
