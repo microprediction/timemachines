@@ -1,8 +1,7 @@
-from timemachines.skaters.smdk.smdkarmafactory import smdk_arma_factory
 from timemachines.skaters.smdk.smdkinclusion import using_simdkalman
 
 if using_simdkalman:
-
+    from timemachines.skaters.smdk.smdkarmafactory import smdk_arma_factory
     from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
 
     def smdk_p5_d0_q3_n1000(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None, r: R_TYPE = None):
