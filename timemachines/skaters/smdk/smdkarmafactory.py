@@ -6,6 +6,7 @@ if using_simdkalman:
     from timemachines.skatertools.utilities.nonemath import nonecast
     import numpy as np
     import random
+    import math
     from timemachines.skatertools.ensembling.precisionweightedskater import precision_weighted_skater
     from simdkalman.primitives import ddot, ddot_t_right, dinv
 
@@ -39,7 +40,7 @@ if using_simdkalman:
 
 
     def smdk_arma_factory(y: Y_TYPE, n_agents: int, max_p: int, max_q:int, s, k: int, a: A_TYPE = None, t: T_TYPE = None,
-                          e: E_TYPE = None, r: R_TYPE = None):
+                          e: E_TYPE = None, r: R_TYPE = None, min_vintage=50):
         """
 
               max_p - Maximum AR order
@@ -51,7 +52,7 @@ if using_simdkalman:
         assert n_states >= 2
         y0 = wrap(y)[0]
         if not s.get('n_states'):
-            s = smkd_arma_agents_initial_state(n_states=n_states, n_agents=n_agents, k=k, x0=y0)
+            s = _arma_initial_state(n_states=n_states, n_agents=n_agents, k=k, x0=y0)
         else:
             assert n_agents == s['n_agents']
             assert n_states == s['n_states']
@@ -61,10 +62,11 @@ if using_simdkalman:
         else:
             # Mutation step - flag those needed system updates
             # Changes s['phi'], s['theta'], s['noise'], s['sigma'] and flags with s['stale']
-            pass
+            if s['n_measurements'] > 10:
+                s = _arma_evolution(s,min_vintage=min_vintage)
 
             # Update system equations if params have mutated
-            s = smdk_arma_update_stale(s,k)
+            s = _arma_matrix_update(s, k)
 
             # Get time step, or default to 1 second
             if t is None:
@@ -110,7 +112,7 @@ if using_simdkalman:
             for agent_x, agent_std in zip(agent_xs, agent_stds):
                 y_for_pws.append(agent_x[-1])
                 y_for_pws.append(agent_std[-1])
-                s['fitness'].append(1./(1e-6+agent_std[-1]))
+                s['fitness'].append(1./(1e-6+agent_std[-1]**2))
 
             # Call the precision weighted skater
             x, x_std, s['s_pks'] = precision_weighted_skater(y=y_for_pws, s=s['s_pws'], k=k, a=a, t=t, e=e)
@@ -125,7 +127,7 @@ if using_simdkalman:
 
 
 
-    def smkd_arma_agents_initial_state(n_states, n_agents, k, x0:float):
+    def _arma_initial_state(n_states, n_agents, k, x0:float):
         """
         :param n_states:    number of latest states is equal to max(p,q+1)
         :param n_agents:    number of independent ARMA models computed at once
@@ -156,14 +158,45 @@ if using_simdkalman:
         s['r_var'] = [np.random.exponential() ** 4 for _ in range(n_agents)]
         s['q_var'] = [np.random.exponential() ** 4 for _ in range(n_agents)]
         s['powers_of_A'] = np.ndarray((k, n_agents, n_states, n_states))
+        s['vintage'] = [ 0 for _ in range(n_agents )]
         # Initialize random states
         for ndx in range(n_agents):
             s['m'][ndx, :, 0] = [x0 for _ in range(n_states)]
             s['P'][ndx, :, :] = (np.random.exponential() ** 4) * np.eye(n_states)
         return s
 
+    def _arma_evolution(s, min_vintage):
+        """
+            Modify the ARMA population based on fitness
+        """
+        s['vintage'] = [v + 1 for v in s['vintage']]
+        experienced = [ j for j, v in enumerate(s['vintage']) if v>=min_vintage ]
+        if any(experienced):
+           experienced_fitness = [f for f,v in zip(s['fitness'],s['vintage']) if v >= min_vintage]
+           good_fitness = np.percentile(experienced_fitness,q=80)
+           poor_fitness = np.percentile(experienced_fitness, q=20)
+           good = [ j for j in experienced if s['fitness'][j]>=good_fitness ]
+           poor = [ j for j in experienced if s['fitness'][j] <= poor_fitness ]
+           n_change = int(math.ceil(s['n_agents']/100))
+           for _ in range(n_change):
+               a,b,c = list(np.random.choice(good,size=3,replace=False))
+               d = np.random.choice(poor)
+               s['stale'][d]=True
+               s['vintage'][d]=0
+               evol_type = random.choice(['ar','ma','r_var','q_var'])
+               if evol_type=='ma':
+                   s['theta'][d] = [ theta_a+(theta_b-theta_c) for theta_a, theta_b, theta_c in zip(s['theta'][a], s['theta'][b],s['theta'][c]  )]
+               elif evol_type=='ar':
+                   s['phi'][d] = [phi_a + (phi_b - phi_c) for phi_a, phi_b, phi_c in zip(s['phi'][a], s['phi'][b], s['phi'][c])]
+               elif evol_type=='r_var':
+                   s['r_var'][d] = math.exp( math.log(s['r_var'][a]) + ( math.log(s['r_var'][b]) - math.log(s['r_var'][c])) )
+               elif evol_type == 'q_var':
+                   s['q_var'][d] = math.exp(math.log(s['q_var'][a]) + (math.log(s['q_var'][b]) - math.log(s['q_var'][c])))
 
-    def smdk_arma_update_stale(s,k):
+        return s
+
+
+    def _arma_matrix_update(s, k):
         n_states = s['n_states']
         n_obs = 1
         for ndx, (stl, ph, tht, r_var, q_var) in enumerate(
