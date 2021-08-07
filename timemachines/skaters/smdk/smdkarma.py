@@ -26,7 +26,6 @@ else:
 
 if __name__=='__main__':
     from timemachines.skatertools.data.real import hospital_with_exog
-    from timemachines.skatertools.visualization.priorplot import prior_plot
     from timemachines.skatertools.evaluation.evaluators import evaluate_mean_squared_error_with_sporadic_fit
     from timemachines.skaters.simple.thinking import thinking_fast_and_slow
     import time
@@ -40,7 +39,8 @@ if __name__=='__main__':
     err0 = evaluate_mean_squared_error_with_sporadic_fit(f=thinking_fast_and_slow,y=y,k=k,fit_frequency=1)
     elapsed0 = time.time()-st
     n_calcs = (len(y)-10-k)*1000
-    print('Elapse = '+str(elapsed)+' with '+str(round(n_calcs/elapsed))+' agent forecasts per second for error of '+str(err/err0))
+    print('Relative CPU = '+str(elapsed/elapsed0)+' with '+str(round(n_calcs/elapsed))+' agent forecasts per second for error of '+str(err/err0))
     if False:
+        from timemachines.skatertools.visualization.priorplot import prior_plot
         prior_plot(f=f, k=k, y=y, n=450, n_plot=25)
 

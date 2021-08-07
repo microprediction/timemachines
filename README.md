@@ -51,6 +51,7 @@ Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ra
 packages you want to utilize - they aren't in by default. 
 
     pip install --upgrade river 
+    pip install --upgrade simdkalman
     pip install --ugprade sktime
     pip install --upgrade tbats
     pip install --upgrade orbit-ml

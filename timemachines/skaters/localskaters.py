@@ -13,7 +13,7 @@ from timemachines.skaters.bats.allbatsskaters import BATS_SKATERS
 from timemachines.skaters.rvr.allriverskaters import RIVER_SKATERS
 from timemachines.skaters.sk.allskskaters import SK_SKATERS
 from timemachines.skaters.linkedingreykite.alllinkedingreykiteskaters import LINKEDINGREYKITE_SKATERS
-
+from timemachines.skaters.smdk.allsmdkskaters import SMDK_SKATERS
 
 # Local skaters don't access the Elo ratings
 
@@ -21,13 +21,13 @@ from timemachines.skaters.linkedingreykite.alllinkedingreykiteskaters import LIN
 LOCAL_SKATERS = EMA_SKATERS + PROPHET_SKATERS + DIVINE_SKATERS + DLM_SKATERS + \
                 THINKING_SKATERS + PMD_SKATERS + TSA_SKATERS + NPROPHET_SKATERS + \
                 HYPOCRATIC_ENSEMBLE_SKATERS + ORBIT_SKATERS + BATS_SKATERS \
-                + RIVER_SKATERS + SK_SKATERS + LINKEDINGREYKITE_SKATERS
+                + RIVER_SKATERS + SK_SKATERS + LINKEDINGREYKITE_SKATERS + SMDK_SKATERS
 
 
 LEFT_OUT_FOR_NOW = LINEAR_SKATERS # + ...
 
 # Skaters designed for online use
-FAST_SKATERS = EMA_SKATERS + THINKING_SKATERS + HYPOCRATIC_ENSEMBLE_SKATERS + RIVER_SKATERS
+FAST_SKATERS = EMA_SKATERS + THINKING_SKATERS + HYPOCRATIC_ENSEMBLE_SKATERS + RIVER_SKATERS + SMDK_SKATERS
 
 
 # Some skaters with hyper-parameters for tuning
