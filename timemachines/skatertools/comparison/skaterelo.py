@@ -1,6 +1,7 @@
 import numpy as np
 from timemachines.skatertools.comparison.eloformulas import elo_update
 import time
+from pprint import pprint
 
 SLOW_SKATER_KEYWORDS = ['divine','fbprophet','arma','tsa_p3','bats_damped','tsa_aggressive','tsa_balanced','tsa_precision']
 
@@ -82,6 +83,8 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
     y, t = data_source(n_obs=n_burn + 50)
     scores = list()
     ran_okay = list()
+    ran_okay_names = list()
+    failed_names = list()
     for c, f in zip(chosen_and_imported, fs):
         import traceback
         try:
@@ -91,11 +94,19 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
             elo['traceback'][c] = 'passing'
             scores.append(score)
             ran_okay.append(c)
+            ran_okay_names.append(f.__name__)
         except Exception as e:
             elo['traceback'][c] = traceback.format_exc()
             elo['seconds'][c] = st - time.time()  # Time taken to fail, as -ve number
+            failed_names.append(f.__name__)
 
-    leaderboard = sorted([(s,c) for s,c in zip(scores,ran_okay)])
+    if any(failed_names):
+        print('  failing ...')
+        pprint(failed_names)
+
+    print('  leaderboard ...')
+    leaderboard = sorted([(s,c,n) for s,c,n in zip(scores,ran_okay, ran_okay_names)])
+    pprint(leaderboard)
     if len(leaderboard)>=2:
         for j, (winner_score,winner) in enumerate(leaderboard[:-1]):
             loser = leaderboard[j+1][1]
