@@ -5,19 +5,28 @@ if using_simdkalman:
     from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
 
     def smdk_p5_d0_q3_n1000(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None, r: R_TYPE = None):
-          return smdk_arma_factory(y=y, n_agents=1000, max_p=5, max_q=3, s=s, k=k, a=a, t=t, e=e, r=r )
+          return smdk_arma_factory(y=y, n_agents=1000, max_p=5, max_q=3, s=s, k=k, a=a, t=t, e=e, r=0.75 )
+
+
+    def smdk_p5_d0_q3_n1000_aggressive(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None,
+                            r: R_TYPE = None):
+        return smdk_arma_factory(y=y, n_agents=1000, max_p=5, max_q=3, s=s, k=k, a=a, t=t, e=e, r=0.95)
 
 
     def smdk_p5_d0_q3_n500(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None, r: R_TYPE = None):
-        return smdk_arma_factory(y=y, n_agents=500, max_p=5, max_q=3, s=s, k=k, a=a, t=t, e=e, r=r)
+        return smdk_arma_factory(y=y, n_agents=500, max_p=5, max_q=3, s=s, k=k, a=a, t=t, e=e, r=0.75)
+
+
+    def smdk_p5_d0_q3_n500_aggressive(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None, r: R_TYPE = None):
+        return smdk_arma_factory(y=y, n_agents=500, max_p=5, max_q=3, s=s, k=k, a=a, t=t, e=e, r=0.95)
 
 
     def smdk_p5_d0_q3_n5000(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None,
                            r: R_TYPE = None):
-        return smdk_arma_factory(y=y, n_agents=5000, max_p=5, max_q=3, s=s, k=k, a=a, t=t, e=e, r=r)
+        return smdk_arma_factory(y=y, n_agents=5000, max_p=5, max_q=3, s=s, k=k, a=a, t=t, e=e, r=0.75)
 
 
-    SMDK_ARMA_SKATERS = [smdk_p5_d0_q3_n1000, smdk_p5_d0_q3_n500]
+    SMDK_ARMA_SKATERS = [smdk_p5_d0_q3_n1000, smdk_p5_d0_q3_n500, smdk_p5_d0_q3_n500_aggressive, smdk_p5_d0_q3_n1000_aggressive]
 else:
     SMDK_ARMA_SKATERS = []
 

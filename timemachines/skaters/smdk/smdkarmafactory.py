@@ -40,7 +40,7 @@ if using_simdkalman:
 
 
     def smdk_arma_factory(y: Y_TYPE, n_agents: int, max_p: int, max_q:int, s, k: int, a: A_TYPE = None, t: T_TYPE = None,
-                          e: E_TYPE = None, r: R_TYPE = None, min_vintage=50):
+                          e: E_TYPE = None, r: R_TYPE = 0.75, min_vintage=50):
         """
 
               max_p - Maximum AR order
@@ -115,7 +115,7 @@ if using_simdkalman:
                 s['fitness'].append(1./(1e-6+agent_std[-1]**2))
 
             # Call the precision weighted skater
-            x, x_std, s['s_pks'] = precision_weighted_skater(y=y_for_pws, s=s['s_pws'], k=k, a=a, t=t, e=e)
+            x, x_std, s['s_pks'] = precision_weighted_skater(y=y_for_pws, s=s['s_pws'], k=k, a=a, t=t, e=e, r=r)
             x_std_fallback = nonecast(x_std, fill_value=1.0)
 
             s['n_measurements'] += 1
@@ -185,9 +185,9 @@ if using_simdkalman:
                s['vintage'][d]=0
                evol_type = random.choice(['ar','ma','r_var','q_var'])
                if evol_type=='ma':
-                   s['theta'][d] = [ theta_a+(theta_b-theta_c) for theta_a, theta_b, theta_c in zip(s['theta'][a], s['theta'][b],s['theta'][c]  )]
+                   s['theta'][d] = [ theta_a+(theta_b-theta_c) for theta_a, theta_b, theta_c in zip(s['theta'][a], s['theta'][b]+[0],s['theta'][c]+[0]  )]
                elif evol_type=='ar':
-                   s['phi'][d] = [phi_a + (phi_b - phi_c) for phi_a, phi_b, phi_c in zip(s['phi'][a], s['phi'][b], s['phi'][c])]
+                   s['phi'][d] = [phi_a + (phi_b - phi_c) for phi_a, phi_b, phi_c in zip(s['phi'][a], s['phi'][b]+[0], s['phi'][c]+[0])]
                elif evol_type=='r_var':
                    s['r_var'][d] = math.exp( math.log(s['r_var'][a]) + ( math.log(s['r_var'][b]) - math.log(s['r_var'][c])) )
                elif evol_type == 'q_var':
