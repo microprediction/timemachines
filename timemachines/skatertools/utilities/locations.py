@@ -10,7 +10,8 @@ PYPI = {'tsa':'statsmodels',
         'ats':'auto_ts',
         'glu':'gluonts',
         'flux':'pyflux',
-        'sk':'sktime'}
+        'sk':'sktime',
+        'smdk':'simdkalman'}
 
 
 def pypi_from_name(name):
