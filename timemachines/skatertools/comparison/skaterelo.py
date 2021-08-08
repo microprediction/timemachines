@@ -111,7 +111,7 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
     leaderboard = sorted([(s,c,n) for s,c,n in zip(scores,ran_okay, ran_okay_names)])
     pprint(leaderboard)
     if len(leaderboard)>=2:
-        for j, (winner_score,winner) in enumerate(leaderboard[:-1]):
+        for j, (winner_score,winner, winner_name) in enumerate(leaderboard[:-1]):
             loser = leaderboard[j+1][1]
             loser_score = leaderboard[j+1][0]
             small = tol * (abs(winner_score) + abs(loser_score))  # Ties
