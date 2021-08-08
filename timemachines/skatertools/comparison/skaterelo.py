@@ -31,7 +31,7 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
     """
     # Lazy import because networked skaters shouldn't be initialized too early
     from timemachines.skatertools.utilities.locations import pypi_from_name
-    from timemachines.skaters.allskaters import SKATERS, FAST_SKATERS, skater_from_name  # Only those with no hyper-params
+    from timemachines.skaters.allskaters import SKATERS, skater_from_name  # Only those with no hyper-params
 
     if data_source is None:
         data_source = DEFAULT_DATA_SOURCE
@@ -61,9 +61,10 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
     for c in candidates:
         snds = elo['seconds'][c]
         if snds<0:
-            snds = 30
-        total_seconds += snds
-        chosen.append(c)
+            snds = 45
+        if (snds+total_seconds<60) or ((len(chosen)>5) and (np.random.rand()<(100/(2+snds)) )):
+            total_seconds += snds
+            chosen.append(c)
         if total_seconds>60:
             break
 
@@ -85,6 +86,8 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
     ran_okay = list()
     ran_okay_names = list()
     failed_names = list()
+    print('  imported successfully ...')
+    pprint(chosen_and_imported)
     for c, f in zip(chosen_and_imported, fs):
         import traceback
         try:
