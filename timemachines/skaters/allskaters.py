@@ -1,7 +1,8 @@
-from timemachines.skaters.localskaters import LOCAL_SKATERS, local_skater_from_name
-from timemachines.skaters.networkedskaters import NETWORKED_SKATERS
+from timemachines.skaters.localskaters import LOCAL_SKATERS, FAST_LOCAL_SKATERS
+from timemachines.skaters.networkedskaters import NETWORKED_SKATERS, FAST_NETWORKED_SKATERS
 
 SKATERS = NETWORKED_SKATERS + LOCAL_SKATERS
+FAST_SKATERS = FAST_LOCAL_SKATERS + FAST_NETWORKED_SKATERS
 
 
 def skater_from_name(name):
