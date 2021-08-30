@@ -45,6 +45,7 @@ if using_simdkalman:
 
               max_p - Maximum AR order
               max_q - Maximum MA order
+              r     - Controls how much the more accurate models are weighted
 
         """
         n_states = max(max_p, max_q+1)

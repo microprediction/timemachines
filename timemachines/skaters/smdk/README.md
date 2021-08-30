@@ -1,5 +1,13 @@
 ## Simdkalman
 
-Offers a nicely designed library where multiple systems can be evolved at the same time (including ARMA, since that is just a special case of a state space model). 
+A collection of state space model techniques where calculation is vectorized. 
 
-Nothing here just yet, just some tests for the underlying library. 
+The smdkarma factory could use the following research
+
+- Does it work for ARMA friendly time-series? 
+- What meta-params need to be improved? 
+- How does it compare against auto-arima on those? 
+- Can it be made better by including differencing or fraction diff?
+- How does stacking smdkarma with different diff's perform in Elo? 
+- Could organizing the space help (e.g. self-org map) ?
+ 
