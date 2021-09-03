@@ -170,6 +170,14 @@ Two vectors and the posterior state. The first set of *k* numbers can be *interp
              x_std [float]     # A vector of "scale" quantities (such as a standard deviation of expected forecast errors) 
              s    Any,         # Posterior state, intended for safe keeping by the callee until the next invocation 
                        
+For many skaters the x_std is, as is suggested, indicative of one standard deivation. 
+
+     x, x_std, x = f( .... )   # skater
+     x_up = [ xi+xstdi for xi,xstdi in zip(x,xstd) ]
+     x_dn = [ xi-xstdi for xi,xstdi in zip(x,xstd) ]
+     
+then very roughly the k'th next value should, with 5 out of 6 times, below the k'th entry in x_up 
+There isn't any capability to indicate three numbers (e.g. for asymmetric conf intervals around the mean).  
 
 In returning state, the intent is that the *caller* might carry the state from one invocation to the next verbatim. This is arguably more convenient than having the predicting object maintain state, because the caller can "freeze" the state as they see fit, as 
 when making conditional predictions. This also eyes lambda-based deployments and *encourages* tidy use of internal state - not that we succeed
