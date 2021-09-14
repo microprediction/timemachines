@@ -9,7 +9,7 @@ What's different:
        
           x, x_hat, s = f(y,s,k)
        
-       These functions are called skaters. The implement online sequence-to-sequence prediction. 
+       These functions are called skaters. What they do is sometimes called sequence-to-sequence prediction. 
 
    - **Simple canonical use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
    Uber [orbit](https://eng.uber.com/orbit/) and more. 
