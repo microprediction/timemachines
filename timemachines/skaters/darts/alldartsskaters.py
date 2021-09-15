@@ -1,0 +1,10 @@
+
+from timemachines.skaters.darts.dartsARIMAskater import DARTS_ARIMA_SKATERS
+from timemachines.skaters.darts.dartsAutoARIMAskater import DARTS_AUTOARIMA_SKATERS
+from timemachines.skaters.darts.dartsExponentialSmoothingskater import DARTS_EXPONENTIALSMOOTHING_SKATERS
+from timemachines.skaters.darts.dartsFFTskater import DARTS_FFT_SKATERS
+from timemachines.skaters.darts.dartsFourThetaskater import DARTS_FOURTHETA_SKATERS
+from timemachines.skaters.darts.dartsProphetskater import DARTS_PROPHET_SKATERS
+from timemachines.skaters.darts.dartsThetaskater import DARTS_THETA_SKATERS
+
+DARTS_SKATERS = DARTS_ARIMA_SKATERS + DARTS_AUTOARIMA_SKATERS + DARTS_EXPONENTIALSMOOTHING_SKATERS + DARTS_FFT_SKATERS + DARTS_FOURTHETA_SKATERS + DARTS_PROPHET_SKATERS + DARTS_THETA_SKATERS

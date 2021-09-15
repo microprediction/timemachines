@@ -37,6 +37,7 @@ setup(
               "timemachines.skaters.elo",
               "timemachines.skaters.smdk",
               "timemachines.skaters.linkedingreykite",
+              "timemachines.skaters.darts",
               "timemachines.skatertools",
               "timemachines.skatertools.comparison",
               "timemachines.skatertools.components",

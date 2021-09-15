@@ -2,7 +2,7 @@
 from timemachines.skaters.linkedingreykite.linkedingreykiteinclusion import using_greykite
 
 if using_greykite:
-    from timemachines.skaters.linkedingreykite.linkedingreywrappers import linkedin_greykite_iskater
+    from timemachines.skaters.linkedingreykite.linkedingreykitewrappers import linkedin_greykite_iskater
     from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE
     from timemachines.skatertools.batch.batchskater import batch_skater_factory
 

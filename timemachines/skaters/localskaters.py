@@ -14,6 +14,7 @@ from timemachines.skaters.rvr.allriverskaters import RIVER_SKATERS
 from timemachines.skaters.sk.allskskaters import SK_SKATERS
 from timemachines.skaters.linkedingreykite.alllinkedingreykiteskaters import LINKEDINGREYKITE_SKATERS
 from timemachines.skaters.smdk.allsmdkskaters import SMDK_SKATERS
+from timemachines.skaters.darts.alldartsskaters import DARTS_SKATERS
 
 # Local skaters don't access the Elo ratings
 
@@ -21,7 +22,8 @@ from timemachines.skaters.smdk.allsmdkskaters import SMDK_SKATERS
 LOCAL_SKATERS = EMA_SKATERS + PROPHET_SKATERS + DIVINE_SKATERS + DLM_SKATERS + \
                 THINKING_SKATERS + PMD_SKATERS + TSA_SKATERS + NPROPHET_SKATERS + \
                 HYPOCRATIC_ENSEMBLE_SKATERS + ORBIT_SKATERS + BATS_SKATERS \
-                + RIVER_SKATERS + SK_SKATERS + LINKEDINGREYKITE_SKATERS + SMDK_SKATERS
+                + RIVER_SKATERS + SK_SKATERS + LINKEDINGREYKITE_SKATERS + SMDK_SKATERS \
+                + DARTS_SKATERS
 
 
 LEFT_OUT_FOR_NOW = LINEAR_SKATERS # + ...
