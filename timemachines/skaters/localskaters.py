@@ -8,7 +8,7 @@ from timemachines.skaters.simple.hypocraticensemble import HYPOCRATIC_ENSEMBLE_S
 from timemachines.skaters.pmd.allpmdskaters import PMD_SKATERS
 from timemachines.skaters.tsa.alltsaskaters import TSA_SKATERS
 from timemachines.skaters.nproph.allnprophetskaters import NPROPHET_SKATERS
-from timemachines.skaters.uberorbit.allorbitskaters import ORBIT_SKATERS
+from timemachines.skaters.orbt.allorbitskaters import ORBIT_SKATERS
 from timemachines.skaters.bats.allbatsskaters import BATS_SKATERS
 from timemachines.skaters.rvr.allriverskaters import RIVER_SKATERS
 from timemachines.skaters.sk.allskskaters import SK_SKATERS

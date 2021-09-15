@@ -47,11 +47,15 @@ The suggested install is:
     pip install --upgrade numpy
     pip install timemachines
 
+In colab you might need to 
+
+    pip unisntall numpy
+    pip install --upgrade numpy 
+
 Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to decide which
 packages you want to utilize - they aren't in by default. 
 
     pip install --upgrade river 
-    pip install --upgrade simdkalman
     pip install --ugprade sktime
     pip install --upgrade tbats
     pip install --upgrade orbit-ml
@@ -60,14 +64,23 @@ packages you want to utilize - they aren't in by default.
     pip install --upgrade pmdarima
     pip install --upgrade prophet
     pip install --upgrade neuralprophet
+    pip install --upgrade orbit-ml
+    pip install --upgrade git+https://github.com/oseiskar/simdkalman
+
+To traina nd use surrogate models build with keras-tcn and live data:
+
+    pip install --upgrade keras-tcn
+    pip install --upgrade tf2onnx
+    pip install --upgrade onnxruntime
+    pip install --upgrade microprediction
     
 Then add matplotlib if you want to use plotting utilities provides
 
     pip install matplotlib 
 
-And add microprediction if you want to use live data
+And add microprediction if you want to use live data (e.g. for training)
 
-    pip install microprediction   
+    pip install --upgrade microprediction   
     
 I'm reluctant to put anything beyond statsmodels in the timemachines package requirements until there
 is statistical justification. See my [review of prophet](https://www.microprediction.com/blog/prophet) for example, which

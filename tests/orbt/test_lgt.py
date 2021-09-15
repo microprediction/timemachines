@@ -1,4 +1,4 @@
-from timemachines.skaters.uberorbit.allorbitskaters import ORBIT_LGT_SKATERS
+from timemachines.skaters.orbt.allorbitskaters import ORBIT_LGT_SKATERS
 from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_error_with_sporadic_fit
 
 

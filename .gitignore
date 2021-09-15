@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+*.sqlite
+timemachines/skaters/tcn/http_cache.sqlite
+timemachines/.DS_Store
+
+
+
 # Distribution / packaging
 .Python
 build/

@@ -30,7 +30,7 @@ setup(
               "timemachines.skaters.proph",
               "timemachines.skaters.nproph",
               "timemachines.skaters.simple",
-              "timemachines.skaters.uberorbit",
+              "timemachines.skaters.orbt",
               "timemachines.skaters.bats",
               "timemachines.skaters.rvr",
               "timemachines.skaters.sk",
