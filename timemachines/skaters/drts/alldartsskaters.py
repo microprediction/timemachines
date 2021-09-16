@@ -1,11 +1,11 @@
 
-from timemachines.skaters.drts.dartsARIMAskater import DARTS_ARIMA_SKATERS
-from timemachines.skaters.drts.dartsAutoARIMAskater import DARTS_AUTOARIMA_SKATERS
-from timemachines.skaters.drts.dartsExponentialSmoothingskater import DARTS_EXPONENTIALSMOOTHING_SKATERS
-from timemachines.skaters.drts.dartsFFTskater import DARTS_FFT_SKATERS
-from timemachines.skaters.drts.dartsFourThetaskater import DARTS_FOURTHETA_SKATERS
-from timemachines.skaters.drts.dartsProphetskater import DARTS_PROPHET_SKATERS
-from timemachines.skaters.drts.dartsThetaskater import DARTS_THETA_SKATERS
+from timemachines.skaters.drts.dartsarimaskater import DARTS_ARIMA_SKATERS
+from timemachines.skaters.drts.dartsautoarimaskater import DARTS_AUTOARIMA_SKATERS
+from timemachines.skaters.drts.dartsexpsmoothingskater import DARTS_EXPONENTIALSMOOTHING_SKATERS
+from timemachines.skaters.drts.dartsfftskater import DARTS_FFT_SKATERS
+from timemachines.skaters.drts.dartsfourthetaskater import DARTS_FOURTHETA_SKATERS
+from timemachines.skaters.drts.dartsprophetskater import DARTS_PROPHET_SKATERS
+from timemachines.skaters.drts.dartsthetakater import DARTS_THETA_SKATERS
 
 DARTS_SKATERS = DARTS_ARIMA_SKATERS + DARTS_AUTOARIMA_SKATERS + DARTS_EXPONENTIALSMOOTHING_SKATERS + DARTS_FFT_SKATERS + DARTS_FOURTHETA_SKATERS + DARTS_PROPHET_SKATERS + DARTS_THETA_SKATERS
 
