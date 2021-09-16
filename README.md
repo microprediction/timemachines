@@ -69,7 +69,7 @@ packages you want to utilize - they aren't in by default.
     pip install --upgrade orbit-ml
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
 
-To traina nd use surrogate models build with keras-tcn and live data:
+To train and use surrogate models build with keras-tcn and live data (not quite ready for prime time)
 
     pip install --upgrade keras-tcn
     pip install --upgrade tf2onnx
