@@ -1,7 +1,7 @@
-# timemachines ![tests](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg)![tcn](https://github.com/microprediction/timemachines/workflows/test-tcn/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+# timemachines ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg) ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg)![tcn](https://github.com/microprediction/timemachines/workflows/test-tcn/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Fast, incremental, time-series prediction
-... and some slow ones. Use popular forecasting packages with one line of code. Or just browse their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to help decide which to try out first. There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. 
+... and some slow options. Use popular forecasting packages with one line of code in a sequence-to-sequence calling syntax. Or just browse their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to help decide which to try out first. There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. 
 
 What's different:
 
@@ -12,7 +12,7 @@ What's different:
        These functions are called skaters. What they do is sometimes called sequence-to-sequence prediction. 
 
    - **Simple canonical use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
-   Uber [orbit](https://eng.uber.com/orbit/) and more. 
+   Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. 
 
    - **Simple fast accurate alternatives** to popular time series packages. For example the [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) skaters perform well in the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html), and much better than the brand names. See the  [article](https://www.microprediction.com/blog/timemachines) comparing them to Facebook prophet and Neural Prophet.
 
@@ -45,17 +45,16 @@ The suggested install is:
 
     pip install --upgrade pip
     pip install --upgrade numpy
-    pip install timemachines
+    pip install --upgrade timemachines
 
 In colab you might need to 
 
     pip unisntall numpy
     pip install --upgrade numpy 
 
-Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to decide which
+Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or otherwise decide which
 packages you want to utilize - they aren't in by default. 
 
-    pip install --upgrade river 
     pip install --upgrade darts
     pip install --ugprade sktime
     pip install --upgrade tbats
@@ -68,13 +67,6 @@ packages you want to utilize - they aren't in by default.
     pip install --upgrade greykite
     pip install --upgrade orbit-ml
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
-
-To traina nd use surrogate models build with keras-tcn and live data:
-
-    pip install --upgrade keras-tcn
-    pip install --upgrade tf2onnx
-    pip install --upgrade onnxruntime
-    pip install --upgrade microprediction
     
 Then add matplotlib if you want to use plotting utilities provides
 
@@ -84,13 +76,26 @@ And add microprediction if you want to use live data (e.g. for training)
 
     pip install --upgrade microprediction   
     
-I'm reluctant to put anything beyond statsmodels in the timemachines package requirements until there
-is statistical justification. See my [review of prophet](https://www.microprediction.com/blog/prophet) for example, which
-is seemingly both slow and innacurate (but on the other hand, river won't slow you down). By the way, the apple m1 install situation is fluid. I'd suggest you first get numpy, cython, pandas to work. 
+My policy at the moment is that online, incremental libraries get installed automatically (e.g. river) and so does 
+statsmodels because so many other packages depend on it. However other batch-style packages need more 
+statistical justification. See my [review of prophet](https://www.microprediction.com/blog/prophet) for example, which
+is slow and probably only suited to rare situations where the generative model is a very close match. 
+
+Nuts and bolts. The apple m1 install situation is fluid. I'd suggest you first get numpy, cython, pandas to work. 
 You might try adding the pip argument to skip pep517 if you run into trouble:
  
     pip install whatever --no-use-pep517
 
+### TCN surrogates. 
+
+To train and use surrogate models build with keras-tcn and live data 
+
+    pip install --upgrade keras-tcn
+    pip install --upgrade tf2onnx
+    pip install --upgrade onnxruntime
+    pip install --upgrade microprediction
+
+Honestly this isn't quite ready for prime time. 
 
 ### Quick start 
 
