@@ -64,6 +64,7 @@ packages you want to utilize - they aren't in by default.
     pip install --upgrade pmdarima
     pip install --upgrade prophet
     pip install --upgrade neuralprophet
+    pip install --upgrade greykite
     pip install --upgrade orbit-ml
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
 

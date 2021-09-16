@@ -11,7 +11,9 @@ PYPI = {'tsa':'statsmodels',
         'glu':'gluonts',
         'flux':'pyflux',
         'sk':'sktime',
-        'smdk':'simdkalman'}
+        'smdk':'simdkalman',
+        'gk':'greykite',
+        'tcn':'keras-tcn'}
 
 
 def pypi_from_name(name):

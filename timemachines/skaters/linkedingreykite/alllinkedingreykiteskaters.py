@@ -1,3 +1,0 @@
-
-from timemachines.skaters.linkedingreykite.linkedingreykitebasicskater import LINKEDINGREYKITE_BASIC_SKATERS
-LINKEDINGREYKITE_SKATERS = LINKEDINGREYKITE_BASIC_SKATERS

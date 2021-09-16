@@ -1,4 +1,4 @@
-from timemachines.skaters.linkedingreykite.linkedingreykiteinclusion import using_greykite
+from timemachines.skaters.gk.greykiteinclusion import using_greykite
 
 if using_greykite:
     import numpy as np
