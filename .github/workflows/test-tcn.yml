@@ -30,7 +30,7 @@ jobs:
         python -m pip install flake8 pytest
         python -m pip install keras-tcn
         python -m pip install tf2onnx
-        python -m pip install onnxruntine
+        python -m pip install onnxruntime
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
