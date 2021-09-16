@@ -2,8 +2,6 @@ from timemachines.skaters.tcn.tcninclusion import using_tcn
 
 if using_tcn:
     import numpy as np
-    import pandas as pd
-    import datetime
     from typing import List
     from timemachines.skatertools.utilities.suppression import no_stdout_stderr
 

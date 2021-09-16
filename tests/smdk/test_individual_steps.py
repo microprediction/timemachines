@@ -1,5 +1,3 @@
-import numpy as np
-
 from timemachines.skaters.smdk.smdkinclusion import using_simdkalman, using_latest_simdkalman
 
 if using_simdkalman:
