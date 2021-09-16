@@ -7,6 +7,8 @@
 # Most of these are univariate and ignore y[1:] and a[:]
 # We'll create some that use y[1:] more effectively as we go.
 
+# If you add, please update skatertools.utilities.locations
+
 # Home grown
 from timemachines.skaters.simple.movingaverage import EMA_SKATERS
 from timemachines.skaters.simple.linear import LINEAR_SKATERS

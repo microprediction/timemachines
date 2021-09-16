@@ -5,7 +5,7 @@ PYPI = {'tsa':'statsmodels',
         'nprophet':'neuralprophet',
         'dlm':'pydlm',
         'divine':'divinity',
-        'orbit':'orbit',
+        'orbit':'orbit-ml',
         'bats':'tbats',
         'ats':'auto_ts',
         'glu':'gluonts',
@@ -13,7 +13,8 @@ PYPI = {'tsa':'statsmodels',
         'sk':'sktime',
         'smdk':'simdkalman',
         'gk':'greykite',
-        'tcn':'keras-tcn'}
+        'tcn':'keras-tcn',
+        'darts':'darts'}
 
 
 def pypi_from_name(name):
