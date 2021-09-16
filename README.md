@@ -52,7 +52,7 @@ In colab you might need to
     pip unisntall numpy
     pip install --upgrade numpy 
 
-Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to decide which
+Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or otherwise decide which
 packages you want to utilize - they aren't in by default. 
 
     pip install --upgrade darts
