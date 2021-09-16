@@ -45,7 +45,7 @@ The suggested install is:
 
     pip install --upgrade pip
     pip install --upgrade numpy
-    pip install timemachines
+    pip install --upgrade timemachines
 
 In colab you might need to 
 
@@ -55,7 +55,6 @@ In colab you might need to
 Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to decide which
 packages you want to utilize - they aren't in by default. 
 
-    pip install --upgrade river 
     pip install --upgrade darts
     pip install --ugprade sktime
     pip install --upgrade tbats
@@ -68,13 +67,6 @@ packages you want to utilize - they aren't in by default.
     pip install --upgrade greykite
     pip install --upgrade orbit-ml
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
-
-To train and use surrogate models build with keras-tcn and live data (not quite ready for prime time)
-
-    pip install --upgrade keras-tcn
-    pip install --upgrade tf2onnx
-    pip install --upgrade onnxruntime
-    pip install --upgrade microprediction
     
 Then add matplotlib if you want to use plotting utilities provides
 
@@ -84,13 +76,26 @@ And add microprediction if you want to use live data (e.g. for training)
 
     pip install --upgrade microprediction   
     
-I'm reluctant to put anything beyond statsmodels in the timemachines package requirements until there
-is statistical justification. See my [review of prophet](https://www.microprediction.com/blog/prophet) for example, which
-is seemingly both slow and innacurate (but on the other hand, river won't slow you down). By the way, the apple m1 install situation is fluid. I'd suggest you first get numpy, cython, pandas to work. 
+My policy at the moment is that online, incremental libraries get installed automatically (e.g. river) and so does 
+statsmodels because so many other packages depend on it. However other batch-style packages need more 
+statistical justification. See my [review of prophet](https://www.microprediction.com/blog/prophet) for example, which
+is slow and probably only suited to rare situations where the generative model is a very close match. 
+
+Nuts and bolts. The apple m1 install situation is fluid. I'd suggest you first get numpy, cython, pandas to work. 
 You might try adding the pip argument to skip pep517 if you run into trouble:
  
     pip install whatever --no-use-pep517
 
+### TCN surrogates. 
+
+To train and use surrogate models build with keras-tcn and live data 
+
+    pip install --upgrade keras-tcn
+    pip install --upgrade tf2onnx
+    pip install --upgrade onnxruntime
+    pip install --upgrade microprediction
+
+Honestly this isn't quite ready for prime time. 
 
 ### Quick start 
 
