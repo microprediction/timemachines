@@ -6,10 +6,7 @@ import numpy as np
 # See also data.live
 
 
-def hospital_from_csv():
-    with open('hospital.csv', newline='') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
-        return [float(row[1]) for row in reader]
+
 
 
 def hospital(n:int=2000):
