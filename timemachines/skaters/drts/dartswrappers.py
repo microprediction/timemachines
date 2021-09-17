@@ -6,6 +6,7 @@ if using_darts:
     from typing import List
     from darts import TimeSeries
     from darts.models import FFT,Prophet,ARIMA,AutoARIMA,ExponentialSmoothing,Theta,FourTheta,TransformerModel
+    from darts.utils.utils import SeasonalityMode
 
     def darts_FFT_iskater(y: [[float]], k: int, a: List = None, t: List = None, e=None, deseasonalize=False):
         """
@@ -166,7 +167,7 @@ if using_darts:
         series = TimeSeries.from_dataframe(df, 'ts', 'y')
         train, val = series[:-k], series[-k:]
 
-        model = Theta()
+        model = Theta(season_mode = SeasonalityMode.ADDITIVE)
         model.fit(train)
         prediction = model.predict(len(val))
 
@@ -194,7 +195,7 @@ if using_darts:
         series = TimeSeries.from_dataframe(df, 'ts', 'y')
         train, val = series[:-k], series[-k:]
 
-        model = FourTheta()
+        model = FourTheta(season_mode = SeasonalityMode.ADDITIVE)
         model.fit(train)
         prediction = model.predict(len(val))
 
