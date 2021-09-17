@@ -99,10 +99,12 @@ if __name__=='__main__':
     assert using_tcntraining
     assert using_micro
     from timemachines.skaters.elo.eloensembles import elo_fastest_residual_precision_ensemble
-    f = elo_fastest_residual_precision_ensemble
+    from timemachines.skaters.tsa.tsaensembles import tsa_precision_d0_ensemble
+    from timemachines.skaters.simple.trivial import trivial_last_value
+    f = trivial_last_value
     n_lags = 20
-    onnx_models = train_tcn_surrogate(f=f, k=1, n_real=1, n_samples=400, n_warm = 500, n_tile = 2,
-                                n_input=n_lags, verbose=True, n_iterations=100, n_models=3)
+    onnx_models = train_tcn_surrogate(f=f, k=1, n_real=10, n_samples=100, n_warm = 500, n_tile = 50,
+                                n_input=n_lags, verbose=True, n_iterations=100, n_models=30)
     # Check inference with ONNX runtime
     if len(onnx_models):
         onnx_model = onnx_models[0]

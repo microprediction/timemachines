@@ -1,7 +1,8 @@
 # Canned TCN models
 
-Work in progress
+Work in progress. Current status:
 
-Some are trained to mock other time-series models2
+ - You can use this to train surrogate models
+ - But not skaters are as yet deployable 
 
 Dependencies and non-code file dependencies are getting hairy so I may move this to a separate package. 
