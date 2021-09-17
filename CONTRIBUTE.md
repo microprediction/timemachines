@@ -12,6 +12,21 @@ The goals of the timemachines package:
    - Stick some of them in "crawlers" than operate in real-time and predict time-series at www.microprediction.org
    - Thereby provide free high quality short-term prediction to anyone, anywhere, for any reason
 
+## Contribution patterns
+
+Crawling:
+
+   0. Cut and paste a bash command to drive a "crawler". See [CONTRIBUTE_COMPUTE_LOCAL_ONE_LINE](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_LOCAL_ONE_LINE.md)
+   1. Run a Python script on your local machine that drives a "crawler". See [CONTRIBUTE_COMPUTE_LOCAL](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_LOCAL.md)
+   2. Run a Python script on a PythonAnywhere account that drives a "crawler". See [CONTRIBUTE_COMPUTE_PA](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_PA.md)
+   3. Create any kind of crawler. See [knowledge center](https://www.microprediction.com/knowledge-center) tutorials. 
+   
+Adding time-series functionality (skaters) to timemachines:
+
+   5. See [CONTRIBUTE_BATCH_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_BATCH_STYLE_MODELS.md) to add new functionality using non-incremental methods.
+   6. See [CONTRIBUTE_ONLINE_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_ONLINE_STYLE_MODELS.md) to add new functionality using incremental methods.
+   
+
 ## Friday chats
 
 If you would like to help, the various CONTRIBUTE_ files suggest very specific steps you can take. However the following
@@ -22,6 +37,3 @@ initial step is strongly recommended:
   - If that timezone is bad, maybe Tue 8pm EST. 
   
 But if you are shy that's fine too. 
-
-## Contribution patterns
-
