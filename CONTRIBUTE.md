@@ -19,7 +19,7 @@ Crawling:
    0. Cut and paste a bash command to drive a "crawler". See [CONTRIBUTE_COMPUTE_LOCAL_ONE_LINE](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_LOCAL_ONE_LINE.md)
    1. Run a Python script on your local machine that drives a "crawler". See [CONTRIBUTE_COMPUTE_LOCAL](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_LOCAL.md)
    2. Run a Python script on a PythonAnywhere account that drives a "crawler". See [CONTRIBUTE_COMPUTE_PA](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_PA.md)
-   3. Create any kind of crawler. See [knowledge center](https://www.microprediction.com/knowledge-center) tutorials. 
+   3. Create any kind of crawler you like in any language (though Python is easier). See the [knowledge center](https://www.microprediction.com/knowledge-center) tutorials. 
    
 Adding time-series functionality (skaters) to timemachines:
 
