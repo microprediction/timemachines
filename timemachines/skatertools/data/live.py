@@ -124,7 +124,8 @@ if using_micro:
                 y_true.append(yj_true)
                 y_train[j, 0] = xk
                 x_stds.append(x_std[-k])
-                input_data = y_real[n_warm + j2 - n_input+1:n_warm +j2+1]
+                reverse_input_data = y_real[n_warm + j2 - n_input+1:n_warm +j2+1]
+                input_data = list(reversed(reverse_input_data))
                 assert input_data[-1]==y
                 for l in range(n_input):
                     x_train[j, l, 0] = input_data[l]

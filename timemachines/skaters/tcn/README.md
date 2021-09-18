@@ -6,3 +6,5 @@ Work in progress. Current status:
  - But not skaters are as yet deployable 
 
 Dependencies and non-code file dependencies are getting hairy so I may move this to a separate package. 
+
+So I suggest not leaning on anything here. 

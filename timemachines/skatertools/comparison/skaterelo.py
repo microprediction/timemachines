@@ -17,7 +17,7 @@ else:
     DEFAULT_DATA_SOURCE = None
 
 SKATER_F_FACTOR = 1000  # The scale factor for ratings. In chess this is set to 400.
-# If the matchup is considered more fluky than a single game of chess, a higher value might make sense.
+# As the matchup is considered more fluky than a single game of chess, a higher value makes sense.
 SKATER_K_FACTOR = 200  # The Elo update factor (maximum rating gain)
 
 
@@ -53,7 +53,7 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
 
     elo, evaluator = _set_evaluator(elo)
 
-    # Choose several skaters whose running
+    # Choose several skaters
     total_seconds = 0
     chosen = list()
     n_skaters = len(elo['name'])
@@ -62,7 +62,7 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
         snds = elo['seconds'][c]
         if snds<0:
             snds = 45
-        if (snds+total_seconds<60) or ((len(chosen)>5) and (np.random.rand()<(100/(2+snds)) )):
+        if (snds+total_seconds<60) or ((len(chosen)>2) and (np.random.rand()<(100/(2+snds)) )):
             total_seconds += snds
             chosen.append(c)
         if total_seconds>60:
@@ -81,7 +81,13 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
         except Exception as e:
             elo['active'][c] = False
 
-    y, t = data_source(n_obs=n_burn + 50)
+    got_data = False
+    while not got_data:
+        try:
+            y, t = data_source(n_obs=n_burn + 50)
+            got_data = False
+        except:
+            time.sleep(5)
     scores = list()
     ran_okay = list()
     ran_okay_names = list()
