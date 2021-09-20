@@ -15,7 +15,7 @@ if using_darts:
     DARTS_NBEATS_SKATERS = [darts_nbeats]
 
 else:
-    DARTS_THETA_SKATERS = []
+    DARTS_NBEATS_SKATERS = []
 
 if __name__=='__main__':
     from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_error_with_sporadic_fit
