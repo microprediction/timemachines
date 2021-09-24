@@ -5,3 +5,5 @@ try:
 except ImportError:
     using_bats = False
 
+using_bats = False  # pending issue possibily similar to sklearn similar to https://github.com/alkaline-ml/pmdarima/pull/455
+

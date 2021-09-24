@@ -6,3 +6,6 @@ except ImportError:
     class Silly:
         nothing = True
     pm = Silly()
+
+
+using_pmd = False   # Pending bug fix. See https://github.com/alkaline-ml/pmdarima/pull/455
