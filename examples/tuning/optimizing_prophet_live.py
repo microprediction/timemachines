@@ -3,7 +3,7 @@ from timemachines.skaters.proph.prophskaterssingular import fbprophet_univariate
 from humpday.optimizers.optunacube import optuna_tpe_cube
 from timemachines.skaters.proph.prophparams import PROPHET_META, prophet_params
 from pprint import pprint
-from timemachines.skatertools.data.live import random_regular
+from timemachines.skatertools.data.live import random_regular_stream_name
 
 # Illustrates how to find the best hyper-parameter r in (0,1), and interpret this as two prophet hyper-parameters
 # We use a random stream from https://www.microprediction.org/browse_streams.html
@@ -11,7 +11,7 @@ from timemachines.skatertools.data.live import random_regular
 
 
 if __name__=='__main__':
-    name, url = random_regular(min_len=PROPHET_META['n_warm'])
+    name, url = random_regular_stream_name(min_len=PROPHET_META['n_warm'], with_url=True)
     print('We will find the best fbprophet hyper-parameters for '+url)
     print("Prophet will be fit for most of them, after a burn_in, and for many different hyper-params. Don't hold your breathe.")
 

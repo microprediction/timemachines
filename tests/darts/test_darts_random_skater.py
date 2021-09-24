@@ -10,6 +10,7 @@ if using_darts:
         k = 3
         n = 100
         f = random.choice(DARTS_SKATERS)
+        print( f.__name__ )
         y = hospital(n=n)
         neg_y = [-yt for yt in y]
         e = [-1]*90+[100]+[-1]*90

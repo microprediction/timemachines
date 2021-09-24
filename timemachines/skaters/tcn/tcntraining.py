@@ -64,6 +64,7 @@ if using_tcntraining and using_micro:
             y_train[i] = (y_train[i]+0.001*np.random.randn())*random_scale
 
         if model is None:
+            tcn_layer = TCN(input_shape=(n_input, 1),dilations=tuple([1 for _ in range(n_input)]))
             tcn_layer = TCN(input_shape=(n_input, 1))
             model = Sequential([
                 tcn_layer,
@@ -80,7 +81,10 @@ if using_tcntraining and using_micro:
             error_surrogate_true = mean_squared_error(y_hat_one, y_true_one)
             error_model_true = mean_squared_error(y_train_one, y_true_one)
             if verbose:
-                print({'surrogate-model': error_model_surrogate, 'surrogate-true': error_surrogate_true, 'model-true': error_model_true})
+                print({'surrogate-model': error_model_surrogate,
+                       'ratio':error_model_surrogate/error_model_true,
+                       'surrogate-true': error_surrogate_true,
+                       'model-true': error_model_true})
             if saving_criterion(low_error_surrogate_true=low_error_surrogate_true,
                                 error_surrogate_true=error_surrogate_true,
                                 error_model_true=error_model_true):
@@ -101,10 +105,21 @@ if __name__=='__main__':
     from timemachines.skaters.elo.eloensembles import elo_fastest_residual_precision_ensemble
     from timemachines.skaters.tsa.tsaensembles import tsa_precision_d0_ensemble
     from timemachines.skaters.simple.trivial import trivial_last_value
-    f = trivial_last_value
-    n_lags = 5
-    onnx_models = train_tcn_surrogate(f=f, k=1, n_real=10, n_samples=400, n_warm = 500, n_tile = 20,
-                                n_input=n_lags, verbose=True, n_iterations=1000, n_models=300)
+    from timemachines.skaters.simple.movingaverage import quickly_moving_average
+    f = tsa_precision_d0_ensemble
+    from keras.layers import LSTM
+
+
+    n_lags = 40
+    n_units = 16
+    model = Sequential()
+    model.add(LSTM(n_units, input_shape=(n_lags,1)))
+    model.add(Dense(1))
+    model.compile(loss='mean_squared_error', optimizer='adam')
+
+    onnx_models = train_tcn_surrogate(f=f, model=model, k=1, n_real=25, n_samples=300, n_warm = 500, n_tile = 1,
+                                n_input=n_lags, verbose=True, n_iterations=10000, n_models=30000,
+                                      include_str='electricity')
     # Check inference with ONNX runtime
     if len(onnx_models):
         onnx_model = onnx_models[0]
@@ -113,5 +128,6 @@ if __name__=='__main__':
         import numpy as np
         session = InferenceSession(onnx_model_as_byte_string)
         example_input = np.random.randn(1, n_lags, 1).astype(np.float32)
-        got = session.run(None, {'tcn_input': example_input})
-        y_hat = got[0][0][0]
+        if False:
+            got = session.run(None, {'tcn_input': example_input}) # <-- need to fix input name
+            y_hat = got[0][0][0]
