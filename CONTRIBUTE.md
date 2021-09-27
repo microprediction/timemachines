@@ -6,7 +6,7 @@ Hello, we hope you are interested in helping us create free open short term pred
  
 The goals of the timemachines package:
 
-   - Make available a large slew of fully autonomous univariate forecasting functions ("skaters")
+   - Make available a large slew of fully autonomous univariate forecasting functions with sequence-to-sequence signature ("skaters")
    - Evaluate them continuously over fresh, live, diverse real-world timeseries (search "time-series Elo ratings")
    - Create fast surrogates, stacking, compositions and so forth. 
    - Stick some of them in "crawlers" than operate in real-time and predict time-series at www.microprediction.org
