@@ -1,7 +1,8 @@
 
 ## Contribution pattern:  new batch-style time-series package
 
-Do you have a favourite Python package for time-series analysis that you would like to see included in the funnel?
+Do you have a favourite Python package for time-series analysis that you would like to see included in the funnel? There's some discussion
+on this [LI post](https://www.linkedin.com/posts/petercotton_timeseries-timeseriesanalysis-forecasting-activity-6844102671906037760-bGtu)
 
 ### Likely contributor
 
