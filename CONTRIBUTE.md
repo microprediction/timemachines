@@ -1,6 +1,6 @@
 # Time-machines contributors guide
 
-Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone.
+Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone. 
 
 ## Goals 
  
