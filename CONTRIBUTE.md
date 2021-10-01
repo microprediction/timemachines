@@ -4,8 +4,9 @@ Hello, we hope you are interested in helping us create free open short term pred
 
 ## You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How do I work this?"
 
-Okay enough 80's rock references. Chances are you're here because you reached out to connect on Linked-In and you have some manner of time-series or quantitative interest. And now you find yourself in a conspiracy aimed at upending artisan data science. Or not, that's up to you. 
+Okay enough 80's rock. Chances are you're here because you reached out to connect on Linked-In and you have some manner of time-series or quantitative interest. And now you find yourself in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, commoditizing repeated quantitative tasks of all kinds, and ... 
 
+Oh never mind. Let's start here: 
 
 ## Goals 
  
