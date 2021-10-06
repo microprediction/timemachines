@@ -85,7 +85,7 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
     while not got_data:
         try:
             y, t = data_source(n_obs=n_burn + 50)
-            got_data = False
+            got_data = True
         except:
             time.sleep(5)
     scores = list()
