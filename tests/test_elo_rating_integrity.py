@@ -25,4 +25,5 @@ if connected_to_internet():
 
 
 if __name__=='__main__':
-    test_integrity()
+    assert connected_to_internet()
+    test_integrity_of_elo_ratings()
