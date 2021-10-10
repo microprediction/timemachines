@@ -29,9 +29,11 @@ Contributing compute:
    2. Cut and paste a bash command to burn some rare Memorable Unique Identifiers, and donate them. See [CONTRIBUTE_COMPUTE_MUIDS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_MUIDS.md)
  
 Contributing compute, but also brains: 
+
    3. Create any kind of crawler you like in any language (though Python is easier). Then improve it. See the [knowledge center](https://www.microprediction.com/knowledge-center) tutorials. 
    
 Adding time-series functionality (skaters) to timemachines:
+
    5. See [CONTRIBUTE_BATCH_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_BATCH_STYLE_MODELS.md) to add new functionality using non-incremental methods.
    6. See [CONTRIBUTE_ONLINE_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_ONLINE_STYLE_MODELS.md) to add new functionality using incremental methods.
    
