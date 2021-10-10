@@ -33,11 +33,8 @@ Adding time-series functionality (skaters) to timemachines:
 
 ## Friday chats
 
-If you would like to help, the various CONTRIBUTE_ files suggest very specific steps you can take. However the following
-initial step is strongly recommended: 
-
-  - Grab the slack invite from the [knowledge center](https://www.microprediction.com/knowledge-center)
+  - Grab the slack invite from the [knowledge center](https://www.microprediction.com/knowledge-center) or convey your email to me in some way (info@microprediction.com will do)
   - Turn up to one of the informal chats we have every Friday noon EST. 
   - If that timezone is bad, maybe Tue 8pm EST. 
   
-But if you are shy that's fine too. 
+But if you are shy that's fine too. I look forward to your pull requests, or seeing you on the leaderboard. Crawling can be completely anonymous, by the way. 
