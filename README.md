@@ -97,11 +97,11 @@ There's more in [examples/basic_usage](https://github.com/microprediction/timema
   
 Actually there are important limitations to this package ... but also some alleged strengths:
 
-   - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only forecast functions:
+   - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only stateless functions:
        
           x, x_hat, s = f(y,s,k)
        
-       These functions are called skaters. Call it sequence-to-sequence prediction, if you like. 
+       These functions are called skaters. 
 
    - **Simple canonical use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
    Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. 
