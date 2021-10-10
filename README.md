@@ -3,41 +3,9 @@
 ## Fast, incremental, autonomous, constantly improving, evaluated, time-series prediction
 Use popular forecasting packages with one line of code in a sequence-to-sequence calling syntax. Or just browse their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to help decide which to try out first. There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. 
 
-What's different:
-
-   - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only forecast functions:
-       
-          x, x_hat, s = f(y,s,k)
-       
-       These functions are called skaters. What they do is sometimes called sequence-to-sequence prediction. 
-
-   - **Simple canonical use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
-   Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. 
-
-   - **Simple fast accurate alternatives** to popular time series packages. For example the [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) skaters perform well in the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html), and often much better than the brand names. See the  [article](https://www.microprediction.com/blog/timemachines) comparing them to Facebook prophet and Neural Prophet.
-
-   - **Ongoing, incremental, empirical evaluation**. Again, see the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) produced by
-    the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
-     from [microprediction.org](https://www.microprediction.org/browse_streams.html).   
+### Contributor guide:
     
-   - **Simple stacking, ensembling and combining** of models. The function form makes it easy to do this
-   with one line of code, quite often (again, see [thinking.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) for an illustration, 
-   or [prophetskaterscomposed.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py)).
-
-  - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary trivially converted to JSON and back (for instance in a web application). See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) for a little more discussion.   
-
-**NO CLASSES**  **NO DATAFRAMES** **NO CEREMONY**   
-
-Nothing to slow you down!
-
-To emphasize, in this package a time series "model" is a plain old function taking scalars and lists as arguments. Those functions have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
-   One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
-    forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However here the *caller* is expected to maintain state from one 
-    invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
-
-### New contributor guide:
-    
-See  [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
+[CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
 
 ## Install
 
@@ -122,6 +90,38 @@ This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
 ![](https://i.imgur.com/elu5muO.png)
+  
+What's different:
+
+   - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only forecast functions:
+       
+          x, x_hat, s = f(y,s,k)
+       
+       These functions are called skaters. What they do is sometimes called sequence-to-sequence prediction. 
+
+   - **Simple canonical use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
+   Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. 
+
+   - **Simple fast accurate alternatives** to popular time series packages. For example the [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) skaters perform well in the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html), and often much better than the brand names. See the  [article](https://www.microprediction.com/blog/timemachines) comparing them to Facebook prophet and Neural Prophet.
+
+   - **Ongoing, incremental, empirical evaluation**. Again, see the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) produced by
+    the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
+     from [microprediction.org](https://www.microprediction.org/browse_streams.html).   
+    
+   - **Simple stacking, ensembling and combining** of models. The function form makes it easy to do this
+   with one line of code, quite often (again, see [thinking.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) for an illustration, 
+   or [prophetskaterscomposed.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py)).
+
+  - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary trivially converted to JSON and back (for instance in a web application). See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) for a little more discussion.   
+
+**NO CLASSES**  **NO DATAFRAMES** **NO CEREMONY**   
+
+Nothing to slow you down!
+
+To emphasize, in this package a time series "model" is a plain old function taking scalars and lists as arguments. Those functions have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
+   One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
+    forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However here the *caller* is expected to maintain state from one 
+    invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
   
 ## The Skater signature 
 
