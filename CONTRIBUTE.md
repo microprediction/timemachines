@@ -2,11 +2,13 @@
 
 You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How do I work this?". And you may find yourself behind the wheel of a large automobile. But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In and you have some manner of time-series or quantitative interest so I sent you an invite. 
 
+## Vague objectives
+
 And now you find yourself in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, commoditizing repeated quantitative tasks of all kinds, and making data scientists look like fools. That might be a better idea than waiting for DeepMind to to something ([according to me](https://www.microprediction.com/blog/reward), anyway).   
 
 Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone. 
 
-## Goals 
+## Specific goals 
 
    - To make available a large slew of fully autonomous univariate forecasting functions with sequence-to-sequence signature ("skaters")
    - To evaluate them continuously over fresh, live, diverse real-world timeseries in two ways:
@@ -16,27 +18,30 @@ Hello, we hope you are interested in helping us create free open short term pred
 
 Part of this involves stacking, composing and otherwise exploiting existing skaters. We'd like to see [Fast Python Timeseries Forecasting](https://www.microprediction.com/blog/fast) become the norm. 
 
-## Dead-Simple Contribution Patterns
+# Contribution Patterns
 
 Little things do help
    - Follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690)
    - Star, fork, watch [timemachines](https://github.com/microprediction/timemachines)
+
+## Running scripts
 
 Contributing compute:
    1. Cut and paste a bash command to drive the default "crawler". See [CONTRIBUTE_COMPUTE_LOCAL_ONE_LINE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_LOCAL_ONE_LINE.md). Run a Python script directly if you prefer. See [CONTRIBUTE_COMPUTE_LOCAL](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_LOCAL.md). For example, run a Python script on a PythonAnywhere account that drives a "crawler". See [CONTRIBUTE_COMPUTE_PA](
  https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_PA.md)
    2. Cut and paste a bash command to burn some rare Memorable Unique Identifiers, and donate them. See [CONTRIBUTE_COMPUTE_MUIDS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_MUIDS.md)
  
- ## Contribution of intelligence to time-series forecasting
+ ## Contribution to crawler creation  
 
    3. Create any kind of Python crawler. Run it. Improve it. Repeat. See the [knowledge center](https://www.microprediction.com/knowledge-center) tutorials.
    4. Create any kind of crawler, not in Python. There's less support for that, but see the [public api](https://www.microprediction.com/public-api) and Google search (for "microprediction client Julia", for example, or "micropredciction client typescript). 
 
-Helping with the timemachines package, somehow:
+## Contribution to the timemachines package
+Open issues:
 
    5. See [good first issues](https://github.com/microprediction/timemachines/issue)
 
-Help with the timemachines package by adding new approaches:
+New package inclusion and approaches
 
    6. See [CONTRIBUTE_BATCH_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_BATCH_STYLE_MODELS.md) to add new functionality using non-incremental methods.
    7. See [CONTRIBUTE_ONLINE_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_ONLINE_STYLE_MODELS.md) to add new functionality using incremental methods.

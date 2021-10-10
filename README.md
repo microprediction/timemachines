@@ -1,11 +1,12 @@
 # timemachines ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg) ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg)  ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg)![tcn](https://github.com/microprediction/timemachines/workflows/test-tcn/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## A constantly improving collection of autonomous univariate (mostly) sequence-to-sequence time-series forecasting functions
-1. You can use popular forecasting packages with one line of code
-2. You can use faster alternatives
-3. They are all evaluated and assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) 
+1. You can use some of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) with one line of code
+2. You can use find faster, lighter, lesser-known alternatives that might be as accurate for your purpose.
+3. You can use various combinations (composition, stacking et cetera). 
+4. They are all evaluated and assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) 
 
-There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. 
+There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. This project is intended to help you select packages, strategies and even hyper-params. But it does not replace the packages themselves.  
 
 ### Contributor guide:
     
@@ -24,7 +25,7 @@ On colab you might need to do this if it still has an old numpy:
     !pip unisntall numpy
     !pip install --upgrade numpy 
 
-Then ... 
+Then you should probably include the "basics", though they are only used for metrics, mostly: 
 
      pip install --upgrade scikit-learn 
      pip install --upgrade scipy 
@@ -33,7 +34,7 @@ Next (optional)...
 
     pip install --upgrade statsmodels
     
-Many packages wrap statsmodels.tsa so pickings are slim without it. 
+(Many packages wrap statsmodels.tsa) 
 
 Next (optional)... some subset of the following: 
     
@@ -48,7 +49,6 @@ Next (optional)... some subset of the following:
     pip install --upgrade prophet
     pip install --upgrade neuralprophet
     pip install --upgrade greykite
-    pip install --upgrade orbit-ml
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
     
 You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install.  
