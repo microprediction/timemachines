@@ -1,7 +1,6 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+# Minimal test, even without scikit-learn
 
-name: test-darts
+name: test-scipy
 
 on:
   push:
@@ -29,7 +28,6 @@ jobs:
         python -m pip install wheel
         python -m pip install flake8 pytest
         python -m pip install pathlib
-        python -m pip install darts
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
@@ -39,5 +37,5 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pip install -e .[test] 
+        python -m pip install --upgrade scipy
         pytest
