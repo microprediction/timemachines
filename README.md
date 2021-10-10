@@ -25,7 +25,7 @@ On colab you might need to do this if it still has an old numpy:
     !pip unisntall numpy
     !pip install --upgrade numpy 
 
-Then ... 
+Then you should probably include the "basics", though they are only used for metrics, mostly: 
 
      pip install --upgrade scikit-learn 
      pip install --upgrade scipy 
@@ -34,7 +34,7 @@ Next (optional)...
 
     pip install --upgrade statsmodels
     
-Many packages wrap statsmodels.tsa so pickings are slim without it. 
+(Many packages wrap statsmodels.tsa) 
 
 Next (optional)... some subset of the following: 
     
