@@ -33,10 +33,11 @@ Or teach me.
    3. Create any kind of Python crawler. Run it. Improve it. Repeat. See the [knowledge center](https://www.microprediction.com/knowledge-center) tutorials.
    4. Create any kind of crawler, not in Python. There's less support for that, but see the [public api](https://www.microprediction.com/public-api) and Google search (for "microprediction client Julia", for example, or "micropredciction client typescript). 
 
-Helping with the timemachines package
+Helping with the timemachines package, somehow:
+
    5. See [good first issues](https://github.com/microprediction/timemachines/issue)
 
-Adding time-series functionality (skaters) to timemachines:
+Help with the timemachines package by adding new approaches:
 
    6. See [CONTRIBUTE_BATCH_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_BATCH_STYLE_MODELS.md) to add new functionality using non-incremental methods.
    7. See [CONTRIBUTE_ONLINE_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_ONLINE_STYLE_MODELS.md) to add new functionality using incremental methods.
