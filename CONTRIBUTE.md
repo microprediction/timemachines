@@ -21,7 +21,7 @@ Hello, we hope you are interested in helping us create free open short term pred
 Little things
    - Follow, clap, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690)
    - Star, fork, watch [timemachines](https://github.com/microprediction/timemachines)
-   - See [issues](https://github.com/microprediction/timemachines/issue), for instance market "good first issue".
+   - See [good first issues](https://github.com/microprediction/timemachines/issue)
 
 Crawling:
 
