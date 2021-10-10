@@ -1,22 +1,26 @@
 # Time-machines contributors guide
 
-You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How do I work this?". And you may find yourself behind the wheel of a large automobile. But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In and you have some manner of time-series or quantitative interest so I sent you an invite. 
+You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How do I work this?". And you may find yourself behind the wheel of a large automobile. 
 
-## Vague objectives
+<img src="https://github.com/microprediction/timemachines/blob/main/images/talking_heads.jpeg" alt="drawing" width="300"/>
 
-And now you find yourself in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, commoditizing repeated quantitative tasks of all kinds, and making data scientists look like fools. That might be a better idea than waiting for DeepMind to to something ([according to me](https://www.microprediction.com/blog/reward), anyway).   
+But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In and you have some manner of time-series or quantitative interest so I sent you an invite. 
 
-Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone. 
+## Vague objective
+
+And now you find yourself in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, commoditizing repeated quantitative tasks of all kinds, and making data scientists look like fools. That might be a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward).   
 
 ## Specific goals 
+Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone, as follows: 
 
-   - To make available a large slew of fully autonomous univariate forecasting functions with sequence-to-sequence signature ("skaters")
-   - To evaluate them continuously over fresh, live, diverse real-world timeseries in two ways:
+   - Packaging a slew of fully autonomous univariate forecasting functions:
+        * With a simple sequence-to-sequence signature ("skaters")
+        * Drawing on whatever useful open-source Python packages can be found. 
+   - Evaluating them continuously over fresh, live, diverse real-world timeseries in two ways:
         * Computation of [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
         * Incorporation in "crawlers" than operate in real-time and predict time-series at www.microprediction.org where they play this [game](https://www.microprediction.com/blog/intro), and in doing so, provide free high quality short-term prediction to anyone, anywhere, for any reason.
-   - To address otherwise thorny issues like [defining anomaly detection](https://www.microprediction.com/blog/anomaly) in a way that isn't circular. 
-
-Part of this involves stacking, composing and otherwise exploiting existing skaters. We'd like to see [Fast Python Timeseries Forecasting](https://www.microprediction.com/blog/fast) become the norm. 
+ 
+Thereby we can address otherwise thorny issues like [defining anomaly detection](https://www.microprediction.com/blog/anomaly) in a way that isn't circular. Part of this involves stacking, composing and otherwise exploiting existing skaters. We'd like to see [Fast Python Timeseries Forecasting](https://www.microprediction.com/blog/fast) become the norm. 
 
 # Contribution Patterns
 

@@ -1,16 +1,17 @@
 # timemachines ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg) ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg)  ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg)![tcn](https://github.com/microprediction/timemachines/workflows/test-tcn/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## A constantly improving collection of autonomous univariate (mostly) sequence-to-sequence time-series forecasting functions
-1. You can use some of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) with one line of code
-2. You can use find faster, lighter, lesser-known alternatives that might be as accurate for your purpose.
-3. You can use various combinations (composition, stacking et cetera). 
-4. They are all evaluated and assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) 
+You can:
+1. Use some of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) with one line of code
+2. Find faster, lighter, lesser-known alternatives that might be as accurate for your purpose.
+3. Use various combinations (composition, stacking et cetera). 
+4. View speeds and assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) 
 
 There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. This project is intended to help you select packages, strategies and even hyper-params. But it does not replace the packages themselves.  
 
-### Contributor guide:
+### Contribute
     
-[CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
+See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md).  Also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md)
 
 ## Install
 
@@ -91,17 +92,17 @@ This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
   
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
-### The blah blah blah about why this is so great
+## Skating advantages
   
 ![](https://i.imgur.com/elu5muO.png)
   
-Actually there are important limitations to this package ... but also some alleged strengths:
+There are important limitations to this package ... but also some alleged strengths:
 
-   - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only forecast functions:
+   - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only stateless functions:
        
           x, x_hat, s = f(y,s,k)
        
-       These functions are called skaters. Call it sequence-to-sequence prediction, if you like. 
+       These functions are called skaters. 
 
    - **Simple canonical use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
    Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. 
@@ -118,9 +119,8 @@ Actually there are important limitations to this package ... but also some alleg
 
   - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary trivially converted to JSON and back (for instance in a web application). See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) for a little more discussion.   
 
-**NO CLASSES**  **NO DATAFRAMES** **NO CEREMONY**  **NO HEAVY DEPENDENCIES**
-
-Nothing to slow you down here. Even scipy, scikit-learn and pandas are optional installs. 
+**NO CLASSES**.  **NO DATAFRAMES**. **NO CEREMONY**.  **NO HEAVY DEPENDENCIES**.
+There's not much to slow you down here. 
 
 To emphasize, in this package a time series "model" is a plain old function taking scalars and lists as arguments. Those functions have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
    One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
@@ -128,8 +128,7 @@ To emphasize, in this package a time series "model" is a plain old function taki
     invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
   
 ## The Skater signature 
-
-Here's a tiny bit more detail about the signature adopted by *all* skaters in this package. 
+So, here's a tiny bit more detail about the signature adopted by *all* skaters in this package. 
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
@@ -261,20 +260,4 @@ It's also dead easy (though possibly time-consuming) to hyper-optimize skaters o
 - See [examples/tuning](https://github.com/microprediction/timemachines/tree/main/examples/tuning)
 - See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
     
-## Contribute 
 
-If you'd like to contribute to this standardizing and benchmarking effort, here are some ideas:
-
-- Read the  [contributor guide](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
-- See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
-- Think about the most important hyper-parameters and consider "warming up" the mapping (0,1)->hyper-params by testing on real data. There is a [tutorial](https://www.microprediction.com/python-3) on retrieving live data, or use the [real data](https://pypi.org/project/realdata/) package, if that's simpler.
-- The [comparison of hyper-parameter optimization packages](https://www.microprediction.com/blog/optimize) might also be helpful.  
-- Read the  [contributor guide](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
-
-If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here
- that incorporates your library, do yourself a favor and also enable "supporting" on your repo. Nothing here is put forward
-   as *the right way* to write time series packages - more a way of exposing their functionality for comparisons. 
-  If you are interested in design thoughts for time series maybe participate in this [thread](https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1). 
-
-## FAQ 
-See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md)
