@@ -14,7 +14,7 @@ The goals of the timemachines package (and other related repos):
 
    - Make available a large slew of fully autonomous univariate forecasting functions with sequence-to-sequence signature ("skaters")
    - Evaluate them continuously over fresh, live, diverse real-world timeseries (search "time-series Elo ratings")
-   - Create fast surrogates, stacking, compositions and so forth. 
+   - Create better ones by stacking, composition and so forth. 
    - Stick some of them in "crawlers" than operate in real-time and predict time-series at www.microprediction.org where they play this [game](https://www.microprediction.com/blog/intro)
    - Thereby provide free high quality short-term prediction to anyone, anywhere, for any reason
    - Like [solving anomaly detection](https://www.microprediction.com/blog/anomaly) in a way that isn't totally stupid.
