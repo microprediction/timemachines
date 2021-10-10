@@ -4,11 +4,14 @@ from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_
 SIMPLE_TO_TEST = [ precision_ema_ensemble, aggressive_ema_ensemble ]
 
 
-def test_ensemble():
-    for f in SIMPLE_TO_TEST:
-        err = hospital_mean_square_error_with_sporadic_fit(f=f, k=5, n=150, fit_frequency=1)
+from timemachines.inclusion.skleaninclusion import using_sklean
+if using_sklean:
+    def test_ensemble_errors():
+        for f in SIMPLE_TO_TEST:
+            err = hospital_mean_square_error_with_sporadic_fit(f=f, k=5, n=150, fit_frequency=1)
 
 
 
 if __name__=='__main__':
-    test_ensemble()
+    assert using_sklean
+    test_ensemble_errors()

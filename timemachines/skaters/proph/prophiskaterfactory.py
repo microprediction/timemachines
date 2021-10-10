@@ -1,4 +1,3 @@
-import pandas as pd
 import sys
 import logging
 from typing import List, Tuple, Any
@@ -7,17 +6,16 @@ from timemachines.skatertools.utilities.epochtime import infer_freq_from_epoch, 
 from timemachines.skatertools.utilities.suppression import no_stdout_stderr
 from timemachines.skaters.proph.prophparams import PROPHET_MODEL, PROPHET_META
 from timemachines.skatertools.utilities.wrangling import transpose
+from timemachines.skaters.proph.prophetinclusion import using_prophet
 
-try: 
-    from prophet import Prophet
-    using_prophet=True
-except ImportError:
-    using_prophet=False
+
 
 logging.disable(sys.maxsize)
 logging.getLogger('fbprophet').setLevel(logging.ERROR)
 
 if using_prophet:
+    import pandas as pd
+    from prophet import Prophet
 
     # Wraps the core prophet prediction capability into a plain vanilla prediction function
     # Unlike most skaters, this "integrated" prophet skater (iskater) isn't computed by calling the skater

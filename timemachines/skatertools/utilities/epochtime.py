@@ -1,6 +1,5 @@
 from datetime import datetime
 from typing import Union, List
-import pandas as pd
 import pytz
 from timemachines.skatertools.utilities.arrivals import approx_dt
 
@@ -29,6 +28,7 @@ def naive_datetime_to_epoch(d:DatetimeOrList)->FloatOrList:
 
 
 def is_valid_freq(freq):
+    import pandas as pd
     try:
         dr = pd.date_range(start=EPOCH,periods=3,freq=freq)
         return True
@@ -41,6 +41,7 @@ def infer_freq_from_epoch(t:[float])->str:
     :param t: [ float ] epoch times
     :return:
     """
+    import pandas as pd
     # https://github.com/pandas-dev/pandas/blob/master/pandas/tseries/frequencies.py
     dt = epoch_to_naive_datetime(t)
     dti = pd.DatetimeIndex(dt)

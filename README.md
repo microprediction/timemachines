@@ -47,15 +47,25 @@ The suggested install is:
     pip install --upgrade numpy
     pip install --upgrade timemachines
 
-In colab you might need to 
+For error metrics these are recommended but not absolutely essential
+
+     pip install --upgrade scikit-learn 
+     pip install --upgrade scipy 
+   
+On colab you might need to do this if it still has an old numpy:  
 
     pip unisntall numpy
     pip install --upgrade numpy 
 
 Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or otherwise decide which
-packages you want to utilize - they aren't in by default. 
+packages you want to utilize - they aren't in by default. Strongly recommended is:
 
+    pip install --upgrade statsmodels
+    
+Many packages wrap statsmodels.tsa so pickings are slim without it. You might also want to install:
+    
     pip install --upgrade darts
+    pip install --upgrade river 
     pip install --ugprade sktime
     pip install --upgrade tbats
     pip install --upgrade orbit-ml
@@ -68,35 +78,22 @@ packages you want to utilize - they aren't in by default.
     pip install --upgrade orbit-ml
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
     
-Then add matplotlib if you want to use plotting utilities provides
+Optional:
 
     pip install matplotlib 
 
-And add microprediction if you want to use live data (e.g. for training)
+Optional: (e.g. for training, testing etc)
 
     pip install --upgrade microprediction   
     
-My policy at the moment is that online, incremental libraries get installed automatically (e.g. river) and so does 
-statsmodels because so many other packages depend on it. However other batch-style packages need more 
-statistical justification. See my [review of prophet](https://www.microprediction.com/blog/prophet) for example, which
-is slow and probably only suited to rare situations where the generative model is a very close match. 
+On many systems pystan is flaky, thus also prophet. Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before
+spending too much install agony there. 
 
-Nuts and bolts. The apple m1 install situation is fluid. I'd suggest you first get numpy, cython, pandas to work. 
-You might try adding the pip argument to skip pep517 if you run into trouble:
+The apple silicon (m1) install situation is fluid. I revert to anaconda. See [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) and
+keep open the possibility of the --no-use-pep517 option.
  
     pip install whatever --no-use-pep517
-
-### TCN surrogates. 
-
-To train and use surrogate models build with keras-tcn and live data 
-
-    pip install --upgrade keras-tcn
-    pip install --upgrade tf2onnx
-    pip install --upgrade onnxruntime
-    pip install --upgrade microprediction
-
-Honestly this isn't quite ready for prime time. 
-
+    
 ### Quick start 
 
 My hope is that the [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities also

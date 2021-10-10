@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.13.21",
+    version="0.14.0",
     description="Evaluation and standardization of popular time series packages",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -51,12 +51,11 @@ setup(
               "timemachines.skatertools.batch",
               "timemachines.skatertools.recommendations"],
     test_suite='pytest',
-    tests_require=['pytest','microprediction'],
+    tests_require=['pytest','microprediction','scikit-learn'],
     include_package_data=True,
-    install_requires=["wheel","pathlib","numpy>=1.19.5","pandas","importlib-metadata>=1.7.0",
+    install_requires=["wheel","pathlib","numpy>=1.19.5","importlib-metadata>=1.7.0",
                       "microconventions>=0.5.1","getjson","lunarcalendar","holidays",
-                      "sklearn","scipy","statsmodels>=0.12.2","river","convertdate>=2.2.0",
-                      "momentum>=0.1.2","requests"],
+                       "convertdate>=2.2.0","momentum>=0.1.2","requests"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",
