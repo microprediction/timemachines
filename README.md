@@ -2,7 +2,7 @@
 
 ## Fast, incremental, constantly improving, incrementally evaluated, autonomous, univariate (mostly) time-series prediction algorithms in a common simple, stateless, functional, stateless "sequence-to-sequence" format. 
 
-Quite a mouthful. Well you can use popular forecasting packages with one line of code in a sequence-to-sequence calling syntax, should you wish, or faster alternatives. You can browse their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to help decide which to try out first. There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. 
+Quite a mouthful. Well, let's say that you can use popular forecasting packages with one line of code in a sequence-to-sequence calling syntax, should you wish, or faster alternatives. You can also browse their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to help decide which to try out first. There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. 
 
 ### Contributor guide:
     
@@ -63,8 +63,7 @@ keep open the possibility of the --no-use-pep517 option.
     
 ### Quick start 
 
-My hope is that the [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities also
-serve as demonstrations of how to use any given skater in this library. If f is a skater then you call it repeatedly:
+This package is just a collection of skaters. My hope is that the [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities also serve as demonstrations of how to use any given "skater". The intent is that you call them repeatedly to process one data point at a time. 
 
     from timemachines.skaters.simple.thinking import thinking_slow_and_fast 
     import numpy as np
@@ -91,7 +90,7 @@ There's more in [examples/basic_usage](https://github.com/microprediction/timema
   
 ![](https://i.imgur.com/elu5muO.png)
   
-Actually there are important limitations to this package but also some alleged strengths:
+Actually there are important limitations to this package ... but also some alleged strengths:
 
    - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only forecast functions:
        
