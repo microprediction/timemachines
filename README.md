@@ -1,68 +1,40 @@
 # timemachines ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg) ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg)  ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg)![tcn](https://github.com/microprediction/timemachines/workflows/test-tcn/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## Fast, incremental, autonomous, constantly improving, time-series prediction
-... and some slow options. Use popular forecasting packages with one line of code in a sequence-to-sequence calling syntax. Or just browse their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to help decide which to try out first. There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. 
+## A constantly improving collection of autonomous univariate (mostly) sequence-to-sequence time-series forecasting functions
+Of possible use because:
+1. You can use popular forecasting packages with one line of code
+2. You can use faster alternatives
+3. They are all evaluated and assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) 
 
-What's different:
+There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. 
 
-   - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only forecast functions:
-       
-          x, x_hat, s = f(y,s,k)
-       
-       These functions are called skaters. What they do is sometimes called sequence-to-sequence prediction. 
-
-   - **Simple canonical use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
-   Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. 
-
-   - **Simple fast accurate alternatives** to popular time series packages. For example the [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) skaters perform well in the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html), and often much better than the brand names. See the  [article](https://www.microprediction.com/blog/timemachines) comparing them to Facebook prophet and Neural Prophet.
-
-   - **Ongoing, incremental, empirical evaluation**. Again, see the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) produced by
-    the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
-     from [microprediction.org](https://www.microprediction.org/browse_streams.html).   
+### Contributor guide:
     
-   - **Simple stacking, ensembling and combining** of models. The function form makes it easy to do this
-   with one line of code, quite often (again, see [thinking.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) for an illustration, 
-   or [prophetskaterscomposed.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py)).
-
-  - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary trivially converted to JSON and back (for instance in a web application). See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) for a little more discussion.   
-
-**NO CLASSES**  **NO DATAFRAMES** **NO CEREMONY**   
-
-Nothing to slow you down!
-
-To emphasize, in this package a time series "model" is a plain old function taking scalars and lists as arguments. Those functions have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
-   One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
-    forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However here the *caller* is expected to maintain state from one 
-    invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
-
-### New contributor guide:
-    
-See  [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
+[CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
 
 ## Install
 
-The suggested install is:  
+The suggested initial install is   
 
     pip install --upgrade pip
     pip install --upgrade numpy
     pip install --upgrade timemachines
+    
+On colab you might need to do this if it still has an old numpy:  
 
-For error metrics these are recommended but not absolutely essential
+    !pip unisntall numpy
+    !pip install --upgrade numpy 
+
+These are recommended but not absolutely essential for all uses
 
      pip install --upgrade scikit-learn 
      pip install --upgrade scipy 
-   
-On colab you might need to do this if it still has an old numpy:  
 
-    pip unisntall numpy
-    pip install --upgrade numpy 
-
-Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or otherwise decide which
-packages you want to utilize - they aren't in by default. Strongly recommended is:
+Next, install time-series packages you like. Strongly recommended is:
 
     pip install --upgrade statsmodels
     
-Many packages wrap statsmodels.tsa so pickings are slim without it. You might also want to install:
+because many packages wrap statsmodels.tsa so pickings are slim without it. You might also want to install:
     
     pip install --upgrade darts
     pip install --upgrade river 
@@ -78,6 +50,8 @@ Many packages wrap statsmodels.tsa so pickings are slim without it. You might al
     pip install --upgrade orbit-ml
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
     
+Maybe check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed. 
+    
 Optional:
 
     pip install matplotlib 
@@ -86,18 +60,14 @@ Optional: (e.g. for training, testing etc)
 
     pip install --upgrade microprediction   
     
-On many systems pystan is flaky, thus also prophet. Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before
-spending too much install agony there. 
-
-The apple silicon (m1) install situation is fluid. I revert to anaconda. See [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) and
+On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. The apple silicon (m1) install situation is particularly fluid. I revert to anaconda miniforge. But see also [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) and
 keep open the possibility of the --no-use-pep517 option.
  
     pip install whatever --no-use-pep517
     
 ### Quick start 
 
-My hope is that the [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities also
-serve as demonstrations of how to use any given skater in this library. If f is a skater then you call it repeatedly:
+This package is just a collection of skaters. My hope is that the [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities also serve as demonstrations of how to use any given "skater". The intent is that you call them repeatedly to process one data point at a time. 
 
     from timemachines.skaters.simple.thinking import thinking_slow_and_fast 
     import numpy as np
@@ -120,11 +90,45 @@ This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
   
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
+### The Blah blah blah about why this is so great
+  
 ![](https://i.imgur.com/elu5muO.png)
+  
+Actually there are important limitations to this package ... but also some alleged strengths:
+
+   - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only forecast functions:
+       
+          x, x_hat, s = f(y,s,k)
+       
+       These functions are called skaters. Call it sequence-to-sequence prediction, if you like. 
+
+   - **Simple canonical use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
+   Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. 
+
+   - **Simple fast accurate alternatives** to popular time series packages. For example the [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) skaters perform well in the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html), and often much better than the brand names. See the  [article](https://www.microprediction.com/blog/timemachines) comparing them to Facebook prophet and Neural Prophet.
+
+   - **Ongoing, incremental, empirical evaluation**. Again, see the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) produced by
+    the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
+     from [microprediction.org](https://www.microprediction.org/browse_streams.html).   
+    
+   - **Simple stacking, ensembling and combining** of models. The function form makes it easy to do this
+   with one line of code, quite often (again, see [thinking.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) for an illustration, 
+   or [prophetskaterscomposed.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py)).
+
+  - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary trivially converted to JSON and back (for instance in a web application). See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) for a little more discussion.   
+
+**NO CLASSES**  **NO DATAFRAMES** **NO CEREMONY**  **NO HEAVY DEPENDENCIES**
+
+Nothing to slow you down here. Even scipy, scikit-learn and pandas are optional installs. 
+
+To emphasize, in this package a time series "model" is a plain old function taking scalars and lists as arguments. Those functions have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
+   One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
+    forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However here the *caller* is expected to maintain state from one 
+    invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
   
 ## The Skater signature 
 
-Okay, here's a little more about "skater" functions. I'm repeating myself somewhat but the good thing is, this is the only thing you need to know. Morally this package is a mere collection of skater functions and they all operate like this: 
+Here's a tiny bit more detail about the signature adopted by *all* skaters in this package. 
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
@@ -135,7 +139,7 @@ Okay, here's a little more about "skater" functions. I'm repeating myself somewh
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s in R^n)
 
-Evidently, the function is intended to be applied repeatedly. For example one could harvest
+As noted, the function is intended to be applied repeatedly. For example one could harvest
 a sequence of the model predictions as follows:
 
     def posteriors(f,y):
@@ -145,8 +149,8 @@ a sequence of the model predictions as follows:
             xi, xi_std, s = f(yi,s)
             x.append(xi)
         return x
- 
-or see the prominently positioned [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py). Notice the use of s={} on first invocation. 
+
+Notice the use of s={} on first invocation. Also as noted above, there are prominently positioned [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities for processing full histories - though there isn't much beyond what you see above. 
  
 ### Skater "y" argument
 

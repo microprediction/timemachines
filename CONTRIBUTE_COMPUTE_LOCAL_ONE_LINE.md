@@ -20,3 +20,7 @@ Someone willing to run a python script forever, and brave enough to run a bash s
 ### Why trust this?
 
 Don't. Read what the [code](https://github.com/microprediction/microprediction/tree/master/shell_examples) is doing first. 
+
+### Improve 
+
+See [open issue](https://github.com/microprediction/timemachines/issues/36) to fix this so it bounces. 
