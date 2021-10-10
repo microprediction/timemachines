@@ -1,7 +1,6 @@
 # timemachines ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg) ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg)  ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg)![tcn](https://github.com/microprediction/timemachines/workflows/test-tcn/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## A constantly improving collection of autonomous univariate (mostly) sequence-to-sequence time-series forecasting functions
-Of possible use because:
 1. You can use popular forecasting packages with one line of code
 2. You can use faster alternatives
 3. They are all evaluated and assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) 
@@ -14,7 +13,7 @@ There's also a recommendation [colab notebook](https://github.com/micropredictio
 
 ## Install
 
-The suggested initial install is   
+The cautious person proceeds... 
 
     pip install --upgrade pip
     pip install --upgrade numpy
@@ -25,16 +24,18 @@ On colab you might need to do this if it still has an old numpy:
     !pip unisntall numpy
     !pip install --upgrade numpy 
 
-These are recommended but not absolutely essential for all uses
+Then ... 
 
      pip install --upgrade scikit-learn 
      pip install --upgrade scipy 
 
-Next, install time-series packages you like. Strongly recommended is:
+Next (optional)...
 
     pip install --upgrade statsmodels
     
-because many packages wrap statsmodels.tsa so pickings are slim without it. You might also want to install:
+Many packages wrap statsmodels.tsa so pickings are slim without it. 
+
+Next (optional)... some subset of the following: 
     
     pip install --upgrade darts
     pip install --upgrade river 
@@ -50,7 +51,7 @@ because many packages wrap statsmodels.tsa so pickings are slim without it. You 
     pip install --upgrade orbit-ml
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
     
-Maybe check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed. 
+You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install.  
     
 Optional:
 
@@ -90,7 +91,7 @@ This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
   
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
-### The Blah blah blah about why this is so great
+### The blah blah blah about why this is so great
   
 ![](https://i.imgur.com/elu5muO.png)
   
