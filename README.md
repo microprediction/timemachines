@@ -49,7 +49,6 @@ Next (optional)... some subset of the following:
     pip install --upgrade prophet
     pip install --upgrade neuralprophet
     pip install --upgrade greykite
-    pip install --upgrade orbit-ml
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
     
 You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install.  
