@@ -22,6 +22,9 @@ Little things
    - Follow, clap, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690)
    - Star, fork, watch [timemachines](https://github.com/microprediction/timemachines)
 
+Issues:
+    - See [issues](https://github.com/microprediction/timemachines/issue), for instance market "good first issue".
+
 Crawling:
 
    0. Cut and paste a bash command to drive a "crawler". See [CONTRIBUTE_COMPUTE_LOCAL_ONE_LINE](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_LOCAL_ONE_LINE.md)
