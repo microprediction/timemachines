@@ -124,7 +124,7 @@ To emphasize, in this package a time series "model" is a plain old function taki
   
 ## The Skater signature 
 
-Okay, here's a little more about "skater" functions. I'm repeating myself somewhat but the good thing is, this is the only thing you need to know. Morally this package is a mere collection of skater functions and they all operate like this: 
+I'm repeating myself somewhat but the good thing is, this is the *only* thing you need to know. For as noted, this package is a mere collection of skater functions f used as follows: 
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
