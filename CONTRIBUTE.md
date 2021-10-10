@@ -13,7 +13,9 @@ And now you find yourself in a conspiracy aimed at upending artisan data science
 ## Specific goals 
 Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone, as follows: 
 
-   - Making available a large slew of fully autonomous univariate forecasting functions with sequence-to-sequence signature ("skaters")
+   - Packaging a slew of fully autonomous univariate forecasting functions:
+        * With a simple sequence-to-sequence signature ("skaters")
+        * Drawing on whatever useful open-source Python packages can be found. 
    - Evaluating them continuously over fresh, live, diverse real-world timeseries in two ways:
         * Computation of [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
         * Incorporation in "crawlers" than operate in real-time and predict time-series at www.microprediction.org where they play this [game](https://www.microprediction.com/blog/intro), and in doing so, provide free high quality short-term prediction to anyone, anywhere, for any reason.
