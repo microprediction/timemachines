@@ -2,7 +2,7 @@
 
 You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How do I work this?". And you may find yourself behind the wheel of a large automobile. But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In and you have some manner of time-series or quantitative interest so I sent you an invite. 
 
-<img src="https://github.com/microprediction/timemachines/blob/main/images/talking_heads.jpeg" alt="drawing" width="100"/>
+<img src="https://github.com/microprediction/timemachines/blob/main/images/talking_heads.jpeg" alt="drawing" width="300"/>
 
 ## Vague objectives
 
