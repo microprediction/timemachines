@@ -1,7 +1,7 @@
 # timemachines ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg) ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg)  ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg)![tcn](https://github.com/microprediction/timemachines/workflows/test-tcn/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Fast, incremental, autonomous, constantly improving, time-series prediction
-... and some slow options. Use popular forecasting packages with one line of code in a sequence-to-sequence calling syntax. Or just browse their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to help decide which to try out first. There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. 
+Use popular forecasting packages with one line of code in a sequence-to-sequence calling syntax. Or just browse their [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to help decide which to try out first. There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. 
 
 What's different:
 
@@ -41,28 +41,27 @@ See  [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/C
 
 ## Install
 
-The suggested install is:  
+The suggested initial install is   
 
     pip install --upgrade pip
     pip install --upgrade numpy
     pip install --upgrade timemachines
+    
+On colab you might need to do this if it still has an old numpy:  
 
-For error metrics these are recommended but not absolutely essential
+    !pip unisntall numpy
+    !pip install --upgrade numpy 
+
+These are recommended but not absolutely essential for all uses
 
      pip install --upgrade scikit-learn 
      pip install --upgrade scipy 
-   
-On colab you might need to do this if it still has an old numpy:  
 
-    pip unisntall numpy
-    pip install --upgrade numpy 
-
-Then check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or otherwise decide which
-packages you want to utilize - they aren't in by default. Strongly recommended is:
+Next, install time-series packages you like. Strongly recommended is:
 
     pip install --upgrade statsmodels
     
-Many packages wrap statsmodels.tsa so pickings are slim without it. You might also want to install:
+because many packages wrap statsmodels.tsa so pickings are slim without it. You might also want to install:
     
     pip install --upgrade darts
     pip install --upgrade river 
@@ -77,6 +76,8 @@ Many packages wrap statsmodels.tsa so pickings are slim without it. You might al
     pip install --upgrade greykite
     pip install --upgrade orbit-ml
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
+    
+Maybe check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed. 
     
 Optional:
 
