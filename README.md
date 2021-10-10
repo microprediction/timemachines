@@ -13,6 +13,9 @@ There's also a recommendation [colab notebook](https://github.com/micropredictio
     
 [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
 
+## FAQ 
+See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md)
+
 ## Install
 
 The cautious person proceeds... 
@@ -262,5 +265,4 @@ It's also dead easy (though possibly time-consuming) to hyper-optimize skaters o
 - See [examples/tuning](https://github.com/microprediction/timemachines/tree/main/examples/tuning)
 - See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
     
-## FAQ 
-See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md)
+
