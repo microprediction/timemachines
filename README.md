@@ -2,7 +2,7 @@
 
 ## A constantly improving collection of autonomous univariate (mostly) sequence-to-sequence time-series forecasting functions
 1. You can use some of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) with one line of code
-2. You can use faster alternatives
+2. You can use find faster, lesser-known alternatives that might be as accurate for your purpose.
 3. You can use various combinations (composition, stacking et cetera). 
 4. They are all evaluated and assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) 
 
