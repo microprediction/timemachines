@@ -20,3 +20,14 @@ I suppose it could qualify for a contributor prize one of these months.
 
 Beats me.
 
+### What does it do?
+
+See the cheesy [video](https://vimeo.com/397352413). 
+
+### Who gets the MUIDs?
+
+People with good ideas for stream creation. 
+
+### Do I need to do anything else?
+
+No, they are sent to the server. 
