@@ -4,9 +4,7 @@ You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How
 
 Okay enough 80's rock. Chances are you're here because you reached out to connect on Linked-In and you have some manner of time-series or quantitative interest so I sent you an invite. And now you find yourself in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, commoditizing repeated quantitative tasks of all kinds, and making data scientists look like fools.  
 
-Oh never mind. Let's start here: 
-
-Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone. 
+Oh never mind. Let's start with "Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone." 
 
 ## Goals 
  
