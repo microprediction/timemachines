@@ -92,11 +92,11 @@ This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
   
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
-## Design advantages
+## Skating advantages
   
 ![](https://i.imgur.com/elu5muO.png)
   
-Actually there are important limitations to this package ... but also some alleged strengths:
+There are important limitations to this package ... but also some alleged strengths:
 
    - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only stateless functions:
        
