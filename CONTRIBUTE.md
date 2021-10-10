@@ -27,8 +27,7 @@ Contributing compute:
  https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_PA.md)
    2. Cut and paste a bash command to burn some rare Memorable Unique Identifiers, and donate them. See [CONTRIBUTE_COMPUTE_MUIDS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_MUIDS.md)
  
- ## Contribution Patterns where you'll hopefully learn something
-Or teach me.  
+ ## Contribution of intelligence to time-series forecasting
 
    3. Create any kind of Python crawler. Run it. Improve it. Repeat. See the [knowledge center](https://www.microprediction.com/knowledge-center) tutorials.
    4. Create any kind of crawler, not in Python. There's less support for that, but see the [public api](https://www.microprediction.com/public-api) and Google search (for "microprediction client Julia", for example, or "micropredciction client typescript). 
@@ -42,6 +41,10 @@ Help with the timemachines package by adding new approaches:
    6. See [CONTRIBUTE_BATCH_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_BATCH_STYLE_MODELS.md) to add new functionality using non-incremental methods.
    7. See [CONTRIBUTE_ONLINE_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_ONLINE_STYLE_MODELS.md) to add new functionality using incremental methods.
    
+## Contribution of live data
+Add live data that feeds the Elo ratings, and live contests too. 
+
+   8. See [CONTRIBUTE_LIVE_DATA.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_LIVE_DATA.md)
 
 ## Friday chats
 
