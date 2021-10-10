@@ -5,7 +5,7 @@
 2. You can use faster alternatives
 3. They are all evaluated and assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) 
 
-There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. 
+There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. This project is intended to help you select packages, strategies and even hyper-params. But it does not replace the packages themselves.  
 
 ### Contributor guide:
     
