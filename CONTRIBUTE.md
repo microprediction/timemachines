@@ -1,14 +1,12 @@
 # Time-machines contributors guide
 
-You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How do I work this?". 
+You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How do I work this?". And you may find yourself behind the wheel of a large automobile. 
 
-Okay enough 80's rock. Chances are you're here because you reached out to connect on Linked-In and you have some manner of time-series or quantitative interest so I sent you an invite. And now you find yourself in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, commoditizing repeated quantitative tasks of all kinds, and making data scientists look like fools.  
+But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In and you have some manner of time-series or quantitative interest so I sent you an invite. And now you find yourself in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, commoditizing repeated quantitative tasks of all kinds, and making data scientists look like fools.  
 
-Oh never mind. Let's start with "Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone." 
+Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone. 
 
 ## Goals 
- 
-The goals of the timemachines package (and other related repos):
 
    - Make available a large slew of fully autonomous univariate forecasting functions with sequence-to-sequence signature ("skaters")
    - Evaluate them continuously over fresh, live, diverse real-world timeseries (search "time-series Elo ratings")
