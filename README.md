@@ -262,20 +262,5 @@ It's also dead easy (though possibly time-consuming) to hyper-optimize skaters o
 - See [examples/tuning](https://github.com/microprediction/timemachines/tree/main/examples/tuning)
 - See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
     
-## Contribute 
-
-If you'd like to contribute to this standardizing and benchmarking effort, here are some ideas:
-
-- Read the  [contributor guide](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
-- See the [list of popular time series packages](https://www.microprediction.com/blog/popular-timeseries-packages) ranked by download popularity. 
-- Think about the most important hyper-parameters and consider "warming up" the mapping (0,1)->hyper-params by testing on real data. There is a [tutorial](https://www.microprediction.com/python-3) on retrieving live data, or use the [real data](https://pypi.org/project/realdata/) package, if that's simpler.
-- The [comparison of hyper-parameter optimization packages](https://www.microprediction.com/blog/optimize) might also be helpful.  
-- Read the  [contributor guide](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
-
-If you are the maintainer of a time series package, we'd love your feedback and if you take the time to submit a PR here
- that incorporates your library, do yourself a favor and also enable "supporting" on your repo. Nothing here is put forward
-   as *the right way* to write time series packages - more a way of exposing their functionality for comparisons. 
-  If you are interested in design thoughts for time series maybe participate in this [thread](https://github.com/MaxBenChrist/awesome_time_series_in_python/issues/1). 
-
 ## FAQ 
 See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md)
