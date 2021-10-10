@@ -120,8 +120,7 @@ There are important limitations to this package ... but also some alleged streng
   - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary trivially converted to JSON and back (for instance in a web application). See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) for a little more discussion.   
 
 **NO CLASSES**.  **NO DATAFRAMES**. **NO CEREMONY**.  **NO HEAVY DEPENDENCIES**.
-
-Nothing to slow you down here. Even scipy, scikit-learn and pandas are optional installs. 
+There's not much to slow you down here. 
 
 To emphasize, in this package a time series "model" is a plain old function taking scalars and lists as arguments. Those functions have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
    One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
@@ -129,8 +128,7 @@ To emphasize, in this package a time series "model" is a plain old function taki
     invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
   
 ## The Skater signature 
-
-Here's a tiny bit more detail about the signature adopted by *all* skaters in this package. 
+So, here's a tiny bit more detail about the signature adopted by *all* skaters in this package. 
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
