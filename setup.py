@@ -38,6 +38,8 @@ setup(
               "timemachines.skaters.smdk",
               "timemachines.skaters.gk",
               "timemachines.skaters.drts",
+              "timemachines.skaters.kts",
+              "timemachines.skaters.ats",
               "timemachines.skatertools",
               "timemachines.skatertools.comparison",
               "timemachines.skatertools.components",

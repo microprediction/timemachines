@@ -30,7 +30,7 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
               data_provider - A function taking n_obs and returning y, t
     """
     # Lazy import because networked skaters shouldn't be initialized too early
-    from timemachines.skatertools.utilities.locations import pypi_from_name
+    from timemachines.skaters.locations import pypi_from_name
     from timemachines.skaters.allskaters import SKATERS, skater_from_name  # Only those with no hyper-params
 
     if data_source is None:
@@ -132,7 +132,7 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
 
 
 def _init_elo(elo, SKATERS, initial_elo):
-    from timemachines.skatertools.utilities.locations import pypi_from_name
+    from timemachines.skaters.locations import pypi_from_name
     # Initialize game counts and Elo ratings
     elo['name'] = [f.__name__ for f in SKATERS]
     elo['count'] = [0 for _ in SKATERS]
@@ -144,7 +144,7 @@ def _init_elo(elo, SKATERS, initial_elo):
 
 def _newcomers(elo, SKATERS,initial_elo):
     # Check for newcomers
-    from timemachines.skatertools.utilities.locations import pypi_from_name
+    from timemachines.skaters.locations import pypi_from_name
     new_names = [f.__name__ for f in SKATERS if f.__name__ not in elo['name']]
     for new_name in new_names:
         elo['name'].append(new_name)
@@ -186,7 +186,7 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
         Speed is *not* taken into account, yet.
     """
     # Lazy import because networked skaters shouldn't be initialized too early
-    from timemachines.skatertools.utilities.locations import pypi_from_name
+    from timemachines.skaters.locations import pypi_from_name
     from timemachines.skaters.allskaters import SKATERS, \
         skater_from_name  # Only those with no hyper-params
 
