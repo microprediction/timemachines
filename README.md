@@ -89,7 +89,7 @@ This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
   
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
-### The Blah blah blah about why this is so great
+### The blah blah blah about why this is so great
   
 ![](https://i.imgur.com/elu5muO.png)
   
