@@ -55,10 +55,7 @@ Optional: (e.g. for training, testing etc)
 
     pip install --upgrade microprediction   
     
-On many systems pystan is flaky, thus also prophet. Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before
-spending too much install agony there. 
-
-The apple silicon (m1) install situation is fluid. I revert to anaconda. See [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) and
+On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. The apple silicon (m1) install situation is particularly fluid. I revert to anaconda miniforge. But see also [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) and
 keep open the possibility of the --no-use-pep517 option.
  
     pip install whatever --no-use-pep517
