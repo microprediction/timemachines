@@ -9,12 +9,9 @@ You can:
 
 There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run, and some so-called forever functions (explained [here](https://www.microprediction.com/blog/forever)) that stack the best performers at run time. This project is intended to help you select packages, strategies and even hyper-params. But it does not replace the packages themselves.  
 
-### Contributor guide:
+### Contribute
     
-[CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
-
-## FAQ 
-See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md)
+[CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md). See also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md)
 
 ## Install
 
