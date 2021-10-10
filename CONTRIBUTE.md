@@ -6,7 +6,7 @@ You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How
 
 But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In and you have some manner of time-series or quantitative interest so I sent you an invite. 
 
-## Vague objectives
+## Vague objective
 
 And now you find yourself in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, commoditizing repeated quantitative tasks of all kinds, and making data scientists look like fools. That might be a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward).   
 
