@@ -9,12 +9,13 @@ Hello, we hope you are interested in helping us create free open short term pred
 ## Goals 
 
    - Make available a large slew of fully autonomous univariate forecasting functions with sequence-to-sequence signature ("skaters")
-   - Evaluate them continuously over fresh, live, diverse real-world timeseries (search "time-series Elo ratings")
-   - Create better ones by stacking, composition and so forth. 
-   - Stick some of them in "crawlers" than operate in real-time and predict time-series at www.microprediction.org where they play this [game](https://www.microprediction.com/blog/intro)
-   - Thereby provide free high quality short-term prediction to anyone, anywhere, for any reason
-   - Like [solving anomaly detection](https://www.microprediction.com/blog/anomaly) in a way that isn't totally stupid.
-   - Or predicting stuff in a way that [doesn't take an eternity](https://www.microprediction.com/blog/fast)
+   - Evaluate them continuously over fresh, live, diverse real-world timeseries in two ways:
+        * [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
+        * Sticking some of them in "crawlers" than operate in real-time and predict time-series at www.microprediction.org where they play this [game](https://www.microprediction.com/blog/intro), and in doing so, provide free high quality short-term prediction to anyone, anywhere, for any reason.
+   - Create better autonomous time-series models by stacking, composition and so forth. 
+   - Fight nonsense:
+       * Define [anomaly detection](https://www.microprediction.com/blog/anomaly) in a way that isn't totally stupid.
+       * Predicting stuff in a way that [doesn't take an eternity](https://www.microprediction.com/blog/fast)
 
 ## Contribution patterns
 
