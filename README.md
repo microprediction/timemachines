@@ -13,7 +13,7 @@ There's also a recommendation [colab notebook](https://github.com/micropredictio
 
 ## Install
 
-The suggested initial install is   
+The cautious person proceeds... 
 
     pip install --upgrade pip
     pip install --upgrade numpy
@@ -24,16 +24,18 @@ On colab you might need to do this if it still has an old numpy:
     !pip unisntall numpy
     !pip install --upgrade numpy 
 
-These are recommended but not absolutely essential for all uses
+Then ... 
 
      pip install --upgrade scikit-learn 
      pip install --upgrade scipy 
 
-Next, install time-series packages you like. Strongly recommended is:
+Next (optional)...
 
     pip install --upgrade statsmodels
     
-because many packages wrap statsmodels.tsa so pickings are slim without it. You might also want to install:
+Many packages wrap statsmodels.tsa so pickings are slim without it. 
+
+Next (optional)... some subset of the following: 
     
     pip install --upgrade darts
     pip install --upgrade river 
@@ -49,7 +51,7 @@ because many packages wrap statsmodels.tsa so pickings are slim without it. You 
     pip install --upgrade orbit-ml
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
     
-Maybe check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed. 
+You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install.  
     
 Optional:
 
