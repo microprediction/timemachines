@@ -14,7 +14,7 @@ Hello, we hope you are interested in helping us create free open short term pred
         * Incorporation in "crawlers" than operate in real-time and predict time-series at www.microprediction.org where they play this [game](https://www.microprediction.com/blog/intro), and in doing so, provide free high quality short-term prediction to anyone, anywhere, for any reason.
    - To address otherwise thorny issues like [defining anomaly detection](https://www.microprediction.com/blog/anomaly) in a way that isn't circular. 
 
-Part of this involves stacking, composing and otherwise exploiting existing skaters. We'd like to see many more fast ones (as discussed [here](https://www.microprediction.com/blog/fast)).
+Part of this involves stacking, composing and otherwise exploiting existing skaters. We'd like to see [Fast Python Timeseries Forecasting](https://www.microprediction.com/blog/fast) become the norm. 
 
 ## Dead-Simple Contribution Patterns
 
