@@ -1,6 +1,6 @@
 from timemachines.skatertools.data.synthetic import brownian_with_noise, brownian_with_exogenous
 from timemachines.skating import residuals, prior_with_sporadic_fit
-from timemachines.inclusion.skleaninclusion import using_sklean
+from timemachines.inclusion.sklearninclusion import using_sklearn
 from timemachines.inclusion.scipyinclusion import using_scipy
 import numpy as np
 from timemachines.skatertools.utilities.conventions import targets
@@ -15,7 +15,7 @@ def evaluator_from_name(name):
     return valid[0] if len(valid)==1 else None
 
 
-if using_sklean:
+if using_sklearn:
     from sklearn.metrics import mean_squared_error, mean_absolute_error
 
     def evaluate_sklearn_metric(f, y, k:int, a=None, t=None, e_fit=60, e_nofit=-1, metric=None, r=None)->float:

@@ -54,7 +54,7 @@ setup(
     tests_require=['pytest','microprediction','scikit-learn'],
     include_package_data=True,
     install_requires=["wheel","pathlib","numpy>=1.19.5","importlib-metadata>=1.7.0",
-                      "microconventions>=0.5.1","getjson","lunarcalendar","holidays",
+                      "microconventions>=0.5.1","getjson",
                        "convertdate>=2.2.0","momentum>=0.1.2","requests"],
     entry_points={
         "console_scripts": [
