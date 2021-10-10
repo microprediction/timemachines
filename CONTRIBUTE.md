@@ -18,8 +18,8 @@ Hello, we hope you are interested in helping us create free open short term pred
   
 ## Dead-Simple Contribution Patterns
 
-Little things
-   - Follow, clap, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690)
+Little things do help
+   - Follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690)
    - Star, fork, watch [timemachines](https://github.com/microprediction/timemachines)
 
 Contributing compute:
