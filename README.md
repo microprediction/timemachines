@@ -124,7 +124,7 @@ To emphasize, in this package a time series "model" is a plain old function taki
   
 ## The Skater signature 
 
-I'm repeating myself somewhat but the good thing is, this is the *only* thing you need to know. For as noted, this package is a mere collection of skater functions f used as follows: 
+Here's a tiny bit more detail about the signature adopted by *all* skaters in this package. 
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
@@ -135,7 +135,7 @@ I'm repeating myself somewhat but the good thing is, this is the *only* thing yo
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s in R^n)
 
-Evidently, the function is intended to be applied repeatedly. For example one could harvest
+As noted, the function is intended to be applied repeatedly. For example one could harvest
 a sequence of the model predictions as follows:
 
     def posteriors(f,y):
@@ -145,8 +145,8 @@ a sequence of the model predictions as follows:
             xi, xi_std, s = f(yi,s)
             x.append(xi)
         return x
- 
-or see the prominently positioned [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py). Notice the use of s={} on first invocation. 
+
+Notice the use of s={} on first invocation. Also as noted above, there are prominently positioned [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities for processing full histories - though there isn't much beyond what you see above. 
  
 ### Skater "y" argument
 
