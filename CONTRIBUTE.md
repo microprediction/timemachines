@@ -16,7 +16,7 @@ Hello, we hope you are interested in helping us create free open short term pred
    - To create more fast autonomous time-series models (as discussed [here](https://www.microprediction.com/blog/fast))
    - To address otherwise thorny issues like [defining anomaly detection](https://www.microprediction.com/blog/anomaly) in a way that isn't circular. 
   
-## Contribution patterns
+## Dead-Simple Contribution Patterns
 
 Little things
    - Follow, clap, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690)
@@ -28,9 +28,11 @@ Contributing compute:
  https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_PA.md)
    2. Cut and paste a bash command to burn some rare Memorable Unique Identifiers, and donate them. See [CONTRIBUTE_COMPUTE_MUIDS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_MUIDS.md)
  
-Contributing compute, but also brains: 
+ ## Contribution Patterns where you'll hopefully learn something
+Or teach me.  
 
-   3. Create any kind of crawler you like in any language (though Python is easier). Then improve it. See the [knowledge center](https://www.microprediction.com/knowledge-center) tutorials. 
+   3. Create any kind of Python crawler. Run it. Improve it. Repeat. See the [knowledge center](https://www.microprediction.com/knowledge-center) tutorials.
+   4. Create any kind of crawler, not in Python. There's less support for that, but see the [public api](https://www.microprediction.com/public-api) and Google search (for "microprediction client Julia", for example, or "micropredciction client typescript). 
    
 Adding time-series functionality (skaters) to timemachines:
 
