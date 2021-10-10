@@ -119,7 +119,7 @@ There are important limitations to this package ... but also some alleged streng
 
   - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary trivially converted to JSON and back (for instance in a web application). See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) for a little more discussion.   
 
-**NO CLASSES**  **NO DATAFRAMES** **NO CEREMONY**  **NO HEAVY DEPENDENCIES**
+**NO CLASSES**.  **NO DATAFRAMES**. **NO CEREMONY**.  **NO HEAVY DEPENDENCIES**.
 
 Nothing to slow you down here. Even scipy, scikit-learn and pandas are optional installs. 
 
