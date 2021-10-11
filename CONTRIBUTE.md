@@ -55,7 +55,7 @@ Add live data that feeds the Elo ratings, and live contests too.
 
    8. See [CONTRIBUTE_LIVE_DATA.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_LIVE_DATA.md)
 
-## Friday chats
+# Friday chats
 
   - Grab the slack invite from the [knowledge center](https://www.microprediction.com/knowledge-center) or convey your email to me in some way (info@microprediction.com will do)
   - Turn up to one of the informal chats we have every Friday noon EST. 
