@@ -36,7 +36,7 @@ def thinking_fast_and_fast(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE
     return quickly_moving_hypocratic_residual_factory(y=y, s=s, k=k, a=a, t=t, e=e, f=quickly_moving_average)
 
 
-def thinking_ensemble(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None)->([float] , Any , Any):
+def thinking_precision_ensemble(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None)->([float] , Any , Any):
     """
          Precision weight moving averages
     """
@@ -45,7 +45,7 @@ def thinking_ensemble(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =Non
     return precision_weighted_ensemble_factory(fs=fs,y=y,s=s,k=k,a=a,t=t,e=e,r=0.5)
 
 
-THINKING_SKATERS = [ thinking_fast_and_fast, thinking_fast_and_slow, thinking_slow_and_slow, thinking_slow_and_fast ]
+THINKING_SKATERS = [ thinking_fast_and_fast, thinking_fast_and_slow, thinking_slow_and_slow, thinking_slow_and_fast, thinking_precision_ensemble ]
 
 
 if __name__=='__main__':
