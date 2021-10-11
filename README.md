@@ -3,7 +3,7 @@
 ## A collection of autonomous, mostly univariate, k-step ahead time-series forecasting functions assigned Elo ratings
 You can:
 1. Use some of the functionality of a [subset](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/pypi.py) of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) with one line of code.
-2. Find faster, lighter, lesser-known alternatives that might be as accurate for your purpose.
+2. Find faster, lighter, lesser-known alternatives like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that might be as accurate for your purpose.
 3. Use various combinations (composition, stacking et cetera). 
 4. View speeds and assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) 
 
