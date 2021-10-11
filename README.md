@@ -137,7 +137,7 @@ So, here's a tiny bit more detail about the signature adopted by *all* skaters i
                 a:[float]=None,                          # Variable(s) known in advance, or conditioning
                 t:float=None,                            # Time of observation (epoch seconds)
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
-                r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s in R^n)
+                r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s) 
 
 As noted, the function is intended to be applied repeatedly. For example one could harvest
 a sequence of the model predictions as follows:
