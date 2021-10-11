@@ -178,7 +178,7 @@ Epoch time of the observation.
 
 Suggests a number of seconds allowed for computation, though skater's don't necessarily comply. See remarks below. 
    
-## Skater "r" argument ("hype(r) pa(r)amete(r)s")
+## Skater "r" argument ("hype(r) pa(r)amete(r)s for pre-skaters only)
 
 A real skater doesn't have any hyper-parameters. It's the job of the designer to make it fully autonomous. The small concession made here is the notion of a pre-skater: one with a single float hyperparameter in the closed interval \[0,1\]. Pre-skaters squish all tunable parameters into this interval. That's a bit tricky, so some rudimentary conventions and space-filling functions are provided. See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning).
 
