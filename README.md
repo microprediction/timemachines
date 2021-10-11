@@ -180,7 +180,7 @@ Suggests a number of seconds allowed for computation, though skater's don't nece
    
 ## Skater "r" argument ("hype(r) pa(r)amete(r)s")
 
-A scalar in the closed interval \[0,1\] represents *all* hyper-parameters. See comments below. 
+A real skater doesn't have any hyper-parameters. It's the job of the designer to make it fully autonomous. The small concession made here is the notion of a pre-skater: one with a single float hyperparameter in the closed interval \[0,1\]. Pre-skaters squish all tunable parameters into this interval. That's a bit tricky, so some rudimentary conventions and space-filling functions are provided. See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning).
 
 ### Return values
 
@@ -252,12 +252,8 @@ See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or f
 
 - See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 
-### Tuning hyper-params
+### Tuning pre-skaters 
 
-It's also dead easy (though possibly time-consuming) to hyper-optimize skaters offline. By convention they only admit a single hyper-parameter, if any. This means you can, with [one line of code](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/hyper.py) use [HumpDay](https://github.com/microprediction/humpday) to call down to scipy.optimize, ax-platform,
-   hyperopt, optuna, platypus, pymoo, pySOT, skopt, dlib, nlopt, bayesian-optimization, nevergrad or your favourite black-box optimizer.  
-
-- See [examples/tuning](https://github.com/microprediction/timemachines/tree/main/examples/tuning)
 - See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
     
 
