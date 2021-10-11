@@ -31,7 +31,7 @@ Little things do help
 ## Running scripts
 
 Contributing compute:
-   1. Cut and paste a bash command to drive the default "crawler". See [CONTRIBUTE_COMPUTE_LOCAL_ONE_LINE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_LOCAL_ONE_LINE.md). Run a Python script directly if you prefer. See [CONTRIBUTE_COMPUTE_LOCAL](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_LOCAL.md). For example, run a Python script on a PythonAnywhere account that drives a "crawler". See [CONTRIBUTE_COMPUTE_PA](
+   1. Cut and paste a bash command to drive the default "crawler". See [CONTRIBUTE_COMPUTE_LOCAL_ONE_LINE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_LOCAL_ONE_LINE.md). Run a Python script directly if you prefer. See [CONTRIBUTE_COMPUTE_LOCAL](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_LOCAL.md). Or run a Python script on a PythonAnywhere account that drives a "crawler". See [CONTRIBUTE_COMPUTE_PA](
  https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_PA.md)
    2. Cut and paste a bash command to burn some rare Memorable Unique Identifiers, and donate them. See [CONTRIBUTE_COMPUTE_MUIDS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COMPUTE_MUIDS.md)
  
