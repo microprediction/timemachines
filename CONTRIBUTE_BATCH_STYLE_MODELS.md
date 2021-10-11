@@ -27,7 +27,7 @@ Thus far this has exposed the 3rd party library in an offline manner (i.e. expec
  7. Read or re-read the main [README.md](https://github.com/microprediction/timemachines) that explains the skater signature
  8. Read the short pithy example [skautoarima](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/sk/skautoarima.py) and notice how it makes use of [batchskater.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/batch/batchskater.py) that does all the work for you.
  9. Create one or more skater files similar to [skautoarima](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/sk/skautoarima.py)
- 10. For the convenience of others, adopt the style of putting a mini-test at the bottom, as with [[skautoarima](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/sk/skautoarima.py)]
+ 10. For the convenience of others, adopt the style of putting a mini-test at the bottom, as with [skautoarima](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/sk/skautoarima.py).
  
 Next you need to register a list of fully autonomous skaters
  
