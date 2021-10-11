@@ -43,7 +43,7 @@ Contributing compute:
 ## Contribution to the timemachines package
 Open issues:
 
-   5. See [good first issues](https://github.com/microprediction/timemachines/issue)
+   5. See [good first issues](https://github.com/microprediction/timemachines/issues)
 
 New package inclusion and approaches
 
