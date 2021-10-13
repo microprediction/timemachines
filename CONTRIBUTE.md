@@ -8,7 +8,7 @@ But enough 80's rock. Chances are you're here because you reached out to connect
 
 ## Vague objective
 
-... and now you find yourself in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, commoditizing repeated quantitative tasks of all kinds. That might be a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward).   
+... and now you find yourself in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, and commoditizing repeated quantitative tasks of all kinds. That might be a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward).   
 
 ## Specific goals 
 Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone, as follows: 
@@ -27,6 +27,7 @@ Thereby we can address otherwise thorny issues like [defining anomaly detection]
 Little things do help
    - Follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690)
    - Star, fork, watch [timemachines](https://github.com/microprediction/timemachines)
+   - Sign this [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) to let Towards Data Science know we won't be silenced! 
 
 ## Running scripts
 
