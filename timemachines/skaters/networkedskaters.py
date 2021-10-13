@@ -1,7 +1,8 @@
 from timemachines.skaters.elo.alleloskaters import ELO_SKATERS
+from timemachines.skaters.suc.allsuccessorskaters import SUCCESSOR_SKATERS
 
-NETWORKED_SKATERS = ELO_SKATERS
-FAST_NETWORKED_SKATERS = ELO_SKATERS
+NETWORKED_SKATERS = ELO_SKATERS + SUCCESSOR_SKATERS
+FAST_NETWORKED_SKATERS = ELO_SKATERS + SUCCESSOR_SKATERS
 
 # Networked skaters access Elo ratings
 

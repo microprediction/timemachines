@@ -37,8 +37,16 @@ Next (optional)...
     
 (Many packages wrap statsmodels.tsa) 
 
+Next (optional)...
+
+    pip install tensorflow
+    
+You may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps
+reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
+
 Next (optional)... some subset of the following: 
     
+    pip install --upgrade successor
     pip install --upgrade darts
     pip install --upgrade river 
     pip install --ugprade sktime

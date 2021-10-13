@@ -15,7 +15,8 @@ PYPI = {'tsa':'statsmodels',
         'tcn':'keras-tcn',
         'darts':'darts',
         'kts':'kats',
-        'ats':'auto_ts'}
+        'ats':'auto_ts',
+        'suc':'successor'}
 
 
 def pypi_from_name(name):

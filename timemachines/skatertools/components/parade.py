@@ -2,6 +2,9 @@ from momentum import rvar  # Could easily add skew, kurtosis
 from typing import Union, SupportsFloat, List
 
 
+# TODO: import this from momentum instead
+
+
 # A "parade" is a procession of l-step ahead predictions that are waiting to be judged when data arrives.
 # The predictions are stored in an array where the n'th entry will be judged after n data points arrive.
 # There are multiple entries in each row of the parade. For example if data is sampled on the hour,
