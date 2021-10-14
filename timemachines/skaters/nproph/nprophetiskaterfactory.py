@@ -29,10 +29,9 @@ if using_neuralprophet:
             return x, x_std, None, None
         else:
             model = NeuralProphet(**used_params)
-            model.set_log_level(log_level='CRITICAL')
             df = pd.DataFrame(columns=['y'], data=y)
             df['ds'] = pd.date_range(start='2021-01-01', periods=len(y), freq=freq)
-            metrics = model.fit(df, freq=freq, epochs=40, use_tqdm=False)
+            metrics = model.fit(df, freq=freq, epochs=40, progress_bar=False)
             future = model.make_future_dataframe(df)
             forecast = model.predict(future)
             x = [ forecast['yhat'+str(j+1)].values[-k+j] for j in range(k) ]
