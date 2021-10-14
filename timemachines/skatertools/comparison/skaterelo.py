@@ -60,9 +60,14 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
     candidates = np.random.choice(list(range(n_skaters)), size=10, replace=False)
     for c in candidates:
         snds = elo['seconds'][c]
+        cnt = elo['count'][c]
+        if cnt<10:
+            snds = snds/3
+        if cnt<25:
+            snds = snds/2
         if snds<0:
             snds = 45
-        if (snds+total_seconds<60) or ((len(chosen)>2) and (np.random.rand()<(100/(2+snds)) )):
+        if (snds+total_seconds<60) or ((len(chosen)>2) and (np.random.rand()<(300/(2+snds)) )):
             total_seconds += snds
             chosen.append(c)
         if total_seconds>60:
