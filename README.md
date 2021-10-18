@@ -266,4 +266,15 @@ See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or f
 
 - See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
     
+### Cite 
+
+Thanks
+
+        @electronic{cottontimemachines,
+            title = {{Timemachines: A Python Package for Creating and Assessing Autonomous Time-Series Prediction Algorithms}},
+            year = {2021},
+            author = {Peter Cotton},
+            url = {https://github.com/microprediction/timemachines}
+        }
+
 
