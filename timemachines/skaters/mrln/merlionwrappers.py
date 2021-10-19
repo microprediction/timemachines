@@ -9,7 +9,7 @@ if using_darts:
 
     def merlion_ARIMA_iskater(y: [[float]], k: int, a: List = None, t: List = None, e=None, deseasonalize=False):
         """
-            Calls Darts' FFT forecasting model, but ignores t if supplied.
+            Calls Merlion's ARIMA forecasting model, but ignores t if supplied.
         """
         if a:
             assert len(a) == len(y) + k
@@ -39,7 +39,7 @@ if using_darts:
         
     def merlion_MSES_iskater(y: [[float]], k: int, a: List = None, t: List = None, e=None, deseasonalize=False):
         """
-            Calls Darts' Prophet forecasting model, but ignores t if supplied.
+            Calls Merlion's MSES forecasting model, but ignores t if supplied.
         """
         if a:
             assert len(a) == len(y) + k
@@ -68,7 +68,7 @@ if using_darts:
         
     def merlion_Prophet_iskater(y: [[float]], k: int, a: List = None, t: List = None, e=None, deseasonalize=False):
         """
-            Calls Darts' ARIMA forecasting model, but ignores t if supplied.
+            Calls Merlion's implemenetation of the Prophet forecasting model, but ignores t if supplied.
         """
         if a:
             assert len(a) == len(y) + k
