@@ -1,6 +1,6 @@
 from timemachines.skaters.mrln.merlioninclusion import using_merlion
 
-if using_darts:
+if using_merlion:
     import numpy as np
     import pandas as pd
     from typing import List
