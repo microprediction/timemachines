@@ -17,7 +17,7 @@ PYPI = {'tsa':'statsmodels',
         'kts':'kats',
         'ats':'auto_ts',
         'suc':'successor',
-         'mrln':'merlion'}
+         'mrln':'salesforce-merlion'}
 
 
 def pypi_from_name(name):
