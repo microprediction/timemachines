@@ -42,7 +42,7 @@ setup(
               "timemachines.skaters.kts",
               "timemachines.skaters.ats",
               "timemachines.skaters.suc",
-              "timemachiens.skaters.mrln",
+              "timemachines.skaters.mrln",
               "timemachines.skatertools",
               "timemachines.skatertools.comparison",
               "timemachines.skatertools.components",
