@@ -1,0 +1,6 @@
+
+from timemachines.skaters.mrln.merlionarimaskater import MERLION_ARIMA_SKATERS
+from timemachines.skaters.mrln.merlionmsesskater import MERLION_MSES_SKATERS
+from timemachines.skaters.mrln.merlionprophetskater import MERLION_PROPHET_SKATERS
+
+MERLION_SKATERS = MERLION_ARIMA_SKATERS + MERLION_MSES_SKATERS + MERLION_PROPHET_SKATERS

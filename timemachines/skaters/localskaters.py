@@ -28,12 +28,13 @@ from timemachines.skaters.sk.allskskaters import SK_SKATERS
 from timemachines.skaters.gk.allgreykiteskaters import GREYKITE_SKATERS
 from timemachines.skaters.smdk.allsmdkskaters import SMDK_SKATERS
 from timemachines.skaters.drts.alldartsskaters import DARTS_SKATERS
+from timemachines.skaters.mrln.allmerlionskaters import MERLION_SKATERS
 
 LOCAL_SKATERS = EMA_SKATERS + PROPHET_SKATERS + DIVINE_SKATERS + DLM_SKATERS + \
                 THINKING_SKATERS + PMD_SKATERS + TSA_SKATERS + NPROPHET_SKATERS + \
                 HYPOCRATIC_ENSEMBLE_SKATERS + ORBIT_SKATERS + BATS_SKATERS \
                 + RIVER_SKATERS + SK_SKATERS + GREYKITE_SKATERS + SMDK_SKATERS \
-                + DARTS_SKATERS
+                + DARTS_SKATERS + MERLION_SKATERS
 
 
 LEFT_OUT_FOR_NOW = LINEAR_SKATERS # + ...
