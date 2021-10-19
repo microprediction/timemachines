@@ -29,7 +29,7 @@ jobs:
         python -m pip install wheel
         python -m pip install flake8 pytest
         python -m pip install pathlib
-        python -m pip install merlion
+        python -m pip install salesforce-merlion
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
