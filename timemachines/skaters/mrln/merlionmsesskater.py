@@ -2,7 +2,7 @@
 from timemachines.skaters.mrln.merlioninclusion import using_merlion
 
 if using_merlion:
-    from timemachines.skaters.drts.dartswrappers import merlion_MSES_iskater
+    from timemachines.skaters.mrln.merlionwrappers import merlion_MSES_iskater
     from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE
     from timemachines.skatertools.batch.batchskater import batch_skater_factory
 
