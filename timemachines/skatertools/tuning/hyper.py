@@ -47,7 +47,7 @@ if using_sklearn and using_humpday:
 
         def objective(u:[float]):
             r = from_space(u)
-            return evaluator(f=f, y=y, k=k, a=a, t=t, e=r, r=r, n_burn=n_burn)
+            return evaluator(f=f, y=y, k=k, a=a, t=t, r=r)
 
         if test_objective_first:
             start_time = time.time()
