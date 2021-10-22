@@ -64,11 +64,8 @@ Next (optional)... some subset of the following:
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
     pip install --upgrade salesforce-merlion
     
-You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install.  
-    
-Troubleshooting tips:
+You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. On some hardware you may need to resort to conda-forge for some packages if you run into trouble, for example
 
-    pip install lightgbm
     conda install -c conda-forge lightgbm
     
 Optional:
@@ -79,7 +76,7 @@ Optional: (e.g. for training, testing etc)
 
     pip install --upgrade microprediction   
     
-On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. The apple silicon (m1) install situation is particularly fluid. I revert to anaconda miniforge. But see also [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) and
+On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. The apple silicon (m1) install situation is particularly fluid. I revert to anaconda miniforge as noted above. But see also [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) and
 keep open the possibility of the --no-use-pep517 option.
  
     pip install whatever --no-use-pep517
