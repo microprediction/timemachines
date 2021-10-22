@@ -61,10 +61,13 @@ Notice what isn't here:
  - Possible conflation of 3-step ahead prediction with the 1-step ahead prediction applied three times, 
  - Datetime manipulation, and conventions like '5min' which not everyone agrees on. 
 
+
 ### FAQ 4: What are the drawbacks? 
 
 There are also limitations of the skater approach. The simple data model in *y*, *a* is not well suited to problems where exogenous data comes and goes, and therefore cannot easily be represented by a vector of fixed length. You might consider a dictionary interface instead, as with
 the river package. 
+
+There is, at time of writing, also a shortage of skaters that exploit anything beyond the first entry in 'y' (exogenous vars), or use 'a' (known in advance). That's not a design limitation, just resources. 
 
 ### FAQ 5: Why do skaters only return two numbers per horizon, instead of a full distribution? 
 
