@@ -14,8 +14,8 @@ But enough 80's rock. Chances are you're here because you reached out to connect
 Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone, as follows: 
 
    - Packaging a slew of fully autonomous univariate forecasting functions:
-        * With a simple sequence-to-sequence signature ("skaters")
-        * Drawing on whatever useful open-source Python packages can be found. 
+        * With a simple sequence-to-sequence signature ("[skaters](https://github.com/microprediction/timemachines)")
+        * Drawing on whatever useful open-source Python packages can be found (and there's a [lot of them](https://www.microprediction.com/blog/popular-timeseries-packages)) 
    - Evaluating them continuously over fresh, live, diverse real-world timeseries in two ways:
         * Computation of [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
         * Incorporation in "crawlers" than operate in real-time and predict time-series at www.microprediction.org where they play this [game](https://www.microprediction.com/blog/intro), and in doing so, provide free high quality short-term prediction to anyone, anywhere, for any reason.
@@ -27,7 +27,7 @@ Thereby we can address otherwise thorny issues like [defining anomaly detection]
 Little things do help
    - Follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690)
    - Star, fork, watch [timemachines](https://github.com/microprediction/timemachines)
-   - Sign this [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) to let Towards Data Science know we won't be silenced! 
+   - Sign this tongue-in-cheek [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) unless you want a job at Facebook or Towards Data Science, some day. 
 
 ## Running scripts
 
