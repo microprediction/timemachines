@@ -14,7 +14,7 @@ But enough 80's rock. Chances are you're here because you reached out to connect
 Hello, we hope you are interested in helping us create free open short term prediction of anything for anyone, as follows: 
 
    - Packaging a slew of fully autonomous univariate forecasting functions:
-        * With a simple sequence-to-sequence signature ("skaters")
+        * With a simple sequence-to-sequence signature ("[skaters](https://github.com/microprediction/timemachines)")
         * Drawing on whatever useful open-source Python packages can be found. 
    - Evaluating them continuously over fresh, live, diverse real-world timeseries in two ways:
         * Computation of [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
