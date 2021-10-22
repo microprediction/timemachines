@@ -27,7 +27,7 @@ The cautious person proceeds...
     
 On colab you might need to do this if it still has an old numpy:  
 
-    !pip unisntall numpy
+    !pip uninstall numpy
     !pip install --upgrade numpy 
 
 Then you should probably include the "basics", though they are only used for metrics, mostly: 
