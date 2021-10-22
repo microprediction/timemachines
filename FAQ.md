@@ -23,7 +23,7 @@ or write a decorator. Whatever, it's Python.
 
 Answer (B): The intent is to produce simple web-service friendly models. 
 
-Answer (C): It's pure. Pure as the driven snow ... that has turned in to sludge in New York City. (See this [note](https://github.com/microprediction/timemachines/issues/51)  
+Answer (C): It's pure. Pure as the driven snow ... that has turned in to sludge in New York City. (See this [note](https://github.com/microprediction/timemachines/issues/51))  
 
 Answer (D): The caller can request conditional predictions easily. 
 
