@@ -23,7 +23,7 @@ or write a decorator. Whatever, it's Python.
 
 Answer (B): The intent is to produce simple web-service friendly models. 
 
-Answer (C): It's pure. Pure as snowy sludge in New York City, anyway. (Be aware that Python is call by object reference!)  
+Answer (C): It's pure. Pure as the driven snow ... that has turned in to sludge in New York City. (Be aware that Python is call by object reference!)  
 
 Answer (D): The caller can request conditional predictions easily. 
 
