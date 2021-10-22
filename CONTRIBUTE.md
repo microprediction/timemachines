@@ -27,7 +27,7 @@ Thereby we can address otherwise thorny issues like [defining anomaly detection]
 Little things do help
    - Follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690)
    - Star, fork, watch [timemachines](https://github.com/microprediction/timemachines)
-   - Sign this [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) to let Towards Data Science know we won't be silenced! 
+   - Sign this tongue-in-cheek [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) unless you want a job at Facebook or Towards Data Science, some day. 
 
 ## Running scripts
 
