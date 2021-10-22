@@ -24,16 +24,15 @@ The cautious person proceeds...
     pip install --upgrade pip
     pip install --upgrade numpy
     pip install --upgrade timemachines
-    
+    pip install --upgrade scikit-learn 
+    pip install --upgrade scipy 
+   
+(You can scrape by without the last two as they are only used for metrics)
+   
 On colab you might need to do this if it still has an old numpy:  
 
     !pip uninstall numpy
     !pip install --upgrade numpy 
-
-Then you should probably include the "basics", though they are only used for metrics, mostly: 
-
-     pip install --upgrade scikit-learn 
-     pip install --upgrade scipy 
 
 Next (optional)...
 
@@ -50,7 +49,6 @@ reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuil
 
 Next (optional)... some subset of the following: 
     
-    pip install --upgrade successor
     pip install --upgrade darts
     pip install --upgrade river 
     pip install --ugprade sktime
@@ -60,6 +58,7 @@ Next (optional)... some subset of the following:
     pip install --upgrade divinity
     pip install --upgrade pmdarima
     pip install --upgrade prophet
+    pip install --upgrade successor
     pip install --upgrade neuralprophet
     pip install --upgrade greykite
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
