@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.14.9",
+    version="0.14.10",
     description="Evaluation and standardization of popular time series packages",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -43,6 +43,7 @@ setup(
               "timemachines.skaters.kts",
               "timemachines.skaters.ats",
               "timemachines.skaters.suc",
+              "timemachines.skaters.pycrt",
               "timemachines.skatertools",
               "timemachines.skatertools.comparison",
               "timemachines.skatertools.components",
