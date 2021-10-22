@@ -1,0 +1,3 @@
+from timemachines.skaters.pycrt.pycaretmedian import PYCRT_MEDIAN_SKATERS
+
+PYCRT_SKATERS = PYCRT_MEDIAN_SKATERS
