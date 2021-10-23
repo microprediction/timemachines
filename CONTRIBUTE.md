@@ -29,7 +29,7 @@ Little things do help
    - Star, fork, watch [timemachines](https://github.com/microprediction/timemachines)
    - Sign this tongue-in-cheek [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) unless you want a job at Facebook or Towards Data Science, some day. 
 
-## Creating notebooks 
+## Creating colab notebooks illustrating the use of Python timeseries packages
 It helps speed the creation of autonomous algorithms, and Elo ratings, to have example notebooks for python time-series packages
 
    0. See [good first issues](https://github.com/microprediction/timemachines/issues)
