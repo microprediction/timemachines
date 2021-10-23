@@ -13,7 +13,7 @@ if using_sktime and using_pycaret:
         f = random.choice(PYCRT_SKATERS)
         y = hospital(n=n)
         neg_y = [-yt for yt in y]
-        e = [-1]*90+[100]+[-1]*90
+        e = [-1]*90+[100]+[-5]*5+[100]*5
         x, x_std = prior(f=f, y=neg_y, k=k, e=e )
 
 

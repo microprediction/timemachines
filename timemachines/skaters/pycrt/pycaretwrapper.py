@@ -30,12 +30,13 @@ if using_pycaret and using_pandas and using_sktime:
         with no_stdout_stderr():
             # Full fit cycle each time, for now
             exp = TimeSeriesExperiment()
-            exp.setup(data=y0_frame)
-            best_baseline_models = exp.compare_models(fold=fold, sort='smape', n_select=n_select)
+            exp.setup(data=y0_frame, n_jobs=1)
+            best_baseline_models = exp.compare_models(fold=fold, sort='smape', n_select=n_select,exclude=["auto_arima"])
+            best_tuned_models = [exp.tune_model(model) for model in best_baseline_models]
             fh = ForecastingHorizon(pd.PeriodIndex(pd.date_range(next_t, periods=k, freq="H")), is_relative=False)
             X = np.ndarray(shape=(n_select,k))
-            for ndx,model in enumerate(best_baseline_models):
-                  x_ = model.predict(fh)
+            for ndx,tuned_model in enumerate(best_tuned_models):
+                  x_ = tuned_model.predict(fh)
                   X[ndx][:] = x_
         x = list(np.nanmedian(X,axis=0))
         x_std = list(np.nanstd(X,axis=0))
