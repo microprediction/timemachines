@@ -24,9 +24,8 @@ if using_pycaret and using_pandas and using_sktime:
         else:
             y0s = [ yt[0] for yt in y ]
 
+        # TODO: Modify this when t passed in
         y0_frame = pd.Series(index=pd.PeriodIndex(pd.date_range("2021-01", periods=len(y0s), freq="H")), data=y0s).to_frame()
-        #last_t = y0_frame.index[-1]
-        #next_t = last_t.to_timestamp() + datetime.timedelta(hours=1)
         fold = 3
         with no_stdout_stderr():
             # Full fit cycle each time, for now
@@ -36,11 +35,6 @@ if using_pycaret and using_pandas and using_sktime:
             best_tuned_models = [exp.tune_model(model) for model in best_baseline_models]
             blended_model = exp.blend_models(best_tuned_models, method=blend_method)
             x = list(exp.predict_model(blended_model))
-            # fh = ForecastingHorizon(pd.PeriodIndex(pd.date_range(next_t, periods=k, freq="H")), is_relative=False)
-            #X = np.ndarray(shape=(n_select,k))
-            #for ndx,tuned_model in enumerate(best_tuned_models):
-            #      x_ = tuned_model.predict(fh)
-            #      X[ndx][:] = x_
         x_std = [ 1 for _ in x ] # Will be overridden by empirical
         return x, x_std
 
