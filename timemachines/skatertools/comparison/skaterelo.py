@@ -21,24 +21,29 @@ SKATER_F_FACTOR = 1000  # The scale factor for ratings. In chess this is set to 
 SKATER_K_FACTOR = 200  # The Elo update factor (maximum rating gain)
 
 
-def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=1600, data_source=None):
+def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=1600,
+                            data_source=None, skater_population=None, always_skater=None):
     """ Create or update elo ratings by running several algos at once and using Elo update n-1 times
 
               elo - Dictionary containing the 'state' (i.e. elo ratings and game counts)
               k   - Number of steps to look ahead
               tol - Error ratio that results in a tie being declared
               data_provider - A function taking n_obs and returning y, t
+              skater_population - Usually a subset of timemachines.skaters.allskaters.SKATERS
+              always_skater - Skater to always include
     """
     # Lazy import because networked skaters shouldn't be initialized too early
     from timemachines.skaters.pypi import pypi_from_name
-    from timemachines.skaters.allskaters import SKATERS, skater_from_name  # Only those with no hyper-params
+    if skater_population is None:
+        from timemachines.skaters.allskaters import SKATERS as skater_population
+    from timemachines.skaters.allskaters import skater_from_name  # Only those with no hyper-params
 
     if data_source is None:
         data_source = DEFAULT_DATA_SOURCE
         assert data_source is not None, "If microprediction is not installed you must supply a different data_source function that returns y, t "
 
     if not elo:
-       _init_elo(elo=elo,SKATERS=SKATERS,initial_elo=initial_elo)
+       _init_elo(elo=elo, skater_population=skater_population, initial_elo=initial_elo)
     else:
         # New fields ... one-off fix
         if not 'pypi' in elo:
@@ -48,8 +53,8 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
         elo['pypi'] = [pypi_from_name(nm) for nm in elo['name']]
 
         # Check for newcomers
-        elo = _newcomers(elo=elo,SKATERS=SKATERS,initial_elo=initial_elo)
-        new_names = [f.__name__ for f in SKATERS if f.__name__ not in elo['name']]
+        elo = _newcomers(elo=elo, skater_population=skater_population, initial_elo=initial_elo)
+        new_names = [f.__name__ for f in skater_population if f.__name__ not in elo['name']]
 
     elo, evaluator = _set_evaluator(elo)
 
@@ -72,6 +77,9 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
             chosen.append(c)
         if total_seconds>60:
             break
+
+    if always_skater is not None and (always_skater not in chosen):
+        chosen.append(always_skater)
 
     fs = list()
     chosen_and_imported = list()
@@ -136,21 +144,21 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
     return elo
 
 
-def _init_elo(elo, SKATERS, initial_elo):
+def _init_elo(elo, skater_population, initial_elo):
     from timemachines.skaters.pypi import pypi_from_name
     # Initialize game counts and Elo ratings
-    elo['name'] = [f.__name__ for f in SKATERS]
-    elo['count'] = [0 for _ in SKATERS]
-    elo['rating'] = [initial_elo for _ in SKATERS]
-    elo['traceback'] = ['not yet run' for _ in SKATERS]
-    elo['active'] = [True for _ in SKATERS]
+    elo['name'] = [f.__name__ for f in skater_population]
+    elo['count'] = [0 for _ in skater_population]
+    elo['rating'] = [initial_elo for _ in skater_population]
+    elo['traceback'] = ['not yet run' for _ in skater_population]
+    elo['active'] = [True for _ in skater_population]
     elo['pypi'] = [pypi_from_name(nm) for nm in elo['name']]
     return elo
 
-def _newcomers(elo, SKATERS,initial_elo):
+def _newcomers(elo, skater_population, initial_elo):
     # Check for newcomers
     from timemachines.skaters.pypi import pypi_from_name
-    new_names = [f.__name__ for f in SKATERS if f.__name__ not in elo['name']]
+    new_names = [f.__name__ for f in skater_population if f.__name__ not in elo['name']]
     for new_name in new_names:
         elo['name'].append(new_name)
         elo['count'].append(0)
@@ -200,7 +208,7 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
         assert data_source is not None, "If microprediction is not installed you must supply a different data_source function that returns y, t "
 
     if not elo:
-       _init_elo(elo=elo,SKATERS=SKATERS,initial_elo=initial_elo)
+       _init_elo(elo=elo, skater_population=SKATERS, initial_elo=initial_elo)
     else:
         # New fields ... one-off fix
         if not 'pypi' in elo:
@@ -210,7 +218,7 @@ def skater_elo_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initia
         elo['pypi'] = [pypi_from_name(nm) for nm in elo['name']]
 
         # Check for newcomers
-        elo = _newcomers(elo=elo,SKATERS=SKATERS,initial_elo=initial_elo)
+        elo = _newcomers(elo=elo, skater_population=SKATERS, initial_elo=initial_elo)
         new_names = [f.__name__ for f in SKATERS if f.__name__ not in elo['name']]
 
     elo, evaluator = _set_evaluator(elo)
