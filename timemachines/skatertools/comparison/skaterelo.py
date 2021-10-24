@@ -22,7 +22,7 @@ SKATER_K_FACTOR = 200  # The Elo update factor (maximum rating gain)
 
 
 def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=1600,
-                            data_source=None, skater_population=None, always_skater=None):
+                            data_source=None, skater_population=None, always_skaters=None):
     """ Create or update elo ratings by running several algos at once and using Elo update n-1 times
 
               elo - Dictionary containing the 'state' (i.e. elo ratings and game counts)
@@ -78,8 +78,10 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
         if total_seconds>60:
             break
 
-    if always_skater is not None and (always_skater not in chosen) and (always_skater in elo['name']):
-        chosen.append(elo['name'].index(always_skater))
+    if always_skaters is not None:
+        for always_skater in always_skaters:
+            if always_skater is not None and (always_skater not in chosen) and (always_skater in elo['name']):
+                chosen.append(elo['name'].index(always_skater))
 
     fs = list()
     chosen_and_imported = list()
