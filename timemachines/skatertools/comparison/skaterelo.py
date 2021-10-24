@@ -78,8 +78,8 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
         if total_seconds>60:
             break
 
-    if always_skater is not None and (always_skater not in chosen):
-        chosen.append(always_skater)
+    if always_skater is not None and (always_skater not in chosen) and (always_skater in elo['name']):
+        chosen.append(elo['name'].index(always_skater))
 
     fs = list()
     chosen_and_imported = list()
