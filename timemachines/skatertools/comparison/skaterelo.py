@@ -93,6 +93,7 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
             chosen_and_imported.append(c)
         except Exception as e:
             elo['active'][c] = False
+            print('Failed to import ' + elo['name'][c])
 
     got_data = False
     while not got_data:
@@ -106,7 +107,7 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
     ran_okay_names = list()
     failed_names = list()
     print('  imported successfully ...')
-    pprint(chosen_and_imported)
+    pprint([elo['name'][c] for c in chosen_and_imported])
     for c, f in zip(chosen_and_imported, fs):
         import traceback
         try:
