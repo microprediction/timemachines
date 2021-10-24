@@ -14,6 +14,15 @@ if using_pycaret:
                                     iskater_kwargs={'n_select': 3,'blend_method':'median'},
                                     min_e=0)
 
+
+    def pycrt_median_3_full(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None, r: R_TYPE = None,
+                       emp_mass=0.0):
+        return batch_skater_factory(y=y, s=s, k=k, a=a, t=t, e=e, r=r, emp_mass=emp_mass,
+                                    iskater=pycrt_iskater,
+                                    iskater_kwargs={'n_select': 3, 'blend_method': 'median','turbo':False},
+                                    min_e=0)
+
+
     def pycrt_median_8(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = None, e: E_TYPE = None, r: R_TYPE = None, emp_mass=0.0):
         return batch_skater_factory(y=y, s=s, k=k, a=a, t=t, e=e, r=r, emp_mass=emp_mass,
                                     iskater=pycrt_iskater,
@@ -32,7 +41,7 @@ if using_pycaret:
                                     iskater_kwargs={'n_select':8,'blend_method':'mean'},
                                     min_e=0)
 
-    PYCRT_MEDIAN_SKATERS = [pycrt_median_3, pycrt_median_8, pycrt_mean_3, pycrt_mean_8]
+    PYCRT_MEDIAN_SKATERS = [pycrt_median_3, pycrt_median_8, pycrt_mean_3, pycrt_mean_8, pycrt_median_3_full]
 
 else:
     PYCRT_MEDIAN_SKATERS = []
