@@ -12,7 +12,7 @@ except ImportError:
     have_micro = False
 
 if have_micro:
-    from timemachines.skatertools.data.live import random_regular_data as DEFAULT_DATA_SOURCE
+    from timemachines.skatertools.data.live import random_elo_data as DEFAULT_DATA_SOURCE
 else:
     DEFAULT_DATA_SOURCE = None
 

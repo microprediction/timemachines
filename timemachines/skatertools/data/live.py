@@ -77,6 +77,73 @@ if using_micro:
         y,t = random_chronological_values_and_times(min_len=n_obs, exclude_str='~')
         return y[:n_obs],t[:n_obs]
 
+    def random_electricity_data(n_obs=500):
+        """ Retrieve univariate time series chosen randomly from the collection at www.microprediction.org
+            Chronological
+        :returns:  y, t
+        """
+        y, t = random_chronological_values_and_times(min_len=n_obs, exclude_str='~', include_str='electricity')
+        return y[:n_obs], t[:n_obs]
+
+    def random_hospital_data(n_obs=500):
+        """ Retrieve univariate time series chosen randomly from the collection at www.microprediction.org
+            Chronological
+        :returns:  y, t
+        """
+        y, t = random_chronological_values_and_times(min_len=n_obs, exclude_str='~', include_str='hospital')
+        return y[:n_obs], t[:n_obs]
+
+    def random_airport_data(n_obs=500):
+        """ Retrieve univariate time series chosen randomly from the collection at www.microprediction.org
+            Chronological
+        :returns:  y, t
+        """
+        y, t = random_chronological_values_and_times(min_len=n_obs, exclude_str='~', include_str='airport')
+        return y[:n_obs], t[:n_obs]
+
+    def random_volume_data(n_obs=500):
+        """ Retrieve univariate time series chosen randomly from the collection at www.microprediction.org
+            Chronological
+        :returns:  y, t
+        """
+        y, t = random_chronological_values_and_times(min_len=n_obs, exclude_str='~', include_str='volume')
+        return y[:n_obs], t[:n_obs]
+
+    def random_emoji_data(n_obs=500):
+        """ Retrieve univariate time series chosen randomly from the collection at www.microprediction.org
+            Chronological
+        :returns:  y, t
+        """
+        y, t = random_chronological_values_and_times(min_len=n_obs, exclude_str='~', include_str='emoji')
+        return y[:n_obs], t[:n_obs]
+
+
+    def random_noaa_data(n_obs=500):
+        """ Retrieve univariate time series chosen randomly from the collection at www.microprediction.org
+            Chronological
+        :returns:  y, t
+        """
+        y, t = random_chronological_values_and_times(min_len=n_obs, exclude_str='~', include_str='noaa')
+        return y[:n_obs], t[:n_obs]
+
+
+    def random_elo_data(n_obs=500):
+        """ Retrieve univariate time series chosen randomly from the collection at www.microprediction.org
+            Chronological
+        :returns:  y, t
+        """
+        data_source = random.choice([random_airport_data, random_electricity_data, random_noaa_data, random_emoji_data])
+        return data_source(n_obs=n_obs)
+
+
+    def random_electricity_data(n_obs=500):
+        """ Retrieve univariate time series chosen randomly from the collection at www.microprediction.org
+            Chronological
+        :returns:  y, t
+        """
+        y, t = random_chronological_values_and_times(min_len=n_obs, exclude_str='~', include_str='electricity')
+        return y[:n_obs], t[:n_obs]
+
 
     def random_residual_data(n_obs=500):
         """ Retrieve univariate time series chosen randomly from the collection at www.microprediction.org
