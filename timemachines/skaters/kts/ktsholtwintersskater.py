@@ -1,5 +1,5 @@
 
-from timemachines.skaters.kts.katsinclusion import using_kats
+from timemachines.skaters.kts.ktsinclusion import using_kats
 
 if using_kats:
     from timemachines.skaters.kts.ktswrappers import kats_HoltWinters_iskater
