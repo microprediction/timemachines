@@ -17,7 +17,7 @@ PYPI = {'tsa':'statsmodels',
         'kts':'kats',
         'ats':'auto_ts',
         'suc':'successor',
-         'mrln':'salesforce-merlion',
+        'mrln':'salesforce-merlion',
         'pycrt':'pycaret'}
 
 
