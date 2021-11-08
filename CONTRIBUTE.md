@@ -6,7 +6,9 @@ You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How
 
 But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In, and you have some manner of time-series or quantitative interest, so I sent you an invite. 
 
-Some fraction of you were asking about career advice. To get that out of the way, there are people in the microprediction slack who can probably give better advice than me. Hassle them, but mine would be:
+## Career advice? From me? Seriously? 
+
+Okay fine some fraction of you were asking about career advice. To get that out of the way, there are people in the microprediction slack who can probably give better advice than me. Hassle them, but mine would be:
 
  - Take the time to learn how to contribute to open-source and do all your hobby projects in the open, on GitHub.  
  - Read the [Mathematics subject classification](https://en.wikipedia.org/wiki/Mathematics_Subject_Classification) and slowly, over time, familiarize yourself with the key seminal tricks in each area. Even if you expect to spend most of your time in [4.2.1](https://en.wikipedia.org/wiki/Computer_science#Artificial_intelligence) this will give you angles on problems that other's don't have.  
@@ -14,12 +16,12 @@ Some fraction of you were asking about career advice. To get that out of the way
 
 Now I'll say a bit more about the selfish reasons for inviting you here...namely the hope that you'll contribute to reducing a microprediction tragedy of the commons.  
 
-## Vague objective
+## Vague objectives
 
 You are now in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, and commoditizing repeated quantitative tasks of all kinds. That might be a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward).   
 
 ## Specific goals 
-I hope you are interested in helping us create free open short term prediction of anything for anyone, as follows: 
+Yup, I hope you are interested in helping us create free open short term prediction of anything for anyone, as follows: 
 
    - Packaging a slew of fully autonomous univariate forecasting functions:
         * With a simple sequence-to-sequence signature ("[skaters](https://github.com/microprediction/timemachines)")
