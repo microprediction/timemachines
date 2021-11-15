@@ -83,7 +83,7 @@ keep open the possibility of the --no-use-pep517 option.
     pip install whatever --no-use-pep517
     
 ### Development
-You may wish to use [act](https://github.com/nektos/act) to run the Github test [actions](https://github.com/microprediction/timemachines/tree/main/.github/workflows) 
+The package is setup for *pytest* and we rely pretty heavily on Github actions. You may wish to use [act](https://github.com/nektos/act) to run the Github [actions](https://github.com/microprediction/timemachines/tree/main/.github/workflows) locally. 
     
 ### Quick start 
 
