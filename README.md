@@ -82,6 +82,9 @@ keep open the possibility of the --no-use-pep517 option.
  
     pip install whatever --no-use-pep517
     
+### Development
+You may wish to use [act](https://github.com/nektos/act) to run the Github test [actions](https://github.com/microprediction/timemachines/tree/main/.github/workflows) 
+    
 ### Quick start 
 
 This package is just a collection of skaters. My hope is that the [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities also serve as demonstrations of how to use any given "skater". The intent is that you call them repeatedly to process one data point at a time. 
