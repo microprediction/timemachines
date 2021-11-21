@@ -15,7 +15,7 @@ if using_ik:
         neg_y = [-yt for yt in y]
         e = [-1]*90+[100]+[-1]*90
         t = 10
-        r = 3
+        r = 1/3
         x, x_std = prior(f=f, y=neg_y, k=k, t=t, e=e, r=r)
 
 

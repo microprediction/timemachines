@@ -20,12 +20,14 @@ if using_ik:
         if len(y0s) < t or len(y0s) < r:
             return [y0s[-1]] * k, [1] * k
 
+        r = int(round(1/r))
+
         if r < 100:
             num_cols = 10
         else:
             num_cols = 100
 
-        nn = joblib.load('nn_ma'+str(int(r))+'.pkl')
+        nn = joblib.load('nn_ma'+str(r)+'.pkl')
         pred = nn.predict(np.array(y0s[(-1*num_cols):]).reshape(1,-1))
 
         x = [pred] * k

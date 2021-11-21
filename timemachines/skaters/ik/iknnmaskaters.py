@@ -7,19 +7,19 @@ if using_ik:
     from timemachines.skatertools.batch.batchskater import batch_skater_factory
 
     def ik_nn_ma3(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = float, e: E_TYPE = None, r: R_TYPE = float, emp_mass=0.0):
-        return batch_skater_factory(y=y, s=s, k=k, a=a, t=10, e=e, r=3, emp_mass=emp_mass,
+        return batch_skater_factory(y=y, s=s, k=k, a=a, t=10, e=e, r=1/3, emp_mass=emp_mass,
                                     iskater=ik_nnma_iskater,
                                     iskater_kwargs={},
                                     min_e=0)
 
     def ik_nn_ma10(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = float, e: E_TYPE = None, r: R_TYPE = float, emp_mass=0.0):
-        return batch_skater_factory(y=y, s=s, k=k, a=a, t=10, e=e, r=10, emp_mass=emp_mass,
+        return batch_skater_factory(y=y, s=s, k=k, a=a, t=10, e=e, r=1/10, emp_mass=emp_mass,
                                     iskater=ik_nnma_iskater,
                                     iskater_kwargs={},
                                     min_e=0)
 
     def ik_nn_ma100(y: Y_TYPE, s, k: int, a: A_TYPE = None, t: T_TYPE = float, e: E_TYPE = None, r: R_TYPE = float, emp_mass=0.0):
-        return batch_skater_factory(y=y, s=s, k=k, a=a, t=10, e=e, r=100, emp_mass=emp_mass,
+        return batch_skater_factory(y=y, s=s, k=k, a=a, t=10, e=e, r=1/100, emp_mass=emp_mass,
                                     iskater=ik_nnma_iskater,
                                     iskater_kwargs={},
                                     min_e=0)
