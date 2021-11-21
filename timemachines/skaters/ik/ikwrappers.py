@@ -16,7 +16,7 @@ if using_ik:
         else:
             y0s = [ yt[0] for yt in y ]
 
-        if len(y0s) < t or len(y0s) < r:
+        if len(y0s) < r:
             return [y0s[-1]] * k, [1] * k
 
         r = int(round(1/r))
