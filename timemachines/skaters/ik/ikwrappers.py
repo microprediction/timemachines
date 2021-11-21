@@ -6,7 +6,7 @@ if using_ik:
     from typing import List
 
 
-    def ik_nnma_iskater(y: [[float]], k: int, t: float, r: float):
+    def ik_nnma_iskater(y: [[float]], k: int, r: float):
         """
             Calls nueral network implementation of a moving average 
             forecasting that should be a function of the last r data points.
@@ -41,6 +41,6 @@ if __name__=='__main__':
     import time
     st = time.time()
     y = list(np.cumsum(np.random.randn(400)))
-    x, x_std = ik_nnma_iskater(y=y, k=5, t=10, r=3)
+    x, x_std = ik_nnma_iskater(y=y, k=5, r=3)
     print(x)
     print(time.time()-st)
