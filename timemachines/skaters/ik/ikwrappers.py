@@ -20,19 +20,8 @@ if using_ik:
         if len(y0s) < t or len(y0s) < r:
             return [y0s[-1]] * k, [1] * k
 
-        if r < 100:
-            num_cols = 10
-        else:
-            num_cols = 100
-
-        col_names = []
-        for i in range(0,num_cols):
-            col_names.append('t'+str(i))
-        data = [y0s[-num_cols:]]
-        df_ts = pd.DataFrame(data, columns = col_names)
-
         nn = joblib.load('nn_ma'+str(int(r))+'.pkl')
-        pred = nn.predict(df_ts)
+        pred = nn.predict(np.array(y0s[-num_cols:]).reshape(1,-1))
 
         x = [pred] * k
         x_std = [1] * k
