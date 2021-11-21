@@ -76,6 +76,6 @@ if __name__=='__main__':
     import time
     st = time.time()
     y = list(np.cumsum(np.random.randn(400)))
-    x, x_std = ik_nnma_iskater(y=y, k=5)
+    x, x_std = ik_nnma3_iskater(y=y, k=5)
     print(x)
     print(time.time()-st)
