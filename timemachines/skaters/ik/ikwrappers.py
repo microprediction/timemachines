@@ -7,7 +7,7 @@ if using_ik:
     from typing import List
 
 
-    def ik_nnma_iskater(y: [[float]], k: int, t: float, r: float):
+    def ik_nnma_iskater(y: [[float]], k: int, a: List = None, t: float, r: float):
         """
             Calls nueral network implementation of a moving average 
             forecasting that should be a function of the last r data points.
