@@ -2,7 +2,6 @@ from timemachines.skaters.ik.ikinclusion import using_ik
 
 if using_ik:
     import numpy as np
-    import pandas as pd
     import joblib
     from typing import List
 
