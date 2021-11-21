@@ -31,12 +31,14 @@ from timemachines.skaters.drts.alldartsskaters import DARTS_SKATERS
 from timemachines.skaters.mrln.allmerlionskaters import MERLION_SKATERS
 from timemachines.skaters.pycrt.allpycaretskaters import PYCRT_SKATERS
 from timemachines.skaters.kts.allkatsskaters import KATS_SKATERS
+from timemachines.skaters.ik.allikskaters import IK_SKATERS
 
 LOCAL_SKATERS = EMA_SKATERS + PROPHET_SKATERS + DIVINE_SKATERS + DLM_SKATERS + \
                 THINKING_SKATERS + PMD_SKATERS + TSA_SKATERS + NPROPHET_SKATERS + \
                 HYPOCRATIC_ENSEMBLE_SKATERS + ORBIT_SKATERS + BATS_SKATERS \
                 + RIVER_SKATERS + SK_SKATERS + GREYKITE_SKATERS + SMDK_SKATERS \
-                + DARTS_SKATERS + MERLION_SKATERS + PYCRT_SKATERS + KATS_SKATERS
+                + DARTS_SKATERS + MERLION_SKATERS + PYCRT_SKATERS + KATS_SKATERS \
+                + IK_SKATERS
 
 
 LEFT_OUT_FOR_NOW = LINEAR_SKATERS # + ...
