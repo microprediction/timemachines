@@ -14,8 +14,7 @@ if using_ik:
         y = hospital(n=n)
         neg_y = [-yt for yt in y]
         e = [-1]*90+[100]+[-1]*90
-        r = 1/3
-        x, x_std = prior(f=f, y=neg_y, k=k, e=e, r=r)
+        x, x_std = prior(f=f, y=neg_y, k=k, e=e)
 
 
 if __name__ == '__main__':

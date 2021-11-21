@@ -6,7 +6,7 @@ if using_ik:
     from typing import List
 
 
-    def ik_nnma_iskater(r, y: [[float]], k: int, a: List = None, t: List = None, e=None, deseasonalize=False):
+    def ik_nnma3_iskater(y: [[float]], k: int, a: List = None, t: List = None, e=None, deseasonalize=False):
         """
             Calls nueral network implementation of a moving average 
             forecasting that should be a function of the last r data points.
@@ -16,18 +16,53 @@ if using_ik:
         else:
             y0s = [ yt[0] for yt in y ]
 
-        if len(y0s) < r:
+        if len(y0s) < 100:
             return [y0s[-1]] * k, [1] * k
 
-        r = int(round(1/r))
+        nn = joblib.load('nn_ma3.pkl')
+        pred = nn.predict(np.array(y0s[-10:]).reshape(1,-1))
 
-        if r < 100:
-            num_cols = 10
+        x = [pred] * k
+        x_std = [1] * k
+
+        return x, x_std
+
+    def ik_nnma10_iskater(y: [[float]], k: int, a: List = None, t: List = None, e=None, deseasonalize=False):
+        """
+            Calls nueral network implementation of a moving average 
+            forecasting that should be a function of the last r data points.
+        """
+        if np.isscalar(y[0]):
+            y0s = [ yt for yt in y]
         else:
-            num_cols = 100
+            y0s = [ yt[0] for yt in y ]
 
-        nn = joblib.load('nn_ma'+str(r)+'.pkl')
-        pred = nn.predict(np.array(y0s[(-1*num_cols):]).reshape(1,-1))
+        if len(y0s) < 100:
+            return [y0s[-1]] * k, [1] * k
+
+        nn = joblib.load('nn_ma10.pkl')
+        pred = nn.predict(np.array(y0s[-10:]).reshape(1,-1))
+
+        x = [pred] * k
+        x_std = [1] * k
+
+        return x, x_std
+
+    def ik_nnma100_iskater(y: [[float]], k: int, a: List = None, t: List = None, e=None, deseasonalize=False):
+        """
+            Calls nueral network implementation of a moving average 
+            forecasting that should be a function of the last r data points.
+        """
+        if np.isscalar(y[0]):
+            y0s = [ yt for yt in y]
+        else:
+            y0s = [ yt[0] for yt in y ]
+
+        if len(y0s) < 100:
+            return [y0s[-1]] * k, [1] * k
+
+        nn = joblib.load('nn_ma100.pkl')
+        pred = nn.predict(np.array(y0s[-100:]).reshape(1,-1))
 
         x = [pred] * k
         x_std = [1] * k
