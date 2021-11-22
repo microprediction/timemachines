@@ -18,7 +18,8 @@ PYPI = {'tsa':'statsmodels',
         'ats':'auto_ts',
         'suc':'successor',
         'mrln':'salesforce-merlion',
-        'pycrt':'pycaret'}
+        'pycrt':'pycaret',
+        'ik':'scikit-learn'}
 
 
 def pypi_from_name(name):
