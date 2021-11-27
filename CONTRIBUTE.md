@@ -6,7 +6,7 @@ You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How
 
 But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In, and you have some manner of time-series or quantitative interest, so I sent you an invite. 
 
-## Career advice? From me? Seriously? 
+## Career advice? 
 
 Okay fine some fraction of you were asking about career advice. To get that out of the way, there are people in the microprediction slack who can probably give better advice than me. Hassle them, but mine would be:
 
