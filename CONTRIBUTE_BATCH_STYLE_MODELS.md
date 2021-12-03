@@ -4,14 +4,12 @@
 Do you have a favourite Python package for time-series analysis that you would like to see included in the funnel? There's some discussion
 on this [LI post](https://www.linkedin.com/posts/petercotton_timeseries-timeseriesanalysis-forecasting-activity-6844102671906037760-bGtu)
 
-### Likely contributor
+### When to use this pattern. 
 
 - You maintain a time-series package, or just really like one. 
 - The package exposes a way of predicting time-series in an offline (sometimes tabular) fashion (as compared with online, incremental)
 
-### When not to use this pattern
-
-If the package is a state-space model, or some other incremental method, then it would be wasteful to follow the pattern outlined here. See [CONTRIBUTE_ONLINE_STYLE_MODELS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_ONLINE_STYLE_MODELS.md) instead. 
+Just to emphasize, if the package is, say a state-space model, or some other incremental method, then it would be wasteful to follow the pattern outlined here. See [CONTRIBUTE_ONLINE_STYLE_MODELS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_ONLINE_STYLE_MODELS.md) instead. 
 
 ### How to contribute 
 
