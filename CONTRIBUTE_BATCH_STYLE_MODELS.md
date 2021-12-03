@@ -17,7 +17,10 @@ If the package is a state-space model, or some other incremental method, you'll 
 
 1. Look at the example provided by [sk skaters directory](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/sk) and try to grok
 2. If step (1) fails, ask questions on slack (invite [here](https://www.microprediction.com/knowledge-center))
-3. Grok the package you think should be in. Create an example colab notebook (like [examples here](https://github.com/microprediction/timeseries-notebooks) that uses the package to be sure you understand the conventions adopted.  
+3. Grok the package you think should be in. Create an example colab notebook (like [examples here](https://github.com/microprediction/timeseries-notebooks)) that uses the package. It should show how to produce a k-vector of 1..k step ahead predictions. You'd be surprised at how many packages seem to think this is an obscure use case and don't include it in their README :)
+
+At this point you've already helped a lot. If you want to take it all the way...
+
  4. Choose a short PREFIX that isn't exactly the same as the library (here PREFIX='sk', obviously)
  5. Write PREFIXinclusion.py           (in the same style as [skinclusion.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/sk/skinclusion.py))
  6. Write PREFIXwrappers.py            (expose the batch functionality in the same style as [skwrappers.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/sk/skwrappers.py))
