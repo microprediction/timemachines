@@ -11,7 +11,7 @@ on this [LI post](https://www.linkedin.com/posts/petercotton_timeseries-timeseri
 
 ### When not to use this pattern
 
-If the package is a state-space model, or some other incremental method, you'll not want to go down this path. 
+If the package is a state-space model, or some other incremental method, then it would be wasteful to follow the pattern outlined here. See [CONTRIBUTE_ONLINE_STYLE_MODELS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_ONLINE_STYLE_MODELS.md) instead. 
 
 ### How to contribute 
 
