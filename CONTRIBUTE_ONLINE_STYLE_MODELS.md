@@ -10,7 +10,7 @@ Do you have a favourite Python package for time-series analysis that you would l
 
 ### When not to use this pattern
 
-If the package assumes you have to fit every new data point (like Prophet or many others) then see [CONTRIBUTE_BATCH_STYLE_MODELS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_BATCH_STYLE_MODELS.md) instead. 
+If the package assumes you have to fit every new data point (like Prophet or many others) then see [CONTRIBUTE_BATCH_STYLE_MODELS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_BATCH_STYLE_MODELS.md) instead as this will provide a much shorter path.  
 
 ### How to contribute 
 
