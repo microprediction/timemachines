@@ -14,11 +14,9 @@ Okay fine some fraction of you were asking about career advice. To get that out 
  - Read the [Mathematics subject classification](https://en.wikipedia.org/wiki/Mathematics_Subject_Classification) and slowly, over time, familiarize yourself with the key seminal tricks in each area. Even if you expect to spend most of your time in [4.2.1](https://en.wikipedia.org/wiki/Computer_science#Artificial_intelligence) this will give you angles on problems that other's don't have.  
  - Other advice mostly overlaps with platitudes. 
 
-Now I'll say a bit more about the selfish reasons for inviting you here...namely the hope that you'll contribute to reducing a microprediction tragedy of the commons.  
-
 ## Vague objectives
 
-You are now in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, and commoditizing repeated quantitative tasks of all kinds. That might be a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward).   
+Anyway ... you are now in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, and commoditizing repeated quantitative tasks of all kinds. That might be a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward).   
 
 ## Specific goals 
 Yup, I hope you are interested in helping us create free open short term prediction of anything for anyone, as follows: 
