@@ -8,7 +8,7 @@ You can:
 3. Use various combinations (composition, stacking et cetera) or make your own.
 4. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py).
 5. Adopt the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
-6. Join our [slack](https://join.slack.com/t/microprediction/shared_invite/zt-xauc5r03-XmIMdy~iL4a3Hw3G1Agv6w) and ask questions. 
+6. Join our [slack](https://join.slack.com/t/microprediction/shared_invite/zt-xauc5r03-XmIMdy~iL4a3Hw3G1Agv6w) and ask questions (try the [knowledge center](http://www.microprediction.com/knowledge-center) if that invite has expired or asks you for an email).
 
 There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. This project is intended to help you select packages, strategies and even hyper-params. But it does not replace the packages themselves. Possibly one of the best uses is applying these skater functions to the residuals of your existing models.   
 
