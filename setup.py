@@ -59,7 +59,7 @@ setup(
     test_suite='pytest',
     tests_require=['pytest','microprediction','scikit-learn','scipy'],
     include_package_data=True,
-    install_requires=["wheel","pathlib","numpy>=1.19.5","importlib-metadata>=1.7.0",
+    install_requires=["wheel","numpy>=1.19.5","importlib-metadata>=1.7.0",
                       "microconventions>=0.5.1","getjson",'pytz',
                        "convertdate>=2.2.0","momentum>=0.2.1","requests"],
     entry_points={
