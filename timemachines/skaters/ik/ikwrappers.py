@@ -9,7 +9,7 @@ if using_ik:
     def ik_nnma3_iskater(y: [[float]], k: int, a: List = None, t: List = None, e=None, deseasonalize=False):
         """
             Calls nueral network implementation of a moving average 
-            forecasting that should be a function of the last r data points.
+            forecasting that should be a function of the last r data points
         """
         if np.isscalar(y[0]):
             y0s = [ yt for yt in y]
