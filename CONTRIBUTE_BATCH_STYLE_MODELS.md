@@ -41,7 +41,8 @@ Write unit tests
 Run pytest and the individual test repeatedly. When it is working well you can include it in the master list:
  
  11. Modify [localskaters.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/localskaters.py) 
- 10. Modify [README.md](https://github.com/microprediction/timemachines/blob/main/README.md) to include a suggestion to users to pip install the new requirements
+ 12. Modify [README.md](https://github.com/microprediction/timemachines/blob/main/README.md) to include a suggestion to users to pip install the new requirements
+ 13. Modify [setup.py](https://github.com/microprediction/timemachines/blob/main/setup.py) to include the new directory.  
 
 ## More help / discussion
 
