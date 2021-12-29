@@ -36,6 +36,7 @@ setup(
               "timemachines.skaters.rvr",
               "timemachines.skaters.sk",
               "timemachines.skaters.elo",
+              "timemachines.skaters.ik",
               "timemachines.skaters.smdk",
               "timemachines.skaters.gk",
               "timemachines.skaters.drts",
