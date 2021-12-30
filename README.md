@@ -20,9 +20,13 @@ See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CO
 ### Slack / Google Meets
 See the Slack invite on my user page [here](https://github.com/microprediction). 
 
-## Install on python venv 
+# Installation
 
-The cautious person proceeds as follows in a python virtual environment (reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1)). Absolute bare bones:   
+Please use a virtual env or a new conda environement. 
+
+
+## Install on python virtual environment
+See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1)) if you are not familiar. Given all the dependencies of various timeseries packages out there, failure to use a virtual environment could leave you in a real [mess](https://xkcd.com/1987/). 
 
     pip install --upgrade pip
     pip install --upgrade numpy
