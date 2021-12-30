@@ -14,7 +14,11 @@ There's also a recommendation [colab notebook](https://github.com/micropredictio
 
 ### Contribute
     
-See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md).  Also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) and the Slack invite on my user page [here](https://github.com/microprediction)
+See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md).  Also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md). 
+
+
+### Slack / Google Meets
+See the Slack invite on my user page [here](https://github.com/microprediction). 
 
 ## Install on python venv 
 
