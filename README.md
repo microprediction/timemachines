@@ -28,11 +28,6 @@ The cautious person proceeds as follows in a python virtual environment (reasona
     pip install --upgrade scipy 
    
 (You can scrape by without the last two as they are only used for metrics)
-   
-On colab you might need to do this if it still has an old numpy:  
-
-    !pip uninstall numpy
-    !pip install --upgrade numpy 
 
 Next (optional)...
 
@@ -97,18 +92,25 @@ Then proceed as above as see how far you get with timeseries packages
      pip install --upgrade darts
      pip install --upgrade river 
     
-and so on (see list above). 
+and so on (see list above). The apple silicon (m1) install situation is particularly fluid. I revert to anaconda miniforge as noted above. But see also [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) and
+keep open the possibility of the --no-use-pep517 option.
+ 
+    pip install whatever --no-use-pep517
 
 Optional: (e.g. for training, testing etc)
 
     pip install --upgrade microprediction   
     
-## Install remark on pystan
+## Install troubleshooting remark on pystan
     
-On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. The apple silicon (m1) install situation is particularly fluid. I revert to anaconda miniforge as noted above. But see also [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) and
-keep open the possibility of the --no-use-pep517 option.
- 
-    pip install whatever --no-use-pep517
+On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. 
+    
+## Install troubleshooting remark on colab
+To clean out old versions of pytz etc I sometimes use:
+
+    !pip uninstall numpy -y
+    
+in colab notebooks. However hopefully that won't be required by the time you read this. 
     
 ### Development
 The package is setup for *pytest* and we rely pretty heavily on Github actions. You may wish to use [act](https://github.com/nektos/act) to run the Github [actions](https://github.com/microprediction/timemachines/tree/main/.github/workflows) locally. 
@@ -137,6 +139,9 @@ This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
     plt.show()
   
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
+  
+  
+ 
   
 ## Skating advantages
   
