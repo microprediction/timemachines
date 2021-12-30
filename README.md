@@ -22,11 +22,11 @@ See the Slack invite on my user page [here](https://github.com/microprediction).
 
 # Installation
 
-Please use a virtual env or a new conda environement. 
+Please use a virtual env or a new conda environement. This is reasonable advice in general but particularly so here, given all the dependencies of various timeseries packages out there. Failure to use a virtual environment could leave you in a real [mess](https://xkcd.com/1987/). 
 
 
 ## Install on python virtual environment
-See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1)) if you are not familiar. Given all the dependencies of various timeseries packages out there, failure to use a virtual environment could leave you in a real [mess](https://xkcd.com/1987/). 
+See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1)) if you are not familiar. 
 
     pip install --upgrade pip
     pip install --upgrade numpy
@@ -68,9 +68,9 @@ Finally, it is time to install the packages you wish to employ. You may wish to 
     pip install --upgrade pycaret-ts-alpha
     
 
-## Install on M1
+## Install with conda (particulary if using mac silicon)
 
-Using only pip and venv on mac silicon is, at the time of writing, a fool's errand. And some prefer conda anayway. One option is: 
+Using only pip on mac silicon is, at the time of writing, a fool's errand. And some prefer conda anayway. One option is: 
 
     brew install miniforge
 
