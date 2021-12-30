@@ -80,11 +80,11 @@ and proceed cautiously:
     conda install pandas
     conda install statsmodels
     conda install matplotlib
+    pip install timemachines
 
-Then proceed, using miniconda where possible and pip if conda doesn't have it yet  
+Then proceed, using miniconda where possible and pip if conda doesn't have it yet. For instance if installing a package that needs lightgbm is causing a headache then try:  
 
     conda install -c conda-forge lightgbm
-    pip install timemachines
     
 Then proceed as above as see how far you get with timeseries packages
 
