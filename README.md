@@ -86,12 +86,12 @@ Then proceed, using miniconda where possible and pip if conda doesn't have it ye
 
     conda install -c conda-forge lightgbm
     
-Then proceed as above as see how far you get with timeseries packages
+After exhausting proceed as above as see how far you get with timeseries packages
 
      pip install --upgrade darts
      pip install --upgrade river 
     
-and so on (see list above). The apple silicon (m1) install situation is particularly fluid. I revert to anaconda miniforge as noted above. But see also [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) and
+and so on (see list above). Again, the apple silicon (m1) install situation is particularly fluid. Maybe see [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) for ideas and 
 keep open the possibility of the --no-use-pep517 option.
  
     pip install whatever --no-use-pep517
