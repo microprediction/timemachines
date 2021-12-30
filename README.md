@@ -143,9 +143,7 @@ This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
   
- 
-  
-## Skating advantages
+# Why do it this way?
   
 ![](https://i.imgur.com/elu5muO.png)
   
@@ -180,7 +178,7 @@ To emphasize, in this package a time series "model" is a plain old function taki
     forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However here the *caller* is expected to maintain state from one 
     invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
   
-## The Skater signature 
+# The Skater signature 
 So, here's a tiny bit more detail about the signature adopted by *all* skaters in this package. 
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
@@ -301,15 +299,15 @@ because it wants to allow the skaters to receive some history before they are ev
      
 See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or file an issue if anything offends you greatly. 
  
-### Related illustrations 
+## Examples
 
 - See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 
-### Tuning pre-skaters 
+## Tuning "pre-skaters" 
 
 - See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
     
-### Cite 
+## Cite 
 
 Thanks
 
