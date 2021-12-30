@@ -17,9 +17,9 @@ There's also a recommendation [colab notebook](https://github.com/micropredictio
 See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md).  Also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) and 
 [slack invite](https://join.slack.com/t/microprediction/shared_invite/zt-xauc5r03-XmIMdy~iL4a3Hw3G1Agv6w)
 
-## Install
+## Install on python venv 
 
-The cautious person proceeds... 
+The cautious person proceeds as follows in a python virtual environment (reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1))   
 
     pip install --upgrade pip
     pip install --upgrade numpy
@@ -65,17 +65,45 @@ Next (optional)... some subset of the following:
     pip install --upgrade salesforce-merlion
     pip install --upgrade pycaret-ts-alpha
     
-You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. On some hardware you may need to resort to conda-forge for some packages if you run into trouble, for example
+You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. 
+
+## Install on M1 (or if you prefer conda) 
+
+Using only pip and venv on mac silicon is, at the time of writing, a fool's errand. Instead: 
+
+    brew install miniforge
+
+You have other options [here](https://github.com/conda-forge/miniforge) for installing miniforge. Then make a new conda env:
+
+    conda create -n myenv
+    conda activate myenv 
+    
+and proceed cautiously: 
+    
+    conda install numpy
+    conda install scipy 
+    conda install scikit-learn
+    conda install pandas
+    conda install statsmodels
+    conda install matplotlib
+
+Then proceed, using miniconda where possible and pip if conda doesn't have it yet  
 
     conda install -c conda-forge lightgbm
+    pip install timemachines
     
-Optional:
+Then proceed as above as see how far you get with timeseries packages
 
-    pip install matplotlib 
+     pip install --upgrade darts
+     pip install --upgrade river 
+    
+and so on (see list above). 
 
 Optional: (e.g. for training, testing etc)
 
     pip install --upgrade microprediction   
+    
+## Install remark on pystan
     
 On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. The apple silicon (m1) install situation is particularly fluid. I revert to anaconda miniforge as noted above. But see also [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) and
 keep open the possibility of the --no-use-pep517 option.
