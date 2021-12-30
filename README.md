@@ -19,7 +19,7 @@ See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CO
 
 ## Install on python venv 
 
-The cautious person proceeds as follows in a python virtual environment (reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1))   
+The cautious person proceeds as follows in a python virtual environment (reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1)). Absolute bare bones:   
 
     pip install --upgrade pip
     pip install --upgrade numpy
@@ -27,22 +27,21 @@ The cautious person proceeds as follows in a python virtual environment (reasona
     pip install --upgrade scikit-learn 
     pip install --upgrade scipy 
    
-(You can scrape by without the last two as they are only used for metrics)
+You can even scrape by without the last two as they are only used for metrics. 
 
-Next (optional)...
+Now, if you want to make more models available...
 
     pip install --upgrade statsmodels
     
-(Many packages wrap statsmodels.tsa) 
+(Many, many packages wrap statsmodels.tsa) 
 
-Next (optional)...
+Then, if you think you'll want to use models that need tensorflow
 
     pip install tensorflow
     
-You may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps
-reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
+however it is okay to skip this. You may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
 
-Next (optional)... some subset of the following: 
+Finally, it is time to install the packages you wish to employ. You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. But here are some suggestions: 
     
     pip install --upgrade darts
     pip install --upgrade river 
@@ -60,7 +59,6 @@ Next (optional)... some subset of the following:
     pip install --upgrade salesforce-merlion
     pip install --upgrade pycaret-ts-alpha
     
-You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. 
 
 ## Install on M1 (or if you prefer conda) 
 
