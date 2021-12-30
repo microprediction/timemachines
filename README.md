@@ -60,13 +60,13 @@ Finally, it is time to install the packages you wish to employ. You may wish to 
     pip install --upgrade pycaret-ts-alpha
     
 
-## Install on M1 (or if you prefer conda) 
+## Install on M1
 
-Using only pip and venv on mac silicon is, at the time of writing, a fool's errand. Instead: 
+Using only pip and venv on mac silicon is, at the time of writing, a fool's errand. And some prefer conda anayway. One option is: 
 
     brew install miniforge
 
-You have other options [here](https://github.com/conda-forge/miniforge) for installing miniforge. Then make a new conda env:
+(you can get homebrew [here](https://brew.sh/)). You have other options [here](https://github.com/conda-forge/miniforge) for installing miniforge. Then make a new conda env:
 
     conda create -n myenv
     conda activate myenv 
