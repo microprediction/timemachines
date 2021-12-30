@@ -26,7 +26,14 @@ Please use a virtual env or a new conda environement. This is reasonable advice 
 
 
 ## Install on python virtual environment
-See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1)) if you are not familiar. 
+See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1) if you are not familiar. For instance:
+
+    mkdir virtual-envs
+    cd virtual-envs
+    python -m venv myenv 
+    source myenv/bin/activate 
+    
+Then:
 
     pip install --upgrade pip
     pip install --upgrade numpy
