@@ -27,7 +27,8 @@ The cautious person proceeds as follows in a python virtual environment (reasona
     pip install --upgrade scikit-learn 
     pip install --upgrade scipy 
    
-You can even scrape by without the last two as they are only used for metrics. 
+You can even scrape by without the last two as they are only used for metrics. This will provide a set of home-spun forecasting functions such as the 
+[simple](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/simple) models. 
 
 Now, if you want to make more models available...
 
