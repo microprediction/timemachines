@@ -50,11 +50,12 @@ Now, if you want to make more models available...
     
 (Many, many packages wrap statsmodels.tsa) 
 
-Then, if you think you'll want to use models that need tensorflow
+Then, if you think you'll want to use models that need tensorflow or pandas ...
 
     pip install tensorflow
+    pip install pandas
     
-however it is okay to skip this. You may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
+Failure to do so may limit your options somewhat. As an aside you may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
 
 Finally, it is time to install the packages you wish to employ. You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. But here are some suggestions: 
     
@@ -62,12 +63,12 @@ Finally, it is time to install the packages you wish to employ. You may wish to 
     pip install --upgrade river 
     pip install --ugprade sktime
     pip install --upgrade tbats
+    pip install --upgrade prophet
+    pip install --upgrade successor
     pip install --upgrade orbit-ml
     pip install --upgrade pydlm
     pip install --upgrade divinity
     pip install --upgrade pmdarima
-    pip install --upgrade prophet
-    pip install --upgrade successor
     pip install --upgrade neuralprophet
     pip install --upgrade greykite
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
