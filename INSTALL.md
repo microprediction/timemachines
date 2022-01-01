@@ -1,4 +1,11 @@
-## Install on python virtual environment
+Two suggested paths:
+
+    1. Try the pure pip route
+    2. Use miniconda
+
+I definitely suggest the latter if you are an M1 user
+
+# Option 1) Install on python virtual environment
 See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1) if you are not familiar. Skip to next section if using mac silicon (new M1). Example of creating new env:
 
     mkdir virtual-envs
@@ -117,7 +124,7 @@ Optional: (e.g. for training, testing etc)
     
 
     
-## Install troubleshooting remark on colab
+# Option 2) Install troubleshooting remark on colab
 To clean out old versions of pytz etc I sometimes use:
 
     !pip uninstall numpy -y
