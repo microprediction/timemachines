@@ -33,42 +33,39 @@ See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-you
     python -m venv myenv 
     source myenv/bin/activate 
     
-Then:
+I suggest that life is less frustrating if you patiently install popular prerequisites one by one
 
     pip install --upgrade pip
     pip install --upgrade numpy
     pip install --upgrade timemachines
-    pip install --upgrade scikit-learn 
+    pip install --upgrade joblib
     pip install --upgrade scipy 
-   
-You can even scrape by without the last two as they are only used for metrics. This will provide a set of home-spun forecasting functions such as the 
+    pip install --upgrade scikit-learn 
+ 
+so you can see if you run into difficulty. You can even scrape by without the last two as they are only used for metrics. This will provide a set of home-spun forecasting functions such as the 
 [simple](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/simple) models. 
 
-Now, if you want to make more models available...
+Now, if you want to make a reasonably large number of models (skaters) available to yourself then:
 
     pip install --upgrade statsmodels
+    pip install --upgrade tensorflow
+    pip install --upgrade pandas
+    pip install --upgrade cython
     
-(Many, many packages wrap statsmodels.tsa) 
+You can, for the most part, get away without tensorflow. It is much harder to avoid using statsmodels as just about every other package wraps statsmodels.tsa As an aside you may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
 
-Then, if you think you'll want to use models that need tensorflow or pandas ...
-
-    pip install tensorflow
-    pip install pandas
+Finally, it is time to install the packages you wish to employ. You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. But here are some suggestions, ordered by approximate easy of install rather than performance.  
     
-Failure to do so may limit your options somewhat. As an aside you may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
-
-Finally, it is time to install the packages you wish to employ. You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. But here are some suggestions: 
-    
-    pip install --upgrade darts
-    pip install --upgrade river 
+    pip install --upgrade river
+    pip install --upgrade pydlm
+    pip install --upgrade divinity
+    pip install --upgrade pmdarima
+    pip install --upgrade darts 
     pip install --ugprade sktime
     pip install --upgrade tbats
     pip install --upgrade prophet
     pip install --upgrade successor
     pip install --upgrade orbit-ml
-    pip install --upgrade pydlm
-    pip install --upgrade divinity
-    pip install --upgrade pmdarima
     pip install --upgrade neuralprophet
     pip install --upgrade greykite
     pip install --upgrade git+https://github.com/oseiskar/simdkalman
