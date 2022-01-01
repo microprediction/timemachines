@@ -146,7 +146,7 @@ Suggests a number of seconds allowed for computation, though skater's don't nece
    
 ### Skater "r" argument (stands for "hype(r) pa(r)amete(r)s for pre-skaters only)
 
-A real skater doesn't have any hyper-parameters. It's the job of the designer to make it fully autonomous. The small concession made here is the notion of a pre-skater: one with a single float hyperparameter in the closed interval \[0,1\]. Pre-skaters squish all tunable parameters into this interval. That's a bit tricky, so some rudimentary conventions and space-filling functions are provided. See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning).
+A real skater doesn't have any hyper-parameters. It's the job of the designer to make it fully autonomous. The small concession made here is the notion of a pre-skater: one with a single float hyperparameter in the closed interval \[0,1\]. Pre-skaters squish all tunable parameters into this interval. That's a bit tricky, so some rudimentary conventions and space-filling functions are provided. See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning) and longer discussion below. 
 
 ## Return values
 All skater functions return two vectors and the posterior state dictionary. 
@@ -172,10 +172,6 @@ There isn't any capability to indicate three numbers (e.g. for asymmetric conf i
 In returning state, the intent is that the *caller* might carry the state from one invocation to the next verbatim. This is arguably more convenient than having the predicting object maintain state, because the caller can "freeze" the state as they see fit, as 
 when making conditional predictions. This also eyes lambda-based deployments and *encourages* tidy use of internal state - not that we succeed
  when calling down to statsmodels (though prophet, and others including the home grown models use simple dictionaries, making serialization trivial). 
- 
-You'll notice also that parameter use seems limited. This is deliberate. A skater is morally a "bound" model (i.e. fixed hyper-parameters) and ready to use. Any fitting, estimation or updating is the skater's internal responsibility. That said, it is sometimes useful to enlarge the skater concept to include hyper-parameters, as this enourages a more standardized way to expose and fit them. It remains the responsibility of the skater designer to ensure that the parameter space is folded into (0,1) is a somewhat sensible way. 
-
-The use of a single scalar for hyper-parameters may seem unnatural, but is slighly less unnatural if [conventions](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/utilities/conventions.py) are followed that inflate \[0,1\] into the square \[0,1\]^2 or the cube \[0,1\]^3. See the functions **to_space** and **from_space**. This also makes it trivial for anyone to design black box optimization routines that can work on any skater, without knowing its working. The humpday package makes this trivial - albeit time-consuming. 
     
 ### Summary of conventions: 
 
@@ -195,7 +191,7 @@ The use of a single scalar for hyper-parameters may seem unnatural, but is sligh
      - Pass the *vector* argument *a* that will occur in k-steps time (not the contemporaneous one)
      - Remark: In the case of k=1 there are different interpretations that are possible beyond "business day", such as "size of a trade" or "joystick up" etc. 
 
-- Hyper-Parameter space:
+- Hyper-Parameter space (for pre-skaters only)
      - A float *r* in (0,1). 
      - This package provides functions *to_space* and *from_space*, for expanding to R^n using space filling curves, so that the callee's (hyper) parameter optimization can still exploit geometry, if it wants to.   
      
@@ -221,7 +217,7 @@ because it wants to allow the skaters to receive some history before they are ev
 
 - See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 
-## Tuning "pre-skaters" 
+## Tuning "pre-skaters" and more on the "r" argument for pre-skaters
 
 - See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
     
