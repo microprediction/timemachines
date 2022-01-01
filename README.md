@@ -26,7 +26,7 @@ Please use a virtual env or a new conda environement. This is reasonable advice 
 
 
 ## Install on python virtual environment
-See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1) if you are not familiar. For instance:
+See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1) if you are not familiar. Skip to next section if using mac silicon (new M1). Example of creating new env:
 
     mkdir virtual-envs
     cd virtual-envs
@@ -36,39 +36,67 @@ See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-you
 I suggest that life is less frustrating if you patiently install popular prerequisites one by one
 
     pip install --upgrade pip
+    pip install --upgrade wheel
     pip install --upgrade numpy
     pip install --upgrade timemachines
     pip install --upgrade joblib
+    pip install --upgrade numba
     pip install --upgrade scipy 
     pip install --upgrade scikit-learn 
  
-so you can see if you run into difficulty. You can even scrape by without the last two as they are only used for metrics. This will provide a set of home-spun forecasting functions such as the 
+so you can see if you run into difficulty. If desperately, you can scrape by without the last two as they are only used for metrics. You'll still have
+a slew of speedy home-spun forecasting functions such as the 
 [simple](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/simple) models. 
 
-Now, if you want to make a reasonably large number of models (skaters) available to yourself then:
+But, if you want to make a reasonably large number of models (skaters) available to yourself then try some of these:
 
     pip install --upgrade statsmodels
     pip install --upgrade tensorflow
+    pip install --upgrade torch
     pip install --upgrade pandas
     pip install --upgrade cython
     
-You can, for the most part, get away without tensorflow. It is much harder to avoid using statsmodels as just about every other package wraps statsmodels.tsa As an aside you may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
+It is hardest to avoid using statsmodels as just about every other package wraps statsmodels.tsa As an aside you may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
+
+Next decide how badly you want prophet, or other timeseries packages that wrap it. 
+
+  pip install --upgrade prophet
+    
+On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there.  
 
 Finally, it is time to install the packages you wish to employ. You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. But here are some suggestions, ordered by approximate easy of install rather than performance.  
     
     pip install --upgrade river
+    pip install --upgrade git+https://github.com/oseiskar/simdkalman
     pip install --upgrade pydlm
     pip install --upgrade divinity
     pip install --upgrade pmdarima
-    pip install --upgrade darts 
+    pip install --upgrade u8darts        (does not include prophet, or...)
+    pip install --upgrade darts          (does include prophet)
+    
+Here it might pay to read the [darts install guide](https://github.com/unit8co/darts#installation-guide) for advice on libomp and other troubleshooting.
+    
     pip install --ugprade sktime
+    
+If that fails, try
+
+    export SKTIME_NO_OPENMP=true
+    pip install --upgrade sktime
+    
+Continuing...
+    
     pip install --upgrade tbats
-    pip install --upgrade prophet
     pip install --upgrade successor
     pip install --upgrade orbit-ml
     pip install --upgrade neuralprophet
     pip install --upgrade greykite
-    pip install --upgrade git+https://github.com/oseiskar/simdkalman
+    
+You might get this warning:
+
+    sktime 0.9.0 requires statsmodels<=0.12.1
+    
+Proceeding..
+    
     pip install --upgrade salesforce-merlion
     pip install --upgrade pycaret-ts-alpha
     
@@ -112,9 +140,7 @@ Optional: (e.g. for training, testing etc)
 
     pip install --upgrade microprediction   
     
-## Install troubleshooting remark on pystan
-    
-On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. 
+
     
 ## Install troubleshooting remark on colab
 To clean out old versions of pytz etc I sometimes use:
