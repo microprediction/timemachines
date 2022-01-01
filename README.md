@@ -4,11 +4,8 @@
 
 You can:
 1. Use some of the functionality of a [subset](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/pypi.py) of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) with one line of code.
-2. Find faster, lighter, lesser-known alternatives like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that might be as accurate for your purpose.
-3. Use various combinations (composition, stacking et cetera) or make your own, perhaps by using provided hyper-parameter [tuning](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/README.md) to turn "almost" autonomous algorithms, or combinations of the same, into fully autonomous algorithms. 
-4. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py).
-5. Adopt the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
-
+2. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py). Find faster, lighter, lesser-known methods like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that might be useful for your purpose. Perhaps even adopt the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
+3. Use various combinations (composition, stacking [et cetera](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/ensembling)) or make your own, perhaps by using provided hyper-parameter [tuning](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/README.md) to turn "almost" autonomous algorithms, or combinations of the same, into fully autonomous algorithms. 
 
 There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. This project is intended to help you select packages, strategies and even hyper-params. But it does not replace the packages themselves. Possibly one of the best uses is applying these skater functions to the residuals of your existing models.   
 
