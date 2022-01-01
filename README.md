@@ -44,11 +44,8 @@ I suggest that life is less frustrating if you patiently install popular prerequ
     pip install --upgrade scipy 
     pip install --upgrade scikit-learn 
  
-so you can see if you run into difficulty. If desperately, you can scrape by without the last two as they are only used for metrics. You'll still have
-a slew of speedy home-spun forecasting functions such as the 
-[simple](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/simple) models. 
-
-But, if you want to make a reasonably large number of models (skaters) available to yourself then try some of these:
+so you can see if you run into difficulty. If desperate, you can maybe scrape by without the last two as they are only used for metrics. You'll still have a slew of speedy home-spun forecasting functions such as the 
+[simple](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/simple) models. But, if you want to make a reasonably large number of models (skaters) available to yourself then you'll need most of these and also:
 
     pip install --upgrade statsmodels
     pip install --upgrade tensorflow
@@ -62,7 +59,7 @@ Next decide how badly you want prophet, or other timeseries packages that wrap i
 
   pip install --upgrade prophet
     
-On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there.  
+On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. It is an extrapolation library, really, not a timeseries forecasting library.   
 
 Finally, it is time to install the packages you wish to employ. You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. But here are some suggestions, ordered by approximate easy of install rather than performance.  
     
