@@ -56,7 +56,6 @@ setup(
               "timemachines.skatertools.utilities",
               "timemachines.skatertools.visualization",
               "timemachines.skatertools.batch",
-              "timemachines.skatertools.lotto",
               "timemachines.skatertools.recommendations"],
     test_suite='pytest',
     tests_require=['pytest','microprediction','scikit-learn','scipy'],

@@ -28,7 +28,7 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
               elo - Dictionary containing the 'state' (i.e. elo ratings and game counts)
               k   - Number of steps to look ahead
               tol - Error ratio that results in a tie being declared
-              data_provider - A function taking n_obs and returning y, t
+              data_source - A function taking n_obs and returning y, t
               skater_population - Usually a subset of timemachines.skaters.allskaters.SKATERS
               always_skater - Skater to always include
     """
