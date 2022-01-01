@@ -1,5 +1,7 @@
 
-A skater is morally a "bound" model (i.e. fixed hyper-parameters) and ready to use. Any fitting, estimation or updating is the skater's internal responsibility. 
+A skater is morally a "bound" model (i.e. fixed hyper-parameters) and ready to use without any user intervention, on any time-series. Any fitting, estimation or updating is the skater's internal responsibility. As noted elsewhere there are tools provided in this package to help make more robust yet autonomous forecasters, by means of stacking, composition and so forth. 
+
+### Pre-skaters
 
 That said, it is sometimes useful to enlarge the skater concept to include hyper-parameters, as this enourages a more standardized way to expose and fit them. These are called pre-skaters and they admit just one additional argument - the scalar "r" parameter. It remains the responsibility of the pre-skater designer to ensure that the parameter space is folded into (0,1) is a somewhat sensible way. 
 
