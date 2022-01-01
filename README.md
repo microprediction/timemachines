@@ -148,8 +148,11 @@ Suggests a number of seconds allowed for computation, though skater's don't nece
 A real skater doesn't have any hyper-parameters. It's the job of the designer to make it fully autonomous. The small concession made here is the notion of a pre-skater: one with a single float hyperparameter in the closed interval \[0,1\]. Pre-skaters squish all tunable parameters into this interval. That's a bit tricky, so some rudimentary conventions and space-filling functions are provided. See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning).
 
 ### Return values
+All skater functions return two vectors and the posterior state dictionary. 
 
-Two vectors and the posterior state. The first set of *k* numbers can be *interpreted* as a point estimate (but need not be) and the second is *typically* suggestive of a symmetric error std, or width. However a broader interpretation is possible wherein a skater *suggests* a useful affine transformation of the incoming data and nothing more.  
+      1. The first set of *k* numbers can be *interpreted* as a point estimate (but need not be)
+      2. The second is *typically* suggestive of a symmetric error std, or width. However a broader interpretation is possible wherein a skater *suggests* a useful affine transformation of the incoming data and nothing more.  
+      3. The third returned value is state, and the skater expects to receive it again on the next call.
 
 
           -> x     [float],    # A vector of point estimates, or anchor points, or theos
