@@ -26,13 +26,9 @@ See methodical [install instructions](https://github.com/microprediction/timemac
 
 I ain't gonna lie. Using multiple python timeseries packages can involve some one-off install pain. Please use a virtual env or a new conda environement. This is reasonable advice in general but particularly so here, given all the dependencies of various timeseries packages out there. Failure to use a virtual environment could leave you in a real [mess](https://xkcd.com/1987/). 
 
-
-### Development
-The package is setup for *pytest* and we rely pretty heavily on Github actions. You may wish to use [act](https://github.com/nektos/act) to run the Github [actions](https://github.com/microprediction/timemachines/tree/main/.github/workflows) locally. 
-    
 # [Quick start](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) 
 
-This package is just a collection of skaters. My hope is that the [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities also serve as demonstrations of how to use any given "skater". The intent is that you call them repeatedly to process one data point at a time. 
+This package is just a collection of "skaters" whose [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities serve as demonstrations of the usage pattern. Put simply, you just feed them one data point at a time:
 
     from timemachines.skaters.simple.thinking import thinking_slow_and_fast 
     import numpy as np
