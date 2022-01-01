@@ -71,7 +71,9 @@ Finally, it is time to install the packages you wish to employ. You may wish to 
     pip install --upgrade u8darts        (does not include prophet, or...)
     pip install --upgrade darts          (does include prophet)
     
-Here it might pay to read the [darts install guide](https://github.com/unit8co/darts#installation-guide) for advice on libomp and other troubleshooting.
+Here it might pay to read the [darts install guide](https://github.com/unit8co/darts#installation-guide) for advice on libomp and other troubleshooting. In particular if lightgbm gives you headaches, then maybe resort to the miniconda route. See notes on conda install -c conda-forge lightgbm in the next section.
+
+Moving on:
     
     pip install --ugprade sktime
     
@@ -97,6 +99,9 @@ Proceeding..
     pip install --upgrade salesforce-merlion
     pip install --upgrade pycaret-ts-alpha
     
+Finally, do this only if you wish to have greater ability to pull exogenous data in:
+
+    pip install --upgrade microprediction
 
 ## Install with conda (particulary if using mac silicon)
 
