@@ -79,8 +79,8 @@ def top_rated_models(k:int, n=5, category='univariate', max_seconds=10, min_coun
 
 
 if __name__=='__main__':
-    my_skaters = top_rated_models(k=3, n=5)
-    print(my_skaters)
+    my_skaters = top_rated_models(k=3, n=15, max_seconds=1,category='univariate')
+    print([f.__name__ for f in my_skaters])
 
 
 

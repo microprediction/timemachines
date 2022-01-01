@@ -1,5 +1,5 @@
 import math
-
+import numpy as np
 
 def weighted_average(y,w):
     return sum(wj * yj for yj, wj in zip(y, w)) / sum(w)
@@ -10,7 +10,7 @@ def normalize(w):
 
 
 def precision_weighted_skater(y,s,k,a,t,e,r=0.5):
-    """ Not a skater in the usual sense since 'y' here takes a rather particular form,
+    """ Special purpose skater since 'y' here takes a rather particular form,
         and it is intended to be used as with the ensemblefactory
 
        Treats y[1],y[3],y[5]... as unbiased estimates of y[0]
@@ -27,6 +27,10 @@ def precision_weighted_skater(y,s,k,a,t,e,r=0.5):
     expon = 2*math.atanh(r)/math.atanh(0.5) if r<1-1e-6 else 10.0
     J  = int((len(y)-1)/2)
     y_stds = [ tol + y[2*j+2] for j in range(J) ]
+    # Avoid overflow
+    while np.mean(np.abs(y_stds))>1e2:
+        y_stds = [ y_std_i/1e2 for y_std_i in y_stds ]
+
     w  = normalize( [ 1./math.pow(y_std,expon) for y_std in y_stds ] )
     y_hats = [ y[2*j+1] for j in range(J) ]
     x = weighted_average(y=y_hats, w=w)

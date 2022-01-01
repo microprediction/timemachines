@@ -29,6 +29,9 @@ def nonennearlysame(x,y,tol=1e-6):
     y_cast = nonecast(x, fill_value=333.0)
     return nearlysame(x_cast,y_cast)
 
+def noneupdatelist(x, y):
+    return [ yi if yi is not None else xi for xi,yi in zip(x,y) ]
+
 
 def nonecenter(m,x):
     """
