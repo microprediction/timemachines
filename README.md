@@ -57,9 +57,9 @@ This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
   
-# Why do it this way?
-  
 ![](https://i.imgur.com/elu5muO.png)
+  
+# Why do it this way?
   
 There are important limitations to this package ... but also some alleged strengths:
 
