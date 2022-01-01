@@ -143,11 +143,11 @@ Epoch time of the observation.
 
 Suggests a number of seconds allowed for computation, though skater's don't necessarily comply. See remarks below. 
    
-## Skater "r" argument ("hype(r) pa(r)amete(r)s for pre-skaters only)
+### Skater "r" argument (stands for "hype(r) pa(r)amete(r)s for pre-skaters only)
 
 A real skater doesn't have any hyper-parameters. It's the job of the designer to make it fully autonomous. The small concession made here is the notion of a pre-skater: one with a single float hyperparameter in the closed interval \[0,1\]. Pre-skaters squish all tunable parameters into this interval. That's a bit tricky, so some rudimentary conventions and space-filling functions are provided. See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning).
 
-### Return values
+## Return values
 All skater functions return two vectors and the posterior state dictionary. 
 
       1. The first set of *k* numbers can be *interpreted* as a point estimate (but need not be)
@@ -175,22 +175,6 @@ when making conditional predictions. This also eyes lambda-based deployments and
 You'll notice also that parameter use seems limited. This is deliberate. A skater is morally a "bound" model (i.e. fixed hyper-parameters) and ready to use. Any fitting, estimation or updating is the skater's internal responsibility. That said, it is sometimes useful to enlarge the skater concept to include hyper-parameters, as this enourages a more standardized way to expose and fit them. It remains the responsibility of the skater designer to ensure that the parameter space is folded into (0,1) is a somewhat sensible way. 
 
 The use of a single scalar for hyper-parameters may seem unnatural, but is slighly less unnatural if [conventions](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/utilities/conventions.py) are followed that inflate \[0,1\] into the square \[0,1\]^2 or the cube \[0,1\]^3. See the functions **to_space** and **from_space**. This also makes it trivial for anyone to design black box optimization routines that can work on any skater, without knowing its working. The humpday package makes this trivial - albeit time-consuming. 
-
-### More on the e argument ...
-
-The use of *e* is a fairly weak convention. In theory:
-
-   - A large expiry *e* can be used as a hint to the callee that
- there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation. 
-   - A negative *e* suggests that there isn't even time for a "proper" prediction to be made, never mind a model fit. It suggests that we are still in a burn-in period where the caller doesn't care too much, if at all, about the quality of prediction. The callee (i.e. the skater) should, however, process this observation *somehow* because this is the only way it can receive history. There won't be another chance. Thus some skaters will use e<0 as a hint to dump the obervation into a buffer so it can be used in the next model fit. They return a naive forecast, confident that this won't matter.  
- 
-Some skaters are so fast that a separate notion of 'fit' versus 'update' is irrelevant. Other skaters will periodically fit whether or not e>0 is passed. 
-
-The "e" conventions are useful for testing and assessment. You'll notice that the Elo rating code passes a sequence of e's something looking like:
-
-     -1, -1, -1, ... -1 1000 1000 1000 1000 1000 ...
-     
-because it wants to allow the skaters to receive some history before they are evaluated. On the other hand, waiting for Facebook prophet to fit itself 500 times is a bit like waiting for the second coming of Christ. 
     
 ### Summary of conventions: 
 
@@ -215,6 +199,22 @@ because it wants to allow the skaters to receive some history before they are ev
      - This package provides functions *to_space* and *from_space*, for expanding to R^n using space filling curves, so that the callee's (hyper) parameter optimization can still exploit geometry, if it wants to.   
      
 See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or file an issue if anything offends you greatly. 
+ 
+### Aside: more on the e argument ...
+
+The use of *e* is a fairly weak convention. In theory:
+
+   - A large expiry *e* can be used as a hint to the callee that
+ there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation. 
+   - A negative *e* suggests that there isn't even time for a "proper" prediction to be made, never mind a model fit. It suggests that we are still in a burn-in period where the caller doesn't care too much, if at all, about the quality of prediction. The callee (i.e. the skater) should, however, process this observation *somehow* because this is the only way it can receive history. There won't be another chance. Thus some skaters will use e<0 as a hint to dump the obervation into a buffer so it can be used in the next model fit. They return a naive forecast, confident that this won't matter.  
+ 
+Some skaters are so fast that a separate notion of 'fit' versus 'update' is irrelevant. Other skaters will periodically fit whether or not e>0 is passed. 
+
+The "e" conventions are useful for testing and assessment. You'll notice that the Elo rating code passes a sequence of e's something looking like:
+
+     -1, -1, -1, ... -1 1000 1000 1000 1000 1000 ...
+     
+because it wants to allow the skaters to receive some history before they are evaluated. On the other hand, waiting for Facebook prophet to fit itself 500 times is a bit like waiting for the second coming of Christ. 
  
 ## Examples
 
