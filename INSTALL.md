@@ -83,7 +83,7 @@ Finally, do this only if you wish to have greater ability to pull exogenous data
 
     pip install --upgrade microprediction
 
-## Install with conda (particulary if using mac silicon)
+# Option 2. Install with (mini) conda 
 
 Using only pip on mac silicon is, at the time of writing, a fool's errand. And some prefer conda anayway. One option is: 
 
@@ -124,12 +124,11 @@ Optional: (e.g. for training, testing etc)
     
 
     
-# Option 2) Install troubleshooting remark on colab
+## Install troubleshooting remark on colab
 To clean out old versions of pytz etc I sometimes use:
 
     !pip uninstall numpy -y
     
 in colab notebooks. However hopefully that won't be required by the time you read this. 
     
-### Development
-The package is setup for *pytest* and we rely pretty heavily on Github actions. You may wish to use [act](https://github.com/nektos/act) to run the Github [actions](https://github.com/microprediction/timemachines/tree/main/.github/workflows) locally. 
+
