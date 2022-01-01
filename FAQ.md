@@ -29,7 +29,7 @@ Answer (D): The caller can request conditional predictions easily (if they remem
 
 ### FAQ 2: What's with the z-curves and *r* parameter?
 
-The idea is that *any* black-box optimizer should be able to optimize *any* time-series model without a human providing interpretation of hyper-parameters. So we force skaters to expose at most a single scalar hyper-parmeter, but also supply suggested space-filling curves. This...
+The idea is that *any* black-box optimizer should be able to optimize *any* time-series "pre-skater" without a human providing interpretation of hyper-parameters. So we force pre-skaters to expose at most a single scalar hyper-parmeter, but also supply suggested space-filling curves. This...
 
 - is hopefully a *reasonable* way to map the most important hyper-parameter choices,
 - that imposes some geometric discipline on the hyper-parameter space in the first place, and
@@ -63,11 +63,12 @@ Notice what isn't here:
 
 
 ### FAQ 4: What are the drawbacks? 
+Autonomous prediction is hard and there's only subsidized lunches. 
 
-There are also limitations of the skater approach. The simple data model in *y*, *a* is not well suited to problems where exogenous data comes and goes, and therefore cannot easily be represented by a vector of fixed length. You might consider a dictionary interface instead, as with
-the river package. 
+There are also limitations of the skater approach. The simple data model in *y*, *a* is not well suited to problems where exogenous data comes and goes, and therefore cannot easily be represented by a vector of fixed length (you might consider a dictionary interface instead, as with
+the river package). 
 
-There is, at time of writing, also a shortage of skaters that exploit anything beyond the first entry in 'y' (exogenous vars), or use 'a' (known in advance). That's not a design limitation, just resources. 
+There is, at time of writing, also a shortage of skaters that exploit anything beyond the first entry in 'y' (exogenous vars), or use 'a' (known in advance). So think of this package as mostly univariate, for now. 
 
 ### FAQ 5: Why do skaters only return two numbers per horizon, instead of a full distribution? 
 
