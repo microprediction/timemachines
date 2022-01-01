@@ -1,12 +1,21 @@
 # Time-machines contributors guide
 
+When you come to a fork in the road, take it: 
+
+   - [CONTRIBUTE_BATCH_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_BATCH_STYLE_MODELS.md) to add new functionality using non-incremental methods.
+   - [CONTRIBUTE_ONLINE_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_ONLINE_STYLE_MODELS.md) to add new functionality using incremental methods.
+
+There are other, auxiliary ways to contribute as well that are noted below. 
+
+## New here? 
+
 You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How do I work this?". And you may find yourself behind the wheel of a large automobile. 
 
 <img src="https://github.com/microprediction/timemachines/blob/main/images/talking_heads.jpeg" alt="drawing" width="450"/>
 
-But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In, and you have some manner of time-series or quantitative interest, so I sent you an invite. 
+But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In, and you have some manner of time-series or quantitative interest, so I sent you an invite. Stop what you are doing. Open this [notebook](https://github.com/microprediction/microprediction/blob/master/submission_examples_die/first_submission.ipynb) and run it.  
 
-## Career advice? From me? Seriously? 
+## Career advice? 
 
 Okay fine some fraction of you were asking about career advice. To get that out of the way, there are people in the microprediction slack who can probably give better advice than me. Hassle them, but mine would be:
 
@@ -14,11 +23,9 @@ Okay fine some fraction of you were asking about career advice. To get that out 
  - Read the [Mathematics subject classification](https://en.wikipedia.org/wiki/Mathematics_Subject_Classification) and slowly, over time, familiarize yourself with the key seminal tricks in each area. Even if you expect to spend most of your time in [4.2.1](https://en.wikipedia.org/wiki/Computer_science#Artificial_intelligence) this will give you angles on problems that other's don't have.  
  - Other advice mostly overlaps with platitudes. 
 
-Now I'll say a bit more about the selfish reasons for inviting you here...namely the hope that you'll contribute to reducing a microprediction tragedy of the commons.  
-
 ## Vague objectives
 
-You are now in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, and commoditizing repeated quantitative tasks of all kinds. That might be a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward).   
+Anyway ... you are now in a conspiracy aimed at upending artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, and commoditizing repeated quantitative tasks of all kinds. That might be a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward).   
 
 ## Specific goals 
 Yup, I hope you are interested in helping us create free open short term prediction of anything for anyone, as follows: 
@@ -42,7 +49,8 @@ Little things do help
 ## Creating colab notebooks illustrating the use of Python timeseries packages
 It helps speed the creation of autonomous algorithms, and Elo ratings, to have example notebooks for python time-series packages
 
-   0. See [good first issues](https://github.com/microprediction/timemachines/issues)
+   0. See [good first issues](https://github.com/microprediction/timemachines/issues).
+      Or search the same link for "Create colab notebook"
 
 It's also not a bad way to familiarize yourself with packages that might be useful. No need to limit yourself to the ones in the issues. Anything that can predict k-steps ahead is fair game. See the [long list of packages](https://www.microprediction.com/blog/popular-timeseries-packages)
 

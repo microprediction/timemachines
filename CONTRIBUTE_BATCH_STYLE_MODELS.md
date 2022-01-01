@@ -4,20 +4,21 @@
 Do you have a favourite Python package for time-series analysis that you would like to see included in the funnel? There's some discussion
 on this [LI post](https://www.linkedin.com/posts/petercotton_timeseries-timeseriesanalysis-forecasting-activity-6844102671906037760-bGtu)
 
-### Likely contributor
+### When to use this pattern. 
 
 - You maintain a time-series package, or just really like one. 
 - The package exposes a way of predicting time-series in an offline (sometimes tabular) fashion (as compared with online, incremental)
 
-### When not to use this pattern
-
-If the package is a state-space model, or some other incremental method, you'll not want to go down this path. 
+Just to emphasize, if the package is, say a state-space model, or some other incremental method, then it would be wasteful to follow the pattern outlined here. See [CONTRIBUTE_ONLINE_STYLE_MODELS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_ONLINE_STYLE_MODELS.md) instead. 
 
 ### How to contribute 
 
 1. Look at the example provided by [sk skaters directory](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/sk) and try to grok
 2. If step (1) fails, ask questions on slack (invite [here](https://www.microprediction.com/knowledge-center))
-3. Grok the package you think should be in. Create an example colab notebook (like [examples here](https://github.com/microprediction/timeseries-notebooks) that uses the package to be sure you understand the conventions adopted.  
+3. Grok the package you think should be in. Create an example colab notebook (like [examples here](https://github.com/microprediction/timeseries-notebooks)) that uses the package. It should show how to produce a k-vector of 1..k step ahead predictions. You'd be surprised at how many packages seem to think this is an obscure use case and don't include it in their README :)
+
+At this point you've already helped a lot. If you want to take it all the way...
+
  4. Choose a short PREFIX that isn't exactly the same as the library (here PREFIX='sk', obviously)
  5. Write PREFIXinclusion.py           (in the same style as [skinclusion.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/sk/skinclusion.py))
  6. Write PREFIXwrappers.py            (expose the batch functionality in the same style as [skwrappers.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/sk/skwrappers.py))
@@ -40,7 +41,8 @@ Write unit tests
 Run pytest and the individual test repeatedly. When it is working well you can include it in the master list:
  
  11. Modify [localskaters.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/localskaters.py) 
- 10. Modify [README.md](https://github.com/microprediction/timemachines/blob/main/README.md) to include a suggestion to users to pip install the new requirements
+ 12. Modify [README.md](https://github.com/microprediction/timemachines/blob/main/README.md) to include a suggestion to users to pip install the new requirements
+ 13. Modify [setup.py](https://github.com/microprediction/timemachines/blob/main/setup.py) to include the new directory.  
 
 ## More help / discussion
 

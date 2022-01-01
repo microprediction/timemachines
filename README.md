@@ -1,4 +1,4 @@
-# timemachines ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![successor](https://github.com/microprediction/timemachines/workflows/test-successor/badge.svg) ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg) ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg)  ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg) ![merlion](https://github.com/microprediction/timemachines/workflows/test-merlion/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+# timemachines ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![successor](https://github.com/microprediction/timemachines/workflows/test-successor/badge.svg) ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg) ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg)  ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg) ![merlion](https://github.com/microprediction/timemachines/workflows/test-merlion/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret-time_series/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Autonomous, univariate, k-step ahead time-series forecasting functions assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
 
@@ -8,18 +8,32 @@ You can:
 3. Use various combinations (composition, stacking et cetera) or make your own.
 4. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py).
 5. Adopt the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
-6. Join our [slack](https://join.slack.com/t/microprediction/shared_invite/zt-xauc5r03-XmIMdy~iL4a3Hw3G1Agv6w) and ask questions. 
+
 
 There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. This project is intended to help you select packages, strategies and even hyper-params. But it does not replace the packages themselves. Possibly one of the best uses is applying these skater functions to the residuals of your existing models.   
 
 ### Contribute
     
-See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md).  Also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) and 
-[slack invite](https://join.slack.com/t/microprediction/shared_invite/zt-xauc5r03-XmIMdy~iL4a3Hw3G1Agv6w)
+See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md).  Also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md). 
 
-## Install
 
-The cautious person proceeds... 
+### Slack / Google Meets
+See the Slack invite on my user page [here](https://github.com/microprediction). 
+
+# Installation
+
+Please use a virtual env or a new conda environement. This is reasonable advice in general but particularly so here, given all the dependencies of various timeseries packages out there. Failure to use a virtual environment could leave you in a real [mess](https://xkcd.com/1987/). 
+
+
+## Install on python virtual environment
+See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1) if you are not familiar. For instance:
+
+    mkdir virtual-envs
+    cd virtual-envs
+    python -m venv myenv 
+    source myenv/bin/activate 
+    
+Then:
 
     pip install --upgrade pip
     pip install --upgrade numpy
@@ -27,27 +41,22 @@ The cautious person proceeds...
     pip install --upgrade scikit-learn 
     pip install --upgrade scipy 
    
-(You can scrape by without the last two as they are only used for metrics)
-   
-On colab you might need to do this if it still has an old numpy:  
+You can even scrape by without the last two as they are only used for metrics. This will provide a set of home-spun forecasting functions such as the 
+[simple](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/simple) models. 
 
-    !pip uninstall numpy
-    !pip install --upgrade numpy 
-
-Next (optional)...
+Now, if you want to make more models available...
 
     pip install --upgrade statsmodels
     
-(Many packages wrap statsmodels.tsa) 
+(Many, many packages wrap statsmodels.tsa) 
 
-Next (optional)...
+Then, if you think you'll want to use models that need tensorflow
 
     pip install tensorflow
     
-You may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps
-reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
+however it is okay to skip this. You may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
 
-Next (optional)... some subset of the following: 
+Finally, it is time to install the packages you wish to employ. You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. But here are some suggestions: 
     
     pip install --upgrade darts
     pip install --upgrade river 
@@ -65,27 +74,61 @@ Next (optional)... some subset of the following:
     pip install --upgrade salesforce-merlion
     pip install --upgrade pycaret-ts-alpha
     
-You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. On some hardware you may need to resort to conda-forge for some packages if you run into trouble, for example
+
+## Install with conda (particulary if using mac silicon)
+
+Using only pip on mac silicon is, at the time of writing, a fool's errand. And some prefer conda anayway. One option is: 
+
+    brew install miniforge
+
+(you can get homebrew [here](https://brew.sh/)). You have other options [here](https://github.com/conda-forge/miniforge) for installing miniforge. Then make a new conda env:
+
+    conda create -n myenv
+    conda activate myenv 
+    
+and proceed cautiously: 
+    
+    conda install numpy
+    conda install scipy 
+    conda install scikit-learn
+    conda install pandas
+    conda install statsmodels
+    conda install matplotlib
+    pip install timemachines
+
+Then proceed, using miniconda where possible and pip if conda doesn't have it yet. For instance if installing a package that needs lightgbm is causing a headache then try:  
 
     conda install -c conda-forge lightgbm
     
-Optional:
+After exhausting proceed as above as see how far you get with timeseries packages
 
-    pip install matplotlib 
+     pip install --upgrade darts
+     pip install --upgrade river 
+    
+and so on (see list above). Again, the apple silicon (m1) install situation is particularly fluid. Maybe see [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) for ideas and 
+keep open the possibility of the --no-use-pep517 option.
+ 
+    pip install whatever --no-use-pep517
 
 Optional: (e.g. for training, testing etc)
 
     pip install --upgrade microprediction   
     
-On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. The apple silicon (m1) install situation is particularly fluid. I revert to anaconda miniforge as noted above. But see also [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) and
-keep open the possibility of the --no-use-pep517 option.
- 
-    pip install whatever --no-use-pep517
+## Install troubleshooting remark on pystan
+    
+On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. 
+    
+## Install troubleshooting remark on colab
+To clean out old versions of pytz etc I sometimes use:
+
+    !pip uninstall numpy -y
+    
+in colab notebooks. However hopefully that won't be required by the time you read this. 
     
 ### Development
 The package is setup for *pytest* and we rely pretty heavily on Github actions. You may wish to use [act](https://github.com/nektos/act) to run the Github [actions](https://github.com/microprediction/timemachines/tree/main/.github/workflows) locally. 
     
-### Quick start 
+# Quick start 
 
 This package is just a collection of skaters. My hope is that the [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities also serve as demonstrations of how to use any given "skater". The intent is that you call them repeatedly to process one data point at a time. 
 
@@ -110,17 +153,18 @@ This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
   
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
-## Skating advantages
+  
+# Why do it this way?
   
 ![](https://i.imgur.com/elu5muO.png)
   
 There are important limitations to this package ... but also some alleged strengths:
 
-   - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup, only stateless functions:
+   - **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup or estimation, only stateless functions:
        
           x, x_hat, s = f(y,s,k)
        
-       These functions are called skaters. Now this is Python and s is mutable, but philosophically this is a pure function. 
+       These functions are called skaters and they take on the responsibility of estimation, so you don't have to. 
 
    - **Simple canonical use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
    Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. 
@@ -137,15 +181,15 @@ There are important limitations to this package ... but also some alleged streng
 
   - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary trivially converted to JSON and back (for instance in a web application). See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) for a little more discussion.   
 
-**NO CLASSES**.  **NO DATAFRAMES**. **NO CEREMONY**.  **NO HEAVY DEPENDENCIES**.
-There's not much to slow you down here. 
+**NO CLASSES**.  **NO DATAFRAMES**. **NO CEREMONY**. 
+Just a bunch of online (sequential) forecasting functions. 
 
 To emphasize, in this package a time series "model" is a plain old function taking scalars and lists as arguments. Those functions have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
    One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
     forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However here the *caller* is expected to maintain state from one 
     invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
   
-## The Skater signature 
+# The Skater signature 
 So, here's a tiny bit more detail about the signature adopted by *all* skaters in this package. 
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
@@ -266,15 +310,15 @@ because it wants to allow the skaters to receive some history before they are ev
      
 See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or file an issue if anything offends you greatly. 
  
-### Related illustrations 
+## Examples
 
 - See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 
-### Tuning pre-skaters 
+## Tuning "pre-skaters" 
 
 - See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
     
-### Cite 
+## Cite 
 
 Thanks
 

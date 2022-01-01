@@ -10,15 +10,42 @@ Do you have a favourite Python package for time-series analysis that you would l
 
 ### When not to use this pattern
 
-If the package assumes you have to fit every new data point (like Prophet or many others) then see [CONTRIBUTE_BATCH_STYLE_MODELS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_BATCH_STYLE_MODELS.md) instead. 
+If the package assumes you have to fit every new data point (like Prophet or many others) then see [CONTRIBUTE_BATCH_STYLE_MODELS.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_BATCH_STYLE_MODELS.md) instead as this will provide a much shorter path.  
 
 ### How to contribute 
 
+1. Join slack (invite [here](https://www.microprediction.com/knowledge-center))
+2. Grok the package you think should be in. Create an example colab notebook (like [examples here](https://github.com/microprediction/timeseries-notebooks)) that uses the package. It should show how to produce a k-vector of 1..k step ahead predictions. You'd be surprised at how many packages seem to think this is an obscure use case and don't include it in their README :)
+
+At this point you've already helped a lot. If you want to take it all the way...
+
+ 3. Choose a short PREFIX that isn't exactly the same as the library (here PREFIX='sk', obviously)
+ 4. Write PREFIXinclusion.py           (in the same style as [skinclusion.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/sk/skinclusion.py))
+ 5. Write PREFIXwrappers.py            (expose the batch functionality in the same style as [skwrappers.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/sk/skwrappers.py))
+
+Thus far this has exposed the 3rd party library in an offline manner (i.e. expects fit to be called each data point). Now you need to turn this into a skater. 
+
+ 6. Read or re-read the main [README.md](https://github.com/microprediction/timemachines) that explains the skater signature, and see also the notes below that relate directly to online style skaters. 
+ 7. Read the [movingaverage.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/movingaverage.py) example and, in particular, note the use of the parade helper. 
+ 8. For the convenience of others, adopt the style of putting a mini-test at the bottom, as with [movingaverage.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/movingaverage.py)
+ 
+Next you need to register a list of fully autonomous skaters
+ 
+ 9. Create a file similar to [allriverskaters](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/rvr/allriverskaters.py) that collects all the skaters you have created.      
+ 
+Write unit tests
+
+ 10. Cut and paste the example unit test [test_sk_random_skater](https://github.com/microprediction/timemachines/blob/main/tests/sk/test_sk_random_skater.py)
+
+Run pytest and the individual test repeatedly. When it is working well you can include it in the master list:
+ 
+ 11. Modify [localskaters.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/localskaters.py) 
+ 12. Modify [README.md](https://github.com/microprediction/timemachines/blob/main/README.md) to include a suggestion to users to pip install the new requirements
+ 13. Modify [setup.py](https://github.com/microprediction/timemachines/blob/main/setup.py) to include the new directory.  
 
 
-   - Read the [README](https://github.com/microprediction/timemachines) to understand what a skater is and what it is not. The good news is that a skater
-   is merely a function. The bad news is that the function must accomodate a few conventions. 
-   
+## Understanding online style skaters
+The directory [simple](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/simple) is intended to contain some examples of creating online style skaters. Here is a quick review of some items from the [README](https://github.com/microprediction/timemachines) that might help understand what a skater is and what it is not. The good news is that a skater is merely a function. 
    
              x, w, s = f(   y:Union[float,[float]],       # Contemporaneously observered data, 
                                                       # ... including exogenous variables in y[1:], if any. 
@@ -123,7 +150,7 @@ If the package assumes you have to fit every new data point (like Prophet or man
      - Pass the *vector* argument *a* that will occur in k-steps time (not the contemporaneous one)
      - Remark: In the case of k=1 there are different interpretations that are possible beyond "business day", such as "size of a trade" or "joystick up" etc. 
 
-  - Hyper-Parameter space:
+  - Hyper-Parameter space. Only relevant if you wish to create "pre-skaters" which are, loosely, "almost-skaters". 
      - A float *r* in (0,1). 
      - This package provides functions *to_space* and *from_space*, for expanding to R^n using space filling curves, so that the callee's (hyper) parameter optimization can still exploit geometry, if it wants to.   
      
@@ -131,8 +158,7 @@ See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or f
  
 ## On testing a skater function 
 
-At minimum, please add a test script like [tests/simple/test_simple.py](https://github.com/microprediction/timemachines/blob/main/tests/simple/test_simple.py). This one uses a canned
-time-series of hospital wait times. 
+At minimum, please add a test script like [tests/simple/test_simple.py](https://github.com/microprediction/timemachines/blob/main/tests/simple/test_simple.py). This one uses a canned time-series of hospital wait times. 
 
     from timemachines.skaters.simple.movingaverage import precision_ema_ensemble, aggressive_ema_ensemble
     from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_error
@@ -145,7 +171,7 @@ time-series of hospital wait times.
 
 Please ensure this test runs quickly. 
 
-## On hyper-optimizing a skater function 
+## More on hyper-optimizing a skater function 
 
 This is up to you. If you need real-world data, you have it. Peruse the [knowledge center](https://www.microprediction.com/knowledge-center) or jump to this [notebook](https://github.com/microprediction/microprediction/blob/master/notebook_examples/Python_Module_3_Getting_History.ipynb) showing
 how to retrieve recently created live data. As noted, you're advised to use the fresh bait to avoid over-fitting and sneaky kinds of self-deception that arise 
@@ -180,7 +206,7 @@ open source work like this.
 You don't need to do much for this, merely include a list of 'bound' skaters (i.e. no hyper-param *r* expected) in a fashion similar to what I've done for 
 [allpmdskaters](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/dlm/alldlmskaters.py). Finally, you can reference this when making a change to 
 [skaters/allskaters.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/allskaters.py) which is the list of all skater lists. See the previous comment about not assuming
-existence of a package, however. Your list should be empty if your skater uses the package infrequently_maintained_and_certain_to_crash_on_m1 and the user has not pip installed that. 
+existence of a package, however. Your list should be empty if your skater uses the package infrequently_maintained_and_certain_to_crash_on_m1 and the user has not pip installed that. You should also edit [setup.py](https://github.com/microprediction/timemachines/blob/main/setup.py) to include your director, 
 
 
 ## Steps to use your skater to win cash at microprediction.com 
