@@ -5,13 +5,13 @@ When you come to a fork in the road, take it:
    - [CONTRIBUTE_BATCH_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_BATCH_STYLE_MODELS.md) to add new functionality using non-incremental methods.
    - [CONTRIBUTE_ONLINE_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_ONLINE_STYLE_MODELS.md) to add new functionality using incremental methods.
 
-There are other, auxiliary ways to contribute as well that are noted below. 
+There are other ways to contribute as well that are noted below. 
 
 ## New here? 
 
 You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How do I work this?". And you may find yourself behind the wheel of a large automobile. 
 
-<img src="https://github.com/microprediction/timemachines/blob/main/images/talking_heads.jpeg" alt="drawing" width="450"/>
+<img src="https://github.com/microprediction/timemachines/blob/main/images/talking_heads.jpeg" alt="drawing" width="650"/>
 
 But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In, and you have some manner of time-series or quantitative interest, so I sent you an invite. Stop what you are doing. Open this [notebook](https://github.com/microprediction/microprediction/blob/master/submission_examples_die/first_submission.ipynb) and run it.  
 
@@ -39,7 +39,7 @@ Yup, I hope you are interested in helping us create free open short term predict
  
 Thereby we can address otherwise thorny issues like [defining anomaly detection](https://www.microprediction.com/blog/anomaly) in a way that isn't circular. Part of this involves stacking, composing and otherwise exploiting existing skaters. We'd like to see [Fast Python Timeseries Forecasting](https://www.microprediction.com/blog/fast) become the norm. 
 
-# Contribution Patterns
+# All Sorts of Contribution Patterns
 
 Little things do help
    - Follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690)

@@ -4,133 +4,31 @@
 
 You can:
 1. Use some of the functionality of a [subset](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/pypi.py) of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) with one line of code.
-2. Find faster, lighter, lesser-known alternatives like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that might be as accurate for your purpose.
-3. Use various combinations (composition, stacking et cetera) or make your own.
-4. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py).
-5. Adopt the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
+2. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py). Find faster, lighter, lesser-known methods like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that might be useful for your purpose. Perhaps even adopt the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything, or predict your own model's residuals.
+3. Make your own autonomous algorithms and watch them compete. Use various combinations (composition, stacking [et cetera](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/ensembling)). Use hyper-parameter [tuning](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/README.md) to turn "almost" autonomous algorithms, or combinations of the same, into fully autonomous algorithms. 
 
+There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. 
 
-There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. This project is intended to help you select packages, strategies and even hyper-params. But it does not replace the packages themselves. Possibly one of the best uses is applying these skater functions to the residuals of your existing models.   
+This project might help your package search, depending on your purposes. But it does not replace the packages themselves. 
 
 ### Contribute
     
 See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md).  Also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md). 
 
+The package is setup for *pytest* and we rely pretty heavily on Github actions. You may wish to use [act](https://github.com/nektos/act) to run the Github [actions](https://github.com/microprediction/timemachines/tree/main/.github/workflows) locally. 
 
 ### Slack / Google Meets
 See the Slack invite on my user page [here](https://github.com/microprediction). 
 
-# Installation
+# [Installation](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
 
-Please use a virtual env or a new conda environement. This is reasonable advice in general but particularly so here, given all the dependencies of various timeseries packages out there. Failure to use a virtual environment could leave you in a real [mess](https://xkcd.com/1987/). 
+See methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be patient for best results :) 
 
+I ain't gonna lie. Using multiple python timeseries packages can involve some one-off install pain. Please use a virtual env or a new conda environement. This is reasonable advice in general but particularly so here, given all the dependencies of various timeseries packages out there. Failure to use a virtual environment could leave you in a real [mess](https://xkcd.com/1987/). 
 
-## Install on python virtual environment
-See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-your-python-projects-1eb5108086b1) if you are not familiar. For instance:
+# [Quick start](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) 
 
-    mkdir virtual-envs
-    cd virtual-envs
-    python -m venv myenv 
-    source myenv/bin/activate 
-    
-Then:
-
-    pip install --upgrade pip
-    pip install --upgrade numpy
-    pip install --upgrade timemachines
-    pip install --upgrade scikit-learn 
-    pip install --upgrade scipy 
-   
-You can even scrape by without the last two as they are only used for metrics. This will provide a set of home-spun forecasting functions such as the 
-[simple](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/simple) models. 
-
-Now, if you want to make more models available...
-
-    pip install --upgrade statsmodels
-    
-(Many, many packages wrap statsmodels.tsa) 
-
-Then, if you think you'll want to use models that need tensorflow
-
-    pip install tensorflow
-    
-however it is okay to skip this. You may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
-
-Finally, it is time to install the packages you wish to employ. You may wish to first check the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) to get a vague idea of accuracy and speed, and which packages you wish to install. But here are some suggestions: 
-    
-    pip install --upgrade darts
-    pip install --upgrade river 
-    pip install --ugprade sktime
-    pip install --upgrade tbats
-    pip install --upgrade orbit-ml
-    pip install --upgrade pydlm
-    pip install --upgrade divinity
-    pip install --upgrade pmdarima
-    pip install --upgrade prophet
-    pip install --upgrade successor
-    pip install --upgrade neuralprophet
-    pip install --upgrade greykite
-    pip install --upgrade git+https://github.com/oseiskar/simdkalman
-    pip install --upgrade salesforce-merlion
-    pip install --upgrade pycaret-ts-alpha
-    
-
-## Install with conda (particulary if using mac silicon)
-
-Using only pip on mac silicon is, at the time of writing, a fool's errand. And some prefer conda anayway. One option is: 
-
-    brew install miniforge
-
-(you can get homebrew [here](https://brew.sh/)). You have other options [here](https://github.com/conda-forge/miniforge) for installing miniforge. Then make a new conda env:
-
-    conda create -n myenv
-    conda activate myenv 
-    
-and proceed cautiously: 
-    
-    conda install numpy
-    conda install scipy 
-    conda install scikit-learn
-    conda install pandas
-    conda install statsmodels
-    conda install matplotlib
-    pip install timemachines
-
-Then proceed, using miniconda where possible and pip if conda doesn't have it yet. For instance if installing a package that needs lightgbm is causing a headache then try:  
-
-    conda install -c conda-forge lightgbm
-    
-After exhausting proceed as above as see how far you get with timeseries packages
-
-     pip install --upgrade darts
-     pip install --upgrade river 
-    
-and so on (see list above). Again, the apple silicon (m1) install situation is particularly fluid. Maybe see [this thread](https://stackoverflow.com/questions/65745683/how-to-install-scipy-on-apple-silicon-arm-m1) for ideas and 
-keep open the possibility of the --no-use-pep517 option.
- 
-    pip install whatever --no-use-pep517
-
-Optional: (e.g. for training, testing etc)
-
-    pip install --upgrade microprediction   
-    
-## Install troubleshooting remark on pystan
-    
-On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. 
-    
-## Install troubleshooting remark on colab
-To clean out old versions of pytz etc I sometimes use:
-
-    !pip uninstall numpy -y
-    
-in colab notebooks. However hopefully that won't be required by the time you read this. 
-    
-### Development
-The package is setup for *pytest* and we rely pretty heavily on Github actions. You may wish to use [act](https://github.com/nektos/act) to run the Github [actions](https://github.com/microprediction/timemachines/tree/main/.github/workflows) locally. 
-    
-# Quick start 
-
-This package is just a collection of skaters. My hope is that the [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities also serve as demonstrations of how to use any given "skater". The intent is that you call them repeatedly to process one data point at a time. 
+This package is just a collection of "skaters" whose [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities serve as demonstrations of the usage pattern. Put simply, you just feed them one data point at a time:
 
     from timemachines.skaters.simple.thinking import thinking_slow_and_fast 
     import numpy as np
@@ -154,9 +52,9 @@ This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
   
-# Why do it this way?
-  
 ![](https://i.imgur.com/elu5muO.png)
+  
+# Why do it this way?
   
 There are important limitations to this package ... but also some alleged strengths:
 
@@ -164,12 +62,12 @@ There are important limitations to this package ... but also some alleged streng
        
           x, x_hat, s = f(y,s,k)
        
-       These functions are called skaters and they take on the responsibility of estimation, so you don't have to. 
+       These functions are called skaters and they take on the responsibility of incremental estimation, so you don't have to. Some are computationally efficient in this respect, whereas others are drawn from traditional packages where this isn't possible. 
 
-   - **Simple canonical use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
-   Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. 
+   - **Simple canonical autonomous use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
+   Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. The caveat is that these packages aren't always intended for autonomous use. 
 
-   - **Simple fast accurate alternatives** to popular time series packages. For example the [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) skaters perform well in the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html), and often much better than the brand names. See the  [article](https://www.microprediction.com/blog/timemachines) comparing them to Facebook prophet and Neural Prophet.
+   - **Simple fast accurate alternatives** to popular time series packages. For example the [thinking](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) skaters perform well in the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html). See the  [article](https://www.microprediction.com/blog/timemachines) comparing them to Facebook prophet and Neural Prophet.
 
    - **Ongoing, incremental, empirical evaluation**. Again, see the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) produced by
     the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
@@ -182,14 +80,15 @@ There are important limitations to this package ... but also some alleged streng
   - **Simpler deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary trivially converted to JSON and back (for instance in a web application). See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) for a little more discussion.   
 
 **NO CLASSES**.  **NO DATAFRAMES**. **NO CEREMONY**. 
-Just a bunch of online (sequential) forecasting functions. 
+...just a bunch of online (sequential) forecasting functions. 
 
-To emphasize, in this package a time series "model" is a plain old function taking scalars and lists as arguments. Those functions have a "skater" signature, facilitating "[skating](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py)".
-   One might say that skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
-    forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However here the *caller* is expected to maintain state from one 
-    invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
   
 # The Skater signature 
+
+To emphasize, in this package a time series "model" is a plain old function taking scalars and lists as arguments. It is called timemachines because the skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
+    forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However unlike state machines that save state themselves, here the *caller* is expected to maintain state from one 
+    invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
+
 So, here's a tiny bit more detail about the signature adopted by *all* skaters in this package. 
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
@@ -240,13 +139,16 @@ Epoch time of the observation.
 
 Suggests a number of seconds allowed for computation, though skater's don't necessarily comply. See remarks below. 
    
-## Skater "r" argument ("hype(r) pa(r)amete(r)s for pre-skaters only)
+### Skater "r" argument (stands for "hype(r) pa(r)amete(r)s for pre-skaters only)
 
-A real skater doesn't have any hyper-parameters. It's the job of the designer to make it fully autonomous. The small concession made here is the notion of a pre-skater: one with a single float hyperparameter in the closed interval \[0,1\]. Pre-skaters squish all tunable parameters into this interval. That's a bit tricky, so some rudimentary conventions and space-filling functions are provided. See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning).
+A real skater doesn't have any hyper-parameters. It's the job of the designer to make it fully autonomous. The small concession made here is the notion of a pre-skater: one with a single float hyperparameter in the closed interval \[0,1\]. Pre-skaters squish all tunable parameters into this interval. That's a bit tricky, so some rudimentary conventions and space-filling functions are provided. See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning) and longer discussion below. 
 
-### Return values
+## Return values
+All skater functions return two vectors and the posterior state dictionary. 
 
-Two vectors and the posterior state. The first set of *k* numbers can be *interpreted* as a point estimate (but need not be) and the second is *typically* suggestive of a symmetric error std, or width. However a broader interpretation is possible wherein a skater *suggests* a useful affine transformation of the incoming data and nothing more.  
+      1. The first set of *k* numbers can be *interpreted* as a point estimate (but need not be)
+      2. The second is *typically* suggestive of a symmetric error std, or width. However a broader interpretation is possible wherein a skater *suggests* a useful affine transformation of the incoming data and nothing more.  
+      3. The third returned value is state, and the skater expects to receive it again on the next call.
 
 
           -> x     [float],    # A vector of point estimates, or anchor points, or theos
@@ -265,26 +167,6 @@ There isn't any capability to indicate three numbers (e.g. for asymmetric conf i
 In returning state, the intent is that the *caller* might carry the state from one invocation to the next verbatim. This is arguably more convenient than having the predicting object maintain state, because the caller can "freeze" the state as they see fit, as 
 when making conditional predictions. This also eyes lambda-based deployments and *encourages* tidy use of internal state - not that we succeed
  when calling down to statsmodels (though prophet, and others including the home grown models use simple dictionaries, making serialization trivial). 
- 
-You'll notice also that parameter use seems limited. This is deliberate. A skater is morally a "bound" model (i.e. fixed hyper-parameters) and ready to use. Any fitting, estimation or updating is the skater's internal responsibility. That said, it is sometimes useful to enlarge the skater concept to include hyper-parameters, as this enourages a more standardized way to expose and fit them. It remains the responsibility of the skater designer to ensure that the parameter space is folded into (0,1) is a somewhat sensible way. 
-
-The use of a single scalar for hyper-parameters may seem unnatural, but is slighly less unnatural if [conventions](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/utilities/conventions.py) are followed that inflate \[0,1\] into the square \[0,1\]^2 or the cube \[0,1\]^3. See the functions **to_space** and **from_space**. This also makes it trivial for anyone to design black box optimization routines that can work on any skater, without knowing its working. The humpday package makes this trivial - albeit time-consuming. 
-
-### More on the e argument ...
-
-The use of *e* is a fairly weak convention. In theory:
-
-   - A large expiry *e* can be used as a hint to the callee that
- there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation. 
-   - A negative *e* suggests that there isn't even time for a "proper" prediction to be made, never mind a model fit. It suggests that we are still in a burn-in period where the caller doesn't care too much, if at all, about the quality of prediction. The callee (i.e. the skater) should, however, process this observation *somehow* because this is the only way it can receive history. There won't be another chance. Thus some skaters will use e<0 as a hint to dump the obervation into a buffer so it can be used in the next model fit. They return a naive forecast, confident that this won't matter.  
- 
-Some skaters are so fast that a separate notion of 'fit' versus 'update' is irrelevant. Other skaters will periodically fit whether or not e>0 is passed. 
-
-The "e" conventions are useful for testing and assessment. You'll notice that the Elo rating code passes a sequence of e's something looking like:
-
-     -1, -1, -1, ... -1 1000 1000 1000 1000 1000 ...
-     
-because it wants to allow the skaters to receive some history before they are evaluated. On the other hand, waiting for Facebook prophet to fit itself 500 times is a bit like waiting for the second coming of Christ. 
     
 ### Summary of conventions: 
 
@@ -304,17 +186,33 @@ because it wants to allow the skaters to receive some history before they are ev
      - Pass the *vector* argument *a* that will occur in k-steps time (not the contemporaneous one)
      - Remark: In the case of k=1 there are different interpretations that are possible beyond "business day", such as "size of a trade" or "joystick up" etc. 
 
-- Hyper-Parameter space:
+- Hyper-Parameter space (for pre-skaters only)
      - A float *r* in (0,1). 
      - This package provides functions *to_space* and *from_space*, for expanding to R^n using space filling curves, so that the callee's (hyper) parameter optimization can still exploit geometry, if it wants to.   
      
 See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or file an issue if anything offends you greatly. 
  
+### Aside: more on the e argument ...
+
+The use of *e* is a fairly weak convention. In theory:
+
+   - A large expiry *e* can be used as a hint to the callee that
+ there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation. 
+   - A negative *e* suggests that there isn't even time for a "proper" prediction to be made, never mind a model fit. It suggests that we are still in a burn-in period where the caller doesn't care too much, if at all, about the quality of prediction. The callee (i.e. the skater) should, however, process this observation *somehow* because this is the only way it can receive history. There won't be another chance. Thus some skaters will use e<0 as a hint to dump the obervation into a buffer so it can be used in the next model fit. They return a naive forecast, confident that this won't matter.  
+ 
+Some skaters are so fast that a separate notion of 'fit' versus 'update' is irrelevant. Other skaters will periodically fit whether or not e>0 is passed. 
+
+The "e" conventions are useful for testing and assessment. You'll notice that the Elo rating code passes a sequence of e's something looking like:
+
+     -1, -1, -1, ... -1 1000 1000 1000 1000 1000 ...
+     
+because it wants to allow the skaters to receive some history before they are evaluated. On the other hand, waiting for Facebook prophet to fit itself 500 times is a bit like waiting for the second coming of Christ. 
+ 
 ## Examples
 
 - See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 
-## Tuning "pre-skaters" 
+## Tuning "pre-skaters" and more on the "r" argument for pre-skaters
 
 - See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
     
