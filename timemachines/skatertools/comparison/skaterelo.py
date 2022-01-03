@@ -134,18 +134,22 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
     print('  leaderboard ...')
     leaderboard = sorted([(s,c,n) for s,c,n in zip(scores,ran_okay, ran_okay_names)])
     pprint(leaderboard)
-    if len(leaderboard)>=2:
+    if len(leaderboard)>=3:
         for j, (winner_score,winner, winner_name) in enumerate(leaderboard[:-1]):
-            loser = leaderboard[j+1][1]
-            loser_score = leaderboard[j+1][0]
-            small = tol * (abs(winner_score) + abs(loser_score))  # Ties
-            min_games = min(elo['count'][winner], elo['count'][loser])
-            K = SKATER_K_FACTOR / 2.0 if min_games > 25 else SKATER_K_FACTOR  # The Elo update scaling parameter
-            winner_prior_elo, loser_prior_elo = elo['rating'][winner], elo['rating'][loser]
-            points = 1 if winner_score < loser_score - small else 0.5
-            elo['rating'][winner], elo['rating'][loser] = elo_update(winner_prior_elo, loser_prior_elo, points, k=K, f=SKATER_F_FACTOR)
-            elo['count'][winner] += 1
-            elo['count'][loser] += 1
+            for k in [2,3,4,5,6]:
+                try:
+                    loser = leaderboard[j+k][1]
+                    loser_score = leaderboard[j+k][0]
+                    small = tol * (abs(winner_score) + abs(loser_score))  # Ties
+                    min_games = min(elo['count'][winner], elo['count'][loser])
+                    K = SKATER_K_FACTOR / 2.0 if min_games > 25 else SKATER_K_FACTOR  # The Elo update scaling parameter
+                    winner_prior_elo, loser_prior_elo = elo['rating'][winner], elo['rating'][loser]
+                    points = 1 if winner_score < loser_score - small else 0.5
+                    elo['rating'][winner], elo['rating'][loser] = elo_update(winner_prior_elo, loser_prior_elo, points, k=K, f=SKATER_F_FACTOR)
+                    elo['count'][winner] += 1
+                    elo['count'][loser] += 1
+                except IndexError:
+                    pass
     return elo
 
 
