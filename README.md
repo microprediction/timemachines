@@ -8,9 +8,7 @@ This package is a mere collection of sequence-to-sequence forecasting functions.
 3. Quickly determine if autonomous algorithms can reliably predict your own model's residuals.
 4. Make your own autonomous algorithms and watch them compete. Use various combinations (composition, stacking [et cetera](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/ensembling)). Use hyper-parameter [tuning](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/README.md) to turn "almost" autonomous algorithms, or combinations of the same, into fully autonomous algorithms. 
 
-There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. 
-
-This project might help your package search, depending on your purposes. But it does not replace the packages themselves. 
+There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. This project might help your package search, depending on your purposes. But it does not replace the packages themselves. 
 
 ### Contribute
     
