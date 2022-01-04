@@ -115,8 +115,11 @@ Notice the use of s={} on first invocation. Also as noted above, there are promi
  
 ### Skater "y" argument
 
-A skater function *f* takes a vector *y*, where the quantity to be predicted is y[0] and there may be other, simultaneously observed
- variables y[1:] deemed helpful in predicting y[0].
+A skater function *f* takes a vector *y*, where:
+    - The quantity to be predicted (target) is y[0] and,
+    - There may be other, simultaneously observed variables y[1:] deemed helpful in predicting y[0].
+
+See also "a" argument below. 
 
 ### Skater "s" argument
  
