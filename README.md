@@ -63,7 +63,7 @@ There are important limitations to this package ... but also some alleged streng
        
           x, x_hat, s = f(y,s,k)
        
-       These functions are called skaters and they take on the responsibility of incremental estimation, so you don't have to. Some are computationally efficient in this respect, whereas others are drawn from traditional packages where this isn't possible. 
+       These functions are called skaters and they take on the responsibility of incremental estimation, so you don't have to. Some are computationally efficient in this respect, whereas others are drawn from traditional packages intended for batch/offline work, and are not. It is sometimes useful to compare accuracy of fast and slow algorithms, even if the latter might not suit your production volumetrics. To that end...
 
    - **Simple canonical autonomous use** of *some* functionality from packages like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
    Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. The caveat is that these packages aren't always intended for autonomous use. 
