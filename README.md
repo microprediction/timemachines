@@ -55,7 +55,6 @@ There's more in [examples/basic_usage](https://github.com/microprediction/timema
   
 # Why do it this way?
   
-There are important limitations to this package ... but also some alleged strengths:
 
    1. **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup or estimation, only stateless functions:
        
