@@ -55,7 +55,7 @@ Here it might pay to read the [darts install guide](https://github.com/unit8co/d
 
 Moving on:
     
-    pip install --ugprade sktime
+    pip install --upgrade sktime
     
 If that fails, try
 
