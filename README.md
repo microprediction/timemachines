@@ -11,7 +11,7 @@ There's also a recommendation [colab notebook](https://github.com/micropredictio
 
 ### Contribute
     
-See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md).  Also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md). I rely on Github actions to *pytest* package combinations, but I suppose you can use [act](https://github.com/nektos/act) to run the [actions](https://github.com/microprediction/timemachines/tree/main/.github/workflows) locally. 
+See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md).  Also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md). 
 
 ### Slack / Google Meets
 See the Slack invite on my user page [here](https://github.com/microprediction). 
