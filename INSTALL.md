@@ -1,6 +1,6 @@
 Two suggested paths:
 
-    1. Try the pure pip route
+    1. Use only venv and pip
     2. Use miniconda
 
 I definitely suggest the latter if you are an M1 user
