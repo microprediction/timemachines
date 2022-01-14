@@ -15,9 +15,6 @@ You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How
 
 But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In, and you have some manner of time-series or quantitative interest, so I sent you an invite. Stop what you are doing. Open this [notebook](https://github.com/microprediction/microprediction/blob/master/submission_examples_die/first_submission.ipynb) and run it. The [README](https://github.com/microprediction) will make more sense, and perhaps too the notion of collective autonomous prediction.   
 
-
-ou are now in a 
-
 ## Specific goals 
 Can an open-source conspiracy upend artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, and commoditizing repeated quantitative tasks of all kinds? Sure might be fun to find out, and possible a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward). The strategy here:   
 
@@ -39,9 +36,7 @@ Can an open-source conspiracy upend artisan data science by unleashing a billion
 
 # Contribution Patterns
 
-It's nice if people follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690). Or I suppose you can star, fork, watch [timemachines](https://github.com/microprediction/timemachines) or even sign this tongue-in-cheek [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) unless you want a job at Facebook or Towards Data Science, some day. 
-   
-But here's how you can really help, even if you are new to open source...
+It's nice if people follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690). Or I suppose you can star, fork, watch [timemachines](https://github.com/microprediction/timemachines) or even sign this tongue-in-cheek [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) unless you want a job at Facebook or Towards Data Science, some day. But here's how you can really help, even if you are new to open source...
 
 ## Creating colab notebooks illustrating the use of Python timeseries packages
 It helps speed the creation of autonomous algorithms, and Elo ratings, to have example notebooks for python time-series packages
