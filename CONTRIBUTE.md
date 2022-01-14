@@ -38,7 +38,7 @@ The strategy here:
 
 # Contribution Patterns
 
-Can an open-source conspiracy upend artisan data science by unleashing a billion little reward-seeking algorithms and commoditizing repeated quantitative tasks of all kinds? It sure might be fun to find out, and possible a better idea than waiting for DeepMind to solve general intelligence, according to a wise man (see my unsolicited views on the notion that "Reward is Enough" [here](https://www.microprediction.com/blog/reward). 
+Can an open-source conspiracy upend artisan data science by unleashing a billion little reward-seeking algorithms and commoditizing repeated quantitative tasks of all kinds? It sure might be fun to find out, and possible a better idea than waiting for DeepMind to solve general intelligence, according to a wise man (see my unsolicited views on the notion that "Reward is Enough" [here](https://www.microprediction.com/blog/reward)). 
 
 It's nice if people follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690) if that helps bring in contributors. Thanks. I suppose you can star, fork, watch [timemachines](https://github.com/microprediction/timemachines) or even sign this tongue-in-cheek [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) - unless you want a job at Facebook or Towards Data Science, some day :) But here's how you can really help, even if you are new to open source...
 
