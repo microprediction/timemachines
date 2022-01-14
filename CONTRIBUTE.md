@@ -23,7 +23,7 @@ The strategy here:
         * Drawing on whatever useful open-source Python packages can be found (and there's a [lot of them](https://www.microprediction.com/blog/popular-timeseries-packages)) 
         * Stacking, composing and otherwise exploiting existing skaters. 
         * Computation of [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
-        * Maybe [Fast Python Timeseries Forecasting](https://www.microprediction.com/blog/fast) will become the norm. 
+        * So that [Fast Python Timeseries Forecasting](https://www.microprediction.com/blog/fast) might become the norm. 
         
    2. Creating "crawlers" and other programs than operate in real-time and predict time-series at www.microprediction.org where:
         * They play this [game](https://www.microprediction.com/blog/intro), and in doing so, 
