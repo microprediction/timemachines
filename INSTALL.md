@@ -85,7 +85,7 @@ Finally, do this only if you wish to have greater ability to pull exogenous data
 
 # Option 2. Install with (mini) conda 
 
-Using only pip on mac silicon is, at the time of writing, a fool's errand. And some prefer conda anayway. One option is: 
+If you are a conda person, or use Mac silicon and are not especially brave, then: 
 
     brew install miniforge
 
@@ -117,11 +117,6 @@ and so on (see list above). Again, the apple silicon (m1) install situation is p
 keep open the possibility of the --no-use-pep517 option.
  
     pip install whatever --no-use-pep517
-
-Optional: (e.g. for training, testing etc)
-
-    pip install --upgrade microprediction   
-    
 
     
 ## Install troubleshooting remark on colab
