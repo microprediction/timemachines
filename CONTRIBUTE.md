@@ -29,9 +29,11 @@ The strategy here:
         * They play this [game](https://www.microprediction.com/blog/intro), and in doing so, 
         * Provide free high quality short-term prediction to anyone, anywhere, for any reason.
  
-   3. Demonstrating created use of on-tap community prediction such as:
+   3. Demonstrating creative use of on-tap community prediction such as:
+        * Multi-level autonomous crowd-sourcing where things feed back to the next step (see [crypto examples](https://github.com/microprediction/microprediction/blob/master/stream_examples_crypto/README.md)).
+        * Otherwise inventive use of general purpose prediction, conditional prediction, and prediction of ancilliary quantities to achieve intelligent systems in surprising ways. A book on the topic will be published by MIT Press Fall 2022.  
         * Attacking otherwise thorny issues like [defining anomaly detection](https://www.microprediction.com/blog/anomaly) in a way that isn't circular. 
-        * Driving investment returns
+        * Driving investment returns for clients of Intech Investments, the project sponsor. After all if it helps with what might be the hardest problem of all (or at least the most competitive) it is a no-brainer that this will work elsewhere. 
     
 Now can an open-source conspiracy upend artisan data science by unleashing a billion little reward-seeking algorithms and commoditizing repeated quantitative tasks of all kinds? It sure might be fun to find out, and possible a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward). 
 
