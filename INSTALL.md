@@ -35,9 +35,9 @@ so you can see if you run into difficulty. If desperate, you can maybe scrape by
     
 It is hardest to avoid using statsmodels as just about every other package wraps statsmodels.tsa As an aside you may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
 
-Next decide how badly you want prophet, or other timeseries packages that wrap it. 
+Next decide how badly you want prophet, or other timeseries packages that wrap it. If so:
 
-  pip install --upgrade prophet
+     pip install --upgrade prophet
     
 On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. It is an extrapolation library, really, not a timeseries forecasting library.   
 
