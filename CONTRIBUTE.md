@@ -16,7 +16,7 @@ You may ask yourself, "Well, how did I get here?" And you may ask yourself, "How
 But enough 80's rock. Chances are you're here because you reached out to connect on Linked-In, and you have some manner of time-series or quantitative interest, so I sent you an invite. Stop what you are doing. Open this [notebook](https://github.com/microprediction/microprediction/blob/master/submission_examples_die/first_submission.ipynb) and run it. The [README](https://github.com/microprediction) will make more sense, and perhaps too the notion of collective autonomous prediction.   
 
 ## Specific goals 
-Can an open-source conspiracy upend artisan data science by unleashing a billion little reward-seeking algorithms into a micro-economy, and commoditizing repeated quantitative tasks of all kinds? Sure might be fun to find out, and possible a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward). The strategy here:   
+The strategy here:   
 
    1. Packaging a slew of fully autonomous univariate forecasting functions:
         * With a simple sequence-to-sequence signature ("[skaters](https://github.com/microprediction/timemachines)")
@@ -33,6 +33,7 @@ Can an open-source conspiracy upend artisan data science by unleashing a billion
         * Attacking otherwise thorny issues like [defining anomaly detection](https://www.microprediction.com/blog/anomaly) in a way that isn't circular. 
         * Driving investment returns
     
+Now can an open-source conspiracy upend artisan data science by unleashing a billion little reward-seeking algorithms and commoditizing repeated quantitative tasks of all kinds? It sure might be fun to find out, and possible a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward). 
 
 # Contribution Patterns
 
