@@ -21,7 +21,8 @@ Okay fine some fraction of you were asking about career advice. To get that out 
 
  - Take the time to learn how to contribute to open-source and do all your hobby projects in the open, on GitHub.  
  - Read the [Mathematics subject classification](https://en.wikipedia.org/wiki/Mathematics_Subject_Classification) and slowly, over time, familiarize yourself with the key seminal tricks in each area. Even if you expect to spend most of your time in [4.2.1](https://en.wikipedia.org/wiki/Computer_science#Artificial_intelligence) this will give you angles on problems that other's don't have.  
- - Other advice mostly overlaps with platitudes. 
+
+I fear my other advice mostly overlaps with platitudes. 
 
 ## Vague objectives
 
