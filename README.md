@@ -74,11 +74,7 @@ There's more in [examples/basic_usage](https://github.com/microprediction/timema
 
    4. **Simplified deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary trivially converted to JSON and back (for instance in a web application). See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) for a little more discussion.   
 
-This package is also characterized by what isn't here. 
-
-**NO CLASSES**.  **NO DATAFRAMES**. **NO CEREMONY**. 
-
-...just a bunch of functions sharing the same signature.  
+This package is also characterized by what isn't here. No classes. Few dataframes. Hopefully little ceremony. Just a bunch of functions sharing the same signature.  
 
   
 # The Skater signature 
