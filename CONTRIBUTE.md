@@ -34,12 +34,13 @@ The strategy here:
         * Otherwise inventive use of general purpose prediction, conditional prediction, and prediction of ancilliary quantities to achieve intelligent systems in surprising ways. A book on the topic will be published by MIT Press Fall 2022.  
         * Attacking otherwise thorny issues like [defining anomaly detection](https://www.microprediction.com/blog/anomaly) in a way that isn't circular. 
         * Driving investment returns for clients of Intech Investments, the project sponsor. After all if it helps with what might be the hardest problem of all (or at least the most competitive) it is a no-brainer that this will work elsewhere. 
-    
-Now can an open-source conspiracy upend artisan data science by unleashing a billion little reward-seeking algorithms and commoditizing repeated quantitative tasks of all kinds? It sure might be fun to find out, and possible a better idea than waiting for DeepMind to to something, [according to a wise man](https://www.microprediction.com/blog/reward). 
+
 
 # Contribution Patterns
 
-It's nice if people follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690). Or I suppose you can star, fork, watch [timemachines](https://github.com/microprediction/timemachines) or even sign this tongue-in-cheek [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) unless you want a job at Facebook or Towards Data Science, some day. But here's how you can really help, even if you are new to open source...
+Can an open-source conspiracy upend artisan data science by unleashing a billion little reward-seeking algorithms and commoditizing repeated quantitative tasks of all kinds? It sure might be fun to find out, and possible a better idea than waiting for DeepMind to solve general intelligence, according to a wise man (see my unsolicited views on the notion that "Reward is Enough" [here](https://www.microprediction.com/blog/reward). 
+
+It's nice if people follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690) if that helps bring in contributors. Thanks. I suppose you can star, fork, watch [timemachines](https://github.com/microprediction/timemachines) or even sign this tongue-in-cheek [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) - unless you want a job at Facebook or Towards Data Science, some day :) But here's how you can really help, even if you are new to open source...
 
 ## Creating colab notebooks illustrating the use of Python timeseries packages
 It helps speed the creation of autonomous algorithms, and Elo ratings, to have example notebooks for python time-series packages
