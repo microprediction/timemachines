@@ -19,9 +19,7 @@ See the Slack invite on my user page [here](https://github.com/microprediction).
 
 # [Installation](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
 
-See methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be patient for best results :) 
-
-I ain't gonna lie. Using multiple python timeseries packages can involve some one-off install pain. Please use a virtual env or a new conda environement. This is reasonable advice in general but particularly so here, given all the dependencies of various timeseries packages out there. Failure to use a virtual environment could leave you in a real [mess](https://xkcd.com/1987/). 
+See the methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be incremental for best results. I ain't gonna lie. Using multiple python timeseries packages can involve some one-off install pain. Please use a virtual env or a new conda environement. This is reasonable advice in general but particularly so here, given all the dependencies of various timeseries packages out there. Failure to use a virtual environment could leave you in a real [mess](https://xkcd.com/1987/). 
 
 # [Quick start](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) 
 
