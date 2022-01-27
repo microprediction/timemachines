@@ -23,9 +23,9 @@ or write a decorator. Whatever, it's Python.
 
 Answer (B): The intent is to produce simple web-service friendly models. 
 
-Answer (C): It's pure. Pure as the driven snow ... that has turned in to sludge in New York City. (See this [note](https://github.com/microprediction/timemachines/issues/51))  
+Answer (C): It's "pure". Sort of. Pure as the driven snow that has turned in to sludge in New York City. 
 
-Answer (D): The caller can request conditional predictions easily (if they remember to do a deep copy of the state). 
+Answer (D): The caller can request conditional predictions easily (if they remember to do a deep copy of the state - see this [note](https://github.com/microprediction/timemachines/issues/51) ). 
 
 ### FAQ 2: What's with the z-curves and *r* parameter?
 
