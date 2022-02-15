@@ -26,6 +26,11 @@ See the Slack invite on my user page [here](https://github.com/microprediction).
 
 See the methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be incremental for best results. I ain't gonna lie. Using multiple python timeseries packages can involve some one-off install pain. Please use a virtual env or a new conda environement (reasonable advice in general but particularly so here, cue [xkcd](https://xkcd.com/1987/)). 
 
+ 
+## Examples
+
+See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
+
 # [Quick start](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) 
 
 This package is just a collection of "skater" functions. "Skater" is a nmemonic for the arguments. 
@@ -215,10 +220,6 @@ For some, there is even more graduated performance so *e* could be interpreted a
      -1, -1, -1, ... -1 1000 1000 1000 1000 1000 ...
      
 because it wants to allow the skaters to receive some history before they are evaluated. On the other hand, waiting for Facebook prophet to fit itself 500 times is a bit like waiting for the second coming of Christ. 
- 
-## Examples
-
-- See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 
 ## Tuning "pre-skaters" and more on the "r" argument for pre-skaters
 
