@@ -67,7 +67,10 @@ and if you need,
 
           x, x_std, s = f(y,s,k,a,t,e,r)
        
-       These functions are called skaters and they take on the responsibility of incremental estimation, so you don't have to. Some are computationally efficient in this respect, whereas others are drawn from traditional packages intended for batch/offline work, and are not. It is sometimes useful to compare accuracy of fast and slow algorithms, even if the latter might not suit your production volumetrics. 
+
+Hence the name. The skater functions take on the responsibility of incremental estimation, so you don't have to. 
+
+Some skaters are computationally efficient in this respect, whereas others are drawn from traditional packages intended for batch/offline work, and are not. (It is sometimes useful to compare the accuracy of fast and slow algorithms, even if the latter might not suit your production volumetrics.) 
 
    2. **Ongoing, incremental, empirical evaluation**. Again, see the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) produced by
     the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
