@@ -1,4 +1,6 @@
-Two suggested paths:
+![](https://github.com/microprediction/timemachines/blob/main/images/download_time.png)
+
+Don't worry this will all go smoothly. Two suggested paths:
 
     1. Use only venv and pip
     2. Use miniconda
