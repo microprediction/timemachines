@@ -24,9 +24,7 @@ See the Slack invite on my user page [here](https://github.com/microprediction).
 
 # [Installation](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
 
-See the methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be incremental for best results. 
-
-I ain't gonna lie. Please use a virtual env or a new conda environement (cue [xkcd](https://xkcd.com/1987/)). 
+See the methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be incremental for best results. This [xkcd cartoon](https://xkcd.com/1987/) describes the alternative quite well, especially in the time-series ecosystem. 
 
  
 ## Examples
