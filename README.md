@@ -11,7 +11,7 @@ Simple uses of this package:
 More advanced uses of this package:
 
 3. Make your own autonomous algorithms and watch them compete. See the [daily $125 prize](https://www.microprediction.com/competitions/daily) and open this [notebook](https://github.com/microprediction/microprediction/blob/master/submission_examples_die/first_submission.ipynb) to understand the rudimentary mechanics of submitting distributions. Any skaters in this package can be turned into a "crawler" pretty easily, as demonstrated in the [stream skater examples](https://github.com/microprediction/microprediction/tree/master/crawler_skater_examples). 
-4. Use stacking [stacking](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/ensembling)) to create better skaters.  
+4. Use [stacking](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/ensembling)) to create better skaters.  
 5. Use hyper-parameter [tuning](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/README.md) to turn "almost" autonomous algorithms, or combinations of the same, into fully autonomous algorithms. 
 6. Use composition (residual chasing, boosting). Determine whether skaters here help predict your model residuals.  
 
