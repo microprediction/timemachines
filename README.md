@@ -40,7 +40,7 @@ The script [skating.py](https://github.com/microprediction/timemachines/blob/mai
         xi, x_std, s = thinking_slow_and_fast(y=yi, s=s, k=3)
         x.append(xi)
      
-This will accumulate 3-step ahead prediction vectors. Or to plot actual data:
+This will accumulate 3-step ahead prediction vectors. See also *prior_plot* which can be used:
 
     from timemachines.skaters.simple.thinking import thinking_slow_and_slow
     from timemachines.skatertools.visualization.priorplot import prior_plot
