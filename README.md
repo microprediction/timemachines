@@ -61,7 +61,11 @@ There's more in [examples/basic_usage](https://github.com/microprediction/timema
 
    1. **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup or estimation, only stateless functions:
        
-          x, x_hat, s = f(y,s,k)
+          x, x_std, s = f(y,s,k)
+         
+and if you need, 
+
+          x, x_std, s = f(y,s,k,a,t,e,r)
        
        These functions are called skaters and they take on the responsibility of incremental estimation, so you don't have to. Some are computationally efficient in this respect, whereas others are drawn from traditional packages intended for batch/offline work, and are not. It is sometimes useful to compare accuracy of fast and slow algorithms, even if the latter might not suit your production volumetrics. 
 
