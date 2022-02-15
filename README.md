@@ -146,7 +146,8 @@ Epoch time of the observation.
 A loose convention but:
 
        e < 0    -  Tells skater that it should update the state but the actual emitted result won't be used. 
-       e > 0    -  Tells skater that the result will matter, so be sure to compute it. 
+       e = 0    -  Tells skater that the result will matter, so be sure to compute it. 
+       e > 0    -  Tells the skater that it has plenty of time, so maybe performing a periodic "fit" is in order, if that's something it does. 
        
 This can be very useful for testing, since we can set e<0 during burn-in. 
    
@@ -197,6 +198,9 @@ when making conditional predictions. This also eyes lambda-based deployments and
      - Pass the *vector* argument *a* that will occur in k-steps time (not the contemporaneous one)
      - Remark: In the case of k=1 there are different interpretations that are possible beyond "business day", such as "size of a trade" or "joystick up" etc. 
 
+
+- 
+
 - Hyper-Parameter space (for pre-skaters only)
      - A float *r* in (0,1). 
      - This package provides functions *to_space* and *from_space*, for expanding to R^n using space filling curves, so that the callee's (hyper) parameter optimization can still exploit geometry, if it wants to.   
@@ -205,15 +209,8 @@ See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or f
  
 ### Aside: more on the e argument ...
 
-The use of *e* is a fairly weak convention. In theory:
-
-   - A large expiry *e* can be used as a hint to the callee that
- there is time enough to do a 'fit', which we might define as anything taking longer than the usual function invocation. 
-   - A negative *e* suggests that there isn't even time for a "proper" prediction to be made, never mind a model fit. It suggests that we are still in a burn-in period where the caller doesn't care too much, if at all, about the quality of prediction. The callee (i.e. the skater) should, however, process this observation *somehow* because this is the only way it can receive history. There won't be another chance. Thus some skaters will use e<0 as a hint to dump the obervation into a buffer so it can be used in the next model fit. They return a naive forecast, confident that this won't matter.  
- 
 Some skaters are so fast that a separate notion of 'fit' versus 'update' is irrelevant. Other skaters will periodically fit whether or not e>0 is passed. 
-
-The "e" conventions are useful for testing and assessment. You'll notice that the Elo rating code passes a sequence of e's something looking like:
+For some, there is even more graduated performance so *e* could be interpreted as "number of seconds allowed". To be safe the tests often pass an e sequence like the following: 
 
      -1, -1, -1, ... -1 1000 1000 1000 1000 1000 ...
      
