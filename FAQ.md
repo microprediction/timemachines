@@ -25,7 +25,7 @@ Answer (B): The intent is to produce simple web-service friendly models.
 
 Answer (C): It's "pure". Sort of. Dict are mutable. Let's say it is as pure as the driven snow that has turned in to sludge in New York City. 
 
-Answer (D): The caller can request conditional predictions easily (if they remember to do a deep copy of the state - see this [note](https://github.com/microprediction/timemachines/issues/51) ). 
+Answer (D): It isn't really a good idea to bundle updating with state maintenance because it isn't a given. Note that in the skater format the caller can request *conditional predictions* easily and doesn't have to worry about unwinding changes (though do need to remember to do a deep copy of the state - see this [note](https://github.com/microprediction/timemachines/issues/51) ). 
 
 ### FAQ 2: What's with the z-curves and *r* parameter?
 
