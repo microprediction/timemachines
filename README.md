@@ -36,7 +36,7 @@ See [examples](https://github.com/microprediction/timemachines/tree/main/example
 
 # [Quick start](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) 
 
-This package is just a collection of "skater" functions. "Skater" is a nmemonic for the arguments. 
+This package is just a collection of "skater" functions. "Skater" is a nmemonic for the arguments, although you might need only 1 or 2.  
 
 The script [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) illustrates the usage pattern. Like so:
 
