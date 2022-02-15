@@ -2,12 +2,17 @@
 
 ## Autonomous, univariate, k-step ahead time-series forecasting functions assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
 
-1. Use some of the functionality of a [subset](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/pypi.py) of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) with one line of code.
-2. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py). Find faster, lighter, lesser-known methods like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that might be useful for your purpose. Perhaps even adopt the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
-3. Quickly determine if autonomous algorithms can reliably predict your own model's residuals.
-4. Make your own autonomous algorithms and watch them compete. Use various combinations (composition, stacking [et cetera](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/ensembling)). Use hyper-parameter [tuning](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/README.md) to turn "almost" autonomous algorithms, or combinations of the same, into fully autonomous algorithms. 
+Simple uses of this package:
 
-There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. This project might help your package search, depending on your purposes. But it does not replace the packages themselves. 
+1. Use some of the functionality of a [subset](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/pypi.py) of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) with one line of code. Or use home-spun methods like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that might be useful for your purpose. Consider adopting the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
+2. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py). There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. 
+
+More advanced uses of this package:
+
+3. Make your own autonomous algorithms and watch them compete. See the [daily $125 prize](https://www.microprediction.com/competitions/daily) and open this [notebook](https://github.com/microprediction/microprediction/blob/master/submission_examples_die/first_submission.ipynb) to understand the rudimentary mechanics of submitting distributions. Any skaters in this package can be turned into a "crawler" pretty easily, as demonstrated in the [stream skater examples](https://github.com/microprediction/microprediction/tree/master/crawler_skater_examples). 
+4. Use stacking [stacking](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/ensembling)) to create better skaters.  
+5. Use hyper-parameter [tuning](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/README.md) to turn "almost" autonomous algorithms, or combinations of the same, into fully autonomous algorithms. 
+6. Use composition (residual chasing, boosting). Determine whether skaters here help predict your model residuals.  
 
 ### Contribute
     
