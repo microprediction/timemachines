@@ -86,11 +86,11 @@ No classes. Few dataframes. Hopefully little ceremony. Just a bunch of functions
   
 # The Skater signature 
 
-To emphasize, in this package a time series "model" is a plain old function taking scalars and lists as arguments. The name *timemachines* is chosen because the skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
+The name *timemachines* is chosen because the skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
     forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However unlike state machines that save state themselves, here the *caller* is expected to maintain state from one 
     invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
 
-So, here's a tiny bit more detail about the signature adopted by *all* skaters in this package. 
+So, here's a tiny bit more detail about the s-k-a-t-e-r signature adopted by *all* skaters in this package. 
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
