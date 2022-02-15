@@ -27,7 +27,9 @@ See the methodical [install instructions](https://github.com/microprediction/tim
 
 # [Quick start](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) 
 
-This package is just a collection of "skaters" whose [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities serve as demonstrations of the usage pattern. Put simply, you just feed them one data point at a time:
+This package is just a collection of "skater" functions. "Skater" is a nmemonic for the arguments. 
+
+The script [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) illustrates the usage pattern. Like so:
 
     from timemachines.skaters.simple.thinking import thinking_slow_and_fast 
     import numpy as np
