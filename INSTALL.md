@@ -110,7 +110,7 @@ Then proceed, using miniconda where possible and pip if conda doesn't have it ye
 
     conda install -c conda-forge lightgbm
     
-After exhausting proceed as above as see how far you get with timeseries packages
+Then proceed as above as see how far you get with timeseries packages
 
      pip install --upgrade darts
      pip install --upgrade river 
