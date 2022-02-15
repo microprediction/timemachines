@@ -125,16 +125,17 @@ See also "a" argument below.
 
 ### Skater "s" argument
  
-The state. The convention is that the caller passes the skater an empty dict on the first invocation, or to reset it. Thus the callee must initialize state if it receives an empty dictionary. It should return to the caller anything it will need for the next invocation. Skaters are pure in that sense.  
+The callee must initialize state if it receives an empty dictionary. It should return to the caller anything it will need for the next invocation. 
 
 ### Skater "k" argument 
 
-Determines the length of the term structure of predictions (and also their standard deviations) that will be returned. This cannot be varied from
-one invocation to the next. 
+Determines the length of the term structure of predictions (and also their standard deviations) that will be returned. 
 
 ### Skater "a" argument 
 
-A vector of known-in-advance variables. You can also use the "a" argument for conditional prediction. This is a nice advantage of keeping skaters pure - though the caller might need to make a copy of the prior state if she intends to reuse it. 
+A vector of known-in-advance variables. 
+
+(You can also use the "a" argument for conditional prediction. This is a nice advantage of keeping skaters pure - though the caller might need to make a copy of the prior state if she intends to reuse it.) 
 
 ### Skater "t" argument 
 
@@ -142,7 +143,12 @@ Epoch time of the observation.
 
 ### Skater "e" argument ("expiry")
 
-Suggests a number of seconds allowed for computation, though skater's don't necessarily comply. See remarks below. 
+A loose convention but:
+
+       e < 0    -  Tells skater that it should update the state but the actual emitted result won't be used. 
+       e > 0    -  Tells skater that the result will matter, so be sure to compute it. 
+       
+This can be very useful for testing, since we can set e<0 during burn-in. 
    
 ### Skater "r" argument (stands for "hype(r) pa(r)amete(r)s for pre-skaters only)
 
