@@ -4,7 +4,7 @@
 
 Simple uses of this package:
 
-1. Use some of the functionality of a [subset](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/pypi.py) of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) with one line of code. Or use home-spun methods like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that might be useful for your purpose. Consider adopting the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
+1. Use some of the functionality of a [subset](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/pypi.py) of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) with one line of code. Or use home-spun methods like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that might be a lot more practical for your application. Consider adopting the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
 2. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py). There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. 
 
 More advanced uses of this package:
