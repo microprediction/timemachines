@@ -63,7 +63,7 @@ Notice what isn't here:
 
 
 ### FAQ 4: What are the drawbacks? 
-Autonomous prediction is hard and there's only subsidized lunches. 
+Autonomous prediction is hard and in this world there are only only subsidized lunches, not free ones.  
 
 There are also limitations of the skater approach. The simple data model in *y*, *a* is not well suited to problems where exogenous data comes and goes, and therefore cannot easily be represented by a vector of fixed length (you might consider a dictionary interface instead, as with
 the river package). 
