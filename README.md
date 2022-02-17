@@ -64,9 +64,9 @@ There's more in [examples/basic_usage](https://github.com/microprediction/timema
 ![](https://i.imgur.com/elu5muO.png)
   
 # Why do it this way?
-  
+Oh here comes the justification. 
 
-   1. **Simple k-step ahead forecasts in functional style** There are no "models" here requiring setup or estimation, only stateless functions:
+   1. **Simple k-step ahead forecasts in functional style** I mean that's obvious. There are no "models" here requiring setup or estimation, only stateless functions as noted:
        
           x, x_std, s = f(y,s,k)
          
@@ -75,7 +75,7 @@ and if you need,
           x, x_std, s = f(y,s,k,a,t,e,r)
        
 
-Hence the name. The skater functions take on the responsibility of incremental estimation, so you don't have to. 
+The s-k-a-t-e-r functions take on the responsibility of incremental estimation, so you don't have to. 
 
 Some skaters are computationally efficient in this respect, whereas others are drawn from traditional packages intended for batch/offline work, and are not. (It is sometimes useful to compare the accuracy of fast and slow algorithms, even if the latter might not suit your production volumetrics.) 
 
@@ -88,16 +88,16 @@ Some skaters are computationally efficient in this respect, whereas others are d
 
    4. **Simplified deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary trivially converted to JSON and back (for instance in a web application). See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) for a little more discussion.   
 
-No classes. Few dataframes. Hopefully little ceremony. Just a bunch of functions sharing the same signature.  
+So there you have it. No classes. Few dataframes. Hopefully little ceremony.   
 
   
 # The Skater signature 
 
-The name *timemachines* is chosen because the skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
+By the way, the name *timemachines* is chosen because the skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
     forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However unlike state machines that save state themselves, here the *caller* is expected to maintain state from one 
     invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
 
-So, here's a tiny bit more detail about the s-k-a-t-e-r signature adopted by *all* skaters in this package. 
+So, here's a tiny bit more detail about the skater signature adopted by *all* skaters in this package. 
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
