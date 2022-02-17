@@ -93,13 +93,13 @@ Some skaters are computationally efficient in this respect, whereas others are d
 So there you have it. No classes. Few dataframes. Hopefully little ceremony.   
 
   
-# The Skater signature 
+# Skating 
 
 By the way, the name *timemachines* is chosen because the skater functions *suggest* state machines for sequential assimilation of observations (as a data point arrives, 
     forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However unlike state machines that save state themselves, here the *caller* is expected to maintain state from one 
     invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
 
-So, here's a tiny bit more detail about the skater signature adopted by *all* skaters in this package. 
+So, that's what's going on with the *s*. As for the k-a-t-e-r:  
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
@@ -110,8 +110,7 @@ So, here's a tiny bit more detail about the skater signature adopted by *all* sk
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s) 
 
-As noted, the function is intended to be applied repeatedly. For example one could harvest
-a sequence of the model predictions as follows:
+Since only one *y* arrives at a time, it is up to you to harvest a sequence of the model predictions, if you wish to, as follows:
 
     def posteriors(f,y):
         s = {}       
@@ -121,7 +120,7 @@ a sequence of the model predictions as follows:
             x.append(xi)
         return x
 
-Notice the use of s={} on first invocation. Also as noted above, there are prominently positioned [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities for processing full histories - though there isn't much beyond what you see above. 
+Though you *could* use the prominently positioned [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities for processing full histories.  Anyway, here's a tiny bit more detail about the signature adopted by *all* skaters in this package...
  
 ### Skater "y" argument
 
@@ -207,16 +206,20 @@ when making conditional predictions. This also eyes lambda-based deployments and
      - Pass the *vector* argument *a* that will occur in k-steps time (not the contemporaneous one)
      - Remark: In the case of k=1 there are different interpretations that are possible beyond "business day", such as "size of a trade" or "joystick up" etc. 
 
+- Expiry
+     - The "e" parameter serves as a performance hack  
+     - e<0 tells the skater that the output won't be used, so worry only about state updating
+     - e=0 tells the skater that there isn't much time, so this particular invocation isn't the best time to do a periodic "fit" exercise. 
 
-- 
-
-- Hyper-Parameter space (for pre-skaters only)
+- Hyper-Parameter space (for "pre-skaters")
      - A float *r* in (0,1). 
      - This package provides functions *to_space* and *from_space*, for expanding to R^n using space filling curves, so that the callee's (hyper) parameter optimization can still exploit geometry, if it wants to.   
+     - See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
      
 See [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) or file an issue if anything offends you greatly. 
  
 ### Aside: more on the e argument ...
+Now back to *e* again. 
 
 Some skaters are so fast that a separate notion of 'fit' versus 'update' is irrelevant. Other skaters will periodically fit whether or not e>0 is passed. 
 For some, there is even more graduated performance so *e* could be interpreted as "number of seconds allowed". To be safe the tests often pass an e sequence like the following: 
@@ -224,10 +227,6 @@ For some, there is even more graduated performance so *e* could be interpreted a
      -1, -1, -1, ... -1 1000 1000 1000 1000 1000 ...
      
 because it wants to allow the skaters to receive some history before they are evaluated. On the other hand, waiting for Facebook prophet to fit itself 500 times is a bit like waiting for the second coming of Christ. 
-
-## Tuning "pre-skaters" and more on the "r" argument for pre-skaters
-
-- See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning)
     
 ## Cite 
 
