@@ -133,7 +133,7 @@ See also "a" argument below.
 
 ### Skater "s" argument
  
-The callee must initialize state if it receives an empty dictionary. It should return to the caller anything it will need for the next invocation. 
+The internal state of the skater, intended to summarize everything we need to know from the past.  
 
 ### Skater "k" argument 
 
