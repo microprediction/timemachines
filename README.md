@@ -40,9 +40,7 @@ See [examples](https://github.com/microprediction/timemachines/tree/main/example
 
 # [Quick start](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) 
 
-This package is just a collection of "skater" functions. "Skater" is a nmemonic for the arguments, although you might need only 1 or 2.  
-
-The script [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) illustrates the usage pattern. Like so:
+Again, this package is *merely* a collection of "skater" functions. "Skater" is a nmemonic for the arguments, although you might need only 1 or 2. The script [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) illustrates the usage pattern. Like so:
 
     from timemachines.skaters.simple.thinking import thinking_slow_and_fast 
     import numpy as np
@@ -53,16 +51,6 @@ The script [skating.py](https://github.com/microprediction/timemachines/blob/mai
         xi, x_std, s = thinking_slow_and_fast(y=yi, s=s, k=3)
         x.append(xi)
      
-This will accumulate 3-step ahead prediction vectors. See also *prior_plot* which can be used:
-
-    from timemachines.skaters.simple.thinking import thinking_slow_and_slow
-    from timemachines.skatertools.visualization.priorplot import prior_plot
-    from timemachines.skatertools.data.real import hospital
-    import matplotlib.pyplot as plt
-    y = hospital(n=200)
-    prior_plot(f=thinking_slow_and_slow,y=y)
-    plt.show()
-  
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
   
