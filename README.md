@@ -6,7 +6,7 @@ Here y is a vector or scalar
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
-This package is a collection of "f"s. 
+This package is a collection of a hundred or so "f"s, nothing more.  
 
 ### Simple uses of this package:
 
