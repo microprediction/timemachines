@@ -3,8 +3,8 @@
 ## Autonomous time-series forecasting functions assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
 Here y is a vector or scalar
 
-   for yi in y:
-       xi, x_std, s = f(y=yi, s=s, k=3)
+     for yi in y:
+         xi, x_std, s = f(y=yi, s=s, k=3)
 
 This package is a collection of "f"s. Simple uses of this package:
 
