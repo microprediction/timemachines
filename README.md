@@ -32,6 +32,8 @@ See the Slack invite on my user page [here](https://github.com/microprediction).
 ### [Daily $125 prize](https://www.microprediction.com/competitions/daily)
 Figured this might be worth repeating :)
 
+<img source="https://github.com/microprediction/timemachines/blob/main/images/money.png" style="width=400">
+
 # [Installation](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
 
 See the methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be incremental for best results. This [xkcd cartoon](https://xkcd.com/1987/) describes the alternative quite well, especially in the time-series ecosystem. 
