@@ -32,7 +32,9 @@ See the Slack invite on my user page [here](https://github.com/microprediction).
 ### [Daily $125 prize](https://www.microprediction.com/competitions/daily)
 Figured this might be worth repeating :)
 
-<img source="https://github.com/microprediction/timemachines/blob/main/images/money.png" style="width=400">
+
+<img src="https://github.com/microprediction/timemachines/blob/main/images/money.png" alt="Money" style="width:500px">
+
 
 # [Installation](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
 
