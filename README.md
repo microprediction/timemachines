@@ -239,4 +239,4 @@ Thanks
             url = {https://github.com/microprediction/timemachines}
         }
 
-
+or something [here](https://github.com/microprediction/microprediction/blob/master/CITE.md). 
