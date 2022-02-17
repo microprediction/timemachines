@@ -226,7 +226,7 @@ For some, there is even more graduated performance so *e* could be interpreted a
 
      -1, -1, -1, ... -1 1000 1000 1000 1000 1000 ...
      
-because it wants to allow the skaters to receive some history before they are evaluated. On the other hand, waiting for Facebook prophet to fit itself 500 times is a bit like waiting for the second coming of Christ. 
+because it wants to allow the skaters to receive some history before they are evaluated. Often you just wan the skater to shove that in a buffer and not compute anything, if that is its style, becaue waiting for Facebook prophet to fit itself 500 times is a bit like waiting for the second coming of Christ. 
     
 ## Cite 
 
