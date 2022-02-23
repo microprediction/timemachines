@@ -19,7 +19,7 @@ def thinking_fast_and_slow(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE
     """
           Apply defensive slowly moving average to residuals from a quickly moving average
     """
-    return quickly_moving_hypocratic_residual_factory(y=y, s=s, k=k, a=a, t=t, e=e, f=slowly_moving_average)
+    return slowly_moving_hypocratic_residual_factory(y=y, s=s, k=k, a=a, t=t, e=e, f=quickly_moving_average)
 
 
 def thinking_slow_and_slow(y :Y_TYPE, s:dict, k:int =1, a:A_TYPE =None, t:T_TYPE =None, e:E_TYPE =None)->([float] , Any , Any):
