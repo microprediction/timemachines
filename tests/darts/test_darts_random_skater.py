@@ -18,7 +18,7 @@ if using_darts:
 
 
 if __name__ == '__main__':
-    assert using_darts, 'pip install darts'
+    assert using_darts, 'pip install darts and also other requirements for darts packages'
     import time
     for _ in range(100):
         st = time.time()
