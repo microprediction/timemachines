@@ -13,3 +13,4 @@ except ImportError:
 
 if __name__=='__main__':
     print(using_merlion)
+    print(using_merlion_prophet)
