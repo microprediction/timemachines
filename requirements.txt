@@ -4,6 +4,7 @@ importlib-metadata>=1.7.0
 getjson
 momentum
 numpy>=1.19.5
+pytz>=2021.3
 
 
 
