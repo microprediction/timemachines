@@ -3,7 +3,7 @@ import pandas as pd
 from timemachines.skaters.orbt.orbitinclusion import using_orbit
 
 if using_orbit:
-    from orbit.models.lgt import LGTMAP, LGTAggregated, LGTFull
+    from orbit.models.lgt import LGT
 
     def orbit_lgt_iskater(y, k, a, t, seasonality):
         """
@@ -24,7 +24,7 @@ if using_orbit:
 
         # run the model
         if isinstance(seasonality, int) or seasonality == None:
-            lgt = LGTMAP(
+            lgt = LGT(
                 response_col="response_col",
                 date_col="date_col",
                 seasonality=seasonality
