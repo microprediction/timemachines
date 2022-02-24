@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.15.1",
+    version="0.15.2",
     description="Evaluation and standardization of popular time series packages",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -60,9 +60,9 @@ setup(
     test_suite='pytest',
     tests_require=['pytest','microprediction','scikit-learn','scipy'],
     include_package_data=True,
-    install_extra={"full":["scipy","scikit-learn","statsmodels","pandas","cython","river","pmdarima"]  }
+    extras_require={"full":["scipy","scikit-learn","statsmodels","pandas","cython","river","pmdarima"]},
     install_requires=["wheel","numpy>=1.19.5","importlib-metadata>=1.7.0",
-                      "microconventions>=0.5.1","getjson",'pytz-2021.3',
+                      "microconventions>=0.5.1","getjson",'pytz>=2021.3',
                        "convertdate>=2.2.0","momentum>=0.2.1","requests"],
     entry_points={
         "console_scripts": [
