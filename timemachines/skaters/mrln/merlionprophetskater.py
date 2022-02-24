@@ -1,7 +1,9 @@
 
 from timemachines.skaters.mrln.merlioninclusion import using_merlion_prophet
 
-if using_merlion_prophet:
+# Turned this off until using_merlion_prophet is fixed
+
+if using_merlion_prophet and False:
     from timemachines.skaters.mrln.merlionwrappers import merlion_Prophet_iskater
     from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE
     from timemachines.skatertools.batch.batchskater import batch_skater_factory
@@ -18,5 +20,6 @@ else:
     MERLION_PROPHET_SKATERS = []
 
 if __name__=='__main__':
+    print(using_merlion_prophet)
     from timemachines.skatertools.evaluation.evaluators import hospital_mean_square_error_with_sporadic_fit
-    err1 = hospital_mean_square_error_with_sporadic_fit(f=merlion_Prophet_iskater, k=3, n=110)
+    err1 = hospital_mean_square_error_with_sporadic_fit(f=merlion_prophet, k=3, n=110)
