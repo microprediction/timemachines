@@ -1,4 +1,4 @@
-convertdate>=2.2.0
+convertdate>=2.4.0
 microconventions>0.5.0
 importlib-metadata>=1.7.0
 getjson
