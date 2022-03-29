@@ -76,10 +76,7 @@ and if you need,
 
           x, x_std, s = f(y,s,k,a,t,e,r)
        
-
-The s-k-a-t-e-r functions take on the responsibility of incremental estimation, so you don't have to. 
-
-Some skaters are computationally efficient in this respect, whereas others are drawn from traditional packages intended for batch/offline work, and can be quite slow when called repeatedly. But they are here because it is necessary to compare the accuracy of fast and slow algorithms, even if the latter might not suit your production volumetrics. 
+The s-k-a-t-e-r functions take on the responsibility of incremental estimation, so you don't have to. Some skaters are computationally efficient in this respect, whereas others are drawn from traditional packages intended for batch/offline work, and can be quite slow when called repeatedly. But they are here because it is necessary to compare the accuracy of fast and slow algorithms, even if the latter might not suit your production volumetrics. 
 
    2. **Ongoing, incremental, empirical evaluation**. Again, see the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) produced by
     the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
@@ -120,7 +117,7 @@ Since only one *y* arrives at a time, it is up to you to harvest a sequence of t
             x.append(xi)
         return x
 
-Though you *could* use the prominently positioned [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities for processing full histories.  Anyway, here's a tiny bit more detail about the signature adopted by *all* skaters in this package...
+Though you *could* use the prominently positioned [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) utilities for processing full histories.  
  
 ### Skater "y" argument
 
@@ -129,25 +126,31 @@ A skater function *f* takes a vector *y*, where:
     - The quantity to be predicted (target) is y[0] and,
     - There may be other, simultaneously observed variables y[1:] deemed helpful in predicting y[0].
 
-See also "a" argument below. 
-
 ### Skater "s" argument
  
-The internal state of the skater, intended to summarize everything we need to know from the past.  
+The internal state of the skater, intended to summarize everything the skater needs to know from the past. It is entirely up to the creator of the skater to devise a sensible scheme for s, and it is advised that this be a dictionary that is easily dumped to JSON, although it is impossible to enforce this constraint when incorporating third party packages. 
 
 ### Skater "k" argument 
 
-Determines the length of the term structure of predictions (and also their standard deviations) that will be returned. 
+The integer k argument determines the length of the vector of predictions (and also their standard deviations) that will be returned. 
+
+Typically if you really care about k=1 step ahead prediction then you should specify k=1. You *could* specify k=5 or whatever and take the first element of the 5-vector returned, but many skaters might not ensure this is the same as when k=1 is specified (for computational reasons some interpolation might be applied, for instance). 
 
 ### Skater "a" argument 
 
-A vector of known-in-advance variables. 
+A vector of known-in-advance variables. For instance a day of week. 
 
-(You can also use the "a" argument for conditional prediction. This is a nice advantage of keeping skaters pure - though the caller might need to make a copy of the prior state if she intends to reuse it.) 
+You can also use the "a" argument for conditional prediction. This is a matter of interpretation. For instance, you might ask for two predictions, one with a=0 and one with a=1 where this represents rain or something. 
+
+It must be said that at present, most skaters will ignore the "a" argument entirely. 
+
+Also, there are at present no universal conventions for values taken by "a". It is entirely up to the skater to infer this. 
 
 ### Skater "t" argument 
 
 Epoch time of the observation. 
+
+Again, many skaters will choose to ignore this input and instead presume that data is regularly sampled. 
 
 ### Skater "e" argument ("expiry")
 
@@ -159,7 +162,7 @@ A loose convention but:
        
 This can be very useful for testing, since we can set e<0 during burn-in. 
    
-### Skater "r" argument (stands for "hype(r) pa(r)amete(r)s for pre-skaters only)
+### Skater "r" argument (stands for "hype(r) pa(r)amete(r)s for p(r)e-skaters only)
 
 A real skater doesn't have any hyper-parameters. It's the job of the designer to make it fully autonomous. The small concession made here is the notion of a pre-skater: one with a single float hyperparameter in the closed interval \[0,1\]. Pre-skaters squish all tunable parameters into this interval. That's a bit tricky, so some rudimentary conventions and space-filling functions are provided. See [tuning](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools/tuning) and longer discussion below. 
 
