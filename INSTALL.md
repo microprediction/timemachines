@@ -1,6 +1,8 @@
-Two suggested paths:
+![](https://github.com/microprediction/timemachines/blob/main/images/download_time.png)
 
-    1. Try the pure pip route
+Don't worry this will all go smoothly. Two suggested paths:
+
+    1. Use only venv and pip
     2. Use miniconda
 
 I definitely suggest the latter if you are an M1 user
@@ -35,9 +37,9 @@ so you can see if you run into difficulty. If desperate, you can maybe scrape by
     
 It is hardest to avoid using statsmodels as just about every other package wraps statsmodels.tsa As an aside you may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
 
-Next decide how badly you want prophet, or other timeseries packages that wrap it. 
+Next decide how badly you want prophet, or other timeseries packages that wrap it. If so:
 
-  pip install --upgrade prophet
+     pip install --upgrade prophet
     
 On some systems pystan is flaky, thus also prophet, thus also things wrapping prophet. You'll need an older pystan (unless things have changed). Maybe read my [review of prophet](https://www.microprediction.com/blog/prophet) before spending too much install agony there. It is an extrapolation library, really, not a timeseries forecasting library.   
 
@@ -85,7 +87,7 @@ Finally, do this only if you wish to have greater ability to pull exogenous data
 
 # Option 2. Install with (mini) conda 
 
-Using only pip on mac silicon is, at the time of writing, a fool's errand. And some prefer conda anayway. One option is: 
+If you are a conda person, or use Mac silicon and are not especially brave, then: 
 
     brew install miniforge
 
@@ -108,7 +110,7 @@ Then proceed, using miniconda where possible and pip if conda doesn't have it ye
 
     conda install -c conda-forge lightgbm
     
-After exhausting proceed as above as see how far you get with timeseries packages
+Then proceed as above as see how far you get with timeseries packages
 
      pip install --upgrade darts
      pip install --upgrade river 
@@ -117,11 +119,6 @@ and so on (see list above). Again, the apple silicon (m1) install situation is p
 keep open the possibility of the --no-use-pep517 option.
  
     pip install whatever --no-use-pep517
-
-Optional: (e.g. for training, testing etc)
-
-    pip install --upgrade microprediction   
-    
 
     
 ## Install troubleshooting remark on colab

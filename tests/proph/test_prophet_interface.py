@@ -51,7 +51,7 @@ if using_prophet:
         x, x_std, forecast, m = prophet_iskater_factory(y=y, k=k, t=t)
         assert len(x) == k
         x1, x_std1, forecast1, m1 = prophet_fit_and_predict_with_time_and_advance_time(y=y, k=k, t=t)
-        assert nearlysame(x1, x, 0.0001)
+        assert nearlysame(x1, x, 0.001)
         if show:
             m.plot(forecast)
             m1.plot(forecast1)
@@ -68,7 +68,7 @@ if using_prophet:
         x, x_std, forecast, m = prophet_iskater_factory(y=y1, k=k, t=t, a=a)
         assert len(x) == k
         x1, x_std1, forecast1, m1 = prophet_fit_and_predict_with_advance_vars(y=y1, k=k, t=t, a=a)
-        assert nearlysame(x1, x, 0.0001)
+        assert nearlysame(x1, x, 0.001)
         if show:
             m.plot(forecast)
             m1.plot(forecast1)
@@ -85,7 +85,7 @@ if using_prophet:
         x, x_std, forecast, m = prophet_iskater_factory(y=y, k=k, t=t, a=a)
         assert len(x) == k
         x1, x_std1, forecast1, m1 = prophet_fit_and_predict_with_exog_and_advance_vars(y=y, k=k, t=t, a=a)
-        assert nearlysame(x1, x, 0.0001)
+        assert nearlysame(x1, x, 0.001)
         if show:
             m.plot(forecast)
             m1.plot(forecast1)
@@ -102,7 +102,7 @@ if using_prophet:
         x, x_std, forecast, m = prophet_iskater_factory(y=y, k=k, freq=freq, a=a)
         assert len(x) == k
         x1, x_std1, forecast1, m1 = prophet_fit_and_predict_with_exog_and_advance_vars_no_t(y=y, k=k, freq=freq, a=a)
-        if not nearlysame(x1, x, 0.0001):
+        if not nearlysame(x1, x, 0.001):
             print(forecast.tail())
             print(forecast1.tail())
             pass
@@ -122,7 +122,7 @@ if using_prophet:
         x, x_std, forecast, m = prophet_iskater_factory(y=y, k=k, freq=freq, a=a)
         assert len(x) == k
         x1, x_std1, forecast1, m1 = prophet_fit_and_predict_with_exog_and_advance_vars_no_t(y=y, k=k, freq=freq, a=a)
-        if not nearlysame(x1, x, 0.0001):
+        if not nearlysame(x1, x, 0.001):
             print(forecast.tail())
             print(forecast1.tail())
             pass

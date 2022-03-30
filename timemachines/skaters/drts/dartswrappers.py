@@ -1,5 +1,8 @@
 from timemachines.skaters.drts.dartsinclusion import using_darts
 
+# FIXME: Fix up the dartsinclusion so this is not all or nothing
+# But don't assume the user has all required packages installed, because DARTS doesn't assume that.
+
 if using_darts:
     import numpy as np
     import pandas as pd

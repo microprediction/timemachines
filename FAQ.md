@@ -23,9 +23,9 @@ or write a decorator. Whatever, it's Python.
 
 Answer (B): The intent is to produce simple web-service friendly models. 
 
-Answer (C): It's pure. Pure as the driven snow ... that has turned in to sludge in New York City. (See this [note](https://github.com/microprediction/timemachines/issues/51))  
+Answer (C): It's "pure". Sort of. Dict are mutable. Let's say it is as pure as the driven snow that has turned in to sludge in New York City. 
 
-Answer (D): The caller can request conditional predictions easily (if they remember to do a deep copy of the state). 
+Answer (D): It isn't really a good idea to bundle updating with state maintenance because it isn't a given. Note that in the skater format the caller can request *conditional predictions* easily and doesn't have to worry about unwinding changes (though do need to remember to do a deep copy of the state - see this [note](https://github.com/microprediction/timemachines/issues/51) ). 
 
 ### FAQ 2: What's with the z-curves and *r* parameter?
 
@@ -63,7 +63,7 @@ Notice what isn't here:
 
 
 ### FAQ 4: What are the drawbacks? 
-Autonomous prediction is hard and there's only subsidized lunches. 
+Autonomous prediction is hard and in this world there are only only subsidized lunches, not free ones.  
 
 There are also limitations of the skater approach. The simple data model in *y*, *a* is not well suited to problems where exogenous data comes and goes, and therefore cannot easily be represented by a vector of fixed length (you might consider a dictionary interface instead, as with
 the river package). 

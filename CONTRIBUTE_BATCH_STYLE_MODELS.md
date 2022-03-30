@@ -36,9 +36,10 @@ Next you need to register a list of fully autonomous skaters
  
 Write unit tests
 
- 10. Cut and paste the example unit test [test_sk_random_skater](https://github.com/microprediction/timemachines/blob/main/tests/sk/test_sk_random_skater.py)
-
-Run pytest and the individual test repeatedly. When it is working well you can include it in the master list:
+ 10. Cut and paste the example unit test [test_sk_random_skater](https://github.com/microprediction/timemachines/blob/main/tests/sk/test_sk_random_skater.py). Modify it. 
+ 
+Run pytest and the individual test repeatedly. I rely on Github actions to *pytest* package combinations, but I suppose you can use [act](https://github.com/nektos/act) to run the [actions](https://github.com/microprediction/timemachines/tree/main/.github/workflows) locally. 
+When it is working well you can include it in the master list:
  
  11. Modify [localskaters.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/localskaters.py) 
  12. Modify [README.md](https://github.com/microprediction/timemachines/blob/main/README.md) to include a suggestion to users to pip install the new requirements
