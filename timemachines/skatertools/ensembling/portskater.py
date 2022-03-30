@@ -1,16 +1,11 @@
+from timemachines.skatertools.ensembling.precisionweightedskater import normalize, weighted_average
 import math
 import numpy as np
 
-
-def weighted_average(y,w):
-    return sum(wj * yj for yj, wj in zip(y, w)) / sum(w)
+# Not written ... jus scrap for now
 
 
-def normalize(w):
-    return [ wj/sum(w) for wj in w]
-
-
-def precision_weighted_skater(y,s,k,a,t,e,r=0.5):
+def port_skater(y, s, k, a, t, e, r=0.5):
     """ Special purpose skater since 'y' here takes a rather particular form,
         and it is intended to be used as with the ensemblefactory
 
@@ -24,6 +19,9 @@ def precision_weighted_skater(y,s,k,a,t,e,r=0.5):
              r->1  will use only the most accurate skater in the ensemble
 
     """
+    if s.get('cov') is None:
+        s = {'cov':1}
+
     tol = 1e-6  # minimum allowed x_std
     expon = 2*math.atanh(r)/math.atanh(0.5) if r<1-1e-6 else 10.0
     J  = int((len(y)-1)/2)
@@ -39,3 +37,6 @@ def precision_weighted_skater(y,s,k,a,t,e,r=0.5):
     x_interp = [y[0]+(j+1)/k*(x-y[0]) for j in range(k)]
     x_std_interp = [math.sqrt(j+1)*x_std for j in range(k)]
     return x_interp, x_std_interp, {}
+
+
+

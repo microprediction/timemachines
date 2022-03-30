@@ -4,6 +4,10 @@ from timemachines.skatertools.ensembling.precisionweightedskater import precisio
 from timemachines.skatertools.components.parade import parade
 from timemachines.skatertools.utilities.nonemath import noneupdatelist
 
+
+# Tools for
+
+
 # Some r values to use when ensembling
 R_PRECISION = 0.5    # (i.e. precision weighting)
 R_BALANCED = 0.25

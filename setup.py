@@ -7,8 +7,8 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.15.0",
-    description="Evaluation and standardization of popular time series packages",
+    version="0.16.0",
+    description="Evaluation and standardization of autonomous time series prediction",
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/microprediction/timemachines",
@@ -62,7 +62,7 @@ setup(
     include_package_data=True,
     install_requires=["wheel","numpy>=1.19.5","importlib-metadata>=1.7.0",
                       "microconventions>=0.5.1","getjson",'pytz',
-                       "convertdate>=2.2.0","momentum>=0.2.1","requests"],
+                       "convertdate>=2.2.0","momentum>=0.2.5","requests"],
     entry_points={
         "console_scripts": [
             "timemachines=timemachines.__main__:main",
