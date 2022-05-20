@@ -14,6 +14,11 @@ This package is a collection of a hundred or so "f"s, nothing more.
    Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more with one line of code. Or use home-spun methods like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that you'll only find here. 
 2. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py). There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. And you might consider the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
 
+### Hey do you reckon latex works in markdown now?
+
+When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are 
+$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
+
 ### More advanced uses of this package:
 
 3. Make your own autonomous algorithms and watch them compete. See the [daily $125 prize](https://www.microprediction.com/competitions/daily) and open this [notebook](https://github.com/microprediction/microprediction/blob/master/submission_examples_die/first_submission.ipynb) to understand the rudimentary mechanics of submitting distributions. Any skaters in this package can be turned into a "crawler" pretty easily, as demonstrated in the [stream skater examples](https://github.com/microprediction/microprediction/tree/master/crawler_skater_examples). 
