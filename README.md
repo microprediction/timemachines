@@ -16,9 +16,10 @@ This package is a collection of a hundred or so "f"s, nothing more.
 
 ### Hey do you reckon latex works in markdown on GitHub now?
 This is a skater
-$$
+
+  $$
      (current\ data, state) \mapsto (mean, cov, posterior\ state)
-$$
+  $$
 
 
 ### More advanced uses of this package:
