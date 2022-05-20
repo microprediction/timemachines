@@ -20,6 +20,7 @@ This is a skater
   $$
      (current\ data, state) \mapsto (mean, cov, posterior\ state)
   $$
+  
 Oh my life just changed (see all the [happy people](https://www.linkedin.com/posts/petercotton_math-support-in-markdown-the-github-blog-activity-6933213212783902721-QM7H?utm_source=linkedin_share&utm_medium=member_desktop_web)!)
 
 ### More advanced uses of this package:
