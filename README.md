@@ -18,7 +18,7 @@ This package is a collection of a hundred or so "f"s, nothing more.
 This is a skater
 
 $$
-     y, s \mapsto f(y,s,k)
+     (current\ data, state) \mapsto (mean, cov, posterior\ state)
 $$
 
 ### More advanced uses of this package:
