@@ -14,12 +14,12 @@ This package is a collection of a hundred or so "f"s, nothing more.
    Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more with one line of code. Or use home-spun methods like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that you'll only find here. 
 2. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py). There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. And you might consider the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
 
-### Hey do you reckon latex works in markdown now?
+### Hey do you reckon latex works in markdown on GitHub now?
 This is a skater
-
 $$
      (current\ data, state) \mapsto (mean, cov, posterior\ state)
 $$
+
 
 ### More advanced uses of this package:
 
