@@ -1,6 +1,6 @@
 # Time-machines contributors guide
 
-This project hopes to make it easier for humans, and also autonomous creatures, to get a rough idea of what time-series package or technique might be applicable to their domain. If you wish to help with this search problem, there are easy and more involved ways to help.  
+This project hopes to make it easier for humans, and also autonomous creatures, to get a rough idea of what time-series package or technique might be applicable to their domain. Popularity is not a good guide! If you wish to help with this search problem, there are easy and more involved ways to help.  
 
    - [CONTRIBUTE COLAB NOTEBOOK](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_COLAB_NOTEBOOK.md) if you like a package (pretty easy).
    - [CONTRIBUTE_BATCH_STYLE_MODELS](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE_BATCH_STYLE_MODELS.md) to add new functionality using non-incremental methods.
