@@ -15,7 +15,7 @@ See the reasonable intro to venv [here](https://medium.com/swlh/how-to-setup-you
     python -m venv myenv 
     source myenv/bin/activate 
     
-I suggest that life is less frustrating if you patiently install popular prerequisites one by one
+I suggest that life is less frustrating if you patiently install popular prerequisites one by one (on some MacOS configurations, you may have to use pip3, instead of pip)
 
     pip install --upgrade pip
     pip install --upgrade wheel
@@ -37,7 +37,7 @@ so you can see if you run into difficulty. If desperate, you can maybe scrape by
     
 It is hardest to avoid using statsmodels as just about every other package wraps statsmodels.tsa As an aside you may get better performance by first installing tensorflow following the [instructions](https://www.tensorflow.org/install) and perhaps reading this [thread](https://stackoverflow.com/questions/66092421/how-to-rebuild-tensorflow-with-the-compiler-flags). 
 
-Next decide how badly you want prophet, or other timeseries packages that wrap it. If so:
+Next decide how badly you want prophet, or other timeseries packages that wrap it. For example, On Apple M1, problems have been reported. But nevertheless:
 
      pip install --upgrade prophet
     
