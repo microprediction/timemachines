@@ -1,6 +1,7 @@
 from timemachines.skatertools.data.real import hospital
 import random
 from timemachines.skaters.sk.skinclusion import using_sktime
+from timemachines.skaters.pmd.pmdinclusion import using_pmd
 from timemachines.skating import prior
 
 if using_sktime:
