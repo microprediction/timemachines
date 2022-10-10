@@ -28,7 +28,7 @@ if using_neuralprophet:
 
     def nprophet_p8(y: Y_TYPE, s: dict, k: int, a: A_TYPE = None,
                                  t: T_TYPE = None, e: E_TYPE = None):
-        return nprophet_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e, recursive = False, model_params = {'n_lags':5})
+        return nprophet_skater_factory(y=y,s=s,k=k,a=a,t=t,e=e, recursive = False, model_params = {'n_lags':8})
 
 
     NPROPHET_UNIVARIATE_SKATERS = [ nprophet_p1, nprophet_p2, nprophet_p3, nprophet_p5, nprophet_p8 ]
