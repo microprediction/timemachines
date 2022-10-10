@@ -115,7 +115,7 @@ if using_sktime:
                                           start_P=start_P, D=None, start_Q=start_Q,
                                           max_P=max_P, max_D=max_D, max_Q=max_Q, max_order=max_order, sp=sp, seasonal=seasonal, stationary=stationary,
                                           information_criterion=information_criterion, alpha=alpha, test=test, seasonal_test=seasonal_test, stepwise=stepwise,
-                                          n_jobs=n_jobs, start_params=start_params, trend=trend, method=method, maxiter=maxiter, offset_test_args=offset_test_args,
+                                          n_jobs=n_jobs, start_params=None, trend=trend, method=method, maxiter=maxiter, offset_test_args=offset_test_args,
                                           seasonal_test_args=seasonal_test_args, suppress_warnings=suppress_warnings, error_action='warn', trace=False,
                                           n_fits=n_fits, out_of_sample_size=out_of_sample_size, scoring=scoring,
                                           scoring_args=scoring_args, with_intercept=with_intercept)
