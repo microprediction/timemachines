@@ -7,7 +7,7 @@ except ImportError:
 
 import numpy as np
 
-# Example of running Nixtla statsforecast AutoARIMA sequentially over 100 data points
+# Example of running Nixtla statsforecast AutoARIMA sequentially over 100 data points, and chasing residuals. 
 
 if __name__=='__main__':
     y = np.cumsum(np.random.randn(100))
