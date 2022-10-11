@@ -3,7 +3,7 @@ try:
 except ImportError:
     print('pip install timemachines')
     print('pip install sktime')
-    print('pip install statsmodels')
+    print('pip install statsforecast')
 
 import numpy as np
 
