@@ -6,22 +6,19 @@ Here y is a vector or scalar, and we want to predict it three steps in advance.
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
-This package is a collection of a hundred or so "f"s, nothing more.  
+This package is a collection of a hundred or so "f"s, nothing more. More abstractly:
+
+  $$
+    f : (current\ data, state) \mapsto (mean, cov, posterior\ state)
+  $$
+
+
 
 ### Simple uses of this package:
 
 1. Use some of the functionality of a [subset](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/pypi.py) of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
    Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more with one line of code. Or use home-spun methods like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that you'll only find here. 
 2. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py). There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. And you might consider the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
-
-### Hey do you reckon latex works in markdown on GitHub now?
-This is a skater
-
-  $$
-     (current\ data, state) \mapsto (mean, cov, posterior\ state)
-  $$
-  
-Oh my life just changed (see all the [happy people](https://www.linkedin.com/posts/petercotton_math-support-in-markdown-the-github-blog-activity-6933213212783902721-QM7H?utm_source=linkedin_share&utm_medium=member_desktop_web)!)
 
 ### More advanced uses of this package:
 
