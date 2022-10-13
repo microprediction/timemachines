@@ -29,6 +29,7 @@ The strategy here:
    2. Creating "crawlers" and other programs than operate in real-time and predict time-series at www.microprediction.org where:
         * They play this [game](https://www.microprediction.com/blog/intro), and in doing so, 
         * Provide free high quality short-term prediction to anyone, anywhere, for any reason.
+        * See also the [TLDR](https://microprediction.github.io/microprediction/tldr.html)
  
    3. Demonstrating creative use of on-tap community prediction such as:
         * Multi-level autonomous crowd-sourcing where things feed back to the next step (see [crypto examples](https://github.com/microprediction/microprediction/blob/master/stream_examples_crypto/README.md)).
