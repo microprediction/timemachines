@@ -9,7 +9,7 @@ Here y is a vector or scalar, and we want to predict it three steps in advance.
 This package is a collection of a hundred or so "f"s, nothing more. More abstractly:
 
   $$
-    f : (current\ data, state) \mapsto (mean, cov, posterior\ state)
+    f : (current\ data, state) \mapsto (mean, std error, posterior\ state)
   $$
 
 
