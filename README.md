@@ -9,9 +9,10 @@ Here y is a vector or scalar, and we want to predict it three steps in advance.
 This package is a collection of a hundred or so "f"s, nothing more. More abstractly:
 
   $$
-    f : (current\ data, state) \mapsto (mean, std error, posterior\ state)
+    f : (y_t, state; k) \mapsto ( \hat{y_{t+k}}, \sigma, posterior\ state)
   $$
 
+where $\sigma$ estimates the standard error of the prediction. 
 
 
 ### Simple uses of this package:
