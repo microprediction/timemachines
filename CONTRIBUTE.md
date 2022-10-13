@@ -32,7 +32,7 @@ The strategy here:
  
    3. Demonstrating creative use of on-tap community prediction such as:
         * Multi-level autonomous crowd-sourcing where things feed back to the next step (see [crypto examples](https://github.com/microprediction/microprediction/blob/master/stream_examples_crypto/README.md)).
-        * Otherwise inventive use of general purpose prediction, conditional prediction, and prediction of ancilliary quantities to achieve intelligent systems in surprising ways. A book on the topic will be published by MIT Press Fall 2022.  
+        * Otherwise inventive use of general purpose prediction, conditional prediction, and prediction of ancilliary quantities to achieve intelligent systems in surprising ways. See my [book](https://github.com/microprediction/building_an_open_ai_network). 
         * Attacking otherwise thorny issues like [defining anomaly detection](https://www.microprediction.com/blog/anomaly) in a way that isn't circular. 
         * Driving investment returns for clients of Intech Investments, the project sponsor. After all if it helps with what might be the hardest problem of all (or at least the most competitive) it is a no-brainer that this will work elsewhere. 
 
