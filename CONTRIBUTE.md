@@ -39,9 +39,7 @@ The strategy here:
 
 # Contribution Patterns
 
-Can an open-source conspiracy upend artisan data science by unleashing a billion little reward-seeking algorithms and commoditizing repeated quantitative tasks of all kinds? It sure might be fun to find out, and possible a better idea than waiting for DeepMind to solve general intelligence, according to a wise man. My unsolicited views on the notion that "Reward is Enough" are [here](https://www.microprediction.com/blog/reward) in part. They form the basis for a new [book](https://mitpress.mit.edu/books/microprediction) to be published by Mit Press this year, and you can find a buggy Ch1 [here](https://github.com/microprediction/home/blob/main/books/Microprediction_MIT_Press_Chapter_One.pdf).  
-
-Ah, but will it work? I don't know. It's hard to get the word out. So I suppose it is nice if people follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690) if that helps bring in contributors. Thanks. I suppose you can star, fork, watch [timemachines](https://github.com/microprediction/timemachines) or even sign this tongue-in-cheek [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) - unless you want a job at Facebook or Towards Data Science, some day :) But here's how you can really help, even if you are new to open source...
+I suppose it is nice if people follow, clap, share, heckle on [medium](https://microprediction.medium.com/), [linked-in](https://www.linkedin.com/company/65109690) if that helps bring in contributors. Thanks. I suppose you can star, fork, watch [timemachines](https://github.com/microprediction/timemachines) or even sign this tongue-in-cheek [petition](https://www.change.org/p/towards-data-science-have-towards-data-science-publish-an-article-critical-of-facebook-software) - unless you want a job at Facebook or Towards Data Science, some day :) But here's how you can really help, even if you are new to open source...
 
 ## Creating colab notebooks illustrating the use of Python timeseries packages
 It helps speed the creation of autonomous algorithms, and Elo ratings, to have example notebooks for python time-series packages
@@ -80,9 +78,8 @@ Add live data that feeds the Elo ratings, and live contests too.
 
 # Friday chats
 
-  - Grab the slack invite from the [knowledge center](https://www.microprediction.com/knowledge-center) or convey your email to me in some way (info@microprediction.com will do)
-  - Turn up to one of the informal chats we have every Friday noon EST. 
-  - If that timezone is bad, maybe Tue 8pm EST. 
+  - Grab the [slack invite](https://microprediction.github.io/microprediction/slack.html)
+  - Turn up to one of the informal chats we have every Friday noon EST. [meet](https://microprediction.github.io/microprediction/meet.html)
   
 But if you are shy that's fine too. I look forward to your pull requests, or seeing you on the leaderboard. Crawling can be completely anonymous, by the way. 
 
