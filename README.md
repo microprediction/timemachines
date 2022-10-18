@@ -6,22 +6,20 @@ Here y is a vector or scalar, and we want to predict it three steps in advance.
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
-This package is a collection of a hundred or so "f"s, nothing more.  
+This package is a collection of a hundred or so "f"s, nothing more. More abstractly:
+
+  $$
+    f : (y_t, state; k) \mapsto ( \hat{y}_{t+k}, \sigma, posterior\ state)
+  $$
+
+where $\sigma$ estimates the standard error of the prediction. 
+
 
 ### Simple uses of this package:
 
 1. Use some of the functionality of a [subset](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/pypi.py) of the [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
    Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more with one line of code. Or use home-spun methods like [thinking_fast_and_slow](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) that you'll only find here. 
 2. Peruse [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) or use them [programatically](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/recommendations/suggestions.py). There's also a recommendation [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb) you can open and run. And you might consider the use of [forever functions](https://www.microprediction.com/blog/forever) that get better over time without your doing anything.
-
-### Hey do you reckon latex works in markdown on GitHub now?
-This is a skater
-
-  $$
-     (current\ data, state) \mapsto (mean, cov, posterior\ state)
-  $$
-  
-Oh my life just changed (see all the [happy people](https://www.linkedin.com/posts/petercotton_math-support-in-markdown-the-github-blog-activity-6933213212783902721-QM7H?utm_source=linkedin_share&utm_medium=member_desktop_web)!)
 
 ### More advanced uses of this package:
 
@@ -30,7 +28,7 @@ Oh my life just changed (see all the [happy people](https://www.linkedin.com/pos
 5. Use hyper-parameter [tuning](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/tuning/README.md) and turn "almost" autonomous algorithms, or combinations of the same, into fully autonomous algorithms using just about any global optimizer you can think of via the humpday package. At present there are about [one hundred derivative-free methods](https://microprediction.github.io/optimizer-elo-ratings/html_leaderboards/overall.html) including choices from [Ax-Platform](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/axcube.py), [bayesian-optimization](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/bayesoptcube.py), [DLib](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/dlibcube.py), [HyperOpt](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/hyperoptcube.py), [NeverGrad](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/nevergradcube.py), [Optuna](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/optunacube.py), [Platypus](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/platypuscube.py), [PyMoo](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/pymoocube.py), [PySOT](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/pysotcube.py), Scipy [classic](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/scipycube.py) and [shgo](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/shgocube.py), [Skopt](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/skoptcube.py),
 [nlopt](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/nloptcube.py), [Py-Bobyaq](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/bobyqacube.py), and
 [UltraOpt](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/ultraoptcube.py). 
-6. Use [composition](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/composition/residualshypocratic.py) to chase residuals (like boosting). Determine whether skaters here help predict your proprietary in-model residuals.  
+6. Use [composition](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/composition/residualshypocratic.py) to chase residuals (like boosting). Determine whether skaters here help predict your proprietary in-house model residuals.  
 7. Write your next paper and easily benchmark your work, using [live data](https://www.microprediction.org/browse_streams.html). Or write an [Empirical Article That Isn't Immediately Stale](https://medium.com/geekculture/an-empirical-article-that-wasnt-immediately-stale-720abfb4678f).  
 
 ### Contribute
