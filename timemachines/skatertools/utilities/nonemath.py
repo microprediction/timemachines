@@ -1,6 +1,7 @@
 from typing import Union
 from numpy import asarray
 from itertools import zip_longest
+import numpy as np
 
 
 def nonelen(l):
@@ -32,6 +33,9 @@ def nonennearlysame(x,y,tol=1e-6):
 def noneupdatelist(x, y):
     return [ yi if yi is not None else xi for xi,yi in zip(x,y) ]
 
+def nonemax(xs):
+    xs_replaced = [ x if x is not None else np.nan for x in xs]
+    return np.nanmax(xs_replaced)
 
 def nonecenter(m,x):
     """

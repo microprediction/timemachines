@@ -76,6 +76,7 @@ def chunk_to_end(l:List, n:int)-> List[List]:
     chunks = [ list(reversed(rl[x:x + n])) for x in range(0, len(rl), n) ]
     return list(reversed(chunks[:-1]))
 
+
 if using_scipy:
     from scipy.stats import energy_distance
 

@@ -50,6 +50,11 @@ def top_rated(k:int, category='univariate', max_seconds=10, min_count=10, requir
                    ], reverse=True )
 
 
+def show_ratings(rd):
+    rd_zip = zip(rd['name'], rd['count'], rd['rating'], rd['seconds'])
+    return sorted([(rtng, nm) for nm, cnt, rtng, scnd in rd_zip], reverse=True)
+
+
 def top_rated_names(k:int, n=5, category='univariate', max_seconds=10, min_count=10, require_passing:bool=False, ignore_elo=False)->[str]:
     rcm = top_rated(k=k, category=category, max_seconds=max_seconds, min_count=min_count, require_passing=require_passing,ignore_elo=ignore_elo)
     return [ r[1] for r in rcm[:n]]
