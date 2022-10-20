@@ -20,7 +20,7 @@ else:
 
 SKATER_F_FACTOR = 1000  # The scale factor for ratings. In chess this is set to 400.
 # As the matchup is considered more fluky than a single game of chess, a higher value makes sense.
-SKATER_K_FACTOR = 5  # The Elo update factor (maximum rating gain)
+SKATER_K_FACTOR = 25  # The Elo update factor (maximum rating gain)
 
 
 def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=DEFAULT_INITIAL_ELO,
