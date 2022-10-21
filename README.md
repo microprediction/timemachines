@@ -30,6 +30,7 @@ where $\sigma$ estimates the standard error of the prediction.
 [UltraOpt](https://github.com/microprediction/humpday/blob/main/humpday/optimizers/ultraoptcube.py). 
 6. Use [composition](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/composition/residualshypocratic.py) to chase residuals (like boosting). Determine whether skaters here help predict your proprietary in-house model residuals.  
 7. Write your next paper and easily benchmark your work, using [live data](https://www.microprediction.org/browse_streams.html). Or write an [Empirical Article That Isn't Immediately Stale](https://medium.com/geekculture/an-empirical-article-that-wasnt-immediately-stale-720abfb4678f).  
+8. Augment models, say by using one line of code to make them more regular as per this [article](https://medium.com/p/8544e675873).
 
 ### Contribute
     
