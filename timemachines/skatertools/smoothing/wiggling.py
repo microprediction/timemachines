@@ -4,6 +4,7 @@ import numpy as np
 from timemachines.skatertools.components.parade import parade
 from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, E_TYPE, T_TYPE, wrap
 from timemachines.skatertools.utilities.nonemath import nonemax
+from timemachines.skatertools.combining.combiningforecasts import combine_using_mean, combine_using_median,combine_using_huber
 
 # The "Wiggler"
 
@@ -13,7 +14,7 @@ def ternary_product(m):
     return [ list(s) for s in itertools.product(the_set, repeat=m) ]
 
 
-def wiggler(f, y, s, k=1, m:int=5, d=0.1, track=False, **kwargs):
+def wiggler(f, y, s, k=1, m:int=5, d=0.1, track=False, combiner=None, **kwargs):
     """ Modifies a skater f to create one that depends more smoothly on the history
 
         This maintains m^3 copies of f that are fed slightly different observations
@@ -25,6 +26,8 @@ def wiggler(f, y, s, k=1, m:int=5, d=0.1, track=False, **kwargs):
     :param **kwargs  Optional a, t, e, r passed to skater f
     :return:
     """
+    if combiner is None:
+        combiner = combine_using_mean
 
     if not s.get('s_f'):
         assert int(m) == m
@@ -82,11 +85,12 @@ def wiggler(f, y, s, k=1, m:int=5, d=0.1, track=False, **kwargs):
 
         # Average the prediction vectors
         try:
-            avg_xs = list(np.average( np.array(xs), axis=0 ))
-            avg_xstd = list(np.average( np.array(x_stds), axis=0 ) )
+            combined_xs, combined_xstd = combiner( xs=xs, x_stds=x_stds )
         except TypeError:
+            print('Combination failed. Falling back to median ')
             print(xs)
-        return avg_xs, avg_xstd, s
+            combined_xs, combined_xstd = combine_using_median(xs=xs, x_stds=x_stds)
+        return combined_xs, combined_xstd, s
 
 
 
