@@ -62,8 +62,8 @@ def wiggler(f, y, s, k=1, m:int=5, d=0.1, track=False, combiner=None, **kwargs):
         # Update running std of differences
         if s['y_prev'] is not None:
             dy = y-s['y_prev']
-            s['y_prev'] = y
             s['s_dy_var'] = var_update(s['s_dy_var'], dy)
+        s['y_prev'] = y
         dy_std =  s['s_dy_var'].get('std')
 
         bump_amount = nonemax([emp_std[0],dy_std,0])
