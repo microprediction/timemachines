@@ -4,7 +4,7 @@ from timemachines.skatertools.sensitivity.skatersensitivity import skater_bump
 
 def skater_bump_plot(f, g, ndx, k):
     """ Plot sensitivity to k'th to last observation,
-        and compare to an alternative g that might be smoother
+        and compare to an alternative skater g that might be smoother
     """
     for _ in range(200):
         import numpy as np
@@ -32,7 +32,7 @@ def skater_bump_plot(f, g, ndx, k):
 
 if __name__=='__main__':
     from timemachines.skaters.sk.skautoarima import sk_autoarima as f
-    from timemachines.skaters.sk.sfautoarimawiggly import sf_autoarima_wiggly_d010_m2 as g
+    from timemachines.skaters.sk.sfautoarimawiggly import sf_autoarima_wiggly_median_d05_m3 as g
     from timemachines.skaters.proph.prophskaterssingular import fbprophet_univariate as f
     #from timemachines.skaters.simple.thinking import thinking_fast_and_slow as f
     #from timemachines.skaters.simple.movingaverage import precision_ema_ensemble as f

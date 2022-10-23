@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.18.5",
+    version="0.18.6",
     description="Evaluation and standardization of autonomous time series prediction",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -53,6 +53,7 @@ setup(
               "timemachines.skatertools.ensembling",
               "timemachines.skatertools.data",
               "timemachines.skatertools.evaluation",
+              "timemachines.skatertools.smoothing",
               "timemachines.skatertools.tuning",
               "timemachines.skatertools.utilities",
               "timemachines.skatertools.visualization",
