@@ -52,8 +52,8 @@ Who says contributing to open-source is thankless?
 
 ### Install
 
-Oh what a mess the Python timeseries ecosystem is. Packages are not installed by default. See the methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be incremental for best results. This [xkcd cartoon](https://xkcd.com/1987/) describes the alternative quite well.
- 
+Oh what a mess the Python timeseries ecosystem is. So packages are not installed by default. See the methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be incremental for best results. The infamous [xkcd cartoon](https://xkcd.com/1987/) really does describe the alternative quite well. 
+
 ### Examples of basic usage
 See [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) and [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) illustrating the usage pattern. To wit:
 
