@@ -1,7 +1,7 @@
 # Timemachines: Predict with One Line of Code 
 View as [web page](https://microprediction.github.io/timemachines/)
 
-### Online timeseries forecasting
+### Online timeseries forecasting using [skaters](https://microprediction.github.io/timemachines/skaters.html)
 If y is a vector or scalar, and we want to predict it three steps in advance, in online fashion, 
 
  
@@ -12,15 +12,15 @@ See [skaters](https://microprediction.github.io/timemachines/skaters.html) for m
 
 *This package is a collection of a hundred or so "f"s.* 
 
-### Why the Name?
-
-The functions *f*, which are called [skaters](https://microprediction.github.io/timemachines/skaters.html), *suggest* state machines
+### Why "timemachines"? 
+Skaters *suggest* state machines
 
   $$
     f : (y_t, state; k) \mapsto ( \hat{y}_{t+k}, \sigma, posterior\ state)
   $$
 
-where $\sigma$ estimates the standard error of the prediction. 
+where $\sigma$ estimates the standard error of the prediction. If you want an actual state machien, 
+see [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) question 1. 
 
 
 -+- 
