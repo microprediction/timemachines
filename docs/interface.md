@@ -1,6 +1,8 @@
 
-# Skater Interface
-View as [web page](https://microprediction.github.io/timemachines/skaters). Docs [home](https://github.com/microprediction/timemachines/blob/main/docs/README.md) for abstract description of a skater. 
+# Skater interface
+View as [web page](https://microprediction.github.io/timemachines/interface). Docs [home](https://github.com/microprediction/timemachines/blob/main/docs/README.md) for abstract description of a skater. 
+  
+This page describes the conventions for skater functions. 
   
 ### Introduction to skater function conventions
 
@@ -8,7 +10,7 @@ Recall that name *timemachines* is chosen because the skater functions *suggest*
     forecasts for 1,2,...,k steps ahead, with corresponding standard deviations are emitted). However unlike state machines that save state themselves, here the *caller* is expected to maintain state from one 
     invocation (data point) to the next. See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) if this seems odd. 
 
-This page describes the conventions for skater functions. So, that's what's going on with the *s*. As for the k-a-t-e-r:  
+So, that's what's going on with the *s*. As for the k-a-t-e-r:  
 
       x, w, s = f(   y:Union[float,[float]],             # Contemporaneously observerd data, 
                                                          # ... including exogenous variables in y[1:], if any. 
