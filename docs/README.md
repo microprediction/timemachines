@@ -44,10 +44,6 @@ See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CO
 See [google meets](https://microprediction.github.io/microprediction/meet.html)
 
 ### [Daily $125 prize](https://www.microprediction.com/competitions/daily)
-Figured that might be worth repeating. 
-
-<img src="https://github.com/microprediction/timemachines/blob/main/images/money.png" alt="Money" style="width:500px">
-
 Who says contributing to open-source is thankless? 
 
 # [Install](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
