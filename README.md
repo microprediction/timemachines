@@ -8,7 +8,7 @@ Because [why not](https://microprediction.github.io/timemachines/why) do things 
          xi, x_std, s = f(y=yi, s=s, k=3)
 
 See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of somepackage, somevariety and something. 
-This package is a collection of a hundred or so "f"s, for people who want one-line prediction sans ceremony or state. There are utilities for ensembling, composing and assessing prediction functions in ways that cannot be p-hacked. And the goal here is to include some that do a reasonable job of providing fully autonomous prediction across [diverse real-world timeseries](https://www.microprediction.org/browse_streams.html), thus providing a cheap lunch.   
+This package is a collection of a hundred or so "f"s, for people who want one-line prediction sans ceremony or state. See [uses](https://microprediction.github.io/timemachines/uses) in the docs. There are utilities for ensembling, [residual chasing](https://microprediction.github.io/timemachines/composition) and assessing prediction functions in ways that cannot be p-hacked. And the goal here is to include some that do a reasonable job of providing fully autonomous prediction across [diverse real-world timeseries](https://www.microprediction.org/browse_streams.html), thus providing a cheap lunch.   
 
 More abstractly:
 
@@ -33,24 +33,18 @@ See [docs/interface](https://microprediction.github.io/timemachines/interface) f
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s) 
 
 
-### Uses of this package
-
-See [uses](https://microprediction.github.io/timemachines/uses) in the docs. 
-
-
 ### Contribute
     
 See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md).  
 
-### FAQ
+### Help
 
-[FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md). 
-
-### Slack / Google Meets
-See the Slack invite on my user page [here](https://github.com/microprediction). 
+- [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md). 
+- See the Slack invite on my user page [here](https://github.com/microprediction/slack). 
+- Office hours [here](https://github.com/microprediction/meet). 
 
 ### [Daily $125 prize](https://www.microprediction.com/competitions/daily)
-Figured that might be worth repeating. 
+Figured that might be worth a mention.  
 
 <img src="https://github.com/microprediction/timemachines/blob/main/images/money.png" alt="Money" style="width:500px">
 
@@ -59,15 +53,9 @@ Who says contributing to open-source is thankless?
 # [Installation](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
 
 See the methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be incremental for best results. This [xkcd cartoon](https://xkcd.com/1987/) describes the alternative quite well, especially in the time-series ecosystem. 
-
  
-## Examples
-
-See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
-
-# [Quick start](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) 
-
-Again, this package is *merely* a collection of "skater" functions. "Skater" is a nmemonic for the arguments, although you might need only 1 or 2. The script [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) illustrates the usage pattern. Like so:
+## Examples of basic usage
+See [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) and [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) illustrating the usage pattern. To wit:
 
     from timemachines.skaters.simple.thinking import thinking_slow_and_fast 
     import numpy as np
@@ -78,8 +66,7 @@ Again, this package is *merely* a collection of "skater" functions. "Skater" is 
         xi, x_std, s = thinking_slow_and_fast(y=yi, s=s, k=3)
         x.append(xi)
      
-There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
-  
+
 ![](https://i.imgur.com/elu5muO.png)
   
     
