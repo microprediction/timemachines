@@ -7,6 +7,8 @@ Because [why not](https://microprediction.github.io/timemachines/why) do things 
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
+### What's [included](https://microprediction.github.io/timemachines/skaters)
+
 See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of somepackage, somevariety and something. 
 This package is a collection of a hundred or so "f"s, for people who want one-line prediction sans ceremony or state. See [uses](https://microprediction.github.io/timemachines/uses) in the docs. There are utilities for ensembling, [residual chasing](https://microprediction.github.io/timemachines/composition) and assessing prediction functions in ways that cannot be p-hacked. And the goal here is to include some that do a reasonable job of providing fully autonomous prediction across [diverse real-world timeseries](https://www.microprediction.org/browse_streams.html), thus providing a cheap lunch.   
 
