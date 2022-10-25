@@ -19,7 +19,7 @@ Skaters *suggest* state machines
     f : (y_t, state; k) \mapsto ( \hat{y}_{t+k}, \sigma, posterior\ state)
   $$
 
-where $\sigma$ estimates the standard error of the prediction. If you want an actual state machien, 
+where $\sigma$ estimates the standard error of the prediction. If you want an actual state machine, 
 see [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) question 1. 
 
 
