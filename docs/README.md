@@ -1,3 +1,18 @@
-### Univariate Prediction w/ One Line of Code
+## Timemachines: Predict with One Line of Code
 
-Docs coming soon I promise, maybe, maybe. 
+Previous  [TOPIC](https://microprediction.github.io/timemachines/TOPIC.html) 
+
+### Python 
+
+
+
+### API
+
+-+- 
+
+Documentation [map](https://microprediction.github.io/timemachines/map.html)
+ 
+  
+
+
+![skating](https://i.imgur.com/elu5muO.png)
