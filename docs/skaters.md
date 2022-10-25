@@ -4,8 +4,7 @@ View as [web page](https://microprediction.github.io/timemachines/skaters)
 This package is *merely* a collection of "skater" functions. 
   
 ### Finding a skater
-You have to poke around in the repo [/skaters](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters) to find skaters, then
-import them based on their location. Here's an incomplete list:
+Poke around in [/skaters](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters). Here's an incomplete list:
 
 | Package | Location                                                                                            |
 |---------|-----------------------------------------------------------------------------------------------------|
@@ -20,6 +19,8 @@ import them based on their location. Here's an incomplete list:
 | KATS  | [skaters/kts](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/kts)     |
 | PyCaret  | [skaters/pycrt](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/pycrt)     |
 | River  | [skaters/rvr](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/rvr)     |
+| Simple  | [skaters/simple](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/simple)     |
+
 
 and more (see [here](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters)). 
 
