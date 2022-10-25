@@ -56,6 +56,8 @@ See the methodical [install instructions](https://github.com/microprediction/tim
 
 See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 
+## Book
+There's a [book website](https://microprediction.github.io/building_an_open_ai_network/) motivating autonomous critters, but it ain't an instruction manual, sorry. 
 
 -+- 
 
