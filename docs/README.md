@@ -2,13 +2,11 @@
 View as [web page](https://microprediction.github.io/timemachines/)
 
 ### Online timeseries forecasting using [skaters](https://microprediction.github.io/timemachines/skaters.html)
-If y is a vector or scalar, and we want to predict it three steps in advance, in online fashion. If you
-have a skater *f* you can do this: 
 
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
-See [skaters](https://microprediction.github.io/timemachines/skaters.html).  
+Here *yi* is a scalar or vector. See [skaters](https://microprediction.github.io/timemachines/skaters.html).  
 
 ### What's in here? 
 
@@ -17,7 +15,7 @@ This package is a collection of a hundred or so "f"s, drawn from [popular timese
 ### What's not in here?
 That [list](https://www.microprediction.com/blog/popular-timeseries-packages) is long. Please [help add more](https://github.com/microprediction/timemachines/issues?q=is%3Aissue+is%3Aopen+label%3A%22create+colab+example%22)!   
 
-### Why "timemachines"? 
+### Why the name "timemachines"? 
 Skaters *suggest* state machines
 
   $$
