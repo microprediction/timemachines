@@ -1,6 +1,6 @@
 # timemachines ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![successor](https://github.com/microprediction/timemachines/workflows/test-successor/badge.svg) ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg) ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg)  ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![statsforecast](https://github.com/microprediction/timemachines/workflows/test-statsforecast/badge.svg)![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg) ![merlion](https://github.com/microprediction/timemachines/workflows/test-merlion/badge.svg) ![merlion-prophet](https://github.com/microprediction/timemachines/workflows/test-merlion-prophet/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret-time_series/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-## Simple [documented](https://microprediction.github.io/timemachines/) timeseries prediction functions assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
+### Simple [documented](https://microprediction.github.io/timemachines/) timeseries prediction functions assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
 Because [why not](https://microprediction.github.io/timemachines/why) do things with one line of code? Here y is a vector or scalar, and we want to predict it three k=3 steps in advance.
 
      from timemachines.skaters.somepackage.somevariety import something as f
@@ -50,11 +50,11 @@ Figured that might be worth a mention.
 
 Who says contributing to open-source is thankless? 
 
-# [Installation](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
+### [Installation](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
 
 See the methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be incremental for best results. This [xkcd cartoon](https://xkcd.com/1987/) describes the alternative quite well, especially in the time-series ecosystem. 
  
-## Examples of basic usage
+### Examples of basic usage
 See [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) and [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) illustrating the usage pattern. To wit:
 
     from timemachines.skaters.simple.thinking import thinking_slow_and_fast 
@@ -70,7 +70,7 @@ See [examples/basic_usage](https://github.com/microprediction/timemachines/tree/
 ![](https://i.imgur.com/elu5muO.png)
   
     
-## Cite 
+### Cite 
 
 Thanks
 
