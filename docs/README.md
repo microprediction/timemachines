@@ -1,4 +1,5 @@
-# Timemachines: Predict with One Line of Code 
+# Timemachines: Predict with One Line of Code  ([install](https://github.com/microprediction/timemachines/blob/main/INSTALL.md))
+
 View as [web page](https://microprediction.github.io/timemachines/)
 
 ### Online (incremental) k-step ahead prediction
@@ -30,7 +31,31 @@ This package contains:
 That [list](https://www.microprediction.com/blog/popular-timeseries-packages) is long. Please [help add more](https://github.com/microprediction/timemachines/issues?q=is%3Aissue+is%3Aopen+label%3A%22create+colab+example%22)! The scope is mostly
 limited to univariate prediction, at present. 
 
+### Contribute
+    
+See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md).  
 
+### FAQ
+
+[FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md). 
+
+### Human help
+See [google meets](https://microprediction.github.io/microprediction/meet.html)
+
+### [Daily $125 prize](https://www.microprediction.com/competitions/daily)
+Figured that might be worth repeating. 
+
+<img src="https://github.com/microprediction/timemachines/blob/main/images/money.png" alt="Money" style="width:500px">
+
+Who says contributing to open-source is thankless? 
+
+# [Install](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
+
+See the methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be incremental for best results. This [xkcd cartoon](https://xkcd.com/1987/) describes the alternative quite well, especially in the time-series ecosystem. 
+
+## Examples
+
+See [examples](https://github.com/microprediction/timemachines/tree/main/examples) 
 
 
 -+- 
