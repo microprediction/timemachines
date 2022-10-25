@@ -1,7 +1,7 @@
 ## Skaters
 View as [web page](https://microprediction.github.io/timemachines/skaters)
 
-This package is *merely* a collection of "skater" functions. 
+Go [home](https://github.com/microprediction/timemachines/blob/main/docs/README.md) for explanation of what a skater is. 
   
 ### Finding a skater
 Poke around in [/skaters](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters). Here's an incomplete list:
