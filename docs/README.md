@@ -2,15 +2,13 @@
 View as [web page](https://microprediction.github.io/timemachines/)
 
 ### Online (incremental) k-step ahead prediction
-Implementations of "skaters": functions *suggesting* state machines emitting k-step ahead prediction vectors:
+Implementations of "skaters": stateless functions *suggesting* state machines that process one observation vector (or scalar) at a time and emit k-step ahead prediction vectors:
 
   $$
     f : (y_t, state; k) \mapsto ( [\hat{y}(t+1),\hat{y}(t+2),\dots,\hat{y}(t+k) ], [\sigma(t+1),\dots,\sigma(t+k)], posterior\ state))
   $$
 
-where $\sigma(t+l)$ estimates the standard error of the prediction $\hat{y}(t+l)$. 
-
-Btw if you want an actual state machine, see [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) question 1. 
+where $\sigma(t+l)$ estimates the standard error of the prediction $\hat{y}(t+l)$. If you prefer an legit (stateful) state machine, see [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) question 1. 
 
 
 ### Using a [skater](https://microprediction.github.io/timemachines/skaters.html)
