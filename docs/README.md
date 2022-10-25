@@ -1,4 +1,4 @@
-# Timemachines: Predict with One Line of Code  ([install](https://github.com/microprediction/timemachines/blob/main/INSTALL.md))
+# Timemachines documentation ([install](https://github.com/microprediction/timemachines/blob/main/INSTALL.md))
 
 View as [web page](https://microprediction.github.io/timemachines/)
 
