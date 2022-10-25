@@ -21,11 +21,12 @@ Here *yi* is a scalar or vector. Again, see [skaters](https://microprediction.gi
 ways to find and import ones you like. 
 
 ### Ways to [use](https://microprediction.github.io/timemachines/uses) this package
-This package contains:
 
-- A hundred or so "f"s, drawn from [popular timeseries packages](https://microprediction.github.io/timemachines/skaters.html) 
-- Utilities for combining, assessing, et cetera. See [uses](https://microprediction.github.io/timemachines/uses).  
-- A sister repo which creates [timeseries Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/residual-k_013.html). 
+- There's a hundred or so "f"s, drawn from [popular timeseries packages](https://microprediction.github.io/timemachines/skaters.html) used as above.
+- There are [skatertools](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools) for composing, ensembling, assessing, et cetera. 
+- There's a sister [repo](https://github.com/microprediction/timeseries-elo-ratings) which creates [timeseries Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/residual-k_013.html) for the skaters. 
+
+See [uses](https://microprediction.github.io/timemachines/uses).  
 
 ### What's not in here?
 That [list](https://www.microprediction.com/blog/popular-timeseries-packages) is long. Please [help add more](https://github.com/microprediction/timemachines/issues?q=is%3Aissue+is%3Aopen+label%3A%22create+colab+example%22)! The scope is mostly
