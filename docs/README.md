@@ -14,11 +14,12 @@ where $\sigma(t+l)$ estimates the standard error of the prediction $\hat{y}(t+l)
 
 ### Using a skater (see [list](https://microprediction.github.io/timemachines/skaters.html) of them)
 
+     from timemachines.skaters.somewhere import something as f 
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
-Here *yi* is a scalar or vector. Again, see [skaters](https://microprediction.github.io/timemachines/skaters.html) for more detail and
-ways to find and import ones you like. 
+Here *yi* is a scalar or vector. Again, see [skaters](https://microprediction.github.io/timemachines/skaters.html) for more detail on the
+*somewhere* and *something*. 
 
 ### Ways to [use](https://microprediction.github.io/timemachines/uses) this package
 
