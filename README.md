@@ -7,7 +7,8 @@ Here y is a vector or scalar, and we want to predict it three k=3 steps in advan
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
-This package is a collection of a hundred or so "f"s, and utilities. See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of somepackage, somevariety and something. 
+See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of somepackage, somevariety and something. 
+This package is a collection of a hundred or so "f"s, for people who want prediction without ceremoney. There are also utilities for ensembling, composing and assessing prediction functions in ways that cannot be p-hacked.  
 
 More abstractly:
 
