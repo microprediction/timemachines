@@ -20,11 +20,12 @@ is easy:
 Here *yi* is a scalar or vector. See [skaters](https://microprediction.github.io/timemachines/skaters.html) for how
 to find and import "skater" f. 
 
-### What's it [useful]((https://microprediction.github.io/timemachines/uses) for?
+### Ways to [use](https://microprediction.github.io/timemachines/uses) this package
 This package contains:
 
 - A hundred or so "f"s, drawn from [popular timeseries packages](https://microprediction.github.io/timemachines/skaters.html) 
 - Utilities for combining, assessing, et cetera. See [uses](https://microprediction.github.io/timemachines/uses).  
+- A sister repo which creates [timeseries Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/residual-k_013.html). 
 
 ### What's not in here?
 That [list](https://www.microprediction.com/blog/popular-timeseries-packages) is long. Please [help add more](https://github.com/microprediction/timemachines/issues?q=is%3Aissue+is%3Aopen+label%3A%22create+colab+example%22)! The scope is mostly
