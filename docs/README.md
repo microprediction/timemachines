@@ -22,12 +22,13 @@ Here *yi* is a scalar or vector. Again, see [skaters](https://microprediction.gi
 *somewhere* and *something*. 
 
 ### Other ways to [use](https://microprediction.github.io/timemachines/uses) this package
-Beyond the fact that there's a [hundred or so]((https://microprediction.github.io/timemachines/skaters.html) choices of "f" that use popular timeseries packages with one line of code, you can also: 
+Beyond the fact that there's a [hundred or so](https://microprediction.github.io/timemachines/skaters.html) choices of "f", that allow you to use
+functionality from most popular timeseries packages with one line of code, you can also: 
 
 - Compose, ensemble, wiggle, assess using [skatertools](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools).
-- There's a sister [repo](https://github.com/microprediction/timeseries-elo-ratings) which creates [timeseries Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/residual-k_013.html) for the skaters. 
+- Glean a vague idea of what works from the sister [repo](https://github.com/microprediction/timeseries-elo-ratings) which creates [timeseries Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/residual-k_013.html) for the skaters. 
 
-See [uses](https://microprediction.github.io/timemachines/uses).  
+See also [uses](https://microprediction.github.io/timemachines/uses).  
 
 ### What's not in here?
 That [list](https://www.microprediction.com/blog/popular-timeseries-packages) is long. Please [help add more](https://github.com/microprediction/timemachines/issues?q=is%3Aissue+is%3Aopen+label%3A%22create+colab+example%22)! The scope is mostly
