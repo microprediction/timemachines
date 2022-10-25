@@ -5,13 +5,13 @@ View as [web page](https://microprediction.github.io/timemachines/)
 ### Documentation contents:
 
 - [Skaters](https://microprediction.github.io/timemachines/skaters.html) includes a listing of timeseries packages 
-- [Interface](https://github.com/microprediction/timemachines/tree/main/timemachines/interface) describes S-K-A-T-E-R arguments
-- [Composition](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools) and residual chasing
+- [Interface](https://microprediction.github.io/timemachines/interface) describes S-K-A-T-E-R arguments
+- [Composition](https://microprediction.github.io/timemachines/composition) and residual chasing
 - [Uses](https://microprediction.github.io/timemachines/uses) of this package.
 
 More to come. 
 
-### See also the [README](https://github.com/microprediction/timemachines/blob/main/README.md)
+### See also [README](https://github.com/microprediction/timemachines/blob/main/README.md) and [CONTRIBUTE](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md)
 
 
 -+- 
