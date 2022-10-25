@@ -1,7 +1,7 @@
 # timemachines ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg) ![successor](https://github.com/microprediction/timemachines/workflows/test-successor/badge.svg) ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg) ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg)  ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![statsforecast](https://github.com/microprediction/timemachines/workflows/test-statsforecast/badge.svg)![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg) ![merlion](https://github.com/microprediction/timemachines/workflows/test-merlion/badge.svg) ![merlion-prophet](https://github.com/microprediction/timemachines/workflows/test-merlion-prophet/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret-time_series/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ## Simple [documented](https://microprediction.github.io/timemachines/) timeseries prediction functions assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
-Here y is a vector or scalar, and we want to predict it three k=3 steps in advance.
+Because [why not](https://microprediction.github.io/timemachines/why)? Here y is a vector or scalar, and we want to predict it three k=3 steps in advance.
 
      from timemachines.skaters.somepackage.somevariety import something as f
      for yi in y:
@@ -80,33 +80,7 @@ Again, this package is *merely* a collection of "skater" functions. "Skater" is 
      
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
   
-  
 ![](https://i.imgur.com/elu5muO.png)
-  
-# Why do it this way?
-Oh here comes the justification. 
-
-   1. **Simple k-step ahead forecasts in functional style** I mean that's obvious. There are no "models" here requiring setup or estimation, only stateless functions as noted:
-       
-          x, x_std, s = f(y,s,k)
-         
-and if you need, 
-
-          x, x_std, s = f(y,s,k,a,t,e,r)
-       
-The s-k-a-t-e-r functions take on the responsibility of incremental estimation, so you don't have to. Some skaters are computationally efficient in this respect, whereas others are drawn from traditional packages intended for batch/offline work, and can be quite slow when called repeatedly. But they are here because it is necessary to compare the accuracy of fast and slow algorithms, even if the latter might not suit your production volumetrics. 
-
-   2. **Ongoing, incremental, empirical evaluation**. Again, see the [leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) produced by
-    the accompanying repository [timeseries-elo-ratings](https://github.com/microprediction/timeseries-elo-ratings). Assessment is always out of sample and uses *live*, constantly updating real-world data 
-     from [microprediction.org](https://www.microprediction.org/browse_streams.html).   
-    
-   3. **Terse stacking, ensembling, boosting and other combining** of models. The function form makes it easy to do this, usually with one or two lines of code (again, see [thinking.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/thinking.py) for an illustration, 
-   or [prophetskaterscomposed.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py)).
-
-   4. **Simplified deployment**. There is no state, other that that explicitly returned to the caller. For skaters relying only on the timemachines and river packages (the fast ones), the state is a pure Python dictionary trivially converted to JSON and back (for instance in a web application). See the [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) for a little more discussion.   
-
-So there you have it. No classes. Few dataframes. Hopefully little ceremony.   
-
   
     
 ## Cite 
