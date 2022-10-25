@@ -11,14 +11,13 @@ Implementations of "skaters": stateless functions *suggesting* state machines th
 where $\sigma(t+l)$ estimates the standard error of the prediction $\hat{y}(t+l)$. If you prefer an legit (stateful) state machine, see [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) question 1. 
 
 
-### Using a [skater](https://microprediction.github.io/timemachines/skaters.html)
-is easy:
+### Using a skater (see [list](https://microprediction.github.io/timemachines/skaters.html) of them)
 
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
-Here *yi* is a scalar or vector. See [skaters](https://microprediction.github.io/timemachines/skaters.html) for how
-to find and import "skater" f. 
+Here *yi* is a scalar or vector. Again, see [skaters](https://microprediction.github.io/timemachines/skaters.html) for more detail and
+ways to find and import ones you like. 
 
 ### Ways to [use](https://microprediction.github.io/timemachines/uses) this package
 This package contains:
