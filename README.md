@@ -7,7 +7,7 @@ Here y is a vector or scalar, and we want to predict it three k=3 steps in advan
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
-This package is a collection of a hundred or so "f"s, nothing more. More abstractly:
+This package is a collection of a hundred or so "f"s, and utilities. More abstractly:
 
 $$
     f : (y_t, state; k) \mapsto ( [\hat{y}(t+1),\hat{y}(t+2),\dots,\hat{y}(t+k) ], [\sigma(t+1),\dots,\sigma(t+k)], posterior\ state))
