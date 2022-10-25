@@ -21,10 +21,10 @@ where $\sigma(t+l)$ estimates the standard error of the prediction $\hat{y}(t+l)
 Here *yi* is a scalar or vector. Again, see [skaters](https://microprediction.github.io/timemachines/skaters.html) for more detail on the
 *somewhere* and *something*. 
 
-### Ways to [use](https://microprediction.github.io/timemachines/uses) this package
+### Other ways to [use](https://microprediction.github.io/timemachines/uses) this package
+Beyond the fact that there's a [hundred or so]((https://microprediction.github.io/timemachines/skaters.html) choices of "f" that use popular timeseries packages with one line of code, you can also: 
 
-- There's a [hundred or so]((https://microprediction.github.io/timemachines/skaters.html) choices of "f" that use popular timeseries packages. 
-- There are [skatertools](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools) for composing, ensembling, assessing, et cetera. 
+- Compose, ensemble, wiggle, assess using [skatertools](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools).
 - There's a sister [repo](https://github.com/microprediction/timeseries-elo-ratings) which creates [timeseries Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/residual-k_013.html) for the skaters. 
 
 See [uses](https://microprediction.github.io/timemachines/uses).  
