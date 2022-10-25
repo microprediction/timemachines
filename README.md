@@ -38,7 +38,7 @@ See [docs/interface](https://microprediction.github.io/timemachines/interface) f
 
 ### Contribute
     
-See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md).  
+See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md) and [good first issues](https://github.com/microprediction/timemachines/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22). 
 
 ### Help
 
