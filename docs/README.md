@@ -2,13 +2,13 @@
 View as [web page](https://microprediction.github.io/timemachines/)
 
 ### What's in here?
-Implemntation of "skaters" which are functions *suggesting* state machines emitting k-prediction vectors:
+Implementations of "skaters": functions *suggesting* state machines emitting k-step ahead prediction vectors:
 
   $$
     f : (y_t, state; k) \mapsto ( [\hat{y}_{t+1},\hat{y}_{t+2},\hat{y}_{t+k}], [\sigma_{t+1},\dots,\sigma_{t+k}], posterior\ state)
   $$
 
-where $\sigma$ estimates the standard error of the prediction. (If you want an actual state machine, 
+where $\sigma_{t+l}$ estimates the standard error of the prediction $\hat{y}_{t+l}$. (If you want an actual state machine, 
 see [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) question 1.) 
 
 
