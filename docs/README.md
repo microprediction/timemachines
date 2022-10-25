@@ -1,5 +1,7 @@
 ## Timemachines: Predict with One Line of Code
 
+View as [web page](https://microprediction.github.io/timemachines/)
+
 Previous  [TOPIC](https://microprediction.github.io/timemachines/TOPIC.html) 
 
 ### Python 
