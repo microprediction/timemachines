@@ -3,7 +3,7 @@ View as [web page](https://microprediction.github.io/timemachines/composition). 
    
 ### Residual chaser factory
 The [residual_chaser_factory](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/composition/residualcomposition.py) allows you to
-use a skater f2 to predict the errors of f1, thus creating a potentially more accurate skater than f1. 
+use a skater f2 to predict the errors of f1, thus creating a potentially more accurate skater than f1. It also illustrates composition. 
 
 You can use it like this: 
 
