@@ -22,7 +22,7 @@ ways to find and import ones you like.
 
 ### Ways to [use](https://microprediction.github.io/timemachines/uses) this package
 
-- There's a [hundred or so f's]((https://microprediction.github.io/timemachines/skaters.html) drawn from [popular timeseries packages](https://microprediction.github.io/timemachines/skaters.html) used as above.
+- There's a [hundred or so]((https://microprediction.github.io/timemachines/skaters.html) choices of "f" that use popular timeseries packages. 
 - There are [skatertools](https://github.com/microprediction/timemachines/tree/main/timemachines/skatertools) for composing, ensembling, assessing, et cetera. 
 - There's a sister [repo](https://github.com/microprediction/timeseries-elo-ratings) which creates [timeseries Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/residual-k_013.html) for the skaters. 
 
