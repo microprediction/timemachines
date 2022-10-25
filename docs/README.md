@@ -2,12 +2,13 @@
 View as [web page](https://microprediction.github.io/timemachines/)
 
 ### Online timeseries forecasting
+If y is a vector or scalar, and we want to predict it three steps in advance, in online fashion, 
 
-Here y is a vector or scalar, and we want to predict it three steps in advance.
-
+ 
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
+See [skaters](https://microprediction.github.io/timemachines/skaters.html) for more detail. 
 
 *This package is a collection of a hundred or so "f"s.* 
 
