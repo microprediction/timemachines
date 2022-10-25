@@ -3,11 +3,13 @@
 ## Simple [documented](https://microprediction.github.io/timemachines/) forecasting functions assigned [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)
 Here y is a vector or scalar, and we want to predict it three k=3 steps in advance.
 
-     from timemachines.skaters.somewhere import something as f
+     from timemachines.skaters.somepackage.somevariety import something as f
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
-This package is a collection of a hundred or so "f"s, and utilities. More abstractly:
+This package is a collection of a hundred or so "f"s, and utilities. See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of somepackage, somevariety and something. 
+
+More abstractly:
 
 $$
     f : (y_t, state; k) \mapsto ( [\hat{y}(t+1),\hat{y}(t+2),\dots,\hat{y}(t+k) ], [\sigma(t+1),\dots,\sigma(t+k)], posterior\ state))
