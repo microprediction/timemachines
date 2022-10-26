@@ -1,5 +1,5 @@
 # Articles about the TimeMachines package
-View as [web page](https://microprediction.github.io/timemachines/uses)
+View as [web page](https://microprediction.github.io/timemachines/uses) or [source](https://github.com/microprediction/timemachines/blob/main/docs/articles.md).
 
 
 ### Directly related / instructional
