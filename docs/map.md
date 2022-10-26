@@ -9,7 +9,7 @@ Need to know
     - [Interface](https://microprediction.github.io/timemachines/interface.html) provides more detail on the signature
     
 -----------------------------------------------
-Skatertools
+Skatertools (more soon)
     
 - [Composition](https://microprediction.github.io/timemachines/composition.html) and residual chasing
 
