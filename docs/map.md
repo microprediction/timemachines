@@ -6,7 +6,6 @@
 Need to know
 
 - [Skaters](https://microprediction.github.io/timemachines/skaters.html) explains one-line forecasting functions
-    |
     - [Interface](https://microprediction.github.io/timemachines/interface.html) provides more detail on the signature
     
 -----------------------------------------------
