@@ -61,6 +61,8 @@ $$
 where $\sigma(t+l)$ estimates the standard error of the prediction $\hat{y}(t+l)$. If you prefer an legit (stateful) state machine, see [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) question 1. 
 
 
+### See also [Skater interface](https://microprediction.github.io/timemachines/interface.html)
+for more details about expectations placed on skater functions.
 
 -+- 
 
