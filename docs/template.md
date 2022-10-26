@@ -1,5 +1,5 @@
 ## Timemachines: Predict with One Line of Code 
-View as [web page](https://microprediction.github.io/timemachines/)
+View as [web page](https://microprediction.github.io/timemachines/) or [source](https://github.com/microprediction/timemachines/blob/main/docs/template.md).
 
 
 
