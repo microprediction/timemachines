@@ -2,20 +2,12 @@
 
 # Documentation Map
 
-### Skater nuts and bolts
 
 - [Skaters](https://microprediction.github.io/timemachines/skaters.html) explains one-line forecasting functions
     |
-    - [Interface](https://microprediction.github.io/timemachines/interface.html) provides more detail
-
-### Skater utilities
-More soon, sorry. 
-
-- [Composition](https://microprediction.github.io/timemachines/composition.html)
-
-
-### Blah blah blah
-
+    - [Interface](https://microprediction.github.io/timemachines/interface.html) provides more detail on the signature
+    
+- [Composition](https://microprediction.github.io/timemachines/composition.html) and residual chasing
 - [Articles](https://microprediction.github.io/timemachines/articles.html) about using the timemachines
 - [Uses](https://microprediction.github.io/timemachines/interface.html) of this package might not be immediately apparent, nor
 - [Why](https://microprediction.github.io/timemachines/interface.html) it is done this way.
