@@ -1,5 +1,5 @@
 ## Skaters
-View as [web page](https://microprediction.github.io/timemachines/skaters). Go [up](https://github.com/microprediction/timemachines/blob/main/docs/README.md) for abstract description of a skater. 
+View as [web page](https://microprediction.github.io/timemachines/skaters). See [README](https://github.com/microprediction/timemachines) for and abstract description of a skater. 
   
 ### Finding a skater
 Poke around in [/skaters](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters). Here's an incomplete list:
