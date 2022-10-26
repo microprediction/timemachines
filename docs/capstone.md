@@ -1,5 +1,5 @@
 
-# Capstone project 
+# Capstone data science project 
 View as [web page](https://microprediction.github.io/timemachines/) or [source](https://github.com/microprediction/timemachines/blob/main/docs/capstone.md).
 
 
@@ -8,7 +8,13 @@ View as [web page](https://microprediction.github.io/timemachines/) or [source](
 - Adopt a critical, statistical mindset as compare with [package-first-learning](https://www.linkedin.com/posts/petercotton_forecasting-timeseries-timeseriesanalysis-activity-6988875513771520001-Wpqp/?utm_source=share&utm_medium=member_desktop)
 - Learn technique for creating incremental, [fast](https://www.microprediction.com/blog/fast), "green" models, as compared with batch-style. 
 - Acquire skills crucial for meaningful collaboration on open-source projects on GitHub. 
-- Gain experience deploying, assessing, maintaining and improving models in an environment where p-hacking is impossible. 
+
+### Students who may be interested
+
+- Those looking to gain experience deploying, assessing, maintaining and improving models in an environment where p-hacking is impossible. 
+- Those looking to prove to future employers that they are [not in Kaggle anymore](https://www.linkedin.com/pulse/dorothy-youre-kaggle-anymore-peter-cotton-phd/). 
+- Those looking to build their open-source reputations. 
+
 
 ### Suggested steps
 
