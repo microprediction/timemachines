@@ -51,6 +51,15 @@ Names of skaters appear on the [Elo ratings](https://microprediction.github.io/t
      
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
    
+### What's a "skater", abstractly?
+There's a reason this is called the timemachines package. Skaters are stateless function *suggesting* state machines. 
+
+$$
+    f : (y_t, state; k) \mapsto ( [\hat{y}(t+1),\hat{y}(t+2),\dots,\hat{y}(t+k) ], [\sigma(t+1),\dots,\sigma(t+k)], posterior\ state))
+$$
+
+where $\sigma(t+l)$ estimates the standard error of the prediction $\hat{y}(t+l)$. If you prefer an legit (stateful) state machine, see [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) question 1. 
+
 
 
 -+- 
