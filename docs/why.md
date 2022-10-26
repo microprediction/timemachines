@@ -1,5 +1,5 @@
 # Why?
-View as [web page](https://microprediction.github.io/timemachines/why). 
+View as [web page](https://microprediction.github.io/timemachines/why) or [source](https://github.com/microprediction/timemachines/blob/main/docs/why.md).
 
 ### Why skater functions?
 
