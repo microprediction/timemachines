@@ -1,6 +1,6 @@
 
 # Skater interface
-View as [web page](https://microprediction.github.io/timemachines/interface). Docs [home](https://github.com/microprediction/timemachines/blob/main/docs/README.md) for abstract description of a skater. 
+View as [web page](https://microprediction.github.io/timemachines/interface) or [source](https://github.com/microprediction/timemachines/blob/main/docs/README.md).
   
 This page describes the conventions for skater functions. 
   
