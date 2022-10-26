@@ -7,6 +7,7 @@ View as [web page](https://microprediction.github.io/timemachines/)
 - [Skaters](https://microprediction.github.io/timemachines/skaters.html) includes a listing of timeseries packages 
 - [Uses](https://microprediction.github.io/timemachines/uses) of this package.
 
+See also [basic usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) examples in the repo.
 
 -+- 
 
