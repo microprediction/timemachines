@@ -1,7 +1,8 @@
-# Some Python Timeseries Resources 
+# Some General Python Timeseries Resources 
+(Placeholder)
 
-Placeholder
 
+- [Articles](https://microprediction.github.io/timemachines/articles.html) about the timemachines package. 
 
 
 
