@@ -6,21 +6,34 @@ Poke around in [/skaters](https://github.com/microprediction/timemachines/tree/m
 
 | Package | Location                                                                                            |
 |---------|-----------------------------------------------------------------------------------------------------|
+| StatsModels.TSA  | [skaters/tsa](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/tsa)     |
 | DARTS   | [skaters/drts](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/drts) |
 | SkTime  | [skaters/sk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/sk)     |
 | StatsForecast  | Also in sktime, for now                                                                      |
-| StatsModels.TSA  | [skaters/tsa](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/tsa)     |
 | TBATS  | [skaters/bats](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/bats)     |
 | PMD  | [skaters/sk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/pmd)     |
 | Prophet  | [skaters/proph](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/proph) | 
 | NeuralProphet  | [skaters/nproph](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/nproph)     |
 | KATS  | [skaters/kts](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/kts)     |
+| GreyKite  | [skaters/gk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/gk)     |
+| Orbit-ML  | [skaters/orbt](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/orbt)     |
 | PyCaret  | [skaters/pycrt](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/pycrt)     |
 | River  | [skaters/rvr](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/rvr)     |
+| Divinity | [skaters/divine](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/divine) |
+| PyDLM | [skaters/pydlm](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/pydlm) |
+| PyFlux | [skaters/flux](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/flux) |
+| GluonTS | [skaters/glu](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/glu) |
+| Merlion | [skaters/mrln](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/mrln) |
+
+And some home grown
+
+| Package | Location                                                                                            |
+|---------|-----------------------------------------------------------------------------------------------------|
 | Simple  | [skaters/simple](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/simple)     |
+| SMDK  | [skaters/smdk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/smdk)     |
+| Elo  | [skaters/elo](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/elo)     |
 
-
-and more (see [here](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters)). 
+and maybe more (see [here](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters)). 
 
 ### Importing a skater
 Examples:
