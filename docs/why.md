@@ -1,6 +1,6 @@
 # Why?
-View as [web page](https://microprediction.github.io/timemachines/why). Go [up](https://github.com/microprediction/timemachines/blob/main/docs/README.md) for abstract description of a skater. 
-  
+View as [web page](https://microprediction.github.io/timemachines/why). 
+
 ### Why skater functions?
 
 Oh here comes the justification. 
