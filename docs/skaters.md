@@ -4,7 +4,7 @@ View as [web page](https://microprediction.github.io/timemachines/skaters) or [s
 ### Finding a skater
 Poke around in [/skaters](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters). Here's an incomplete list:
 
-| Package | Location                                                                                            |
+| Package | Location                                                                                            | 
 |---------|-----------------------------------------------------------------------------------------------------|
 | StatsModels.TSA  | [skaters/tsa](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/tsa)     |
 | DARTS   | [skaters/drts](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/drts) |
