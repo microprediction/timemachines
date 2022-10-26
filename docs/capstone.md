@@ -1,6 +1,6 @@
 
 # Capstone project 
-View as [web page](https://microprediction.github.io/timemachines/) or [source](https://github.com/microprediction/timemachines/blob/main/docs/template.md).
+View as [web page](https://microprediction.github.io/timemachines/) or [source](https://github.com/microprediction/timemachines/blob/main/docs/capstone.md).
 
 
 ### Goals for students
