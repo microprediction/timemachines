@@ -9,9 +9,7 @@ View as [web page](https://microprediction.github.io/timemachines/) or [source](
 
 - [Skaters](https://microprediction.github.io/timemachines/skaters.html) explains one-line forecasting functions
     - [Interface](https://microprediction.github.io/timemachines/interface.html) provides more detail on the signature
-    
------------------------------------------------
-### Skatertools (more soon)
+
     
 - [Composition](https://microprediction.github.io/timemachines/composition.html) and residual chasing
 
