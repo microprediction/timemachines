@@ -7,6 +7,9 @@
     |
     - [Interface](https://microprediction.github.io/timemachines/interface.html) provides more detail on the signature
     
+-----------------------------------------------
+    
+    
 - [Composition](https://microprediction.github.io/timemachines/composition.html) and residual chasing
 - [Articles](https://microprediction.github.io/timemachines/articles.html) about using the timemachines
 - [Uses](https://microprediction.github.io/timemachines/interface.html) of this package might not be immediately apparent, nor
