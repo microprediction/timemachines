@@ -1,21 +1,23 @@
 
 
 # Documentation Map
+View as [web page](https://microprediction.github.io/timemachines/) or [source](https://github.com/microprediction/timemachines/blob/main/docs/capstone.md).
+
 
 ----------------------------------------------
-Need to know
+### Need to know
 
 - [Skaters](https://microprediction.github.io/timemachines/skaters.html) explains one-line forecasting functions
     - [Interface](https://microprediction.github.io/timemachines/interface.html) provides more detail on the signature
     
 -----------------------------------------------
-Skatertools (more soon)
+### Skatertools (more soon)
     
 - [Composition](https://microprediction.github.io/timemachines/composition.html) and residual chasing
 
 
 -----------------------------------------------
-Other stuff
+### Blah Blah
 
 - [Articles](https://microprediction.github.io/timemachines/articles.html) about using the timemachines
 - [Uses](https://microprediction.github.io/timemachines/interface.html) of this package might not be immediately apparent, nor
