@@ -1,5 +1,5 @@
 # Composing skaters
-View as [web page](https://microprediction.github.io/timemachines/composition)  or [source](https://github.com/microprediction/timemachines/blob/main/docs/README.md).
+View as [web page](https://microprediction.github.io/timemachines/composition)  or [source](https://github.com/microprediction/timemachines/blob/main/docs/composition.md).
    
 ### Residual chaser factory
 The [residual_chaser_factory](https://github.com/microprediction/timemachines/blob/main/timemachines/skatertools/composition/residualcomposition.py) allows you to
