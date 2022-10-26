@@ -8,7 +8,6 @@ View as [web page](https://microprediction.github.io/timemachines/) or [source](
 - Adopt a critical, statistical mindset as compare with [package-first-learning](https://www.linkedin.com/posts/petercotton_forecasting-timeseries-timeseriesanalysis-activity-6988875513771520001-Wpqp/?utm_source=share&utm_medium=member_desktop)
 - Learn technique for creating incremental, [fast](https://www.microprediction.com/blog/fast), "green" models, as compared with batch-style. 
 - Acquire skills crucial for meaningful collaboration on open-source projects on GitHub. 
-- Be better positioned to approach live, realtime operational problems
 - Gain experience deploying, assessing, maintaining and improving models in an environment where p-hacking is impossible. 
 
 ### Suggested steps
