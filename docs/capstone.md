@@ -11,7 +11,7 @@ View as [web page](https://microprediction.github.io/timemachines/) or [source](
 
 ### Students who may be interested
 
-- Those looking to gain experience deploying, assessing, maintaining and improving models in an environment where p-hacking is impossible. 
+- Those looking to gain experience deploying, assessing, maintaining and improving models in a real-time setting. 
 - Those looking to prove to future employers that they are [not in Kaggle anymore](https://www.linkedin.com/pulse/dorothy-youre-kaggle-anymore-peter-cotton-phd/). 
 - Those looking to build their open-source reputations. 
 
