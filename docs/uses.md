@@ -1,5 +1,5 @@
 # Some uses
-View as [web page](https://microprediction.github.io/timemachines/uses) or [source](https://github.com/microprediction/timemachines/blob/main/docs/README.md).
+View as [web page](https://microprediction.github.io/timemachines/uses) or [source](https://github.com/microprediction/timemachines/blob/main/docs/uses.md).
 
 
 ### Simple uses of this package:
