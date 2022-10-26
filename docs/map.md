@@ -20,9 +20,7 @@ Coming some time:
 
 -+- 
 
-Documentation [home](https://microprediction.github.io/timemachines)
- 
-  
+### See also [README](https://github.com/microprediction/timemachines/blob/main/README.md) and [CONTRIBUTE](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md) 
 
 
 ![skating](https://i.imgur.com/elu5muO.png)
