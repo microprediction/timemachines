@@ -12,7 +12,7 @@ Poke around in [/skaters](https://github.com/microprediction/timemachines/tree/m
 | StatsModels.TSA  | [skaters/tsa](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/tsa)     |
 | TBATS  | [skaters/bats](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/bats)     |
 | PMD  | [skaters/sk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/pmd)     |
-| Prophet  | [skaters/proph](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/proph | 
+| Prophet  | [skaters/proph](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/proph) | 
 | NeuralProphet  | [skaters/nproph](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/nproph)     |
 | KATS  | [skaters/kts](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/kts)     |
 | PyCaret  | [skaters/pycrt](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/pycrt)     |
