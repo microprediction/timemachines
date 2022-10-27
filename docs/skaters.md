@@ -54,17 +54,16 @@ Examples:
     from timemachines.skaters.sk.skautoarima import sk_autoarima as f
     from timemachines.skaters.simple.hypocraticensemble import quick_balanced_ema_ensemble as f
     
-### Importing a skater by name
-Less efficient:
+Or do it by name, which can be less efficient:
 
     from timemachines.skaters.localskaters import local_skater_from_name
     f = local_skater_from_name('rvr_p1_d0_q0')
     
-Names of skaters appear on the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/faster.html) tables. 
+The names of skaters appear on the [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/faster.html) tables. 
     
 ### Using a skater 
 
-"Skater" is a nmemonic for the arguments, although you might need only "s" and "k". The script [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) illustrates the usage pattern. Like so:
+"Skater" is a nmemonic for the non-data arguments (see [interface](https://microprediction.github.io/timemachines/interface.html)) although you might need only the first two, **s** (state) and **k** (steps ahead). The script [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) illustrates the usage pattern. Like so:
 
     from timemachines.skaters.simple.thinking import thinking_slow_and_fast 
     import numpy as np
@@ -78,8 +77,8 @@ Names of skaters appear on the [Elo ratings](https://microprediction.github.io/t
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
    
 
-
-### See also the skater [interface](https://microprediction.github.io/timemachines/interface.html) documentation
+### Skater arguments and return values
+Again, see the skater [interface](https://microprediction.github.io/timemachines/interface.html) documentation
 for more details about expectations placed on skater functions.
 
 -+- 
