@@ -1,7 +1,7 @@
 
 
 # Documentation Map
-View as [web page](https://microprediction.github.io/timemachines/) or [source](https://github.com/microprediction/timemachines/blob/main/docs/source.md).
+View as [web page](https://microprediction.github.io/timemachines/map) or [source](https://github.com/microprediction/timemachines/blob/main/docs/map.md).
 
 
 ----------------------------------------------
