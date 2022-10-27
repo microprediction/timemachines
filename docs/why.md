@@ -3,7 +3,7 @@ View as [web page](https://microprediction.github.io/timemachines/why) or [sourc
 
 ### Why skater functions?
 
-Oh here comes the justification. 
+Oh here comes the justification for why [timeseries models should be pure functions](https://www.linkedin.com/posts/petercotton_github-micropredictiontimemachines-predict-activity-6991389694634684416-1yGa/?utm_source=share&utm_medium=member_desktop).  
 
    1. **Simple k-step ahead forecasts in functional style** I mean that's obvious. There are no "models" here requiring setup or estimation, only stateless functions as noted:
        
