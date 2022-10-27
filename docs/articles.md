@@ -4,6 +4,7 @@ View as [web page](https://microprediction.github.io/timemachines/uses) or [sour
 
 ### Directly related / instructional
 
+- [The Only Prediction Function You'll Ever Need?](https://microprediction.medium.com/the-only-prediction-function-youll-ever-need-fe2ae42eaff0)
 - [Is Facebook's Prophet the Time-Series Messiah, or Just a Very Naughty Boy?](https://medium.com/geekculture/is-facebooks-prophet-the-time-series-messiah-or-just-a-very-naughty-boy-8b71b136bc8c) <-- Wildly popular
 - [Does Wiggling Make Time-Series Models More Regular?](https://microprediction.medium.com/smooth-move-does-wiggling-make-time-series-models-less-accurate-8544e675873)
 - [Chasing StatsModel.AutoARIMA residuals in two lines of code](https://microprediction.medium.com/chasing-statsforecast-autoarima-residuals-in-two-lines-of-code-8a39c8c2561f)
