@@ -65,13 +65,13 @@ The names of skaters appear on the [Elo ratings](https://microprediction.github.
 
 "Skater" is a nmemonic for the non-data arguments (see [interface](https://microprediction.github.io/timemachines/interface.html)) although you might need only the first two, **s** (state) and **k** (steps ahead). The script [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) illustrates the usage pattern. Like so:
 
-    from timemachines.skaters.simple.thinking import thinking_slow_and_fast 
+    from timemachines.skaters.simple.thinking import thinking_slow_and_fast as f
     import numpy as np
     y = np.cumsum(np.random.randn(1000))
     s = {}
     x = list()
     for yi in y:
-        xi, x_std, s = thinking_slow_and_fast(y=yi, s=s, k=3)
+        xi, xi_std, s = f(y=yi, s=s, k=3)
         x.append(xi)
      
 There's more in [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage).
