@@ -10,11 +10,15 @@ Core concepts:
 - [Skaters](https://microprediction.github.io/timemachines/skaters.html) explains one-line forecasting functions
     - [Interface](https://microprediction.github.io/timemachines/interface.html) provides more detail on the signature
 
-Skatertools:
+Utilities:
 
 - [Composition](https://microprediction.github.io/timemachines/composition.html) and residual chasing
 - [Wiggling](https://microprediction.github.io/timemachines/wiggling.html) a skater (bootstrapping)
 - [Ensembling](https://microprediction.github.io/timemachines/ensembling.html) a list of skaters
+
+Assessment:
+
+- [Elo ratings](https://microprediction.github.io/timemachines/ensembling.html) for skaters can be retrieved
 
 
 -----------------------------------------------
