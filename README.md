@@ -7,6 +7,8 @@ Because [why not](https://microprediction.github.io/timemachines/why) do things 
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
+You can also ensemble, compose, bootstrap and do other things with one line of code. See the [documented](https://microprediction.github.io/timemachines/).
+
 ### What's [included](https://microprediction.github.io/timemachines/skaters)
 
 See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of somepackage, somevariety and something. 
