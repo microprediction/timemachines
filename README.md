@@ -37,21 +37,17 @@ See [docs/interface](https://microprediction.github.io/timemachines/interface) f
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s) 
 
-### Contribute
+### Contributions and capstone projects
     
-See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md) and [good first issues](https://github.com/microprediction/timemachines/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22). 
+- See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md) and [good first issues](https://github.com/microprediction/timemachines/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22). 
+- See the suggested steps for a [capstone project](https://microprediction.github.io/timemachines/capstone.html). 
 
 ### Getting live help
 
 - [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md). 
 - See the Slack invite on my user page [here](https://github.com/microprediction/slack). 
 - Office hours [here](https://github.com/microprediction/meet). 
-
-### [Daily $125 prize](https://www.microprediction.com/competitions/daily)
-Not unrelated to this package is the live platform where models duke it out. 
-
-<img src="https://github.com/microprediction/timemachines/blob/main/images/money.png" alt="Money" style="width:500px">
-
+- Learn how to deploy some of these models and try to win the [daily $125 prize](https://www.microprediction.com/competitions/daily).
 
 ### Install [instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
 
