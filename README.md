@@ -7,12 +7,12 @@ Because [why not](https://microprediction.github.io/timemachines/why) do things 
      for yi in y:
          xi, x_std, s = f(y=yi, s=s, k=3)
 
-You can also ensemble, compose, bootstrap and do other things with one line of code. See the [documented](https://microprediction.github.io/timemachines/).
+See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of somepackage, somevariety and something. You can also ensemble, compose, bootstrap and do other things with one line of code. See the [docs](https://microprediction.github.io/timemachines/).
 
-### What's [included](https://microprediction.github.io/timemachines/skaters)
+### Packages used
 
-See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of somepackage, somevariety and something. 
-This package is a collection of a hundred or so "f"s, for people who want one-line prediction sans ceremony or state. See [uses](https://microprediction.github.io/timemachines/uses) in the docs. There are utilities for ensembling, [residual chasing](https://microprediction.github.io/timemachines/composition) and assessing prediction functions in ways that cannot be p-hacked. And the goal here is to include some that do a reasonable job of providing fully autonomous prediction across [diverse real-world timeseries](https://www.microprediction.org/browse_streams.html), thus providing a cheap lunch.   
+Skaters draw on functionality from [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
+   Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. See the [docs](https://microprediction.github.io/timemachines/).
 
 ## What's a "skater"?
 More abstractly:
@@ -37,40 +37,26 @@ See [docs/interface](https://microprediction.github.io/timemachines/interface) f
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s) 
 
-
 ### Contribute
     
 See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md) and [good first issues](https://github.com/microprediction/timemachines/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22). 
 
-### Help
+### Getting live help
 
 - [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md). 
 - See the Slack invite on my user page [here](https://github.com/microprediction/slack). 
 - Office hours [here](https://github.com/microprediction/meet). 
 
 ### [Daily $125 prize](https://www.microprediction.com/competitions/daily)
-Figured that might be worth a mention.  
+Not unrelated to this package is the live platform where models duke it out. 
 
 <img src="https://github.com/microprediction/timemachines/blob/main/images/money.png" alt="Money" style="width:500px">
 
-Who says contributing to open-source is thankless? 
 
-### Install
+### Install [instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
 
 Oh what a mess the Python timeseries ecosystem is. So packages are not installed by default. See the methodical [install instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md) and be incremental for best results. The infamous [xkcd cartoon](https://xkcd.com/1987/) really does describe the alternative quite well. 
 
-### Examples of basic usage
-See [examples/basic_usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) and [skating.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skating.py) illustrating the usage pattern. To wit:
-
-    from timemachines.skaters.simple.thinking import thinking_slow_and_fast 
-    import numpy as np
-    y = np.cumsum(np.random.randn(1000))
-    s = {}
-    x = list()
-    for yi in y:
-        xi, x_std, s = thinking_slow_and_fast(y=yi, s=s, k=3)
-        x.append(xi)
-     
 
 ![](https://i.imgur.com/elu5muO.png)
   
