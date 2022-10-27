@@ -1,5 +1,5 @@
 # Wiggling skaters
-View as [web page](https://microprediction.github.io/timemachines/composition)  or [source](https://github.com/microprediction/timemachines/blob/main/docs/composition.md).
+View as [web page](https://microprediction.github.io/timemachines/wiggling)  or [source](https://github.com/microprediction/timemachines/blob/main/docs/wiggling.md).
 
 
 ### Notebook example
