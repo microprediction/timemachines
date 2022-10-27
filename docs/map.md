@@ -18,13 +18,16 @@ Skatertools:
 
 
 -----------------------------------------------
-Other resources:
+More information:
 
-- [Articles](https://microprediction.github.io/timemachines/articles.html) about using the timemachines
-- [Uses](https://microprediction.github.io/timemachines/interface.html) of this package might not be immediately apparent, nor
+- [Articles](https://microprediction.github.io/timemachines/articles.html) about using the timemachines package, and "skaters". 
+- [Uses](https://microprediction.github.io/timemachines/interface.html) of this package.
 - [Why](https://microprediction.github.io/timemachines/interface.html) it is done this way.
 - [Capstone](https://microprediction.github.io/timemachines/capstone.html) provides a structured track for students. 
-- [Resources](https://microprediction.github.io/timemachines/resources.html) is a placeholder answer to "how can I learn about time-series"
+
+Peripheral:
+
+- [Resources](https://microprediction.github.io/timemachines/resources.html) General time-series bookmarks, interesting papers etc.  
 
 
 -+- 
