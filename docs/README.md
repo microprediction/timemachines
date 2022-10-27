@@ -10,7 +10,7 @@ View as [web page](https://microprediction.github.io/timemachines/) or [source](
 See also [basic usage](https://github.com/microprediction/timemachines/tree/main/examples/basic_usage) examples in the repo.
 
 ### Contents
-See documentation [map](https://microprediction.github.io/timemachines/map.html)
+See documentation [map](https://microprediction.github.io/timemachines/map.html) that includes [articles](https://microprediction.github.io/timemachines/articles.html) written about this package. 
  
   
 
