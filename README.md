@@ -23,7 +23,9 @@ $$
     f : (y_t, state; k) \mapsto ( [\hat{y}(t+1),\hat{y}(t+2),\dots,\hat{y}(t+k) ], [\sigma(t+1),\dots,\sigma(t+k)], posterior\ state))
 $$
 
-where $\sigma(t+l)$ estimates the standard error of the prediction $\hat{y}(t+l)$. If you prefer an legit (stateful) state machine, see [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) question 1. 
+where $\sigma(t+l)$ estimates the standard error of the prediction $\hat{y}(t+l)$. 
+
+If you prefer an legitimate (i.e. stateful) state machine, see [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) question 1. 
 
 
 ### Skater function conventions
