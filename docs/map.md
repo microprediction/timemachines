@@ -31,7 +31,7 @@ More information:
 
 Peripheral:
 
-- [Resources](https://microprediction.github.io/timemachines/resources.html) General time-series bookmarks, interesting papers etc.  
+- [Resources](https://microprediction.github.io/timemachines/resources.html) includes a list of interesting papers.  
 
 
 -+- 
