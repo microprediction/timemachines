@@ -2,7 +2,7 @@
 View as [web page](https://microprediction.github.io/timemachines/skaters) or [source](https://github.com/microprediction/timemachines/blob/main/docs/skaters.md).
   
 ### What's a "skater", abstractly?
-There's a reason this is called the timemachines package. Skaters are stateless function *suggesting* state machines. 
+A skater is a function *suggesting* a state machine for sequential assimilation and forecasting (hence the name *timemachines*). 
 
 $$
     f : (y_t, state; k) \mapsto ( [\hat{y}(t+1),\hat{y}(t+2),\dots,\hat{y}(t+k) ], [\sigma(t+1),\dots,\sigma(t+k)], posterior\ state))
