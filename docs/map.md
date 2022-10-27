@@ -12,6 +12,7 @@ View as [web page](https://microprediction.github.io/timemachines/) or [source](
 
     
 - [Composition](https://microprediction.github.io/timemachines/composition.html) and residual chasing
+- [Wiggling](https://microprediction.github.io/timemachines/wiggling.html) a skater (bootstrapping)
 
 
 -----------------------------------------------
