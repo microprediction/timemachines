@@ -18,7 +18,7 @@ Utilities:
 
 Assessment:
 
-- [Elo ratings](https://microprediction.github.io/timemachines/ensembling.html) for skaters can be retrieved
+- [Elo ratings](https://microprediction.github.io/timemachines/eloratings.html) for skaters can be retrieved programmatically
 
 
 -----------------------------------------------
