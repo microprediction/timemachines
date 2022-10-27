@@ -25,9 +25,12 @@ Then use f3 just as you would any skater:
 See [skaters/proph/prophetskaterscomposed.py](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/proph/prophskaterscomposed.py) or 
 [skaters/simple/hypocratic](https://github.com/microprediction/timemachines/blob/main/timemachines/skaters/simple/hypocratic.py). 
 
-### Article
+### Articles about composition using timemachines
 
-See [Chasing StatsForecast AutoARIMA Residuals in Two Lines of Code](https://microprediction.medium.com/chasing-statsforecast-autoarima-residuals-in-two-lines-of-code-8a39c8c2561f) for an ARIMA example. 
+ - [Chasing StatsForecast AutoARIMA Residuals in Two Lines of Code](https://microprediction.medium.com/chasing-statsforecast-autoarima-residuals-in-two-lines-of-code-8a39c8c2561f) for an ARIMA example. 
+ - [Predicting, Fast and Slow](https://www.microprediction.com/blog/timemachines)
+ 
+
 
 -+- 
 
