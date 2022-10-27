@@ -27,7 +27,7 @@ Other resources:
 
 -+- 
 
-### See also [README](https://github.com/microprediction/timemachines/blob/main/README.md) and [CONTRIBUTE](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md) 
+### See also [README](https://github.com/microprediction/timemachines/blob/main/README.md),  [CONTRIBUTE](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md), and [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md).
 
 
 ![skating](https://i.imgur.com/elu5muO.png)
