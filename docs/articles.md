@@ -18,10 +18,9 @@ View as [web page](https://microprediction.github.io/timemachines/uses) or [sour
 - [An Empirical Article That Isn't Immediately Stale](https://medium.com/geekculture/an-empirical-article-that-wasnt-immediately-stale-720abfb4678f).  
 - [Optimizing a Portfolio of Models](https://medium.com/geekculture/optimizing-a-portfolio-of-models-f1ed432d728b)
 
+Also:
 
-### Wanna support my open source work?
-
-My [book](https://www.amazon.com/Microprediction-Building-Open-AI-Network/dp/0262047322) is out! 
+- My [book](https://www.amazon.com/Microprediction-Building-Open-AI-Network/dp/0262047322) is out. 
 
 
 -+- 
