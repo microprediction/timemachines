@@ -8,10 +8,11 @@ $$
     f : (y_t, state; k) \mapsto ( [\hat{y}(t+1),\hat{y}(t+2),\dots,\hat{y}(t+k) ], [\sigma(t+1),\dots,\sigma(t+k)], posterior\ state))
 $$
 
-where $\sigma(t+l)$ estimates the standard error of the prediction $\hat{y}(t+l)$. This looks better in the [source](https://github.com/microprediction/timemachines/blob/main/docs/skaters.md) code btw. 
+where $\sigma(t+l)$ estimates the standard error of the prediction $\hat{y}(t+l)$. (This looks better in the [source](https://github.com/microprediction/timemachines/blob/main/docs/skaters.md) code btw.) 
 
 If you prefer an legit (stateful) state machine, see [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md) question 1. 
 
+See [interface](https://microprediction.github.io/timemachines/interface.html) for description of input and output arguments. 
   
 ### Finding a skater
 Poke around in [/skaters](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters). 
@@ -78,7 +79,7 @@ There's more in [examples/basic_usage](https://github.com/microprediction/timema
    
 
 
-### See also [Skater interface](https://microprediction.github.io/timemachines/interface.html)
+### See also the skater [interface](https://microprediction.github.io/timemachines/interface.html) documentation
 for more details about expectations placed on skater functions.
 
 -+- 
