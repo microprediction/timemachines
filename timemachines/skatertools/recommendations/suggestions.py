@@ -60,7 +60,24 @@ def top_rated_names(k:int, n=5, category='univariate', max_seconds=10, min_count
     return [ r[1] for r in rcm[:n]]
 
 
-def top_rated_models(k:int, n=5, category='univariate', max_seconds=10, min_count=10, require_passing:bool=False, ignore_elo=False):
+def top_rated_models(k:int, n=5, categories=None, category=None, max_seconds=10, min_count=10, require_passing:bool=False, ignore_elo=False):
+    if categories is None:
+        if category is None:
+            categories = ['univariate']
+        else:
+            categories = [ category ]
+    n_per_category = int(n/len(categories)+1)
+    trm = []
+    for category in categories:
+        trm = trm + top_rated_models_in_one_category(k=k, n=n_per_category, category=category,
+                                                     max_seconds=max_seconds, min_count=min_count,
+                                                     require_passing=require_passing,
+                                                     ignore_elo=ignore_elo)
+    unique_trm = list(set(trm))
+    return unique_trm
+
+
+def top_rated_models_in_one_category(k:int, n=5, category='univariate', max_seconds=10, min_count=10, require_passing:bool=False, ignore_elo=False):
     """
        Try to instantiate top skaters, moving down the list until we have at least n
 
@@ -84,7 +101,7 @@ def top_rated_models(k:int, n=5, category='univariate', max_seconds=10, min_coun
 
 
 if __name__=='__main__':
-    my_skaters = top_rated_models(k=3, n=15, max_seconds=1,category='univariate')
+    my_skaters = top_rated_models(k=3, n=25, max_seconds=10, categories=['univariate','residual','special'])
     print([f.__name__ for f in my_skaters])
 
 

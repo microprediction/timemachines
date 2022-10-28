@@ -9,6 +9,7 @@ if connected_to_internet():
 
     def elo_ensemble_factory(y: Y_TYPE, s: dict, k: int = 1, a:A_TYPE = None, t:T_TYPE = None, e:E_TYPE = None,r=None,
                              category='univariate',
+                             categories=None,
                              max_seconds=1.0,
                              min_count=10,
                              require_passing=True,
@@ -22,8 +23,9 @@ if connected_to_internet():
         assert r is not None, 'need the precision coef'
         if s.get('top_rated_skaters') is None:
             assert connected_to_internet(), 'cannot get best skaters without internet connection'
-            top_rated_skaters = top_rated_models(k=k,n=n,category=category,max_seconds=max_seconds,min_count=min_count,
-                                             require_passing=require_passing, ignore_elo=True)
+            top_rated_skaters = top_rated_models(k=k, n=n, category=category, categories=categories,
+                                                 max_seconds=max_seconds, min_count=min_count,
+                                                require_passing=require_passing, ignore_elo=True)
             if len(top_rated_skaters)<=1:
                 raise Exception('Could not find enough rated models')
             s['top_rated_skaters'] = top_rated_skaters
@@ -32,3 +34,10 @@ if connected_to_internet():
         return precision_weighted_ensemble_factory(fs=s['top_rated_skaters'], y=y, s=s, k=k, a=a, t=t, e=e, r=r)
 
 
+
+
+if __name__=='__main__':
+    top_rated_skaters = top_rated_models(k=1, n=15, categories=['univariate','residual'], max_seconds=5, min_count=10,
+                                            require_passing=True, ignore_elo=True)
+    from pprint import pprint
+    pprint(top_rated_skaters)

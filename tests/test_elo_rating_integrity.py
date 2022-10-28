@@ -2,14 +2,14 @@ from timemachines.skatertools.utilities.internet import connected_to_internet
 if connected_to_internet():
 
 
-    from timemachines.skatertools.recommendations.suggestions import top_rated_models, get_ratings
+    from timemachines.skatertools.recommendations.suggestions import top_rated_models_in_one_category, get_ratings
     from pprint import pprint
 
 
     def test_top_rated_models():
         for k in [1,5, 8, 13,21,34]:
            print('k='+str(k))
-           suggestions = top_rated_models(k=k,max_seconds=500, require_passing=True)
+           suggestions = top_rated_models_in_one_category(k=k, max_seconds=500, require_passing=True)
            pprint(suggestions)
            print('')
 
