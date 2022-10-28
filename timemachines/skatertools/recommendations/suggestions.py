@@ -46,7 +46,7 @@ def top_rated(k:int, category='univariate', max_seconds=10, min_count=10, requir
                    ((scnds>=0) and (scnds<=max_seconds)) and
                    (trcbck=='passing' or (not require_passing)) and
                    (cnt>=min_count) and
-                   ((not 'elo' in nm) or not ignore_elo)
+                   ((not 'elo' in nm and not 'forever' in nm) or not ignore_elo)
                    ], reverse=True )
 
 
