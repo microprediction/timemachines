@@ -7,8 +7,6 @@ from timemachines.inclusion.matplotlibinclusion import using_matplotlib
 
 # Quick ways to inspect skaters
 
-
-
 if using_matplotlib:
 
     def prior_plot(f, y=None, k=1, t=None, e=None, r=None, x0=np.nan, n=150, n_plot=25):
@@ -59,6 +57,7 @@ if using_matplotlib:
         :return:
         """
         assert using_matplotlib, 'pip install matplotlib'
+        import matplotlib.pyplot as plt
         assert isinstance(x[0],float)
         try:
             y0 = [y_[0] for y_ in y]
