@@ -49,10 +49,13 @@ THINKING_SKATERS = [ thinking_fast_and_fast, thinking_fast_and_slow, thinking_sl
 
 
 if __name__=='__main__':
-    k = 4
-    from timemachines.skatertools.visualization.realplot import hospital_prior_plot_exogenous
-    import matplotlib.pyplot as plt
-    hospital_prior_plot_exogenous(f=thinking_precision_ensemble,k=k)
-    plt.show()
-    pass
+    try:
+        k = 4
+        from timemachines.skatertools.visualization.realplot import hospital_prior_plot_exogenous
+        import matplotlib.pyplot as plt
+        hospital_prior_plot_exogenous(f=thinking_precision_ensemble,k=k)
+        plt.show()
+        pass
+    except:
+        pass
 
