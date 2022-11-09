@@ -58,25 +58,34 @@ def simulate_arima_like_path(seq_len, reverse=False):
     return ou
 
 
-def show_example_ornstein():
-    xs = np.cumsum(np.random.randn(500))
-    y = pull_towards_zero(xs)
-    import matplotlib.pyplot as plt
-    t = list(range(len(y)))
-    plt.plot(t,xs,t,y)
-    plt.grid()
-    plt.legend(['raw','ou'])
-    plt.show()
+from timemachines.inclusion.matplotlibinclusion import using_matplotlib
+
+if using_matplotlib:
+    def show_example_ornstein():
+        xs = np.cumsum(np.random.randn(500))
+        y = pull_towards_zero(xs)
+        import matplotlib.pyplot as plt
+        t = list(range(len(y)))
+        plt.plot(t,xs,t,y)
+        plt.grid()
+        plt.legend(['raw','ou'])
+        plt.show()
 
 
-def show_example_arima_like():
-    y = simulate_arima_like_path(seq_len=500)
-    import matplotlib.pyplot as plt
-    t = list(range(len(y)))
-    plt.plot(t,y)
-    plt.grid()
-    plt.legend(['raw','ou'])
-    plt.show()
+    def show_example_arima_like():
+        y = simulate_arima_like_path(seq_len=500)
+        import matplotlib.pyplot as plt
+        t = list(range(len(y)))
+        plt.plot(t,y)
+        plt.grid()
+        plt.legend(['raw','ou'])
+        plt.show()
+else:
+    def show_example_ornstein():
+        print('pip install matplotlib')
+
+    def show_example_arima_like():
+        print('pip install matplotlib')
 
 
 if __name__=='__main__':

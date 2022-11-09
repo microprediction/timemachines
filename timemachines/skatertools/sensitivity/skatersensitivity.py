@@ -1,4 +1,5 @@
 from copy import deepcopy
+from timemachines.skatertools.data.ornstein import simulate_arima_like_path
 
 
 def skater_bump(ys, f, num_points=51, ndx=-1, k=1):
