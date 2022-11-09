@@ -122,9 +122,10 @@ if using_sktime:
                                           n_fits=n_fits,
                                           with_intercept=with_intercept)
                 # For argument meanings see: https://www.sktime.org/en/latest/api_reference/modules/auto_generated/sktime.forecasting.arima.AutoARIMA.html
-                forecaster.fit(y0_series)
+                forecaster = forecaster.fit(y0_series)
                 fh = ForecastingHorizon(pd.PeriodIndex(pd.date_range(next_t, periods=k, freq=freq)), is_relative=False)
-                x = forecaster.predict(fh)
+                x_series = forecaster.predict(fh)
+            x = list(x_series.values)
             x_std = [1.0 for _ in x]
             return x, x_std
 

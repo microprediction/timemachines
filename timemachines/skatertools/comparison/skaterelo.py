@@ -3,7 +3,9 @@ from timemachines.skatertools.comparison.eloformulas import elo_update
 import time
 from pprint import pprint
 
-SLOW_SKATER_KEYWORDS = ['divine','fbprophet','arma','tsa_p3','bats_damped','tsa_aggressive','tsa_balanced','tsa_precision']
+SLOW_SKATER_KEYWORDS = ['wiggly','divine','fbprophet','arma','tsa_p3','bats_damped','tsa_aggressive','tsa_balanced','tsa_precision']
+
+DEFAULT_INITIAL_ELO = 1600
 
 try:
     from microprediction import MicroReader
@@ -18,11 +20,11 @@ else:
 
 SKATER_F_FACTOR = 1000  # The scale factor for ratings. In chess this is set to 400.
 # As the matchup is considered more fluky than a single game of chess, a higher value makes sense.
-SKATER_K_FACTOR = 200  # The Elo update factor (maximum rating gain)
+SKATER_K_FACTOR = 25  # The Elo update factor (maximum rating gain)
 
 
-def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=1600,
-                            data_source=None, skater_population=None, always_skaters=None):
+def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, initial_elo=DEFAULT_INITIAL_ELO,
+                            data_source=None, skater_population=None, always_skaters=None, verbose=True):
     """ Create or update elo ratings by running several algos at once and using Elo update n-1 times
 
               elo - Dictionary containing the 'state' (i.e. elo ratings and game counts)
@@ -110,8 +112,9 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
     ran_okay = list()
     ran_okay_names = list()
     failed_names = list()
-    print('  imported successfully ...')
-    pprint([elo['name'][c] for c in chosen_and_imported])
+    if verbose:
+        print('  imported successfully ...')
+        pprint([elo['name'][c] for c in chosen_and_imported])
     for c, f in zip(chosen_and_imported, fs):
         import traceback
         try:
@@ -131,9 +134,10 @@ def skater_elo_multi_update(elo: dict, k, evaluator=None, n_burn=400, tol=0.01, 
         print('  failing ...')
         pprint(failed_names)
 
-    print('  leaderboard ...')
-    leaderboard = sorted([(s,c,n) for s,c,n in zip(scores,ran_okay, ran_okay_names)])
-    pprint(leaderboard)
+    leaderboard = sorted([(s, c, n) for s, c, n in zip(scores, ran_okay, ran_okay_names)])
+    if verbose:
+        print('  leaderboard ...')
+        pprint(leaderboard)
     if len(leaderboard)>=3:
         for j, (winner_score,winner, winner_name) in enumerate(leaderboard[:-1]):
             for k in [2,3,4,5,6]:
@@ -162,6 +166,7 @@ def _init_elo(elo, skater_population, initial_elo):
     elo['traceback'] = ['not yet run' for _ in skater_population]
     elo['active'] = [True for _ in skater_population]
     elo['pypi'] = [pypi_from_name(nm) for nm in elo['name']]
+    elo['seconds'] = [-1 for nm in elo['name']]
     return elo
 
 def _newcomers(elo, skater_population, initial_elo):

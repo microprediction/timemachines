@@ -30,3 +30,26 @@ def skater_bump(ys, f, num_points=51, ndx=-1, k=1):
 
     return y_bumped, x_final_values
 
+
+def skater_bump_plot(f, g, ndx, k):
+    """ Plot sensitivity to k'th to last observation,
+        and compare to an alternative skater g that might be smoother
+    """
+    import numpy as np
+    ys = simulate_arima_like_path(seq_len=50)
+    y_final, x_final = skater_bump(ys=ys, f=f, ndx=ndx, k=k)
+    discont_max = np.max(np.diff(np.array(x_final)))
+    discont_median = np.median(np.abs(np.diff(np.array(x_final))))
+    if discont_max>5*discont_median:
+        print('Comparing ...')
+        y_alt, x_alt = skater_bump(ys=ys, f=g, ndx=ndx, k=k)
+        import matplotlib.pyplot as plt
+        plt.plot(y_final,x_final, 'rx')
+        plt.plot(y_alt, x_alt, 'go')
+        plt.ylabel('Prediction '+str(k)+' steps ahead')
+        kstub = g.__name__.split('_')[-1]
+        plt.xlabel('Value taken by y['+str(ndx)+'] w/ wiggle '+kstub)
+        plt.grid()
+        plt.title(f.__name__)
+        plt.legend(['original','wiggled'])
+        plt.show()
