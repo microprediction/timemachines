@@ -85,10 +85,13 @@ THINKING_SKATERS = VANILLA_THINKING_SKATERS + WIGGLY_THINKING_FAST_AND_SLOW_SKAT
 
 
 if __name__=='__main__':
-    k = 4
-    from timemachines.skatertools.visualization.realplot import hospital_prior_plot_exogenous
-    import matplotlib.pyplot as plt
-    hospital_prior_plot_exogenous(f=thinking_precision_ensemble,k=k)
-    plt.show()
-    pass
+    try:
+        k = 4
+        from timemachines.skatertools.visualization.realplot import hospital_prior_plot_exogenous
+        import matplotlib.pyplot as plt
+        hospital_prior_plot_exogenous(f=thinking_precision_ensemble,k=k)
+        plt.show()
+        pass
+    except:
+        pass
 

@@ -3,6 +3,7 @@ import random
 from timemachines.skaters.mrln.merlioninclusion import using_merlion
 from timemachines.skating import prior
 
+
 if using_merlion:
     from timemachines.skaters.mrln.allmerlionskaters import MERLION_SKATERS
 

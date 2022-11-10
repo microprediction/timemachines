@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="timemachines",
-    version="0.19.5",
+    version="0.20.5",
     description="Evaluation and standardization of autonomous time series prediction",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -19,6 +19,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
     packages=["timemachines",
               "timemachines.skaters",

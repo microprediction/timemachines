@@ -52,11 +52,7 @@ HYPOCRATIC_ENSEMBLE_SKATERS = [ quick_balanced_ema_ensemble, slow_balanced_ema_e
                                 quick_precision_ema_ensemble, slow_precision_ema_ensemble]
 
 
-
 if __name__=='__main__':
     k = 3
     from timemachines.skatertools.visualization.realplot import hospital_prior_plot_exogenous
-    import matplotlib.pyplot as plt
     hospital_prior_plot_exogenous(f=quick_precision_ema_ensemble,k=k)
-    plt.show()
-    pass

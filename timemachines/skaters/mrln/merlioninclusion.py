@@ -1,6 +1,11 @@
 
 try:
     import merlion
+    try:
+        import matplotlib
+    except ImportError:
+        print('Warning: the only reason merlion isn''t working is that matplotlib is missing')
+    import matplotlib
     using_merlion = True
 except ImportError:
     using_merlion = False
