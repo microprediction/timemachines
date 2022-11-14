@@ -17,26 +17,26 @@ See [interface](https://microprediction.github.io/timemachines/interface.html) f
 ### Finding a skater
 Poke around in [/skaters](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters). 
 
-| Package | Location                                                                                            | 
-|---------|-----------------------------------------------------------------------------------------------------|
-| StatsModels.TSA  | [skaters/tsa](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/tsa)     |
-| DARTS   | [skaters/drts](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/drts) |
-| SkTime  | [skaters/sk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/sk)     |
-| StatsForecast  | Also in sktime, for now                                                                      |
-| TBATS  | [skaters/bats](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/bats)     |
-| PMD  | [skaters/sk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/pmd)     |
-| Prophet  | [skaters/proph](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/proph) | 
-| NeuralProphet  | [skaters/nproph](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/nproph)     |
-| KATS  | [skaters/kts](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/kts)     |
-| GreyKite  | [skaters/gk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/gk)     |
-| Orbit-ML  | [skaters/orbt](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/orbt)     |
-| PyCaret  | [skaters/pycrt](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/pycrt)     |
-| River  | [skaters/rvr](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/rvr)     |
-| Divinity | [skaters/divine](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/divine) |
-| PyDLM | [skaters/pydlm](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/pydlm) |
-| PyFlux | [skaters/flux](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/flux) |
-| GluonTS | [skaters/glu](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/glu) |
-| Merlion | [skaters/mrln](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/mrln) |
+| Package | Location                                                                                            | Comment       |
+|---------|-----------------------------------------------------------------------------------------------------|---------------|
+| StatsModels.TSA  | [skaters/tsa](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/tsa)     |    |
+| DARTS   | [skaters/drts](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/drts) |               |
+| SkTime  | [skaters/sk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/sk)     |               |
+| StatsForecast  | Also in sktime, for now                                                                      |               |
+| TBATS  | [skaters/bats](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/bats)     |            |
+| PMD  | [skaters/sk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/pmd)     |                 |
+| Prophet  | [skaters/proph](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/proph) | A sine from god |
+| NeuralProphet  | [skaters/nproph](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/nproph) |    |
+| KATS  | [skaters/kts](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/kts)     |               |
+| GreyKite  | [skaters/gk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/gk)     |             |
+| Orbit-ML  | [skaters/orbt](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/orbt)     |         |
+| PyCaret  | [skaters/pycrt](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/pycrt)     |        |
+| River  | [skaters/rvr](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/rvr)     |  Flowing     |             
+| Divinity | [skaters/divine](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/divine) |          |
+| PyDLM | [skaters/pydlm](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/pydlm) |               |
+| PyFlux | [skaters/flux](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/flux) |                |
+| GluonTS | [skaters/glu](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/glu) |                 |
+| Merlion | [skaters/mrln](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/mrln) |               |
 
 And some home grown
 
