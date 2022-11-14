@@ -40,11 +40,11 @@ Poke around in [/skaters](https://github.com/microprediction/timemachines/tree/m
 
 And some home grown
 
-| Package | Location                                                                                            |
-|---------|-----------------------------------------------------------------------------------------------------|
-| Simple  | [skaters/simple](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/simple)     |
-| SMDK  | [skaters/smdk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/smdk)     |
-| Elo  | [skaters/elo](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/elo)     |
+| Package | Location                                                                                            | Remark      |
+|---------|-----------------------------------------------------------------------------------------------------|-------------|
+| Simple  | [skaters/simple](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/simple)     |     |
+| SMDK  | [skaters/smdk](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/smdk)     |           | 
+| Elo  | [skaters/elo](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters/elo)     | Future-proof |
 
 and maybe more (see [here](https://github.com/microprediction/timemachines/tree/main/timemachines/skaters)). 
 
