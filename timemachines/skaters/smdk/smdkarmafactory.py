@@ -1,5 +1,7 @@
 from timemachines.skaters.smdk.smdkinclusion import using_simdkalman
 if using_simdkalman:
+    
+    # Search for the article "Efficiently Evolving a Population of ARMA Time-Series Models"
 
     from timemachines.skatertools.utilities.conventions import Y_TYPE, A_TYPE, R_TYPE, E_TYPE, T_TYPE, wrap
     from timemachines.skatertools.components.parade import parade
