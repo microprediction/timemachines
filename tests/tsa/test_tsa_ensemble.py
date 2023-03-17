@@ -13,6 +13,7 @@ if using_statsmodels and using_sklearn:
     def my_skater(y,s,k,**ignore):
         return precision_weighted_ensemble_factory(y=y,s=s,k=k,fs=fs)
    
+    s = {}
     for y in np.random.randn(25):
         x, x_std, s = my_skater(y=y,s=s,k=1)
 
