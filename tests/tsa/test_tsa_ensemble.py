@@ -1,5 +1,6 @@
 
 from timemachines.inclusion.statsmodelsinclusion import using_statsmodels
+import numpy as np
 
 if using_statsmodels and using_sklearn:
 
