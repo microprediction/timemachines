@@ -9,7 +9,7 @@ if using_statsmodels and using_sklearn:
 
     fs = [ tsa_p1_d0_q0, tsa_p1_d0_q1 ]
 
-    from timemachines.skatertools.ensembling import precision_weighted_ensemble_factory
+    from timemachines.skatertools.ensembling.ensemblefactory import precision_weighted_ensemble_factory
     
     def my_skater(y,s,k,**ignore):
         return precision_weighted_ensemble_factory(y=y,s=s,k=k,fs=fs)

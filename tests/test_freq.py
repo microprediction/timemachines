@@ -14,10 +14,10 @@ if using_pandas:
 
     def test_inference():
         # https://github.com/pandas-dev/pandas/blob/master/pandas/tseries/frequencies.py
-        expected = {'S':[RECENT_SECONDS + j for j in range(200)],
-                    '5S':[RECENT_SECONDS + 5 * j for j in range(200)],
-                    'T':[RECENT_SECONDS + 60 * j for j in range(200)],
-                    '5T':[RECENT_SECONDS + 5 * 60 * j for j in range(200)]} # 5 minutes
+        expected = {'s':[RECENT_SECONDS + j for j in range(200)],
+                    '5s':[RECENT_SECONDS + 5 * j for j in range(200)],
+                    'min':[RECENT_SECONDS + 60 * j for j in range(200)],
+                    '5min':[RECENT_SECONDS + 5 * 60 * j for j in range(200)]} # 5 minutes
         for expected_freq, t in expected.items():
             freq = infer_freq_from_epoch(t)
             assert freq==expected_freq
@@ -25,3 +25,4 @@ if using_pandas:
 
 if __name__=='__main__':
     test_date_stuff()
+    test_inference()
