@@ -14,7 +14,7 @@ If the package assumes you have to fit every new data point (like Prophet or man
 
 ### How to contribute 
 
-1. Join slack (invite [here](https://www.microprediction.com/knowledge-center))
+1. (Optional) Join crunch discord (invite [here](https://github.com/microprediction/monteprediction/blob/main/TFRO.md))
 2. Grok the package you think should be in. Create an example colab notebook (like [examples here](https://github.com/microprediction/timeseries-notebooks)) that uses the package. It should show how to produce a k-vector of 1..k step ahead predictions. You'd be surprised at how many packages seem to think this is an obscure use case and don't include it in their README :)
 
 At this point you've already helped a lot. If you want to take it all the way...
@@ -65,11 +65,8 @@ The directory [simple](https://github.com/microprediction/timemachines/tree/main
    
    - Your function must return a list or vector x of length k where x[0] is 1 step ahead, x[1] is 2 steps ahead and so forth. Ideally this is done in 
    a fast, incremental manner. Every time a number arrives the predictions for the next k are spat out. It is okay to create skaters that are slow and
-   use packages that are designed for more one-off tabular use - since it is helpful to be able to benchmark fast skaters against slow ones. However I would suggest
-   trying out some of the packages in the "online" section of the package list (see [Popular Python Time-Series Packages](https://www.microprediction.com/blog/popular-timeseries-packages)). For
-   instance state space models or online libraries like river seem promising.  
-   
-   
+   use packages that are designed for more one-off tabular use - since it is helpful to be able to benchmark fast skaters against slow ones.
+
    - Your function must also return a second list w that will be interpreted (loosely) as a 1-standard deviation error in the skater's forecast. It 
    is not absolutely necessary to fret about this. Some skaters just return [1 1 1 ... 1]. However, it is just a couple of lines of code to include
    a skater's own empirical estimate of its own accuracy and this is extremely important to do if you want your skater to be included in 

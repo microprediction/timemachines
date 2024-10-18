@@ -43,13 +43,13 @@ See [docs/interface](https://microprediction.github.io/timemachines/interface) f
 
 ### Contributions and capstone projects
     
+- See [TFRO.md](https://github.com/microprediction/monteprediction/blob/main/TFRO.md) 
 - See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md) and [good first issues](https://github.com/microprediction/timemachines/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22). 
 - See the suggested steps for a [capstone project](https://microprediction.github.io/timemachines/capstone.html). 
 
 ### Getting live help
 
-- [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md). 
-- See the Slack invite on my user page [here](https://github.com/microprediction/slack). 
+- [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md).
 - Office hours [here](https://github.com/microprediction/meet). 
 - Learn how to deploy some of these models and try to win the [daily $125 prize](https://www.microprediction.com/competitions/daily).
 

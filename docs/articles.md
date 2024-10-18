@@ -9,8 +9,6 @@ View as [web page](https://microprediction.github.io/timemachines/uses) or [sour
 - [Does Wiggling Make Time-Series Models More Regular?](https://microprediction.medium.com/smooth-move-does-wiggling-make-time-series-models-less-accurate-8544e675873)
 - [Chasing StatsModel.AutoARIMA residuals in two lines of code](https://microprediction.medium.com/chasing-statsforecast-autoarima-residuals-in-two-lines-of-code-8a39c8c2561f)
 - [Combining PyCaret and Timemachines for Time-Series Prediction](https://microprediction.medium.com/combining-pycaret-and-timemachines-for-time-series-prediction-a4d456e47cd9)
-- [Predicting, Fast and Slow](https://www.microprediction.com/blog/timemachines)
-- [Fast Python Time-Series Forecasting](https://www.microprediction.com/blog/fast)
 
 
 ### Indirectly related / suggestive
