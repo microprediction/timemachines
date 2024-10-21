@@ -1,6 +1,6 @@
 # timemachines ([docs](https://microprediction.github.io/timemachines/)) ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-Univariate prediction functions from diverse packages supported in a simple stateless pure function syntax, mosty for benchmarking and selection purposes. Here `yt` is a vector or scalar, and we want to predict `yt` (or its first coordinate if `yt` is a vector) three steps in advance. 
+Univariate prediction functions from diverse packages supported in a simple stateless pure function syntax, mosty for benchmarking and application-specific selection purposes. Here `yt` is a vector or scalar, and we want to predict `yt` (or its first coordinate if `yt` is a vector) three steps in advance. 
 
      from timemachines.skaters.somepackage.somevariety import something as f
      for yt in y:
