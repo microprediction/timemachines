@@ -1,12 +1,12 @@
 # timemachines ([docs](https://microprediction.github.io/timemachines/)) ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-Univariate prediction functions from diverse packages supported in a simple stateless pure function syntax, mosty for benchmarking and application-specific selection purposes. Here `yt` is a vector or scalar, and we want to predict `yt` (or its first coordinate if `yt` is a vector) three steps in advance. 
+Univariate prediction functions from diverse packages supported in a simple stateless pure function syntax, mosty for benchmarking and application-specific selection purposes. See [basic usage](https://github.com/microprediction/timemachines/blob/main/examples/basic_usage/run_skater.py). Briefly: if `yt` is a list of floats we can feed them one at a time to a skater like so:
 
      from timemachines.skaters.somepackage.somevariety import something as f
      for yt in y:
          xt, xt_std, s = f(y=yt, s=s, k=3)
          
-This emits a k-vector xt of forecasts, and corresponding k-vector xt_std of estimated standard errors. See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of `somepackage`, `somevariety` and `something`. You can also ensemble, compose, bootstrap and do other things with one line of code. The `f` is called a `skater`. These are ([documented](https://microprediction.github.io/timemachines/) and [assessed](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)).  See [why](https://microprediction.github.io/timemachines/why) for motivation for doing things in **walk-forward incremental** fashion with **one line of code**. 
+This emits a k-vector xt of forecasts, and corresponding k-vector xt_std of estimated standard errors, and the posterior state needed for the next call. See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of `somepackage`, `somevariety` and `something`. You can also ensemble, compose, bootstrap and do other things with one line of code. The `f` is called a `skater`. These are ([documented](https://microprediction.github.io/timemachines/) and [assessed](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)).  See [why](https://microprediction.github.io/timemachines/why) for motivation for doing things in **walk-forward incremental** fashion with **one line of code**. 
 
 Test for the following packages are expected to be working, and their use in this context reliable: 
 - ![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg)    Statsmodels 
