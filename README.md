@@ -6,35 +6,29 @@ Univariate prediction functions from diverse packages supported in a simple stat
      for yt in y:
          xt, xt_std, s = f(y=yt, s=s, k=3)
          
-This emits a k-vector xt of forecasts, and corresponding k-vector xt_std of estimated standard errors. See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of `somepackage`, `somevariety` and `something`. You can also ensemble, compose, bootstrap and do other things with one line of code. The `f` is called a `skater`. These are ([documented](https://microprediction.github.io/timemachines/) and [assessed](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)).  
+This emits a k-vector xt of forecasts, and corresponding k-vector xt_std of estimated standard errors. See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of `somepackage`, `somevariety` and `something`. You can also ensemble, compose, bootstrap and do other things with one line of code. The `f` is called a `skater`. These are ([documented](https://microprediction.github.io/timemachines/) and [assessed](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)).  See [why](https://microprediction.github.io/timemachines/why) for motivation for doing things in **walk-forward incremental** fashion with **one line of code**. 
 
-Test for the following packages are expected to be working.  
+Test for the following packages are expected to be working, and their use in this context reliable: 
 - ![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg)    Statsmodels 
-- ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg)  
-- ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg) 
-- ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg)
-- ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg)
+- ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg)
 - ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg)
 - ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg)
-- ![statsforecast](https://github.com/microprediction/timemachines/workflows/test-statsforecast/badge.svg)
-- ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)
-- ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg)
-- ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg)
 - ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg)
 - ![merlion](https://github.com/microprediction/timemachines/workflows/test-merlion/badge.svg)
 - ![merlion-prophet](https://github.com/microprediction/timemachines/workflows/test-merlion-prophet/badge.svg)
 - ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg)
+
+Test for the following packages are not necessarily expected to be working:
+- ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg) 
+- ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg)
+- ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg)
+- ![statsforecast](https://github.com/microprediction/timemachines/workflows/test-statsforecast/badge.svg)
+- ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)
+- ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg)
+- ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg)
 - ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)
 - ![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret-time_series/badge.svg)
-
-Not currently supported in continuous integration:
-![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret/badge.svg)
-![successor](https://github.com/microprediction/timemachines/workflows/test-successor/badge.svg)
-
-=
- 
-See [why](https://microprediction.github.io/timemachines/why) for motivation for doing things in **walk-forward incremental** fashion with **one line of code**. 
-
+- ![successor](https://github.com/microprediction/timemachines/workflows/test-successor/badge.svg)
 
 See the [docs](https://microprediction.github.io/timemachines/). 
 
