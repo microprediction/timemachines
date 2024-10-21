@@ -1,7 +1,16 @@
 # timemachines ([docs](https://microprediction.github.io/timemachines/)) ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 
-Univariate prediction functions from diverse packages supported in a simple stateless pure function syntax. These are ([documented](https://microprediction.github.io/timemachines/) and [assessed](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)).  
+Univariate prediction functions from diverse packages supported in a simple stateless pure function syntax. Here `yt` is a vector or scalar, and we want to predict `yt` (or its first coordinate if `yt` is a vector) three steps in advance. 
+
+     from timemachines.skaters.somepackage.somevariety import something as f
+     for yt in y:
+         xt, xt_std, s = f(y=yt, s=s, k=3)
+         
+This emits a k-vector xt of forecasts, and corresponding k-vector xt_std of estimated standard errors. See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of somepackage, somevariety and something. You can also ensemble, compose, bootstrap and do other things with one line of code. 
+
+
+These are ([documented](https://microprediction.github.io/timemachines/) and [assessed](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)).  
 
 The following packages probably work well in this context. 
 - ![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg)
@@ -26,15 +35,10 @@ Not currently supported in continuous integration:
 ![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret/badge.svg)
 ![successor](https://github.com/microprediction/timemachines/workflows/test-successor/badge.svg)
 
-### 
+=
  
-See [why](https://microprediction.github.io/timemachines/why) for motivation for doing things in **walk-forward incremental** fashion with **one line of code**. Here yt is a vector or scalar, and we want to predict yt (or its first coordinate if a vector) three steps in advance. 
+See [why](https://microprediction.github.io/timemachines/why) for motivation for doing things in **walk-forward incremental** fashion with **one line of code**. 
 
-     from timemachines.skaters.somepackage.somevariety import something as f
-     for yt in y:
-         xt, xt_std, s = f(y=yt, s=s, k=3)
-         
-This emits a k-vector xt of forecasts, and corresponding k-vector xt_std of estimated standard errors. See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of somepackage, somevariety and something. You can also ensemble, compose, bootstrap and do other things with one line of code. 
 
 See the [docs](https://microprediction.github.io/timemachines/). 
 
