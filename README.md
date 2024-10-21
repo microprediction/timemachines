@@ -62,9 +62,10 @@ See [docs/interface](https://microprediction.github.io/timemachines/interface) f
 
 ### Getting live help
 
-- [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md).
-- Office hours [here](https://github.com/microprediction/meet). 
-- Learn how to deploy some of these models and try to win the [daily $125 prize](https://www.microprediction.com/competitions/daily).
+- Office hours are mentioned [here](https://github.com/microprediction). 
+- Discord channle is mentioned [here](https://github.com/microprediction). 
+
+See also [FAQ](https://github.com/microprediction/timemachines/blob/main/FAQ.md).
 
 ### Install [instructions](https://github.com/microprediction/timemachines/blob/main/INSTALL.md)
 
