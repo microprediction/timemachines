@@ -54,7 +54,7 @@ See [docs/interface](https://microprediction.github.io/timemachines/interface) f
                 e:float=None,                            # Non-binding maximal computation time ("e for expiry"), in seconds
                 r:float=None)                            # Hyper-parameters ("r" stands for for hype(r)-pa(r)amete(r)s) 
 
-### Contributions and capstone projects
+### Contributing
     
 - See [TFRO.md](https://github.com/microprediction/monteprediction/blob/main/TFRO.md) 
 - See [CONTRIBUTE.md](https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md) and [good first issues](https://github.com/microprediction/timemachines/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22). 
