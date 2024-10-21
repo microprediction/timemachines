@@ -1,16 +1,34 @@
-# timemachines ([docs](https://microprediction.github.io/timemachines/)) 
+# timemachines ([docs](https://microprediction.github.io/timemachines/)) ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 
 Univariate prediction functions from diverse packages supported in a simple stateless pure function syntax. These are ([documented](https://microprediction.github.io/timemachines/) and [assessed](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)).  
 
-The following packages probably work well: ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg)![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg)  ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg) ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg)  ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg) ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg) ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg) ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg) ![statsforecast](https://github.com/microprediction/timemachines/workflows/test-statsforecast/badge.svg)![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)  ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg) ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg) ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg) ![merlion](https://github.com/microprediction/timemachines/workflows/test-merlion/badge.svg) ![merlion-prophet](https://github.com/microprediction/timemachines/workflows/test-merlion-prophet/badge.svg) ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg) ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret-time_series/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+The following packages probably work well in this context. 
+- ![tsa](https://github.com/microprediction/timemachines/workflows/test-tsa/badge.svg)
+- ![darts](https://github.com/microprediction/timemachines/workflows/test-darts/badge.svg)
+- ![greykite](https://github.com/microprediction/timemachines/workflows/test-greykite/badge.svg)
+- ![sktime](https://github.com/microprediction/timemachines/workflows/test-sktime/badge.svg)
+- ![tbats](https://github.com/microprediction/timemachines/workflows/test-tbats/badge.svg)
+- ![simdkalman](https://github.com/microprediction/timemachines/workflows/test-simdkalman/badge.svg)
+- ![prophet](https://github.com/microprediction/timemachines/workflows/test-prophet/badge.svg)
+- ![statsforecast](https://github.com/microprediction/timemachines/workflows/test-statsforecast/badge.svg)
+- ![orbit](https://github.com/microprediction/timemachines/workflows/test-orbit/badge.svg)
+- ![neuralprophet](https://github.com/microprediction/timemachines/workflows/test-neuralprophet/badge.svg)
+- ![pmd](https://github.com/microprediction/timemachines/workflows/test-pmd/badge.svg)
+- ![pydlm](https://github.com/microprediction/timemachines/workflows/test-pydlm/badge.svg)
+- ![merlion](https://github.com/microprediction/timemachines/workflows/test-merlion/badge.svg)
+- ![merlion-prophet](https://github.com/microprediction/timemachines/workflows/test-merlion-prophet/badge.svg)
+- ![river](https://github.com/microprediction/timemachines/workflows/test-river/badge.svg)
+- ![divinity](https://github.com/microprediction/timemachines/workflows/test-divinity/badge.svg)
+- ![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret-time_series/badge.svg)
 
 Not currently supported in continuous integration:
 ![pycaret](https://github.com/microprediction/timemachines/workflows/test-pycaret/badge.svg)
 ![successor](https://github.com/microprediction/timemachines/workflows/test-successor/badge.svg)
 
-
+### 
  
-Because [why not](https://microprediction.github.io/timemachines/why) do things in **walk-forward incremental** fashion with **one line of code**? Here yt is a vector or scalar, and we want to predict yt (or its first coordinate if a vector) three steps in advance. 
+See [why](https://microprediction.github.io/timemachines/why) for motivation for doing things in **walk-forward incremental** fashion with **one line of code**. Here yt is a vector or scalar, and we want to predict yt (or its first coordinate if a vector) three steps in advance. 
 
      from timemachines.skaters.somepackage.somevariety import something as f
      for yt in y:
@@ -19,11 +37,6 @@ Because [why not](https://microprediction.github.io/timemachines/why) do things 
 This emits a k-vector xt of forecasts, and corresponding k-vector xt_std of estimated standard errors. See [skaters](https://microprediction.github.io/timemachines/skaters) for choices of somepackage, somevariety and something. You can also ensemble, compose, bootstrap and do other things with one line of code. 
 
 See the [docs](https://microprediction.github.io/timemachines/). 
-
-### Packages used
-
-Skaters draw on functionality from [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
-   Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. See the [docs](https://microprediction.github.io/timemachines/).
 
 ## What's a "skater"?
 More abstractly:
@@ -68,7 +81,11 @@ Oh what a mess the Python timeseries ecosystem is. So packages are not installed
 
 
 ![](https://i.imgur.com/elu5muO.png)
-  
+
+### Links to packages used
+
+Skaters draw on functionality from [popular python time-series packages](https://www.microprediction.com/blog/popular-timeseries-packages) like [river](https://github.com/online-ml/river), [pydlm](https://github.com/wwrechard/pydlm), [tbats](https://github.com/intive-DataScience/tbats), [pmdarima](http://alkaline-ml.com/pmdarima/), [statsmodels.tsa](https://www.statsmodels.org/stable/tsa.html), [neuralprophet](https://neuralprophet.com/), Facebook [Prophet](https://facebook.github.io/prophet/), 
+   Uber's [orbit](https://eng.uber.com/orbit/), Facebook's [greykite](https://engineering.linkedin.com/blog/2021/greykite--a-flexible--intuitive--and-fast-forecasting-library) and more. See the [docs](https://microprediction.github.io/timemachines/).
     
 ### Cite 
 
