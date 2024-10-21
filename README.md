@@ -1,4 +1,4 @@
-# timemachines ([docs](https://microprediction.github.io/timemachines/)) ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+# timemachines ([docs](https://microprediction.github.io/timemachines/) and [leaderboards]([assessed](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html))) ![simple](https://github.com/microprediction/timemachines/workflows/tests/badge.svg) ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 Univariate prediction functions from diverse packages supported in a simple stateless pure function syntax, mosty for benchmarking and application-specific selection purposes. See [basic usage](https://github.com/microprediction/timemachines/blob/main/examples/basic_usage/run_skater.py). Briefly: if `yt` is a list of floats we can feed them one at a time to a skater like so:
 
