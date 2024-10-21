@@ -1,4 +1,4 @@
-# timemachines ([docs](https://microprediction.github.io/timemachines/) 
+# timemachines ([docs](https://microprediction.github.io/timemachines/)) 
 
 Stateless prediction functions ([documented](https://microprediction.github.io/timemachines/) and [assessed](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/overall.html)) 
 
