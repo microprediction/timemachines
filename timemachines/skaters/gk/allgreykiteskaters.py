@@ -1,3 +1,0 @@
-
-from timemachines.skaters.gk.greykitebasicskater import GREYKITE_BASIC_SKATERS
-GREYKITE_SKATERS = GREYKITE_BASIC_SKATERS
