@@ -1,10 +1,1 @@
-convertdate>=2.4.0
-microconventions>=0.5.5
-importlib-metadata>=1.7.0
-momentum>=0.2.5
-numpy>=1.19.5
-pytz>=2021.3
-scikit-learn
-
-
-
+skaters>=0.10.0
