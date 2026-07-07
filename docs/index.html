@@ -20,7 +20,7 @@
     .demo-controls button.secondary { background: var(--code-bg); color: var(--text); border: 1px solid var(--border); }
     .demo-note { color: var(--muted); font-size: 14px; margin: 4px 0 0; }
     .alarm-badge { color: var(--warn); font-weight: 600; font-variant-numeric: tabular-nums; }
-    canvas { width: 100%; height: auto; display: block; }
+    canvas { width: 100%; display: block; }
   </style>
 </head>
 <body>
@@ -59,8 +59,8 @@
 
     <h2>Live: <code>wald</code> in your browser</h2>
     <div class="demo-wrap">
-      <canvas id="stream" width="900" height="300"></canvas>
-      <canvas id="pstrip" width="900" height="90"></canvas>
+      <canvas id="stream" data-h="300"></canvas>
+      <canvas id="pstrip" data-h="90"></canvas>
       <div class="demo-controls">
         <button id="spike">Inject outlier</button>
         <button id="shift">Level shift</button>
@@ -180,15 +180,24 @@ for y in stream:
 
     // ---- canvas discipline (dpr scaling, one baseline, no gridlines) ----
     function fit(cv) {
+      // CSS height comes from data-h and never changes; the backing store is
+      // resized ONLY when the layout size actually changed. (Reading back the
+      // height attribute we ourselves scaled by dpr doubles the canvas every
+      // frame on retina — the bug this replaces.)
       const dpr = window.devicePixelRatio || 1;
-      const w = cv.clientWidth || 900, h = +cv.getAttribute("height");
-      cv.width = w * dpr; cv.height = h * dpr;
+      const w = cv.clientWidth || 900, h = +cv.dataset.h;
+      const bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+      if (cv.width !== bw || cv.height !== bh) {
+        cv.width = bw; cv.height = bh;
+        cv.style.height = h + "px";
+      }
       const ctx = cv.getContext("2d");
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       return [ctx, w, h];
     }
 
     const PAD = 36;
+    let yLoS = null, yHiS = null;   // smoothed y-range
     function drawStream() {
       const cv = document.getElementById("stream");
       const [ctx, W, H] = fit(cv);
@@ -199,6 +208,12 @@ for y in stream:
         lo = Math.min(lo, ys[i], los[i]); hi = Math.max(hi, ys[i], his[i]);
       }
       const span = (hi - lo) || 1; lo -= 0.08 * span; hi += 0.08 * span;
+      // smooth the rescale so a spike entering/leaving the window glides
+      // rather than snaps the axes
+      if (yLoS === null) { yLoS = lo; yHiS = hi; }
+      yLoS += 0.15 * (lo - yLoS); yHiS += 0.15 * (hi - yHiS);
+      yLoS = Math.min(yLoS, lo); yHiS = Math.max(yHiS, hi);  // never clip data
+      lo = yLoS; hi = yHiS;
       const x = (i) => PAD + (W - 2 * PAD) * i / (N - 1);
       const yy = (v) => H - PAD - (H - 2 * PAD) * (v - lo) / (hi - lo);
       // baseline
