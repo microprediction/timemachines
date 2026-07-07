@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>timemachines — streaming anomaly detection with calibrated p-values</title>
+  <meta name="description" content="Temporal online machines: streaming anomaly detection built on the calibrated surprise streams of skaters. Alarm on p < alpha and the false-alarm rate is alpha — no threshold tuning. The same transform lifts DSPOT 5x and adds +2 nats to ARIMA, ETS, GARCH and Prophet." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="timemachines" />
+  <meta property="og:title" content="timemachines — anomaly detection with calibrated p-values" />
+  <meta property="og:description" content="A calibrated online forecaster is the best null model there is. Heads that turn its surprises into decisions with controlled error rates — live in your browser." />
+  <meta property="og:url" content="https://timemachines.microprediction.org/" />
+  <link rel="stylesheet" href="./academic.css" />
+  <style>
+    /* page-local: demo panel chrome only; all palette from academic.css */
+    .demo-wrap { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 18px 10px; margin: 24px 0; }
+    .demo-controls { display: flex; gap: 10px; align-items: center; margin: 8px 0 2px; flex-wrap: wrap; }
+    .demo-controls button { background: var(--accent); color: #fff; border: 0; border-radius: 7px; padding: 7px 14px; font-size: 15px; cursor: pointer; }
+    .demo-controls button:hover { background: var(--accent-dark); }
+    .demo-controls button.secondary { background: var(--code-bg); color: var(--text); border: 1px solid var(--border); }
+    .demo-note { color: var(--muted); font-size: 14px; margin: 4px 0 0; }
+    .alarm-badge { color: var(--warn); font-weight: 600; font-variant-numeric: tabular-nums; }
+    canvas { width: 100%; height: auto; display: block; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="brand" href="/">timemachines</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="https://skaters.microprediction.org/">skaters</a>
+        <a href="https://github.com/microprediction/timemachines">GitHub</a>
+        <a href="https://pypi.org/project/timemachines/">PyPI</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>timemachines</h1>
+    <p class="subtitle">Temporal online machines: streaming <strong>anomaly detection</strong>
+      with calibrated p-values.</p>
+
+    <p class="lead">The hard part of anomaly detection is not the detector — it is the
+      <em>null</em>. A calibrated online forecaster is the best null model there is: under it,
+      each arriving point's surprise is a standard normal, and detection reduces to the textbook
+      case. <code>wald</code> runs a <a href="https://skaters.microprediction.org/">skaters</a>
+      forecaster underneath and emits a <strong>p-value per observation</strong> — alarm on
+      <code>p&nbsp;&lt;&nbsp;&alpha;</code> and your false-alarm rate <em>is</em> &alpha;, by
+      construction. No threshold tuning, one pass, constant memory, strictly causal.</p>
+
+    <div class="tag-row">
+      <span class="tag">calibrated p-values</span>
+      <span class="tag">O(1) online</span>
+      <span class="tag">forecasts included</span>
+      <span class="tag">built on skaters</span>
+      <span class="tag">Python + JavaScript</span>
+    </div>
+
+    <h2>Live: <code>wald</code> in your browser</h2>
+    <div class="demo-wrap">
+      <canvas id="stream" width="900" height="300"></canvas>
+      <canvas id="pstrip" width="900" height="90"></canvas>
+      <div class="demo-controls">
+        <button id="spike">Inject outlier</button>
+        <button id="shift">Level shift</button>
+        <button id="calm" class="secondary">Back to normal</button>
+        <span class="demo-note">alarms at p &lt; 10<sup>-4</sup>:
+          <span id="alarms" class="alarm-badge">0</span></span>
+      </div>
+      <p class="demo-note">Ink dots: the stream. Blue: the model's mean and 95% band
+        (the null, learned online). Lower strip: <code>-log<sub>10</sub> p</code> per tick;
+        red marks are alarms. This is the actual JavaScript twin of the Python package
+        running in your tab — not a recording.</p>
+    </div>
+
+    <h2>Quick start</h2>
+    <pre><code>pip install timemachines        # v2: requires skaters
+
+from timemachines import wald
+
+f = wald(k=3)
+state = None
+for y in stream:
+    dists, state = f(y, state)      # skaters forecasts pass through
+    if state["pvalue"] is not None and state["pvalue"] &lt; 1e-4:
+        alarm(y, state["pvalue"], state["run"])</code></pre>
+
+    <p><code>state["run"]</code> separates anomaly types: an isolated spike reads as a point
+      outlier, a growing run as a structural break.</p>
+
+    <h2>The transform is the product</h2>
+    <p>skaters' <em>prediction parade</em> converts any stream into standardized surprises
+      $z_t = \Phi^{-1}(F_t(y_t))$ — a causal bijection (the Rosenblatt transform). Two measured
+      consequences, full protocols in the
+      <a href="https://github.com/microprediction/timemachines/tree/v2/benchmarks">benchmarks</a>:</p>
+
+    <h3>Other people's detectors get better in these coordinates</h3>
+    <p>Same detector, same series (UCR anomaly archive, 60 series), only the input changed:</p>
+    <table>
+      <thead><tr><th>detector</th><th>raw series</th><th>transformed</th><th>lift</th></tr></thead>
+      <tbody>
+        <tr><td>DSPOT (EVT thresholding, KDD 2017)</td><td>0.100</td><td><strong>0.517</strong></td><td><strong>5.2&times;</strong></td></tr>
+        <tr><td>RRCF (random cut forest, ICML 2016)</td><td>0.250</td><td><strong>0.450</strong></td><td><strong>1.8&times;</strong></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Other people's forecasters get better too</h3>
+    <p>One-step log-likelihood on 30 FRED series, exact change of variables through the
+      bijection; every fronted model converges to the skaters forecaster plus a few hundredths
+      of a nat:</p>
+    <table>
+      <thead><tr><th>opponent</th><th>lift (nats/point)</th><th>series won</th></tr></thead>
+      <tbody>
+        <tr><td>ETS</td><td>+2.04</td><td>30/30</td></tr>
+        <tr><td>AutoARIMA</td><td>+2.07</td><td>30/30</td></tr>
+        <tr><td>GARCH(1,1)</td><td>+1.97</td><td>30/30</td></tr>
+        <tr><td>Prophet</td><td>+2.07</td><td>30/30</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Bodies and heads</h2>
+    <p>A <strong>body</strong> (a skaters forecaster) turns a stream into forecasts plus
+      calibrated surprises. A <strong>head</strong> (this package) turns surprises into
+      decisions with controlled error rates. Bodies are few and stable; heads multiply.
+      <code>wald</code> — the Mahalanobis head on the laplace body — is the first named
+      machine; <code>page</code> (CUSUM run-length) and <code>pickands</code> (EVT tails)
+      are the roadmap, each named for its theorem.</p>
+
+    <h2>Heritage</h2>
+    <p>v1 of timemachines was a zoo of forecasting wrappers, deprecated in favour of
+      <a href="https://skaters.microprediction.org/">skaters</a>. v2 is the rebirth one layer
+      up — and <code>from timemachines import laplace</code> still works.</p>
+  </main>
+
+  <script type="module">
+    import { laplace } from "./js/skaters/api.mjs";
+    import { wald } from "./js/timemachines/anomaly.mjs";
+
+    // ---- palette (three-color rule; alarms use --warn, the page's point) ----
+    const INK = "#1a1a1a", ACCENT = "#4a3aff", BAND = "rgba(74,58,255,0.16)",
+          WARN = "#c2410c", BASE = "#e2e2e2", MUTED = "#5a5a5a";
+    const ALPHA = 1e-4, K = 3, N = 260;
+
+    // deterministic-ish noise
+    let seed = 42;
+    const rand = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+    const gauss = () => {
+      const u = Math.max(rand(), 1e-12), v = rand();
+      return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+    };
+
+    // regime state driven by the buttons
+    let level = 0.0, pendingSpike = false;
+    const nextY = (t) =>
+      level + 0.9 * Math.sin(t / 18) + 0.25 * gauss() +
+      (pendingSpike ? (pendingSpike = false, 6.0) : 0.0);
+
+    let f = wald(K, {}, laplace);
+    let state = null, t = 0, alarms = 0;
+    const ys = [], means = [], los = [], his = [], nlp = [], isAlarm = [];
+
+    function step() {
+      const y = nextY(t);
+      const [dists, s] = f(y, state);
+      state = s;
+      ys.push(y);
+      // one-step predictive of the NEXT point, for the band drawn at t+1
+      means.push(dists[0].mean);
+      los.push(dists[0].quantile(0.025));
+      his.push(dists[0].quantile(0.975));
+      const p = state.pvalue;
+      nlp.push(p === null ? 0 : Math.min(-Math.log10(Math.max(p, 1e-16)), 16));
+      const alarm = p !== null && p < ALPHA;
+      isAlarm.push(alarm);
+      if (alarm) { alarms += 1; document.getElementById("alarms").textContent = alarms; }
+      if (ys.length > N) { ys.shift(); means.shift(); los.shift(); his.shift(); nlp.shift(); isAlarm.shift(); }
+      t += 1;
+    }
+
+    // ---- canvas discipline (dpr scaling, one baseline, no gridlines) ----
+    function fit(cv) {
+      const dpr = window.devicePixelRatio || 1;
+      const w = cv.clientWidth || 900, h = +cv.getAttribute("height");
+      cv.width = w * dpr; cv.height = h * dpr;
+      const ctx = cv.getContext("2d");
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return [ctx, w, h];
+    }
+
+    const PAD = 36;
+    function drawStream() {
+      const cv = document.getElementById("stream");
+      const [ctx, W, H] = fit(cv);
+      ctx.clearRect(0, 0, W, H);
+      const n = ys.length; if (n < 3) return;
+      let lo = Infinity, hi = -Infinity;
+      for (let i = 0; i < n; i++) {
+        lo = Math.min(lo, ys[i], los[i]); hi = Math.max(hi, ys[i], his[i]);
+      }
+      const span = (hi - lo) || 1; lo -= 0.08 * span; hi += 0.08 * span;
+      const x = (i) => PAD + (W - 2 * PAD) * i / (N - 1);
+      const yy = (v) => H - PAD - (H - 2 * PAD) * (v - lo) / (hi - lo);
+      // baseline
+      ctx.strokeStyle = BASE; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(PAD, H - PAD); ctx.lineTo(W - PAD, H - PAD); ctx.stroke();
+      // band (one closed filled path; band drawn at the tick it predicted)
+      ctx.fillStyle = BAND; ctx.beginPath();
+      ctx.moveTo(x(1), yy(his[0]));
+      for (let i = 1; i < n; i++) ctx.lineTo(x(i), yy(his[i - 1]));
+      for (let i = n - 1; i >= 1; i--) ctx.lineTo(x(i), yy(los[i - 1]));
+      ctx.closePath(); ctx.fill();
+      // model mean
+      ctx.strokeStyle = ACCENT; ctx.lineWidth = 1.8; ctx.beginPath();
+      ctx.moveTo(x(1), yy(means[0]));
+      for (let i = 1; i < n; i++) ctx.lineTo(x(i), yy(means[i - 1]));
+      ctx.stroke();
+      // observations: ink dots; alarmed points ringed in warn
+      for (let i = 0; i < n; i++) {
+        ctx.fillStyle = INK; ctx.beginPath();
+        ctx.arc(x(i), yy(ys[i]), 1.7, 0, 2 * Math.PI); ctx.fill();
+        if (isAlarm[i]) {
+          ctx.strokeStyle = WARN; ctx.lineWidth = 1.6; ctx.beginPath();
+          ctx.arc(x(i), yy(ys[i]), 4.4, 0, 2 * Math.PI); ctx.stroke();
+        }
+      }
+    }
+
+    function drawStrip() {
+      const cv = document.getElementById("pstrip");
+      const [ctx, W, H] = fit(cv);
+      ctx.clearRect(0, 0, W, H);
+      const n = nlp.length; if (n < 3) return;
+      const top = 16;   // -log10 p ceiling
+      const x = (i) => PAD + (W - 2 * PAD) * i / (N - 1);
+      const yy = (v) => H - 12 - (H - 24) * v / top;
+      ctx.strokeStyle = BASE; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(PAD, yy(0)); ctx.lineTo(W - PAD, yy(0)); ctx.stroke();
+      // alpha line
+      ctx.strokeStyle = MUTED; ctx.setLineDash([3, 4]); ctx.beginPath();
+      ctx.moveTo(PAD, yy(4)); ctx.lineTo(W - PAD, yy(4)); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = MUTED; ctx.font = "11px sans-serif";
+      ctx.fillText("p = 10⁻⁴", W - PAD - 52, yy(4) - 4);
+      for (let i = 0; i < n; i++) {
+        ctx.strokeStyle = isAlarm[i] ? WARN : ACCENT;
+        ctx.lineWidth = isAlarm[i] ? 2.2 : 1;
+        ctx.beginPath(); ctx.moveTo(x(i), yy(0)); ctx.lineTo(x(i), yy(nlp[i])); ctx.stroke();
+      }
+    }
+
+    document.getElementById("spike").onclick = () => { pendingSpike = true; };
+    document.getElementById("shift").onclick = () => { level += 4.0; };
+    document.getElementById("calm").onclick = () => { level = 0.0; };
+
+    for (let i = 0; i < 80; i++) step();       // warm start
+    setInterval(() => { step(); drawStream(); drawStrip(); }, 90);
+    addEventListener("resize", () => { drawStream(); drawStrip(); });
+  </script>
+</body>
+</html>

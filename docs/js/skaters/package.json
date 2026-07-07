@@ -1,0 +1,54 @@
+{
+  "name": "skaters",
+  "version": "0.12.0",
+  "description": "Fast univariate online distributional time-series forecasting: a zero-dependency JavaScript port of the Python skaters package, numerically identical to 1e-6.",
+  "type": "module",
+  "main": "./index.mjs",
+  "module": "./index.mjs",
+  "exports": {
+    ".": "./index.mjs",
+    "./package.json": "./package.json",
+    "./*.mjs": "./*.mjs",
+    "./*": "./*.mjs"
+  },
+  "files": [
+    "*.mjs",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=16"
+  },
+  "keywords": [
+    "time-series",
+    "forecasting",
+    "online",
+    "distributional",
+    "probabilistic",
+    "density",
+    "quantile",
+    "crps",
+    "log-likelihood",
+    "laplace",
+    "garch",
+    "zero-dependency",
+    "browser",
+    "microprediction",
+    "anomaly-detection",
+    "calibration",
+    "pit"
+  ],
+  "homepage": "https://skaters.microprediction.org",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/microprediction/skaters.git",
+    "directory": "docs/js/skaters"
+  },
+  "bugs": {
+    "url": "https://github.com/microprediction/skaters/issues"
+  },
+  "author": "Peter Cotton",
+  "license": "MIT"
+}
