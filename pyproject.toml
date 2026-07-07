@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "timemachines"
+version = "2.0.0a1"
+description = "Temporal online machines: streaming anomaly detection and sequential decisions, built on calibrated surprise streams from skaters."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Peter Cotton", email = "peter.cotton@microprediction.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "skaters>=0.12",
+]
+
+[project.optional-dependencies]
+# Third-party detector heads and benchmark harnesses live behind extras;
+# the core is pure stdlib on top of skaters.
+benchmarks = ["rrcf", "statsforecast", "statsmodels", "arch", "prophet"]
+
+[project.urls]
+Homepage = "https://github.com/microprediction/timemachines"
+
+[tool.setuptools.packages.find]
+where = ["src"]
