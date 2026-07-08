@@ -170,10 +170,11 @@
       <div class="tl-item">
         <span class="tl-year">2026</span> &middot; <span class="tl-who">laplace, and PIT conjugation</span>
         <p>The <a href="https://skaters.microprediction.org/">skaters</a> package ships
-          <code>laplace</code>, and with it the first use of PIT conjugation with a very
-          strong autonomous time-series model: the forecaster applies Rosenblatt's transform
-          with itself as the conditional law, one tick at a time, and the same bijection is
-          offered as a change of coordinates for everyone else's models. Feeding other
+          <code>laplace</code>, the first online fully "transforms all the way down" package,
+          and with it the first use of PIT conjugation with a very strong autonomous
+          time-series model: the forecaster applies Rosenblatt's transform with itself as
+          the conditional law, one tick at a time, and the same bijection is offered as a
+          change of coordinates for everyone else's models. Feeding other
           detectors and forecasters the transformed stream improves
           <a href="/">nearly all of them</a>; testing the surprises against their own tail
           makes the advertised false-alarm rate <a href="/#calibration">the measured one</a>.
