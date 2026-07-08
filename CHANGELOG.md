@@ -1,5 +1,25 @@
 # Changelog
 
+## 2.1.0 (2026-07-08)
+
+The calibration release: the advertised false-alarm rate is now the real
+one, measured. On 144 anomaly-free real-world prefixes (strictly
+prequential), wald's empirical/nominal FPR ratio is 1.69 / 1.86 / 3.20 at
+alpha = 1e-2 / 1e-3 / 1e-4 (median series at 1e-4: 1.00) — the best-
+calibrated streaming detector of those measured at operating depth
+(DSPOT: 0.98 / 1.95 / 9.34; RRCF threshold-transfer: 1.10 / 1.64 / 5.42).
+
+- Streaming GPD tail (peaks-over-threshold) on the empirical null:
+  threshold-relative excesses, probability-weighted-moments fit. The bulk
+  Satterthwaite null alone ran 39x nominal at 1e-4.
+- Deep-evidence channel: unbounded -logpdf beside the clamped Mahalanobis
+  (the parade's |z| <= 7.03 clamp saturated d2, making a 250-sigma and a
+  10-sigma event indistinguishable); its own POT tail, Bonferroni combine,
+  silent in the bulk. Evidence now resolves at any depth.
+- Both changes mirrored in the JS twin; calibration panel harness added
+  (benchmarks/calibration_panel.py) plus GARCH-t front-end and Rosenblatt
+  sandwich studies (benchmarks/RESULTS.md).
+
 ## 2.0.1 (2026-07-07)
 
 Hardening release.

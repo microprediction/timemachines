@@ -48,7 +48,7 @@ CAP = 10000
 
 
 def run_one(args):
-    fname, use_rrcf = args
+    fname, use_rrcf, engine = args
     sid, name, train_len, _, _ = parse_name(fname)
     if train_len < WARM + 2000:
         return None
@@ -63,7 +63,14 @@ def run_one(args):
     res = {"sid": sid, "n_scored": n_scored}
 
     # --- wald: p-values on the clean stretch ---
-    f = wald(k=3)
+    if engine == "garch":
+        # t-GARCH in the middle: the garch_leaf body standardises the
+        # residual volatility clustering that otherwise fattens the z tails.
+        from skaters import laplace as _lap
+        from skaters.leaf import garch_leaf
+        f = wald(k=3, engine=_lap(3, leaf=garch_leaf, scale_alpha=0.01))
+    else:
+        f = wald(k=3)
     state = None
     pvals = []
     for t, y in enumerate(xs):
@@ -104,6 +111,7 @@ def main():
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--rrcf", action="store_true",
                     help="include the RRCF threshold-transfer row (slow)")
+    ap.add_argument("--engine", default="laplace", choices=("laplace", "garch"))
     args = ap.parse_args()
 
     files = sorted(f for f in os.listdir(DATA) if _NAME.match(f))
@@ -117,14 +125,15 @@ def main():
     results = []
     with Pool(args.workers) as pool:
         for i, r in enumerate(pool.imap_unordered(
-                run_one, [(f, args.rrcf) for f in files])):
+                run_one, [(f, args.rrcf, args.engine) for f in files])):
             if r is None:
                 continue
             results.append(r)
             print(f"[{i+1}/{len(files)}] {r['sid']:03d} "
                   f"scored={r['wald_n']:6d} {r['seconds']:6.1f}s", flush=True)
 
-    out = os.path.join(_HERE, f"calibration_panel_n{len(results)}.jsonl")
+    out = os.path.join(_HERE,
+                       f"calibration_panel_{args.engine}_n{len(results)}.jsonl")
     with open(out, "w") as fh:
         for r in results:
             fh.write(json.dumps(r) + "\n")

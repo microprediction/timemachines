@@ -106,7 +106,33 @@ scatter with exact Woodbury; masking through the null's second moment ->
 winsorised updates; the sigma-memory axis; and (from the hardening suite)
 skaters' state-purity fix enabling checkpoint/restore (0.12.1).
 
-## 4. FRED injection (argmax) — protocol needs v2
+## 4. The calibration panel — the differentiator, measured
+
+`calibration_panel.py`: 144 UCR anomaly-free prefixes (clean by
+construction; every flag a false alarm), strictly prequential — thresholds
+and nulls never see the data they are scored on. wald flags at p < alpha;
+DSPOT at its own EVT risk (alpha/2 per tail); RRCF has no nominal
+semantics, so it is deployed the only way an uncalibrated score can be:
+threshold pre-committed on the first half, measured on the second.
+
+| empirical FPR / nominal (1.0 = calibrated) | 1e-2 | 1e-3 | 1e-4 |
+|---|---|---|---|
+| wald (Mahalanobis + deep-evidence channels) | 1.69 | **1.86** | **3.20 (median series 1.00)** |
+| DSPOT (KDD 2017) | **0.98** | 1.95 | 9.34 |
+| RRCF threshold transfer | 1.10 | 1.64 | 5.42 |
+
+At the depth where alarms operate, wald is the best-calibrated of the
+three and its median series is exact; the aggregate 3.2 is a tail of
+waveform-burst prefixes. Getting here required two head upgrades this
+panel itself forced: the bulk Satterthwaite null alone ran 39x at 1e-4
+(a two-moment fit extrapolated into the deep tail); a streaming GPD over
+threshold-relative excesses (PWM-fitted — MOM cannot exceed shape 1/2 and
+the excess tails run ~0.7) brought it to ~5x; and the z-clamp saturation
+(a 250-sigma and a 10-sigma event both read |z|=7.03) was broken by an
+unbounded -logpdf channel with its own POT tail, restoring evidence at any
+depth (2e-11 where the clamp capped at 3e-5) at a small bulk cost.
+
+## 5. FRED injection (argmax) — protocol needs v2
 
 `fred_anomaly.py`, n=100 real FRED change series, planted spike/burst/shift.
 Interim (~73/100): everyone weak (~0.14 best), orderings inside binomial
@@ -116,14 +142,13 @@ confounded measure. v2: score the planted window's rank percentile in the
 full score ordering (robust to dominant natural events), and/or mask known
 crisis windows. Keep argmax row for reference.
 
-## 5. Still to come
+## 6. Still to come
 
 - slow-alpha full-250 (running); zbank-60 and default-250 (running,
   detached).
 - FRED v2 with rank-percentile scoring.
-- The calibration panel — empirical false-alarm rate vs nominal alpha,
-  prequential protocol, detection delay; the verified literature gap
-  (RESEARCH.md section 2) and the method's actual differentiator.
+- Detection delay at fixed alpha (the panel covers FPR; delay is the
+  other axis of the Wald tradeoff).
 - GPD/EVT tail for the detector's extreme p-values (steal DSPOT's tail
   theorem for our head); unclamped -logpdf surprise channel (the z-clamp
   saturates at |z|=7.03, erasing 20-sigma vs 100-sigma distinctions).

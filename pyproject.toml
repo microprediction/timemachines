@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "timemachines"
-version = "2.0.1"
+version = "2.1.0"
 description = "Temporal online machines: streaming anomaly detection and sequential decisions, built on calibrated surprise streams from skaters."
 readme = "README.md"
 license = { text = "MIT" }
