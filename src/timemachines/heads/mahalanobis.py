@@ -137,6 +137,38 @@ def chi2_ppf(p: float, dof: float, tol: float = 1e-10) -> float:
     return 0.5 * (lo + hi)
 
 
+def _gpd_fit(exc: list) -> tuple:
+    """Probability-weighted-moments GPD fit (Hosking & Wallis 1987).
+
+    Not method of moments: MOM needs finite variance (shape < 1/2) and on the
+    heavy excess tails that d2 actually produces (Hill estimates ~0.7) it
+    understates the shape by half and the deep tail by orders of magnitude —
+    which is precisely the miscalibration the POT layer exists to remove.
+    PWM is valid for shape < 1: a0 = mean, a1 = E[X (1-F(X))] from the order
+    statistics; shape = 2 - a0/(a0 - 2 a1), sigma = 2 a0 a1/(a0 - 2 a1).
+    """
+    x = sorted(exc)
+    n = len(x)
+    a0 = sum(x) / n
+    a1 = sum(((n - 1 - i) / (n - 1)) * x[i] for i in range(n)) / n
+    denom = a0 - 2.0 * a1
+    if denom <= 1e-12:                    # heavier than shape ~1: cap
+        return 0.95, max(a0, 1e-12)
+    gamma = min(max(2.0 - a0 / denom, -0.5), 0.95)
+    sigma = max(2.0 * a0 * a1 / denom, 1e-12)
+    return gamma, sigma
+
+
+def _gpd_sf(e: float, gamma: float, sigma: float) -> float:
+    """GPD survival function at excess e >= 0."""
+    if abs(gamma) < 1e-9:
+        return math.exp(-min(e / sigma, 700.0))
+    arg = 1.0 + gamma * e / sigma
+    if arg <= 0.0:                      # beyond the (finite) support
+        return 0.0
+    return arg ** (-1.0 / gamma)
+
+
 # ---------------------------------------------------------------------------
 # Small dense linear algebra on flat row-major k x k matrices (k is small).
 # ---------------------------------------------------------------------------
@@ -236,7 +268,8 @@ def _solve_sym(A: list, b: list, n: int) -> list:
 
 def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
                 factors: int = 1, shrink: float = 0.05, dfloor: float = 1e-3,
-                guard_p: float = 0.99, adapt_after: int = 10):
+                guard_p: float = 0.99, adapt_after: int = 10,
+                pot_level: float = 0.98, min_exc: int = 30):
     """Wrap a parade-wrapped skater with a streaming Mahalanobis anomaly score.
 
     Args:
@@ -270,6 +303,15 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
             (downweighted by q/d2). Robustness against masking.
         adapt_after: consecutive guarded ticks after which the run is treated
             as a changepoint and updates resume at full weight.
+        pot_level: the empirical-null quantile above which the tail is
+            modelled by a streaming GPD (peaks over threshold). The
+            Satterthwaite null is a two-moment bulk fit; extrapolating it to
+            the 1e-4 tail overstates alarms by an order of magnitude on real
+            data (the calibration panel measures this). Pickands--Balkema--%
+            de Haan says exceedances are GPD whatever the law, so the tail
+            gets its own fit — DSPOT's theorem on our multivariate statistic.
+        min_exc: exceedances required before the GPD tail is trusted
+            (bulk fit is used below that).
 
     After ``dists, state = f(y, state)``:
         state["d2"]     Mahalanobis distance of this tick's parade z-vector
@@ -295,6 +337,8 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
                       for i in range(k) for j in range(k)],
                 "m2": float(k),                      # empirical-null mean of d2
                 "v2": float(2 * k),                  # ...and variance (chi2_k prior)
+                "exc": [],                           # POT excesses of d2
+                "zeta": 1.0 - pot_level,             # P(d2 > t_pot), tracked
                 "run": 0, "d2": None, "pvalue": None,
                 "skipped": 0, "last_dists": None,
             }
@@ -361,14 +405,29 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
                    for i in range(k) for j in range(k)]
             d2 = _mahal2(_cholesky(Ssh, k), v, k)
 
-        # Empirical null (two-moment Satterthwaite): d2 ~ c * chi2_nu with
-        # c = v/2m, nu = 2m^2/v; seeded at the exact chi2_k moments.
+        # Empirical null, two layers. Bulk: two-moment Satterthwaite,
+        # d2 ~ c * chi2_nu, seeded at the exact chi2_k moments. Tail: the
+        # bulk fit extrapolates badly past its moments (measured: ~40x the
+        # nominal false-alarm rate at 1e-4), so excesses over the null's
+        # pot_level quantile get a streaming GPD (POT), and tail p-values
+        # come from it: p = zeta * GPD_sf(d2 - t).
         m2 = max(state["m2"], 1e-9)
         v2 = max(state["v2"], 1e-9)
         c = max(v2 / (2.0 * m2), 1e-9)
         nu = min(max(2.0 * m2 * m2 / v2, 0.5), 1000.0)
         state["d2"] = d2
-        state["pvalue"] = chi2_sf(d2 / c, nu)
+        t_pot = c * chi2_ppf(pot_level, nu)
+        exc = state["exc"]
+        if d2 > t_pot and len(exc) >= min_exc:
+            # The GPD is authoritative in its region — the bulk chi2 tail is
+            # exactly what it corrects (it understates p out here), so no
+            # clamping against it.
+            gamma, sigma = _gpd_fit(exc)
+            state["pvalue"] = min(
+                max(state["zeta"], 1e-12) * _gpd_sf(d2 - t_pot, gamma, sigma),
+                1.0)
+        else:
+            state["pvalue"] = chi2_sf(d2 / c, nu)
 
         # Huberised update with a changepoint escape hatch. The guard level is
         # the empirical null's quantile, so it tracks the learned calibration.
@@ -391,6 +450,17 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
         dm = d2n - state["m2"]
         state["m2"] += alpha * dm
         state["v2"] = (1.0 - alpha) * state["v2"] + alpha * dm * (d2n - state["m2"])
+        # POT layer maintenance: exceedance rate (EWMA of the indicator, at
+        # the Huberised weight so anomaly runs cannot inflate their own tail)
+        # and the excess buffer (clipped — one monster excess must not own
+        # the moment fit; capped FIFO).
+        aw = alpha * w
+        state["zeta"] = (1.0 - aw) * state["zeta"] + aw * (1.0 if d2 > t_pot else 0.0)
+        if d2 > t_pot:
+            e = min(d2 - t_pot, 20.0 * max(t_pot, 1.0))
+            exc.append(e)
+            if len(exc) > 250:
+                exc.pop(0)
         delta = v                                     # z - mu (pre-update)
         for i in range(k):
             mu[i] += a * delta[i]
