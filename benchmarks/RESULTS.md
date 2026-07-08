@@ -65,9 +65,12 @@ waveform periods (~50-400 samples) the laplace body cannot represent (its
 seasonal grid is calendar {7,12,24}), so every cycle reads as fresh surprise.
 That is a *body* weakness observed through the head — filed upstream as
 skaters#91 — and matrix-profile methods own that terrain by construction.
-Slow-memory config (sa 0.01/da 0.005) improves the multivariate scan (~0.32
-full-archive, and 0.675 on the 40 shortest, beating per-horizon |z1| at
-scale); the zbank sigma-grid sits between the configs without tuning.
+Slow-memory config (sa 0.01/da 0.005), full archive (n=247 of 250; the run
+was stopped three 300k-point series short): mahS 0.308 > |z1| 0.291 > mah
+0.283 > trivial 0.219. Slow memory is worth ~+3 points over default and
+flips the ordering — the multivariate scan beats the per-horizon rule at
+scale, which default memory never managed (and 0.675 on the 40 shortest).
+The zbank sigma-grid sits between the configs without tuning.
 
 Findings the study produced regardless of scores: a horizon-misalignment bug
 in skaters' search() (third instance of the pattern; fixed, parity green);
