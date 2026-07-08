@@ -20,6 +20,11 @@
     .tl-item.warn .tl-year { color: var(--warn); }
     .tl-who { font-weight: 600; }
     .tl-item p { margin: 4px 0 0; }
+    .cta { background: var(--panel); border: 1px solid var(--border);
+           border-left: 4px solid var(--accent); border-radius: 8px;
+           padding: 18px 20px; margin: 30px 0; }
+    .cta h2 { margin: 0 0 8px; font-size: 20px; }
+    .cta p { margin: 6px 0 0; }
   </style>
 </head>
 <body>
@@ -299,6 +304,22 @@
           A century of the same idea, now running live.</p>
       </div>
 
+    </div>
+
+    <div class="cta">
+      <h2>A call to action, from 2001</h2>
+      <p>In <a href="https://www.tandfonline.com/doi/abs/10.1198/07350010152596718">Testing
+        Density Forecasts, with Applications to Risk Management</a>, Jeremy Berkowitz pushed
+        the probability integral transforms through the inverse normal,
+        z = &Phi;<sup>&minus;1</sup>(PIT), so that a density forecast could be checked with
+        ordinary tests of mean, variance and autocorrelation on an iid N(0,1) target. He gave
+        the field a clean way to grade its forecasts and to act on the grade.</p>
+      <p>That z is the parade's z. <code>laplace</code> emits it every tick, for any stream,
+        online, and <code>wald</code> turns the same standardized surprise into a calibrated
+        alarm whose false-alarm rate is the one you set. Twenty-five years on, the test
+        Berkowitz proposed is a running coordinate system.
+        <a href="/">See it live</a>, or read the
+        <a href="/#calibration">calibration panel</a>.</p>
     </div>
 
     <h2 style="font-size:20px">Footnotes</h2>
