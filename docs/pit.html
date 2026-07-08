@@ -93,13 +93,20 @@
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">1946&ndash;1951</span> &middot; <span class="tl-who">Ulam, von Neumann, Metropolis, Los Alamos</span>
-        <p>The inverse direction becomes an industry. Neutron transport resisted pencil and
-          paper. Ulam's solitaire idea grew into the Monte Carlo method, published by
-          Metropolis and Ulam in 1949, and von Neumann codified inverse transform sampling:
-          draw u uniform, output F<sup>&minus;1</sup>(u). Every simulated random variable since is the
-          inverse PIT at work. Computing &Phi;<sup>&minus;1</sup> was expensive enough that
-          Box and Muller invented their 1958 method specifically to avoid it.</p>
+        <span class="tl-year">1947&ndash;1951</span> &middot; <span class="tl-who">Ulam, von Neumann, Metropolis, Los Alamos</span>
+        <p>The inverse direction becomes an industry. Convalescing over solitaire, Ulam
+          wondered whether dealing the hands out and counting beats combinatorics, and thought
+          of neutron diffusion. A 1947 von Neumann letter, circulated as Los Alamos report
+          LAMS-551, draws neutron free paths as the log of a uniform, the first surviving use
+          of inverse-cdf sampling<sup><a href="#fn4" style="text-decoration:none">4</a></sup>.
+          The general statement X = F<sup>&minus;1</sup>(U) is written down in his 1951
+          <a href="https://mcnp.lanl.gov/pdf_files/InBook_Computing_1961_Neumann_JohnVonNeumannCollectedWorks_VariousTechniquesUsedinConnectionwithRandomDigits.pdf">Various
+          techniques used in connection with random digits</a>, alongside the rejection method
+          as the fallback when the inverse is cumbersome. Every simulated random variable since
+          is the inverse PIT at work, and computing &Phi;<sup>&minus;1</sup> was hard enough
+          that <a href="https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-29/issue-2/A-Note-on-the-Generation-of-Random-Normal-Deviates/10.1214/aoms/1177706645.full">Box
+          and Muller</a> built their 1958 method to avoid it. The accuracy problem was only
+          closed by Wichura's 1988 algorithm AS 241, still the basis of R's qnorm.</p>
       </div>
 
       <div class="tl-item">
@@ -119,7 +126,21 @@
           the iid-uniform property of the transforms.
           <a href="https://projecteuclid.org/journals/annals-of-statistics/volume-1/issue-2/Weak-Convergence-of-the-Sample-Distribution-Function-when-Parameters-are/10.1214/aos/1176342365.full">Durbin</a>
           settles the limit theory in 1973, and the estimated-parameter problem carries his
-          name. Every model that scores its own residuals inherits this caveat.</p>
+          name. Kac, Kiefer and Wolfowitz mapped the terrain in 1955, Lilliefors tabled the
+          practical case in 1967, and every model that scores its own residuals inherits the
+          caveat.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1968</span> &middot; <span class="tl-who">Cox &amp; Snell</span>
+        <p>Residuals for any parametric model.
+          <a href="https://academic.oup.com/jrsssb/article/30/2/248/7027130">A General
+          Definition of Residuals</a> pushes each observation through its own fitted
+          distribution, and in survival analysis the Cox&ndash;Snell residual is exactly a PIT
+          residual, unit exponential after a minus log when the model is
+          right<sup><a href="#fn5" style="text-decoration:none">5</a></sup>. Model criticism by
+          transformed residuals starts here, and is what the parade does one tick at a
+          time.</p>
       </div>
 
       <div class="tl-item">
@@ -138,13 +159,28 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">1960&ndash;1986</span> &middot; <span class="tl-who">the quiet copula decades</span>
+        <p>Copulas survive on a side street.
+          <a href="https://projecteuclid.org/journals/pacific-journal-of-mathematics/volume-10/issue-1/Statistical-metric-spaces/pjm/1103038644.full">Schweizer
+          and Sklar</a> develop them inside probabilistic metric spaces.
+          <a href="https://www.tandfonline.com/doi/abs/10.1080/03610928308827274">Kimeldorf
+          and Sampson</a> reinvent them independently in 1975 as uniform representations.
+          <a href="https://projecteuclid.org/journals/annals-of-statistics/volume-9/issue-4/On-Nonparametric-Measures-of-Dependence-for-Random-Variables/10.1214/aos/1176345528.full">Schweizer
+          and Wolff</a> build dependence measures on the copula alone in 1981, and
+          <a href="https://www.tandfonline.com/doi/abs/10.1080/00031305.1986.10475414">Genest
+          and MacKay</a> sell the subject to statisticians in 1986 under the title The Joy of
+          Copulas. Frees and Valdez carry it to the actuaries in 1998, which is the route by
+          which it reached credit modelling.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">1998&ndash;2000</span> &middot; <span class="tl-who">Zhang, Pang &amp; Cotton, Morgan Stanley</span>
-        <p>Copulas reached Wall Street quietly first. At Morgan Stanley, Zhang, Pang and
+        <p>The PIT reaches Wall Street. At Morgan Stanley, Zhang, Pang and
           Cotton invented a hybrid default simulation generalizing both doubly stochastic
           intensity models and the copula approach later made famous in
-          publication<sup><a href="#fn4" style="text-decoration:none">4</a></sup>, and the
+          publication<sup><a href="#fn6" style="text-decoration:none">6</a></sup>, and the
           construction was invented independently at other institutions before and
-          after<sup><a href="#fn5" style="text-decoration:none">5</a></sup>. As in
+          after<sup><a href="#fn7" style="text-decoration:none">7</a></sup>. As in
           much of quantitative finance, practice ran ahead of the journals.
           <a href="https://journals.sagepub.com/doi/10.1177/0306312713517157">MacKenzie and
           Spears</a> later documented the era from 114 interviews. In the construction, exponential
@@ -154,12 +190,32 @@
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">1998</span> &middot; <span class="tl-who">Diebold, Gunther &amp; Tay</span>
-        <p>Forecast evaluation finds its instrument: a density forecast is calibrated exactly
-          when the PITs of the realisations are iid uniform. The PIT histogram becomes to
-          probabilistic forecasting what the residual plot is to regression. Gneiting and
-          coauthors sharpen the theory through the 2000s, including the mid-PIT for discrete
-          data.</p>
+        <span class="tl-year">1984</span> &middot; <span class="tl-who">A. P. Dawid</span>
+        <p>The forecast-evaluation program, stated in full and mostly overlooked.
+          <a href="https://www.jstor.org/stable/2981683">The prequential approach</a> has a
+          section literally titled Probability Integral Transform, proposing that a sequential
+          forecaster be judged by whether U<sub>n</sub> = F<sub>n</sub>(X<sub>n</sub>) looks
+          like an iid uniform sample, citing Rosenblatt. This is what modern density-forecast
+          checking does, fourteen years early<sup><a href="#fn8" style="text-decoration:none">8</a></sup>.
+          It rests on Dawid's 1982 well-calibrated Bayesian, and the Bayesian model-checking
+          line (Box 1980, Rubin 1984, Gelman-Meng-Stern 1996, and simulation-based calibration
+          in 2018) is the same PIT check pointed at the computation.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1998&ndash;2001</span> &middot; <span class="tl-who">Diebold&ndash;Gunther&ndash;Tay; Berkowitz</span>
+        <p>The instrument reaches econometrics and risk.
+          <a href="https://ideas.repec.org/a/ier/iecrev/v39y1998i4p863-83.html">Diebold, Gunther
+          and Tay</a> make the PIT histogram standard equipment for density forecasts, and the
+          rank histogram arrives independently in weather forecasting the same decade
+          (Anderson 1996, Hamill and Colucci 1997, Talagrand 1997). Then
+          <a href="https://www.tandfonline.com/doi/abs/10.1198/07350010152596718">Berkowitz</a>
+          pushes the PITs through the inverse normal, z = &Phi;<sup>&minus;1</sup>(PIT), so the
+          null becomes iid N(0,1) and ordinary tests of mean, variance and autocorrelation
+          apply. That z is the parade's z, and the same standardization the microprediction
+          platform and <code>laplace</code> use. Gneiting, Balabdaoui and Raftery formalize
+          calibration and sharpness in 2007; Czado, Gneiting and Held give the mid-PIT for
+          counts in 2009.</p>
       </div>
 
       <div class="tl-item">
@@ -177,13 +233,18 @@
 
       <div class="tl-item">
         <span class="tl-year">2013&ndash;2017</span> &middot; <span class="tl-who">normalizing flows</span>
-        <p>Deep learning rediscovers Rosenblatt. A normalizing flow is a learned invertible
-          map to a simple base density, trained by exact change of variables, The
-          autoregressive flows such as MAF and IAF parameterise conditional cdfs, which is
-          the Rosenblatt transform with neural networks for the conditionals. The 1952 theorem
-          says a perfect flow exists; the 2010s built approximations by gradient descent.
-          The residual composition running through the rest of this timeline (z-streams, the
-          parade, conjugation) was developed independently of the flows literature.</p>
+        <p>Deep learning rebuilds Rosenblatt, mostly without knowing it. A normalizing flow
+          is a learned invertible map to a simple base density, trained by exact change of
+          variables, and the autoregressive flows such as
+          <a href="https://arxiv.org/abs/1705.07057">MAF</a> and
+          <a href="https://arxiv.org/abs/1606.04934">IAF</a> parameterise conditional cdfs,
+          which is the Rosenblatt transform with neural networks for the conditionals. None of
+          the founding flow papers cite the 1952 result; the connection was drawn
+          retrospectively by the 2021 survey<sup><a href="#fn9" style="text-decoration:none">9</a></sup>.
+          The 1952 theorem says a perfect flow exists; the 2010s built approximations by
+          gradient descent. The residual composition running through the rest of this timeline,
+          z-streams, the parade, conjugation, was developed independently of the flows
+          literature.</p>
       </div>
 
       <div class="tl-item">
@@ -254,18 +315,35 @@
       routinely conflated: Karl (1933) invented the transform-to-uniform test; his son Egon
       (1938) coined the phrase "probability integral transformation". There is no Karl
       Pearson 1938 paper; he died in April 1936.</p>
-    <p id="fn4" style="color: var(--muted); font-size: 14px;"><sup>4</sup> David X. Li,
+    <p id="fn4" style="color: var(--muted); font-size: 14px;"><sup>4</sup> Priority is
+      layered. Eckhardt's 1987 memoir credits the idea to Ulam; the earliest surviving written
+      use is the March 1947 von Neumann letter (report LAMS-551); the first published general
+      statement is his 1951 <em>Various techniques</em>. The rejection method appears in the
+      same 1951 text.</p>
+    <p id="fn5" style="color: var(--muted); font-size: 14px;"><sup>5</sup> Journal of the
+      Royal Statistical Society Series B 30(2), pages 248-265. The range 248-275 copied through
+      much of the literature is wrong.</p>
+    <p id="fn6" style="color: var(--muted); font-size: 14px;"><sup>6</sup> David X. Li,
       <em>On Default Correlation: A Copula Function Approach</em>, RiskMetrics working paper
       with a first draft of September 1999, published in The Journal of Fixed Income 9(4),
       2000.</p>
-    <p id="fn5" style="color: var(--muted); font-size: 14px;"><sup>5</sup> MacKenzie and
+    <p id="fn7" style="color: var(--muted); font-size: 14px;"><sup>7</sup> MacKenzie and
       Spears document, among others, Vasicek's correlated-default memoranda at KMV between
-      1987 and 1991, unpublished, and CreditMetrics using mathematically equivalent
-      machinery in 1997 before the copula terminology was attached.</p>
+      1987 and 1991, unpublished, and CreditMetrics using mathematically equivalent machinery
+      in 1997 before the copula terminology was attached.</p>
+    <p id="fn8" style="color: var(--muted); font-size: 14px;"><sup>8</sup> PIT-based
+      density-forecast evaluation is routinely credited to Diebold, Gunther and Tay 1998 alone.
+      Dawid 1984, Section 5.3, had already stated the program and cited Rosenblatt; Gneiting,
+      Balabdaoui and Raftery 2007 give the correct dual attribution.</p>
+    <p id="fn9" style="color: var(--muted); font-size: 14px;"><sup>9</sup> Papamakarios,
+      Nalisnick, Rezende, Mohamed and Lakshminarayanan,
+      <a href="https://arxiv.org/abs/1912.02762"><em>Normalizing Flows for Probabilistic
+      Modeling and Inference</em></a> (JMLR 2021). A trap: Tabak and Turner 2013 cite
+      Rosenblatt 1956, the kernel-density paper, not the 1952 transform.</p>
 
     <p style="color: var(--muted); font-size: 14px;">A working history, curated rather than
-      exhaustive. Omissions we already regret: Hastings' 1955 rational approximations of
-      &Phi;<sup>&minus;1</sup>, and the smooth-test revivals.</p>
+      exhaustive. Omissions we already regret: Iman and Conover's 1982 rank-correlation
+      induction, Latin hypercube sampling, and the Rayner and Best smooth-test revivals.</p>
   </main>
 </body>
 </html>
