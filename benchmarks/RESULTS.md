@@ -54,36 +54,27 @@ represent) earns the largest median lift when fronted, yet adds only
 +0.03 nats over laplace alone: even the calendar model finds almost
 nothing left in the residuals. FINAL: five opponents, 149/150 wins.
 
-## 3. Own head on UCR (argmax, their home turf)
+## 3. Own head on UCR — honest and secondary
 
-`ucr_run.py`. Scorers: mah (Mahalanobis p-value, single tick), mahS (scan,
-windowed mean of -log10 p, w in {8,64}), z1 (per-horizon 1-step |z|,
-ablation), zU (union min-p), mz (trivial EWMA z-score control).
+The headline claims of this study are the front-end lifts above (sections 1-2);
+the own head's UCR standing is reported for honesty, not marketing. Full 250,
+default config: best scorer (|z1|) 0.276 vs trivial 0.216. The diagnostic
+split: **0.500 on the 84 series <= 20k points; 0.169 on the 166 longer ones**
+— two-thirds of the archive is 20k-900k-point periodic physiology whose
+waveform periods (~50-400 samples) the laplace body cannot represent (its
+seasonal grid is calendar {7,12,24}), so every cycle reads as fresh surprise.
+That is a *body* weakness observed through the head — filed upstream as
+skaters#91 — and matrix-profile methods own that terrain by construction.
+Slow-memory config (sa 0.01/da 0.005) improves the multivariate scan (~0.32
+full-archive, and 0.675 on the 40 shortest, beating per-horizon |z1| at
+scale); the zbank sigma-grid sits between the configs without tuning.
 
-| config | subset | best scorer | accuracy |
-|---|---|---|---|
-| defaults (sa 0.03 / da 0.02) | n=40 shortest | z1 | 0.650 |
-| slow memory (sa 0.01 / da 0.005) | n=40 shortest | **mahS** | **0.675** |
-| slow memory | n=60 shortest | mahS | 0.583 |
-| slow memory | full 250 | mahS | RUNNING (~0.41 at 158/250) |
-| search() engine (adaptive periods) | n=100 | z1 | 0.390 — worse; dropped |
-| zbank sigma-grid | n=60 | | RUNNING |
-| trivial control (mz) | n=60 | | 0.28-0.30 (matches its published band) |
-
-Context bands (full 250, published): trivial 0.30-0.40; good single classical
-methods 0.50-0.60; DAMP/matrix-profile 0.65-0.75; 2021 contest ensembles
-0.70-0.80. Long ECG/periodic blocks are where we bleed; slow memory makes the
-multivariate scan clearly beat the per-horizon rule at scale (65 vs 52 at
-158/250). UCR is the credibility row, not the differentiator: argmax scoring
-is blind to calibration by construction.
-
-Findings that came out of this study regardless of scores:
-- horizon-misalignment bug in `search()` candidate scoring (third instance
-  of the pattern; fixed, parity regenerated);
-- effective-rank collapse of the z scatter -> empirical null (Satterthwaite)
-  + factor scatter with exact Sherman-Morrison/Woodbury inverse;
-- masking through the null's second moment -> winsorised null updates;
-- the sigma-memory axis (user hypothesis) lifts mahS by +6/40 on the subset.
+Findings the study produced regardless of scores: a horizon-misalignment bug
+in skaters' search() (third instance of the pattern; fixed, parity green);
+the effective-rank collapse of the z scatter -> empirical null + factor
+scatter with exact Woodbury; masking through the null's second moment ->
+winsorised updates; the sigma-memory axis; and (from the hardening suite)
+skaters' state-purity fix enabling checkpoint/restore (0.12.1).
 
 ## 4. FRED injection (argmax) — protocol needs v2
 
