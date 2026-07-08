@@ -11,10 +11,13 @@ log-likelihood protocols as documented in each file's docstring.
 
 | script | study |
 |---|---|
-| `ucr_run.py` | UCR Anomaly Archive: wald scorers vs ablations/trivial |
+| `ucr_run.py` | UCR Anomaly Archive: Wald scorers vs ablations/trivial |
 | `frontend_run.py` | detector front-end lift: DSPOT/RRCF on raw vs parade z |
 | `frontend_loglik.py` | forecaster front-end lift: ETS/ARIMA/GARCH/Prophet, exact change of variables |
 | `fred_anomaly.py` | FRED injection benchmark (spike/burst/shift on real backgrounds) |
+| `regression_frontend.py` | online regression front-end lift: one RLS learner, coordinates varied (raw/affine/robust/Laplace-z), contaminated simulation |
+| `river_frontend.py` | same question, river's learners: Laplace front-end vs river's StandardScaler/TargetStandardScaler pipeline (needs `pip install river`) |
+| `river_data_frontend.py` | the ticket gate: same comparison on river's own regression datasets, as-is and feature-spiked, with a body-alone attribution column |
 
 Third-party baselines need the extra: `pip install "timemachines[benchmarks]"`.
 
@@ -61,13 +64,16 @@ export TIMEMACHINES_FRED_DATA=/path/to/fred/data
 | `frontend_loglik.py --limit 30` | forecaster lift | ~1 CPU-h (ARIMA/Prophet refits) |
 | `fred_anomaly.py --limit 100` | FRED injection | ~4 CPU-h |
 | `rosenblatt_sandwich.py` | 12 price series | ~10 CPU-min |
+| `regression_frontend.py --seeds 30` | 240 simulated runs | ~7 CPU-min |
+| `river_frontend.py --seeds 30` | 240 simulated runs | ~20 CPU-min |
+| `river_data_frontend.py` | 4 river datasets, 44 runs | ~15 CPU-min |
 
 ### Bigger-machine targets, in value order
 
 1. `frontend_run.py --limit 250` — the detector-lift headline at full-archive scale.
 2. `calibration_panel.py` with a 1e-5 column (edit `ALPHAS`) and `CAP=50000`
    — deeper tail, more clean points per series.
-3. `ucr_run.py --base zbank` full 250 (feature bank, ~6x laplace cost).
+3. `ucr_run.py --base zbank` full 250 (feature bank, ~6x Laplace cost).
 4. `frontend_loglik.py --limit 200` — forecaster lift on the whole universe.
 5. FRED-injection v2 (rank-percentile scoring — see RESULTS.md section 5)
    before spending compute on the argmax version.
