@@ -70,6 +70,17 @@ represent) earns the largest median lift when fronted, yet adds only
 +0.03 nats over laplace alone: even the calendar model finds almost
 nothing left in the residuals. FINAL: five opponents, 149/150 wins.
 
+### The sandwich as an object (`rosenblatt_sandwich.py`)
+
+Change of variables scores laplace -> inner -> laplace^-1 exactly for
+log-lik (the tables above). Built as an actual predictive object (quantile-
+grid pushforward, k=1), it currently pays ~0.06 nats of representation tax
+— more than the inner's true add over laplace on prices (~+0.01), so the
+object loses 0/12 there while `garch_leaf` directly on y wins 9/12 (the
+no-free-lunch caveat at object level). The object route matters for
+delivering CRPS/intervals of fronted models; route and open items in
+skaters#92 (self-hosting conjugation).
+
 ## 3. Own head on UCR — secondary
 
 The headline claims of this study are the front-end lifts above (sections 1-2).
