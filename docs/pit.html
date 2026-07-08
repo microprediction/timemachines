@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>A history of the probability integral transform</title>
-  <meta name="description" content="From Fisher's p-values and Pearson's probability integral to Ulam's Monte Carlo, Rosenblatt's transform, Sklar's copulas, the Gaussian copula in finance, normalizing flows, and streaming surprise. One idea, a century of work." />
+  <meta name="description" content="From Fisher's p-values and Pearson's probability integral to Ulam's Monte Carlo, Rosenblatt's transform, copulas on Wall Street, z-streams, and PIT conjugation. One idea, a century of work." />
   <link rel="stylesheet" href="./academic.css" />
   <style>
     .tl { position: relative; margin: 34px 0 10px; padding-left: 34px; }
@@ -38,127 +38,148 @@
 
   <main>
     <h1>A history of the probability integral transform</h1>
-    <p class="subtitle">One idea, worked for a century: push an observation through its own
-      cumulative distribution and it becomes uniform; pull a uniform back through an inverse
-      cdf and it becomes anything you like.</p>
+    <p class="subtitle">Push an observation through its own cumulative distribution and it
+      becomes uniform. Pull a uniform back through an inverse cdf and it becomes anything
+      you like.</p>
 
-    <p class="lead">The forward direction — <em>u</em> = <em>F</em>(<em>x</em>) — turns the
-      question "was that surprising?" into a number that means the same thing for every
-      distribution. The inverse — <em>x</em> = <em>F</em><sup>&minus;1</sup>(<em>u</em>) —
-      turns uniform randomness into any randomness at all. Between them they carry
-      significance testing, simulation, dependence modelling, forecast evaluation, deep
-      generative models, and (our corner) streaming anomaly detection. The timeline below is
-      the transform earning each of those jobs.</p>
+    <p class="lead">That pair of moves is about a century old and it keeps finding new work:
+      significance testing, simulation, dependence modelling, forecast evaluation, generative
+      models, and lately streaming prediction and anomaly detection. Here is the family tree
+      as we understand it. Some of the later history is told firsthand, which is a source and
+      a bias at the same time. Corrections welcome.</p>
 
     <div class="tl">
 
       <div class="tl-item">
-        <span class="tl-year">1925&ndash;1932</span> · <span class="tl-who">R.&nbsp;A. Fisher</span>
-        <p>The implicit era. A p-value is the PIT of a test statistic under the null — Fisher
-          never says so, but his machinery depends on it: significance levels are comparable
-          across experiments <em>because</em> null p-values are uniform, and his method for
-          combining independent tests (&minus;2&Sigma;&thinsp;log&thinsp;p<sub>i</sub> ~
-          &chi;&sup2;) is a theorem about transformed uniforms. His 1930 fiducial argument
-          runs the transform backwards — inference by inverting a cdf.</p>
+        <span class="tl-year">1925&ndash;1932</span> &middot; <span class="tl-who">R.&nbsp;A. Fisher</span>
+        <p>The implicit era. A p-value is the PIT of a test statistic under the null. Fisher
+          never quite says this, but his machinery leans on it everywhere: significance levels
+          are comparable across experiments because null p-values are uniform, and his rule
+          for combining independent tests (minus twice the sum of the log p's is chi-squared)
+          is a fact about transformed uniforms. His 1930 fiducial argument runs the transform
+          in reverse.</p>
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">1933</span> · <span class="tl-who">Karl Pearson; Kolmogorov</span>
-        <p>The transform gets named and gets a job. Pearson's Biometrika paper puts the
-          <em>probability integral</em> to work on goodness of fit. The same year, Kolmogorov's
-          statistic sup|F<sub>n</sub>&thinsp;&minus;&thinsp;F| is <em>distribution-free</em> —
-          the first great structural payoff: after the PIT, every continuous distribution is
-          the same distribution, so one table serves them all.</p>
+        <span class="tl-year">1933</span> &middot; <span class="tl-who">Karl Pearson; Kolmogorov</span>
+        <p>The transform gets its name and a proper job. Pearson's Biometrika paper puts the
+          probability integral to work on goodness of fit. The same year Kolmogorov's
+          sup|F<sub>n</sub>&thinsp;&minus;&thinsp;F| statistic turns out to be
+          distribution-free, the first big structural payoff: after the PIT every continuous
+          distribution is the same one, so a single table serves them all.</p>
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">1937&ndash;1938</span> · <span class="tl-who">Neyman; E.&nbsp;S. Pearson</span>
-        <p>Neyman builds his smooth goodness-of-fit tests directly on PIT-transformed data.
-          Egon Pearson writes the manifesto — <em>The probability integral transformation for
-          testing goodness of fit and combining independent tests of significance</em> — and
-          the transform is now standard equipment.</p>
+        <span class="tl-year">1937&ndash;1938</span> &middot; <span class="tl-who">Neyman; E.&nbsp;S. Pearson</span>
+        <p>Neyman builds his smooth goodness-of-fit tests on PIT-transformed data. Egon
+          Pearson writes the paper that finally treats the transformation as a subject in its
+          own right rather than a trick used in passing.</p>
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">1946&ndash;1951</span> · <span class="tl-who">Ulam, von Neumann, Metropolis — Los Alamos</span>
-        <p>The inverse direction becomes an industry. Neutron-transport problems resist
-          analysis; Ulam's solitaire insight becomes the Monte Carlo method (Metropolis &amp;
-          Ulam, 1949), and von Neumann's <em>Various techniques used in connection with random
-          digits</em> codifies inverse transform sampling: draw <em>u</em> uniform on the
-          ENIAC, output <em>F</em><sup>&minus;1</sup>(<em>u</em>). Every simulated random
-          variable since is the inverse PIT at work. (&Phi;<sup>&minus;1</sup> was expensive
-          enough that Box &amp; Muller invented their 1958 workaround specifically to avoid
-          it — the inverse's numerical difficulty has its own literature.)</p>
+        <span class="tl-year">1946&ndash;1951</span> &middot; <span class="tl-who">Ulam, von Neumann, Metropolis, Los Alamos</span>
+        <p>The inverse direction becomes an industry. Neutron transport resists pencil and
+          paper; Ulam's solitaire idea grows into the Monte Carlo method (Metropolis and
+          Ulam, 1949), and von Neumann codifies inverse transform sampling: draw u uniform,
+          output F<sup>&minus;1</sup>(u). Every simulated random variable since is the
+          inverse PIT at work. Computing &Phi;<sup>&minus;1</sup> was expensive enough that
+          Box and Muller invented their 1958 method specifically to avoid it.</p>
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">1952</span> · <span class="tl-who">Murray Rosenblatt</span>
-        <p><em>Remarks on a multivariate transformation</em> — three pages in the Annals.
-          Chain the transform through conditional distributions,
+        <span class="tl-year">1952</span> &middot; <span class="tl-who">Murray Rosenblatt</span>
+        <p>Three pages in the Annals. Chain the transform through conditional distributions,
           u<sub>t</sub> = F(x<sub>t</sub>&thinsp;|&thinsp;x<sub>&lt;t</sub>), and any joint
-          distribution becomes iid uniforms: a causal bijection between an arbitrary process
-          and pure noise. This is the universal whitener — the theorem under this package,
-          sixty years early.</p>
+          law becomes iid uniforms: a causal bijection between an arbitrary process and pure
+          noise. The universal whitener, and the theorem these packages stand on.</p>
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">1959</span> · <span class="tl-who">Abe Sklar</span>
-        <p>Run the margins through their PITs and what remains is the dependence itself:
-          every joint distribution is a <em>copula</em> applied to uniform margins, uniquely
-          so when the margins are continuous. Sklar's theorem makes dependence a first-class
-          object — the PIT as a scalpel separating "what each variable does" from "how they
-          move together." (Wilk &amp; Gnanadesikan's 1968 Q&ndash;Q plot gives the transform
-          its visual form.)</p>
+        <span class="tl-year">1959</span> &middot; <span class="tl-who">Abe Sklar</span>
+        <p>Send each margin through its own PIT and what remains is the dependence itself, an
+          object in its own right: the copula, unique when the margins are continuous.
+          Dependence becomes something you can model separately from the margins. Wilk and
+          Gnanadesikan's Q&ndash;Q plot (1968) later gave the transform its picture.</p>
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">1998</span> · <span class="tl-who">Diebold, Gunther &amp; Tay</span>
-        <p>Forecast evaluation discovers its instrument: a density forecast is calibrated if
-          and only if the sequence of PITs of the realisations is iid uniform. Risk management
-          gets a diagnostic; the PIT histogram becomes to forecasters what the residual plot
-          is to regression. Gneiting and coauthors sharpen the theory through the 2000s
-          (calibration vs sharpness, 2007; the mid-PIT for discrete data, 2009).</p>
-      </div>
-
-      <div class="tl-item warn">
-        <span class="tl-year">2000</span> · <span class="tl-who">David X. Li</span>
-        <p><em>On default correlation: a copula function approach.</em> PIT the default times
-          of each name in a credit portfolio, couple the uniforms with a Gaussian copula, and
-          CDO tranches become priceable in closed form. Finance adopts it wholesale — then
-          2008 demonstrates what a too-thin dependence model does at scale. The cautionary
-          node on this timeline: the transform is exact, but the copula you choose afterwards
-          is a model like any other, and tail dependence is precisely what the Gaussian one
-          lacks.</p>
+        <span class="tl-year">1997&ndash;1999</span> &middot; <span class="tl-who">Zhang, Pang &amp; Cotton, Morgan Stanley</span>
+        <p>Copulas reach Wall Street quietly first. At Morgan Stanley, Zhang, Pang and
+          Cotton invented a hybrid default simulation generalizing both doubly stochastic
+          intensity models and the copula approach later made famous in
+          publication<sup><a href="#fn1" style="text-decoration:none">1</a></sup>. As in
+          much of quantitative finance, practice ran years ahead of the journals
+          (MacKenzie and Spears documented the era). The construction is the PIT again:
+          default times pushed through their marginal distributions, dependence supplied
+          on the uniform scale.</p>
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">2013&ndash;2017</span> · <span class="tl-who">Normalizing flows</span>
-        <p>Deep learning rediscovers Rosenblatt: a normalizing flow is a learned invertible
-          map to a simple base density, trained by exact change of variables — and the
+        <span class="tl-year">1998</span> &middot; <span class="tl-who">Diebold, Gunther &amp; Tay</span>
+        <p>Forecast evaluation finds its instrument: a density forecast is calibrated exactly
+          when the PITs of the realisations are iid uniform. The PIT histogram becomes to
+          probabilistic forecasting what the residual plot is to regression. Gneiting and
+          coauthors sharpen the theory through the 2000s, including the mid-PIT for discrete
+          data.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2013&ndash;2017</span> &middot; <span class="tl-who">normalizing flows</span>
+        <p>Deep learning rediscovers Rosenblatt. A normalizing flow is a learned invertible
+          map to a simple base density, trained by exact change of variables, and the
           autoregressive flows (MAF, IAF) parameterise conditional cdfs, which is the
-          Rosenblatt transform with the conditionals as neural networks. The 1952 theorem is
-          the statement that a perfect flow exists; the 2010s built approximations to it with
-          gradient descent.</p>
+          Rosenblatt transform with neural networks for the conditionals. The 1952 theorem
+          says a perfect flow exists; the 2010s built approximations by gradient descent.
+          The residual composition running through the rest of this timeline (z-streams, the
+          parade, conjugation) was developed independently of the flows literature.</p>
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">2026</span> · <span class="tl-who">the prediction parade</span>
-        <p>The streaming, self-referential case: an online forecaster applies the Rosenblatt
-          transform <em>with itself as the model</em>, one observation at a time — each
-          arriving point pushed through the predictive cdf issued for it, emerging as a
-          standard-normal surprise. The forward map turns out to be the valuable direction:
-          feed the surprises to any detector or forecaster and
-          <a href="/">it improves</a>; test the surprises against their own tail and the
-          false-alarm rate you advertise is <a href="/#calibration">the one you get</a>.
-          A century of the same idea, now running one tick at a time.</p>
+        <span class="tl-year">~2020</span> &middot; <span class="tl-who">z-streams, microprediction.org</span>
+        <p>The transform becomes a market mechanism. Every data point published to the
+          platform is pushed through the community implied CDF, the distribution implied by
+          everyone's quarantined predictions (two horizons: roughly a minute and roughly an
+          hour), and then through the inverse normal cdf. The resulting
+          <a href="https://www.linkedin.com/pulse/short-introduction-z-streams-peter-cotton-phd">z-streams</a>
+          are roughly N(0,1) residual streams, useful for normalization and anomaly detection,
+          and they are themselves predicted: the crowd sharpens its own coordinate system.
+          Here the model inside the transform is a market.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2021</span> &middot; <span class="tl-who">the prediction parade</span>
+        <p>Inside the original timemachines package (the commit says "initialized parade",
+          April 2021), forecasts march in quarantine until they meet the ground truth they
+          were made for, and each arriving point is scored against the prediction issued for
+          it. The bookkeeping half of the streaming PIT, waiting for a model strong enough
+          to make the coordinates worth living in.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2026</span> &middot; <span class="tl-who">laplace, and PIT conjugation</span>
+        <p>The <a href="https://skaters.microprediction.org/">skaters</a> package ships
+          <code>laplace</code>, and with it the first use of PIT conjugation with a very
+          strong autonomous time-series model: the forecaster applies Rosenblatt's transform
+          with itself as the conditional law, one tick at a time, and the same bijection is
+          offered as a change of coordinates for everyone else's models. Feeding other
+          detectors and forecasters the transformed stream improves
+          <a href="/">nearly all of them</a>; testing the surprises against their own tail
+          makes the advertised false-alarm rate <a href="/#calibration">the measured one</a>.
+          A century of the same idea, now running live.</p>
       </div>
 
     </div>
 
-    <p class="demo-note" style="color: var(--muted); font-size: 14px;">Corrections welcome —
-      this is a working history, curated not exhaustive. Notable omissions we already regret:
-      Hastings' rational approximations of &Phi;<sup>&minus;1</sup> (1955), smooth-test
-      revivals, and the whole conformal-prediction lineage (ranks are the finite-sample PIT).</p>
+    <p id="fn1" style="color: var(--muted); font-size: 14px;"><sup>1</sup> David X. Li,
+      <em>On Default Correlation: A Copula Function Approach</em> (2000), which made the
+      Gaussian special case famous; 2008 made it infamous. The transform was never the
+      problem. The copula chosen afterwards is a model like any other, and tail dependence
+      is exactly what the Gaussian one lacks.</p>
+
+    <p style="color: var(--muted); font-size: 14px;">A working history, curated rather than
+      exhaustive. Omissions we already regret: Hastings' rational approximations of
+      &Phi;<sup>&minus;1</sup> (1955), the smooth-test revivals, and the conformal prediction
+      lineage (ranks are the finite-sample PIT).</p>
   </main>
 </body>
 </html>
