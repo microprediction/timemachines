@@ -98,7 +98,7 @@
 
       <div class="tl-item">
         <span class="tl-year">1948</span> &middot; <span class="tl-who">David &amp; Johnson</span>
-        <p>The transform meets estimation and loses its innocence. <a href="https://academic.oup.com/biomet/article-abstract/35/1-2/182/178943">David and Johnson</a> show that plugging sample-estimated parameters into the cdf destroys the iid-uniform property, the problem Kac, Kiefer and Wolfowitz map in 1955 and Durbin settles in 1973.</p>
+        <p>The transform meets estimation and loses its innocence. <a href="https://academic.oup.com/biomet/article-abstract/35/1-2/182/178943">David and Johnson</a> show that plugging sample-estimated parameters into the cdf destroys the iid-uniform property.</p>
       </div>
 
       <div class="tl-item">
@@ -128,7 +128,7 @@
 
       <div class="tl-item">
         <span class="tl-year">1958</span> &middot; <span class="tl-who">Box &amp; Muller</span>
-        <p>Computing &Phi;<sup>&minus;1</sup> was hard enough that <a href="https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-29/issue-2/A-Note-on-the-Generation-of-Random-Normal-Deviates/10.1214/aoms/1177706645.full">Box and Muller</a> built a method to sample normals without it. The accuracy problem was only closed by Wichura's 1988 algorithm AS 241, still the basis of R's qnorm.</p>
+        <p>Computing &Phi;<sup>&minus;1</sup> was hard enough that <a href="https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-29/issue-2/A-Note-on-the-Generation-of-Random-Normal-Deviates/10.1214/aoms/1177706645.full">Box and Muller</a> built a method to sample normals without it.</p>
       </div>
 
       <div class="tl-item">
@@ -157,21 +157,41 @@
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">1968</span> &middot; <span class="tl-who">Panofsky &amp; Brier</span>
+        <p>Quantile mapping is born. Correcting one distribution to match another by pushing it through F<sub>source</sub> then F<sub>target</sub><sup>&minus;1</sup> is inverse-PIT composition, and climate and hydrology have leaned on it ever since.</p>
+      </div>
+
         <span class="tl-year">1973</span> &middot; <span class="tl-who">James Durbin</span>
         <p><a href="https://projecteuclid.org/journals/annals-of-statistics/volume-1/issue-2/Weak-Convergence-of-the-Sample-Distribution-Function-when-Parameters-are/10.1214/aos/1176342365.full">Weak convergence with estimated parameters</a>, the definitive limit theory for the empirical process when the cdf is fitted, not known. The estimated-parameter problem carries his name, and every model that scores its own residuals inherits it.</p>
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">~1974</span> &middot; <span class="tl-who">histogram equalization</span>
+        <p><a href="https://homepages.inf.ed.ac.uk/rbf/HIPR2/histeq.htm">Histogram equalization</a> maps each pixel through the image's own cumulative histogram, the forward PIT applied to intensities, and the output comes out flat for exactly the reason the transform makes uniforms.</p>
+      </div>
+
         <span class="tl-year">1975</span> &middot; <span class="tl-who">Kimeldorf &amp; Sampson</span>
         <p><a href="https://www.tandfonline.com/doi/abs/10.1080/03610928308827274">Kimeldorf and Sampson</a> reinvent copulas independently as uniform representations, unaware of the metric-space lineage, a sign of how obscure the idea still was.</p>
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">1976</span> &middot; <span class="tl-who">Matheson &amp; Winkler</span>
+        <p>The score the forecasting world lives by is born far from it, in <a href="https://dl.acm.org/doi/abs/10.1287/mnsc.22.10.1087">Management Science</a>. The CRPS is the Brier score of the forecast cdf integrated over every threshold, and its reliability component reduces to rank-histogram, that is PIT, information.</p>
+      </div>
+
         <span class="tl-year">1977</span> &middot; <span class="tl-who">Phelim Boyle</span>
         <p><a href="https://ideas.repec.org/a/eee/jfinec/v4y1977i3p323-338.html">Options: A Monte Carlo Approach</a> prices derivatives by simulating asset paths from the risk-neutral law, inverse-transform sampling on Wall Street twenty-three years before the copula work. This is where the inverse PIT reaches finance in earnest.</p>
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">1979</span> &middot; <span class="tl-who">McKay, Beckman &amp; Conover</span>
+        <p><a href="https://www.jstor.org/stable/1268522">Latin hypercube sampling</a>: stratify each uniform into equal-probability bins, one draw per bin, then push through the inverse cdf. Stratified inverse PIT, and a staple of computer experiments ever since.</p>
+      </div>
+
         <span class="tl-year">1980</span> &middot; <span class="tl-who">George Box</span>
         <p>Bayesian model criticism. <a href="https://academic.oup.com/jrsssa/article/143/4/383/7105478">Box</a> judges a model by where the data fall in its predictive distribution, the prior-predictive PIT check.</p>
       </div>
@@ -182,11 +202,21 @@
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">1982</span> &middot; <span class="tl-who">Iman &amp; Conover</span>
+        <p><a href="https://www.tandfonline.com/doi/abs/10.1080/03610918208812265">Rank-correlation induction</a>: impose a target dependence on samples with arbitrary margins by reordering them, dependence carried by the ordering of the uniforms, a copula idea in simulation clothing sixteen years before the credit copulas.</p>
+      </div>
+
         <span class="tl-year">1982</span> &middot; <span class="tl-who">A.&nbsp;P. Dawid</span>
         <p>The <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1982.10477856">well-calibrated Bayesian</a>: a coherent forecaster must expect to be calibrated, the binary-event foundation the PIT extends to full distributions.</p>
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">1983</span> &middot; <span class="tl-who">J.&nbsp;A. Peacock</span>
+        <p>The KS test becomes an everyday tool in astronomy for comparing luminosity functions and source counts, with the standing caution, from <a href="https://academic.oup.com/mnras/article/202/3/615/967854">Peacock</a>, that its distribution-free property fails in more than one dimension.</p>
+      </div>
+
         <span class="tl-year">1984</span> &middot; <span class="tl-who">A.&nbsp;P. Dawid</span>
         <p>The forecast-evaluation program, stated in full and mostly overlooked. <a href="https://www.jstor.org/stable/2981683">The prequential approach</a> has a section literally titled Probability Integral Transform, proposing that a sequential forecaster be judged by whether U<sub>n</sub> = F<sub>n</sub>(X<sub>n</sub>) looks like an iid uniform sample, citing Rosenblatt. This is what modern density-forecast checking does, fourteen years early<sup><a href="#fn6" style="text-decoration:none">6</a></sup>.</p>
       </div>
@@ -207,6 +237,11 @@
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">1989</span> &middot; <span class="tl-who">Rayner &amp; Best</span>
+        <p>The <a href="https://books.google.com/books/about/Smooth_Tests_of_Goodness_of_Fit.html?id=c2_mCwAAQBAJ">smooth-test revival</a> puts Neyman's 1937 PIT-based framework back to work, showing many classical goodness-of-fit statistics are smooth tests or their components.</p>
+      </div>
+
         <span class="tl-year">1994</span> &middot; <span class="tl-who">RiskMetrics</span>
         <p>The empirical PIT on trading desks. J.P. Morgan's <a href="https://www.msci.com/documents/10199/5915b101-4206-4ba0-aee2-3449d5c7e95a">RiskMetrics Technical Document</a> popularises historical-simulation VaR, which reads a loss quantile straight off the empirical cdf.</p>
       </div>
@@ -217,13 +252,18 @@
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">1996</span> &middot; <span class="tl-who">Jeffrey Anderson</span>
+        <p>Weather forecasting reinvents the PIT as the <a href="https://journals.ametsoc.org/view/journals/clim/9/7/1520-0442_1996_009_1518_amfpae_2_0_co_2.xml">rank histogram</a>, also called the Talagrand diagram: where the observation falls among the sorted ensemble members is uniform when the forecast is calibrated. Flat is the goal.</p>
+      </div>
+
         <span class="tl-year">1996</span> &middot; <span class="tl-who">Harry Joe</span>
         <p><a href="https://projecteuclid.org/ebooks/institute-of-mathematical-statistics-lecture-notes-monograph-series/Distributions-with-fixed-marginals-and-related-topics/chapter/Families-of-m-variate-distributions-with-given-margins-and-mm/10.1214/lnms/1215452614">Joe</a> builds multivariate distributions from bivariate blocks, the first pair-copula construction, which is Rosenblatt's transform used to build distributions rather than test them.</p>
       </div>
 
       <div class="tl-item">
         <span class="tl-year">1998</span> &middot; <span class="tl-who">Diebold, Gunther &amp; Tay</span>
-        <p>Forecast evaluation reaches econometrics. <a href="https://ideas.repec.org/a/ier/iecrev/v39y1998i4p863-83.html">Diebold, Gunther and Tay</a> make the PIT histogram standard equipment for density forecasts, crediting Rosenblatt. The rank histogram had arrived independently in weather forecasting the same decade.</p>
+        <p>Forecast evaluation reaches econometrics. <a href="https://ideas.repec.org/a/ier/iecrev/v39y1998i4p863-83.html">Diebold, Gunther and Tay</a> make the PIT histogram standard equipment for density forecasts, crediting Rosenblatt.</p>
       </div>
 
       <div class="tl-item">
@@ -243,7 +283,7 @@
 
       <div class="tl-item">
         <span class="tl-year">2002</span> &middot; <span class="tl-who">Bedford &amp; Cooke</span>
-        <p><a href="https://projecteuclid.org/journals/annals-of-statistics/volume-30/issue-4/Vines--a-new-graphical-model-for-dependent-random-variables/10.1214/aos/1031689016.full">Vines</a> organize pair-copula decompositions into a graphical model, and <a href="https://ideas.repec.org/a/eee/insuma/v44y2009i2p182-198.html">Aas and coauthors</a> make the inference practical in 2009.</p>
+        <p><a href="https://projecteuclid.org/journals/annals-of-statistics/volume-30/issue-4/Vines--a-new-graphical-model-for-dependent-random-variables/10.1214/aos/1031689016.full">Vines</a> organize pair-copula decompositions into a graphical model, sequential conditioning made into a structure.</p>
       </div>
 
       <div class="tl-item">
@@ -252,11 +292,21 @@
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">2005</span> &middot; <span class="tl-who">Subramanian and coauthors</span>
+        <p>The KS statistic reaches biology. <a href="https://www.pnas.org/doi/10.1073/pnas.0506580102">Gene set enrichment analysis</a>, among the most cited methods in the field, runs a weighted Kolmogorov&ndash;Smirnov running-maximum-deviation statistic to test whether a gene set clusters at the top of a ranked list.</p>
+      </div>
+
         <span class="tl-year">2007</span> &middot; <span class="tl-who">Gneiting, Balabdaoui &amp; Raftery</span>
         <p><a href="https://rss.onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9868.2007.00587.x">Calibration and sharpness</a>: maximise sharpness subject to calibration, with the PIT histogram as the diagnostic, and the fair dual credit to Dawid 1984 and Diebold 1998.</p>
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">2009</span> &middot; <span class="tl-who">Aas and coauthors</span>
+        <p><a href="https://ideas.repec.org/a/eee/insuma/v44y2009i2p182-198.html">Pair-copula constructions</a> made practical for inference, among the most cited papers in the field, and Rosenblatt's transform used constructively at scale.</p>
+      </div>
+
         <span class="tl-year">2009</span> &middot; <span class="tl-who">Czado, Gneiting &amp; Held</span>
         <p>The <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1541-0420.2009.01191.x">mid-PIT for count data</a>, the non-randomized fix that keeps discrete-data calibration checks centred, the same correction the sticky lattice path produces for free elsewhere.</p>
       </div>
@@ -272,6 +322,16 @@
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">2015</span> &middot; <span class="tl-who">Cannon and coauthors</span>
+        <p>The <a href="https://journals.ametsoc.org/view/journals/clim/28/17/jcli-d-14-00754.1.xml">modern treatment</a> of quantile mapping for climate bias correction, with the warning that naive mapping can corrupt projected trends.</p>
+      </div>
+
+        <span class="tl-year">2018</span> &middot; <span class="tl-who">Robert Cousins</span>
+        <p>Particle physics names the transform outright: Cousins' <a href="https://arxiv.org/abs/1807.05996">lectures</a> have a section titled Probability integral transform, recasting any goodness-of-fit test as the claim that the transformed sample is uniform.</p>
+      </div>
+
         <span class="tl-year">~2020</span> &middot; <span class="tl-who">z-streams, microprediction.org</span>
         <p>The transform becomes a market mechanism. Every data point is pushed through the community implied cdf, the distribution implied by everyone's quarantined predictions at two horizons, then through the inverse normal. The resulting <a href="https://www.linkedin.com/pulse/short-introduction-z-streams-peter-cotton-phd">z-streams</a> are roughly N(0,1) residual streams, themselves predicted, so the crowd sharpens its own coordinate system. It accidentally answered Berkowitz's 2001 call to action at a velocity he never imagined, across billions of micropredictions. Unlike conformal prediction it allows sharp predictions crossing the <a href="https://conformalprediction.net/papers/marginally-useful/">information gap</a>.</p>
       </div>
@@ -282,6 +342,11 @@
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">2026</span> &middot; <span class="tl-who">the information gap</span>
+        <p>A three-line lemma essentially kills conformal prediction as a field. Coverage and forecast quality are orthogonal, and the height between what conformal delivers and a full predictive distribution has a name and a closed form, the residual-information gap (<a href="https://conformalprediction.net/papers/marginally-useful/">Marginally Useful</a>). Focus returns to the full PIT, and to methods that permit sharp estimates rather than intervals.</p>
+      </div>
+
         <span class="tl-year">2026</span> &middot; <span class="tl-who">nearest-the-pin parimutuel</span>
         <p>The mechanism behind the z-streams gets written down: a <a href="https://mechanisms.microprediction.org/mechanisms/parimutuel.html">nearest-the-pin parimutuel</a> that pays forecasters by proximity to the outcome rather than for backing a single bucket, which is what makes a crowd report a full predictive cdf instead of a point. Formalizing it closes the loop the platform ran by instinct, and connects the PIT to market design.</p>
       </div>
@@ -292,68 +357,6 @@
       </div>
 
     </div>
-    <h2>The same two moves, everywhere</h2>
-    <p>Strip the timeline down and it is two operations wearing disguises. The forward move,
-      u = F(x), whitens: push a variable through its own cdf and it comes out uniform. The
-      inverse move, x = F<sup>&minus;1</sup>(u), colours: push a uniform through a target
-      inverse cdf and it comes out however you like. Compose them,
-      F<sub>target</sub><sup>&minus;1</sup> after F<sub>source</sub>, and you have carried one
-      distribution onto another. Field after field reinvented this pair and gave it a local
-      name.</p>
-
-    <div class="tl">
-      <div class="tl-item">
-        <span class="tl-who">Image processing</span>
-        <p><a href="https://homepages.inf.ed.ac.uk/rbf/HIPR2/histeq.htm">Histogram
-          equalization</a> maps each pixel through the image's own cumulative histogram. That
-          is the forward PIT applied to intensities, and the output histogram comes out flat
-          for exactly the reason the transform makes uniforms. Its twin,
-          <a href="https://en.wikipedia.org/wiki/Histogram_matching">histogram matching</a>,
-          applies the source cdf then a target inverse cdf, which is the identical inverse-PIT
-          composition, and the identical operation as the Rosenblatt sandwich this package
-          builds.</p>
-      </div>
-      <div class="tl-item">
-        <span class="tl-who">Climate and hydrology</span>
-        <p>Quantile mapping corrects a model's output to match observations by pushing it
-          through F<sub>model</sub> and then F<sub>obs</sub><sup>&minus;1</sup>, the same
-          inverse-PIT composition as histogram matching, under a different name. Panofsky and
-          Brier stated it in 1968; Cannon and coauthors gave the
-          <a href="https://journals.ametsoc.org/view/journals/clim/28/17/jcli-d-14-00754.1.xml">modern
-          treatment</a> in 2015 and the warning that it can corrupt projected trends.</p>
-      </div>
-      <div class="tl-item">
-        <span class="tl-who">Meteorology</span>
-        <p>The <a href="https://journals.ametsoc.org/view/journals/clim/9/7/1520-0442_1996_009_1518_amfpae_2_0_co_2.xml">rank
-          histogram</a> (Anderson 1996), also called the Talagrand diagram, asks where the
-          observation falls among the sorted ensemble members, which is the PIT in discrete
-          ensemble form; flat means calibrated. The score the field lives by, the CRPS, was
-          born far away, in a 1976
-          <a href="https://dl.acm.org/doi/abs/10.1287/mnsc.22.10.1087">Management Science</a>
-          paper by Matheson and Winkler, and is the Brier score of the forecast cdf integrated
-          over every threshold.</p>
-      </div>
-      <div class="tl-item">
-        <span class="tl-who">Genomics</span>
-        <p><a href="https://www.pnas.org/doi/10.1073/pnas.0506580102">Gene set enrichment
-          analysis</a> (Subramanian et al. 2005), among the most cited methods in biology,
-          runs a weighted Kolmogorov&ndash;Smirnov statistic: the running maximum deviation of
-          a gene set's positions from uniform along a ranked list.</p>
-      </div>
-      <div class="tl-item">
-        <span class="tl-who">Astronomy and physics</span>
-        <p>The KS test is an everyday tool for comparing luminosity functions and source
-          counts, with the standing caution that its distribution-free property fails in more
-          than one dimension (<a href="https://academic.oup.com/mnras/article/202/3/615/967854">Peacock
-          1983</a>). In particle physics the transform is named outright: Cousins' 2018
-          <a href="https://arxiv.org/abs/1807.05996">lectures</a> have a section titled
-          Probability integral transform, recasting any goodness-of-fit test as the claim that
-          the transformed sample is uniform. Radar's constant-false-alarm-rate detectors pivot
-          each cell to a fixed noise distribution, holding the false-alarm probability constant,
-          which is the same instinct <code>wald</code> follows one field over.</p>
-      </div>
-    </div>
-
     <h2 style="font-size:20px">Footnotes</h2>
     <p id="fn1" style="color: var(--muted); font-size: 14px;"><sup>1</sup> The combining rule is universally cited as Fisher 1925, but it entered <em>Statistical Methods for Research Workers</em> in the fourth edition of 1932; Karl Pearson's 1933 paper cites that edition contemporaneously. See the <a href="https://arxiv.org/pdf/0705.2209">tracing</a>.</p>
     <p id="fn2" style="color: var(--muted); font-size: 14px;"><sup>2</sup> Two Pearsons, routinely conflated: Karl (1933) invented the transform-to-uniform test; his son Egon (1938) coined the phrase "probability integral transformation". There is no Karl Pearson 1938 paper; he died in April 1936.</p>
@@ -365,9 +368,6 @@
     <p id="fn8" style="color: var(--muted); font-size: 14px;"><sup>8</sup> MacKenzie and Spears document, among others, Vasicek's correlated-default memoranda at KMV between 1987 and 1991, unpublished, and CreditMetrics using mathematically equivalent machinery in 1997 before the copula terminology was attached.</p>
     <p id="fn9" style="color: var(--muted); font-size: 14px;"><sup>9</sup> Papamakarios, Nalisnick, Rezende, Mohamed and Lakshminarayanan, <a href="https://arxiv.org/abs/1912.02762"><em>Normalizing Flows for Probabilistic Modeling and Inference</em></a> (JMLR 2021). A trap: Tabak and Turner 2013 cite Rosenblatt 1956, the kernel-density paper, not the 1952 transform.</p>
 
-    <p style="color: var(--muted); font-size: 14px;">A working history, curated rather than
-      exhaustive. Omissions we already regret: Iman and Conover's 1982 rank-correlation
-      induction, Latin hypercube sampling, and the Rayner and Best smooth-test revivals.</p>
   </main>
 </body>
 </html>
