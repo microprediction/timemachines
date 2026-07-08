@@ -91,33 +91,25 @@ for y in stream:
 
     <h2>The transform is the product</h2>
     <p>skaters' <em>prediction parade</em> converts any stream into standardized surprises
-      $z_t = \Phi^{-1}(F_t(y_t))$ — a causal bijection (the Rosenblatt transform). Two measured
-      consequences, full protocols in the
-      <a href="https://github.com/microprediction/timemachines/tree/v2/benchmarks">benchmarks</a>:</p>
+      <em>z<sub>t</sub></em> = &Phi;<sup>&minus;1</sup>(<em>F<sub>t</sub></em>(<em>y<sub>t</sub></em>)) —
+      a causal bijection (the Rosenblatt transform;
+      <a href="https://skaters.microprediction.org/demos/rosenblatt.html">see it live</a>).
+      The measured consequence for detection, full protocol in the
+      <a href="https://github.com/microprediction/timemachines/tree/main/benchmarks">benchmarks</a>:</p>
 
     <h3>Other people's detectors get better in these coordinates</h3>
     <p>Same detector, same series (UCR anomaly archive, 60 series), only the input changed:</p>
     <table>
       <thead><tr><th>detector</th><th>raw series</th><th>transformed</th><th>lift</th></tr></thead>
       <tbody>
-        <tr><td>DSPOT (EVT thresholding, KDD 2017)</td><td>0.100</td><td><strong>0.517</strong></td><td><strong>5.2&times;</strong></td></tr>
-        <tr><td>RRCF (random cut forest, ICML 2016)</td><td>0.250</td><td><strong>0.450</strong></td><td><strong>1.8&times;</strong></td></tr>
+        <tr><td>DSPOT &mdash; streaming extreme-value thresholding (Siffer et&nbsp;al., KDD 2017)</td><td>0.100</td><td><strong>0.517</strong></td><td><strong>5.2&times;</strong></td></tr>
+        <tr><td>RRCF &mdash; Robust Random Cut Forest (Guha et&nbsp;al., ICML 2016; AWS Kinesis)</td><td>0.250</td><td><strong>0.450</strong></td><td><strong>1.8&times;</strong></td></tr>
       </tbody>
     </table>
 
-    <h3>Other people's forecasters get better too</h3>
-    <p>One-step log-likelihood on 30 FRED series, exact change of variables through the
-      bijection; every fronted model converges to the skaters forecaster plus a few hundredths
-      of a nat:</p>
-    <table>
-      <thead><tr><th>opponent</th><th>lift (nats/point)</th><th>series won</th></tr></thead>
-      <tbody>
-        <tr><td>ETS</td><td>+2.04</td><td>30/30</td></tr>
-        <tr><td>AutoARIMA</td><td>+2.07</td><td>30/30</td></tr>
-        <tr><td>GARCH(1,1)</td><td>+1.97</td><td>30/30</td></tr>
-        <tr><td>Prophet</td><td>+2.07</td><td>30/30</td></tr>
-      </tbody>
-    </table>
+    <p>The same transform also lifts other people's <em>forecasters</em>
+      (+2 nats/point for ETS, AutoARIMA, GARCH and Prophet, 30/30 series each) — that story
+      belongs to <a href="https://skaters.microprediction.org/">skaters</a>, where it is told.</p>
 
     <h2>Bodies and heads</h2>
     <p>A <strong>body</strong> (a skaters forecaster) turns a stream into forecasts plus
