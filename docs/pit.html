@@ -123,7 +123,7 @@
 
       <div class="tl-item">
         <span class="tl-year">1957</span> &middot; <span class="tl-who">Herbert Knothe</span>
-        <p>The transport reading. Knothe's rearrangement builds a triangular map carrying one multivariate law onto another by sequential conditioning, the same object as Rosenblatt's transform. The pair is now the Knothe&ndash;Rosenblatt map in <a href="https://arxiv.org/pdf/1205.1099">optimal transport</a>, the degenerate limit of Brenier's map. The PIT is a transport map, not a change of measure in the Girsanov sense<sup><a href="#fn4" style="text-decoration:none">4</a></sup>.</p>
+        <p>The transport reading. <a href="https://projecteuclid.org/journals/michigan-mathematical-journal/volume-4/issue-1/Contributions-to-the-theory-of-convex-bodies/10.1307/mmj/1028990175.full">Knothe</a> builds a triangular map carrying one multivariate law onto another by sequential conditioning, the same object as Rosenblatt's transform, now called the Knothe&ndash;Rosenblatt rearrangement. The PIT is a transport map, and in one dimension it is literally the optimal one, not a change of measure in the Girsanov sense<sup><a href="#fn4" style="text-decoration:none">4</a></sup>.</p>
       </div>
 
       <div class="tl-item">
@@ -169,7 +169,7 @@
       <div class="tl-item">
 <div class="tl-item">
         <span class="tl-year">~1974</span> &middot; <span class="tl-who">histogram equalization</span>
-        <p><a href="https://homepages.inf.ed.ac.uk/rbf/HIPR2/histeq.htm">Histogram equalization</a> maps each pixel through the image's own cumulative histogram, the forward PIT applied to intensities, and the output comes out flat for exactly the reason the transform makes uniforms.</p>
+        <p><a href="https://homepages.inf.ed.ac.uk/rbf/HIPR2/histeq.htm">Histogram equalization</a>, formalized in image processing in the mid-1970s (Hummel and others), maps each pixel through the image's own cumulative histogram. That is the forward PIT applied to intensities, and the output comes out flat for exactly the reason the transform makes uniforms.</p>
       </div>
 
         <span class="tl-year">1975</span> &middot; <span class="tl-who">Kimeldorf &amp; Sampson</span>
@@ -273,7 +273,7 @@
 
       <div class="tl-item">
         <span class="tl-year">1998&ndash;2000</span> &middot; <span class="tl-who">Zhang, Pang &amp; Cotton</span>
-        <p>A copula construction in credit. The inverse PIT had been in finance for decades by now (Boyle 1977), so what was new was coupling default times. At Morgan Stanley, Zhang, Pang and Cotton invented a hybrid default simulation generalizing both doubly stochastic intensity models and the copula approach later made famous in publication<sup><a href="#fn7" style="text-decoration:none">7</a></sup>, and the construction was invented independently at other institutions before and after<sup><a href="#fn8" style="text-decoration:none">8</a></sup>. Exponential variables were correlated by monotone transform to normal, then defaults were defined as the first time the integral of a stochastic hazard rate exceeded them. <a href="https://journals.sagepub.com/doi/10.1177/0306312713517157">MacKenzie and Spears</a> document the era from 114 interviews.</p>
+        <p>A copula construction in credit. The inverse PIT had been in finance for decades by now, so what was new was coupling default times. Zhang, Pang and Cotton, at Morgan Stanley, built a hybrid default simulation generalizing both doubly stochastic intensity models and the copula approach later made famous in publication<sup><a href="#fn7" style="text-decoration:none">7</a></sup>; the same construction was arrived at independently elsewhere<sup><a href="#fn10" style="text-decoration:none">10</a></sup>.</p>
       </div>
 
       <div class="tl-item">
@@ -312,6 +312,11 @@
       </div>
 
       <div class="tl-item">
+<div class="tl-item">
+        <span class="tl-year">2010</span> &middot; <span class="tl-who">Carlier, Galichon &amp; Santambrogio</span>
+        <p>The higher-dimensional bridge. <a href="https://epubs.siam.org/doi/10.1137/080740647">They prove</a> that the Knothe&ndash;Rosenblatt map is the limit of Brenier optimal-transport maps as the quadratic cost anisotropically degenerates, so the conditional PIT is optimal transport in a precise limiting sense even where it is not the Brenier map outright.</p>
+      </div>
+
         <span class="tl-year">2010&ndash;2017</span> &middot; <span class="tl-who">normalizing flows</span>
         <p>Deep learning rebuilds Rosenblatt, mostly without knowing it. A normalizing flow is a learned invertible map to a simple base density, trained by exact change of variables, and the autoregressive flows such as <a href="https://arxiv.org/abs/1705.07057">MAF</a> and <a href="https://arxiv.org/abs/1606.04934">IAF</a> parameterise conditional cdfs, the Rosenblatt transform with neural networks for the conditionals. None of the founding papers cite the 1952 result; the link was drawn retrospectively by the 2021 survey<sup><a href="#fn9" style="text-decoration:none">9</a></sup>.</p>
       </div>
@@ -361,12 +366,13 @@
     <p id="fn1" style="color: var(--muted); font-size: 14px;"><sup>1</sup> The combining rule is universally cited as Fisher 1925, but it entered <em>Statistical Methods for Research Workers</em> in the fourth edition of 1932; Karl Pearson's 1933 paper cites that edition contemporaneously. See the <a href="https://arxiv.org/pdf/0705.2209">tracing</a>.</p>
     <p id="fn2" style="color: var(--muted); font-size: 14px;"><sup>2</sup> Two Pearsons, routinely conflated: Karl (1933) invented the transform-to-uniform test; his son Egon (1938) coined the phrase "probability integral transformation". There is no Karl Pearson 1938 paper; he died in April 1936.</p>
     <p id="fn3" style="color: var(--muted); font-size: 14px;"><sup>3</sup> Priority is layered. Eckhardt's 1987 memoir credits the idea to Ulam; the earliest surviving written use is the March 1947 von Neumann letter (report LAMS-551); the first published general statement is his 1951 <em>Various techniques</em>.</p>
-    <p id="fn4" style="color: var(--muted); font-size: 14px;"><sup>4</sup> A caution against a tempting analogy. The PIT is a change of variable, a deterministic transport map; Girsanov's theorem is a change of measure that reweights paths and leaves the map fixed. They share the Radon-Nikodym vocabulary but are different operations. The PIT's real lineage as a measure transform runs Rosenblatt to Knothe-Rosenblatt to Brenier in optimal transport, not through Girsanov.</p>
+    <p id="fn4" style="color: var(--muted); font-size: 14px;"><sup>4</sup> Precise version: the PIT always pushes the data law onto the uniform, so it is a transport map. It is literally the Brenier optimal map only in one dimension, where for any strictly convex cost the monotone T = F<sub>target</sub><sup>&minus;1</sup> &compfn; F<sub>source</sub> is optimal. In higher dimensions the conditional PIT is the triangular Knothe-Rosenblatt map, optimal only as the degenerate limit of Brenier maps (Carlier, Galichon and Santambrogio 2010). It is not Girsanov: that is a change of measure reweighting paths, sharing only the Radon-Nikodym vocabulary.</p>
     <p id="fn5" style="color: var(--muted); font-size: 14px;"><sup>5</sup> Journal of the Royal Statistical Society Series B 30(2), pages 248-265. The range 248-275 copied through much of the literature is wrong.</p>
     <p id="fn6" style="color: var(--muted); font-size: 14px;"><sup>6</sup> PIT-based density-forecast evaluation is routinely credited to Diebold, Gunther and Tay 1998 alone. Dawid 1984, Section 5.3, had already stated the program and cited Rosenblatt; Gneiting, Balabdaoui and Raftery 2007 give the correct dual attribution.</p>
     <p id="fn7" style="color: var(--muted); font-size: 14px;"><sup>7</sup> David X. Li, <em>On Default Correlation: A Copula Function Approach</em>, RiskMetrics working paper with a first draft of September 1999, published in The Journal of Fixed Income 9(4), 2000.</p>
     <p id="fn8" style="color: var(--muted); font-size: 14px;"><sup>8</sup> MacKenzie and Spears document, among others, Vasicek's correlated-default memoranda at KMV between 1987 and 1991, unpublished, and CreditMetrics using mathematically equivalent machinery in 1997 before the copula terminology was attached.</p>
     <p id="fn9" style="color: var(--muted); font-size: 14px;"><sup>9</sup> Papamakarios, Nalisnick, Rezende, Mohamed and Lakshminarayanan, <a href="https://arxiv.org/abs/1912.02762"><em>Normalizing Flows for Probabilistic Modeling and Inference</em></a> (JMLR 2021). A trap: Tabak and Turner 2013 cite Rosenblatt 1956, the kernel-density paper, not the 1952 transform.</p>
+    <p id="fn10" style="color: var(--muted); font-size: 14px;"><sup>10</sup> In the construction, exponential random variables were correlated by monotone transform to normal, then defaults were defined as the first time the integral of a stochastic hazard rate exceeded them. Li's 1999-2000 copula work is footnote 7; the independent-invention lineage (Vasicek at KMV, CreditMetrics) is footnote 8. <a href="https://journals.sagepub.com/doi/10.1177/0306312713517157">MacKenzie and Spears</a> document the era from 114 interviews.</p>
 
   </main>
 </body>
