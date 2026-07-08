@@ -1,2 +1,7 @@
 __pycache__/
 *.egg-info/
+.DS_Store
+dist/
+*.egg-info/
+benchmarks/*.jsonl
+benchmarks/data/
