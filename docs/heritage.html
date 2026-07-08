@@ -57,8 +57,28 @@
     <div class="tl">
 
       <div class="tl-item">
+        <span class="tl-year">1781</span> &middot; <span class="tl-who">Gaspard Monge</span>
+        <p>Monge poses the transport question: move a pile of earth to a target shape at least cost. Two centuries on, the probability integral transform turns out to be a transport map, and its one-dimensional form the optimal one.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">1875</span> &middot; <span class="tl-who">Francis Galton</span>
         <p>The cdf becomes a working object. In <a href="https://galton.org/essays/1870-1879/galton-1875-intercomparison.pdf">Statistics by Intercomparison</a> Galton plots the cumulative rank-to-magnitude curve of a trait and names it the ogive. Everything below is a use of this curve and its inverse.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">~1922</span> &middot; <span class="tl-who">R. A. Fisher</span>
+        <p>Fisher's square-root approximation: for a chi-squared X, sqrt(2X) is roughly normal with mean sqrt(2k-1), the earliest cheap Gaussianizer, a poor man's PIT by moment matching.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1928&ndash;1931</span> &middot; <span class="tl-who">Cramer &amp; von Mises</span>
+        <p>The integrated-squared-deviation statistic omega-squared, computed on PIT-transformed data, the ancestor <a href="https://www.tandfonline.com/doi/abs/10.1080/03461238.1928.10416862">Cramer 1928</a> and von Mises 1931 gave and that Anderson and Darling merely re-weight.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1931</span> &middot; <span class="tl-who">Wilson &amp; Hilferty</span>
+        <p>The cube-root Gaussianizer: <a href="https://www.pnas.org/doi/10.1073/pnas.17.12.684">(X/k) to the one-third power</a> of a chi-squared is close to normal, the famous fixed-exponent stand-in for the exact PIT.</p>
       </div>
 
       <div class="tl-item">
@@ -74,6 +94,11 @@
       <div class="tl-item">
         <span class="tl-year">1933</span> &middot; <span class="tl-who">A.&nbsp;N. Kolmogorov</span>
         <p>The first big structural payoff. The sup|F<sub>n</sub>&thinsp;&minus;&thinsp;F| statistic is distribution-free: after the PIT every continuous distribution is the same one, so a single table serves them all. It becomes the KS test.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1936</span> &middot; <span class="tl-who">M. S. Bartlett</span>
+        <p>The <a href="https://rss.onlinelibrary.wiley.com/doi/10.2307/2983678">square-root transform</a> stabilizes the variance of Poisson counts, an early member of the transform-to-tractable family the PIT perfects.</p>
       </div>
 
       <div class="tl-item">
@@ -97,8 +122,23 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">1948</span> &middot; <span class="tl-who">F. J. Anscombe</span>
+        <p>The variance-stabilizing 2 sqrt(x + 3/8) for Poisson counts, another cheap monotone map toward a tractable distribution.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">1948</span> &middot; <span class="tl-who">David &amp; Johnson</span>
         <p>The transform meets estimation and loses its innocence. <a href="https://academic.oup.com/biomet/article-abstract/35/1-2/182/178943">David and Johnson</a> show that plugging sample-estimated parameters into the cdf destroys the iid-uniform property.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1949</span> &middot; <span class="tl-who">Metropolis &amp; Ulam</span>
+        <p>The paper that <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1949.10483310">named the Monte Carlo method</a>, the home von Neumann inverse-transform sampling lives inside.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1950</span> &middot; <span class="tl-who">Freeman &amp; Tukey</span>
+        <p>The <a href="https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-21/issue-4/Transformations-Related-to-the-Angular-and-the-Square-Root/10.1214/aoms/1177729756.full">double-square-root</a> refinement for Poisson counts, better near zero, a sharper variance stabilizer.</p>
       </div>
 
       <div class="tl-item">
@@ -117,8 +157,23 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">1949&ndash;1952</span> &middot; <span class="tl-who">Doob &amp; Donsker</span>
+        <p><a href="https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-20/issue-3/Heuristic-Approach-to-the-Kolmogorov-Smirnov-Theorems/10.1214/aoms/1177729991.full">Doob</a> conjectured and <a href="https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-2/Justification-and-Extension-of-Doobs-Heuristic-Approach-to-the-Kolmogorov/10.1214/aoms/1177729445.full">Donsker</a> proved that the empirical process of PIT-transformed data converges to a Brownian bridge free of the law, which is why every EDF statistic has one universal null distribution and the result Durbin extends to estimated parameters.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">1952&ndash;1954</span> &middot; <span class="tl-who">Anderson &amp; Darling</span>
         <p>Weighting the transformed process. <a href="https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-2/Asymptotic-Theory-of-Certain-Goodness-of-Fit-Criteria-Based-on/10.1214/aoms/1177729437.full">Anderson and Darling</a> substitute u = F(x) and weight the uniform empirical process by 1/(u(1&minus;u)) to sharpen the tails, and supply usable significance points in 1954.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1955</span> &middot; <span class="tl-who">Kac, Kiefer &amp; Wolfowitz</span>
+        <p><a href="https://projecteuclid.org/euclid.aoms/1177728538">First rigorous asymptotics</a> for distance-based EDF tests when parameters are estimated, the theory companion to the estimated-parameter problem.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1955</span> &middot; <span class="tl-who">Cecil Hastings</span>
+        <p>Minimax rational approximations to standard functions including the inverse normal cdf, the ancestor of every later inverse-normal fit used to turn uniforms into Gaussians.</p>
       </div>
 
       <div class="tl-item">
@@ -142,8 +197,48 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">1960</span> &middot; <span class="tl-who">John Halton</span>
+        <p><a href="https://link.springer.com/article/10.1007/BF01386213">Low-discrepancy sequences</a> fill the cube more evenly than random points, and mapped through the inverse cdf they Gaussianize into quasi-Monte Carlo.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1960</span> &middot; <span class="tl-who">Masaaki Sibuya</span>
+        <p><a href="https://link.springer.com/article/10.1007/BF01682329">Bivariate normals</a> are asymptotically independent in the tail, the observation that seeded the tail-dependence coefficients and the hunt for copulas that keep their tails.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1961</span> &middot; <span class="tl-who">Geoffrey Watson</span>
+        <p><a href="https://academic.oup.com/biomet/article/48/1-2/109/225627">U-squared</a>, the rotation-invariant EDF statistic for circular and periodic data, the omega-squared idea on the circle.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">1964</span> &middot; <span class="tl-who">David Hertz</span>
         <p>The inverse PIT reaches finance. Hertz's Harvard Business Review paper on risk analysis in capital investment samples uncertain inputs from specified distributions, Monte Carlo by inverse transform, in corporate decision-making.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1964</span> &middot; <span class="tl-who">Box &amp; Cox</span>
+        <p>The adaptive power family <a href="https://rss.onlinelibrary.wiley.com/doi/abs/10.1111/j.2517-6161.1964.tb00553.x">(x^lambda - 1)/lambda</a> chosen by likelihood to Gaussianize, the parametric generalization of the fixed-exponent root transforms.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1964</span> &middot; <span class="tl-who">Marsaglia &amp; Bray</span>
+        <p>The <a href="https://epubs.siam.org/doi/10.1137/1006063">polar method</a>, Box-Muller without the trigonometry, another route from uniforms to normals.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1967</span> &middot; <span class="tl-who">Marshall &amp; Olkin</span>
+        <p>A <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1967.10482885">multivariate exponential</a> from a fatal-shock model, whose dependence is the singular Marshall-Olkin copula, a genuine construction predating Sklar’s uptake.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1967</span> &middot; <span class="tl-who">I. M. Sobol’</span>
+        <p>The <a href="https://www.mathnet.ru/eng/zvmmf7334">Sobol sequence</a>, the workhorse low-discrepancy set, fed through the inverse cdf for quasi-Monte Carlo.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1967</span> &middot; <span class="tl-who">Hubert Lilliefors</span>
+        <p><a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1967.10482916">Monte-Carlo significance points</a> for the KS normality test when mean and variance are estimated, the practical fix for the estimated-parameter problem.</p>
       </div>
 
       <div class="tl-item">
@@ -167,6 +262,16 @@
       </div>
 
       <div class="tl-item">
+      <div class="tl-item">
+        <span class="tl-year">1974</span> &middot; <span class="tl-who">Michael Stephens</span>
+        <p><a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1974.10480196">EDF statistics for goodness of fit</a>: the significance points and power comparisons that made D, W-squared, U-squared and A-squared standard equipment on transformed data.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1975</span> &middot; <span class="tl-who">Robert Hummel</span>
+        <p><a href="https://www.sciencedirect.com/science/article/abs/pii/0146664X7590009X">Histogram specification</a> proves the monotone gray-level map carrying one image histogram onto any target is unique, which is inverse-PIT composition, the matching complement to equalization.</p>
+      </div>
+
 <div class="tl-item">
         <span class="tl-year">~1974</span> &middot; <span class="tl-who">histogram equalization</span>
         <p><a href="https://homepages.inf.ed.ac.uk/rbf/HIPR2/histeq.htm">Histogram equalization</a>, formalized in image processing in the mid-1970s (Hummel and others), maps each pixel through the image's own cumulative histogram. That is the forward PIT applied to intensities, and the output comes out flat for exactly the reason the transform makes uniforms.</p>
@@ -187,6 +292,11 @@
       </div>
 
       <div class="tl-item">
+      <div class="tl-item">
+        <span class="tl-year">1979</span> &middot; <span class="tl-who">Paul Deheuvels</span>
+        <p>The <a href="https://www.persee.fr/doc/barb_0001-4141_1979_num_65_1_58521">empirical copula</a>, the rank-based nonparametric estimator of the dependence function, copulas built straight from the PIT’s empirical margins.</p>
+      </div>
+
 <div class="tl-item">
         <span class="tl-year">1979</span> &middot; <span class="tl-who">McKay, Beckman &amp; Conover</span>
         <p><a href="https://www.jstor.org/stable/1268522">Latin hypercube sampling</a>: stratify each uniform into equal-probability bins, one draw per bin, then push through the inverse cdf. Stratified inverse PIT, and a staple of computer experiments ever since.</p>
@@ -202,6 +312,11 @@
       </div>
 
       <div class="tl-item">
+      <div class="tl-item">
+        <span class="tl-year">1982</span> &middot; <span class="tl-who">Wayne Nelson</span>
+        <p>Probability plotting renders the PIT graphically: order the failure times, assign plotting positions approximating F, and a correct model falls on a straight line.</p>
+      </div>
+
 <div class="tl-item">
         <span class="tl-year">1982</span> &middot; <span class="tl-who">Iman &amp; Conover</span>
         <p><a href="https://www.tandfonline.com/doi/abs/10.1080/03610918208812265">Rank-correlation induction</a>: impose a target dependence on samples with arbitrary margins by reordering them, dependence carried by the ordering of the uniforms, a copula idea in simulation clothing sixteen years before the credit copulas.</p>
@@ -232,11 +347,36 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">1986</span> &middot; <span class="tl-who">Hawkins &amp; Wixley</span>
+        <p>The <a href="https://www.tandfonline.com/doi/abs/10.1080/00031305.1986.10475420">fourth root</a> of a chi-squared is closer to normal than the cube root at every degree of freedom, the obscure sharper sibling of Wilson-Hilferty, the one-quarter-power Gaussianizer.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">1988</span> &middot; <span class="tl-who">Michael Wichura</span>
         <p>Algorithm AS 241 gives the inverse normal to sixteen digits, closing the accuracy problem that had motivated Box and Muller thirty years earlier. It is the qnorm behind most software.</p>
       </div>
 
       <div class="tl-item">
+      <div class="tl-item">
+        <span class="tl-year">1988</span> &middot; <span class="tl-who">Yosihiko Ogata</span>
+        <p>ETAS residual analysis rescales earthquake times by the integrated conditional intensity so a correct model yields a unit-rate Poisson process tested for uniformity, the PIT for point processes.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1991</span> &middot; <span class="tl-who">Yann Brenier</span>
+        <p><a href="https://onlinelibrary.wiley.com/doi/10.1002/cpa.3160440402">The optimal transport map</a> for quadratic cost exists, is unique, and is the gradient of a convex function, the general-dimension theorem whose one-dimensional case is exactly the monotone PIT.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1993</span> &middot; <span class="tl-who">Genest &amp; Rivest</span>
+        <p><a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1993.10476372">Identifies and fits</a> bivariate Archimedean copulas through the Kendall distribution of the generator, the standard selection tool.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1993</span> &middot; <span class="tl-who">Seillier-Moiseiwitsch &amp; Dawid</span>
+        <p><a href="https://doi.org/10.1080/01621459.1993.10594328">Turns prequential calibration into tests</a> of sequential forecast validity, the testing theory between Dawid 1984 and later PIT tests.</p>
+      </div>
+
 <div class="tl-item">
         <span class="tl-year">1989</span> &middot; <span class="tl-who">Rayner &amp; Best</span>
         <p>The <a href="https://books.google.com/books/about/Smooth_Tests_of_Goodness_of_Fit.html?id=c2_mCwAAQBAJ">smooth-test revival</a> puts Neyman's 1937 PIT-based framework back to work, showing many classical goodness-of-fit statistics are smooth tests or their components.</p>
@@ -244,6 +384,21 @@
 
         <span class="tl-year">1994</span> &middot; <span class="tl-who">RiskMetrics</span>
         <p>The empirical PIT on trading desks. J.P. Morgan's <a href="https://www.msci.com/documents/10199/5915b101-4206-4ba0-aee2-3449d5c7e95a">RiskMetrics Technical Document</a> popularises historical-simulation VaR, which reads a loss quantile straight off the empirical cdf.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1995</span> &middot; <span class="tl-who">Robert McCann</span>
+        <p><a href="https://projecteuclid.org/journals/duke-mathematical-journal/volume-80/issue-2/Existence-and-uniqueness-of-monotone-measure-preserving-maps/10.1215/S0012-7094-95-08013-2.short">Drops Brenier’s moment assumptions</a> and frames the optimal map as the monotone measure-preserving map, the clean generalization of the monotone rearrangement the PIT instantiates.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1995</span> &middot; <span class="tl-who">Boris Moro</span>
+        <p>The Beasley-Springer inverse normal with a better tail, the Gaussianizer that became the finance and quasi-Monte Carlo default.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1996</span> &middot; <span class="tl-who">Dunn &amp; Smyth</span>
+        <p><a href="https://gksmyth.github.io/pubs/residual.pdf">Randomized quantile residuals</a>: the fitted cdf at each response, then the normal quantile, with randomization for discrete data, exactly-uniform-then-normal residuals, the discrete PIT that GLM diagnostics rest on.</p>
       </div>
 
       <div class="tl-item">
@@ -272,8 +427,38 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">1998</span> &middot; <span class="tl-who">Peter Christoffersen</span>
+        <p><a href="https://www.jstor.org/stable/2527341">Conditional-coverage and independence tests</a> for interval forecasts, the calibration test underneath VaR backtesting.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">1998&ndash;2000</span> &middot; <span class="tl-who">Zhang, Pang &amp; Cotton</span>
         <p>A copula construction in credit. The inverse PIT had been in finance for decades by now, so what was new was coupling default times<sup><a href="#fn10" style="text-decoration:none">10</a></sup>. Zhang, Pang and Cotton, at Morgan Stanley, built a hybrid default simulation that nested both a copula and a doubly stochastic (Cox) intensity, of which the copula approach later made famous in publication<sup><a href="#fn7" style="text-decoration:none">7</a></sup> is the special case; that special case was arrived at independently elsewhere<sup><a href="#fn8" style="text-decoration:none">8</a></sup>.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1999</span> &middot; <span class="tl-who">Diebold, Hahn &amp; Tay</span>
+        <p>The <a href="https://direct.mit.edu/rest/article-abstract/81/4/661/57171">multivariate extension</a>: apply the Rosenblatt ordering to joint density forecasts and check the transforms for uniformity.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1999</span> &middot; <span class="tl-who">Roger Nelsen</span>
+        <p><a href="https://link.springer.com/book/10.1007/978-1-4757-3076-0">An Introduction to Copulas</a>, the textbook that made the subject teachable and its tail-dependence and rank-correlation vocabulary standard.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2000</span> &middot; <span class="tl-who">Hans Hersbach</span>
+        <p><a href="https://journals.ametsoc.org/view/journals/wefo/15/5/1520-0434_2000_015_0559_dotcrp_2_0_co_2.xml">Decomposes the CRPS</a> so its reliability term is the rank histogram, formally uniting the scoring-rule thread and the PIT-histogram thread.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2000</span> &middot; <span class="tl-who">Marsaglia &amp; Tsang</span>
+        <p>The <a href="https://www.jstatsoft.org/article/view/v005i08">ziggurat method</a>, the modern speed champion for sampling normals, a rejection method and the enduring alternative to inversion.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2000</span> &middot; <span class="tl-who">Yeo &amp; Johnson</span>
+        <p>A <a href="https://academic.oup.com/biomet/article-abstract/87/4/954/232908">Box-Cox-style power family</a> extended to the whole real line, so signed and zero data can be Gaussianized too. It ships as a transform in skaters.</p>
       </div>
 
       <div class="tl-item">
@@ -282,8 +467,28 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">2002</span> &middot; <span class="tl-who">Embrechts, McNeil &amp; Straumann</span>
+        <p><a href="https://people.math.ethz.ch/~embrecht/ftp/pitfalls.pdf">Correlation and dependence in risk management</a>, the paper that separated linear correlation from copula dependence for practitioners.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2002</span> &middot; <span class="tl-who">Brown, Barbieri, Ventura, Kass &amp; Frank</span>
+        <p>The <a href="https://pubmed.ncbi.nlm.nih.gov/11802915/">time-rescaling theorem</a>: rescale spike times by the integrated conditional intensity and any point process becomes unit-rate Poisson with uniform interevent times, checked by KS, the same integrated-hazard construction as the credit-default nesting above.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">2002</span> &middot; <span class="tl-who">Bedford &amp; Cooke</span>
         <p><a href="https://projecteuclid.org/journals/annals-of-statistics/volume-30/issue-4/Vines--a-new-graphical-model-for-dependent-random-variables/10.1214/aos/1031689016.full">Vines</a> organize pair-copula decompositions into a graphical model, sequential conditioning made into a structure.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2003</span> &middot; <span class="tl-who">Breymann, Dias &amp; Embrechts</span>
+        <p>The <a href="https://www.tandfonline.com/doi/abs/10.1080/713666155">first applied copula goodness-of-fit test</a> built on the Rosenblatt transform as the PIT, tested on high-frequency finance.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2004</span> &middot; <span class="tl-who">Szekely &amp; Rizzo</span>
+        <p>The energy distance, in one dimension twice the Cramer squared-L2 gap between cdfs, the population object the CRPS and the energy score estimate. It is a kernel quantity, related to but distinct from the Wasserstein transport distance.</p>
       </div>
 
       <div class="tl-item">
@@ -292,6 +497,16 @@
       </div>
 
       <div class="tl-item">
+      <div class="tl-item">
+        <span class="tl-year">2006</span> &middot; <span class="tl-who">Cook, Gelman &amp; Rubin</span>
+        <p><a href="https://www.tandfonline.com/doi/abs/10.1198/106186006X136976">Validate Bayesian software</a> by checking that posterior quantiles of the true parameters are uniform, a PIT on the computation, the precursor to simulation-based calibration.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2007</span> &middot; <span class="tl-who">Gneiting &amp; Raftery</span>
+        <p><a href="https://doi.org/10.1198/016214506000001437">Strictly proper scoring rules</a> formalized, the propriety theory under every PIT-based evaluation and the home of the CRPS-as-Cramer-distance identity.</p>
+      </div>
+
 <div class="tl-item">
         <span class="tl-year">2005</span> &middot; <span class="tl-who">Subramanian and coauthors</span>
         <p>The KS statistic reaches biology. <a href="https://www.pnas.org/doi/10.1073/pnas.0506580102">Gene set enrichment analysis</a>, among the most cited methods in the field, runs a weighted Kolmogorov&ndash;Smirnov running-maximum-deviation statistic to test whether a gene set clusters at the top of a ranked list.</p>
@@ -302,6 +517,11 @@
       </div>
 
       <div class="tl-item">
+      <div class="tl-item">
+        <span class="tl-year">2009</span> &middot; <span class="tl-who">Genest, Remillard &amp; Beaudoin</span>
+        <p><a href="https://brunoremillard.com/Papers/gof.pdf">Copula goodness-of-fit</a> built directly on the Rosenblatt transform: a vector has copula C if and only if its Rosenblatt transform is the independence copula, the multivariate PIT turned into a test.</p>
+      </div>
+
 <div class="tl-item">
         <span class="tl-year">2009</span> &middot; <span class="tl-who">Aas and coauthors</span>
         <p><a href="https://ideas.repec.org/a/eee/insuma/v44y2009i2p182-198.html">Pair-copula constructions</a> made practical for inference, among the most cited papers in the field, and Rosenblatt's transform used constructively at scale.</p>
@@ -322,12 +542,22 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">2016</span> &middot; <span class="tl-who">Marzouk, Moselhy, Parno &amp; Spantini</span>
+        <p><a href="https://arxiv.org/abs/1602.05023">Sampling via measure transport</a>: the program that made the triangular Knothe-Rosenblatt map the practical object for inference, the line normalizing flows grew from.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">2018</span> &middot; <span class="tl-who">Talts and coauthors</span>
         <p><a href="https://arxiv.org/abs/1804.06788">Simulation-based calibration</a>: rank statistics of prior draws within posterior samples are uniform when the computation is correct, the PIT turned into a test of the algorithm rather than the forecast.</p>
       </div>
 
       <div class="tl-item">
 <div class="tl-item">
+      <div class="tl-item">
+        <span class="tl-year">2018</span> &middot; <span class="tl-who">Kuleshov, Fenner &amp; Ermon</span>
+        <p><a href="https://arxiv.org/abs/1807.00263">Recalibrates</a> a neural network’s predictive cdf at the observation to be uniform by isotonic regression, the deep-learning entry point for PIT recalibration.</p>
+      </div>
+
 <div class="tl-item">
         <span class="tl-year">2015</span> &middot; <span class="tl-who">Cannon and coauthors</span>
         <p>The <a href="https://journals.ametsoc.org/view/journals/clim/28/17/jcli-d-14-00754.1.xml">modern treatment</a> of quantile mapping for climate bias correction, with the warning that naive mapping can corrupt projected trends.</p>
@@ -342,11 +572,26 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">2021</span> &middot; <span class="tl-who">Chernozhukov, Wuthrich &amp; Zhu</span>
+        <p><a href="https://www.pnas.org/doi/10.1073/pnas.2107794118">Distributional conformal prediction</a> conformalizes the estimated conditional-cdf rank, stating outright that the conditional rank U = F(Y,X) is uniform and independent of X, the PIT made load-bearing in conformal prediction.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">2021</span> &middot; <span class="tl-who">timemachines package</span>
         <p><strong>YOU ARE HERE.</strong> The package emphasized online distributional residuals via the "parade" book-keeping, and was the original home for prediction algorithms since moved to <a href="https://skaters.microprediction.org">skaters.microprediction.org</a>.</p>
       </div>
 
       <div class="tl-item">
+      <div class="tl-item">
+        <span class="tl-year">2022</span> &middot; <span class="tl-who">Irons, Scetbon, Pal &amp; Harchaoui</span>
+        <p><a href="https://arxiv.org/abs/2112.15595">States verbatim</a> that autoregressive flows are Knothe-Rosenblatt couplings and proves consistency of estimating them, the precise statement the flow literature had left implicit.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2023</span> &middot; <span class="tl-who">Dheur &amp; Ben Taieb</span>
+        <p>A <a href="https://arxiv.org/abs/2306.02738">large-scale study</a> that writes Z = F(Y|X) as the probability integral transform, proves uniform PIT equals probabilistic calibration, and recalibrates 57 neural regression datasets to it.</p>
+      </div>
+
 <div class="tl-item">
         <span class="tl-year">2026</span> &middot; <span class="tl-who">the information gap</span>
         <p>A three-line lemma essentially kills conformal prediction as a field. Coverage and forecast quality are orthogonal, and the height between what conformal delivers and a full predictive distribution has a name and a closed form, the residual-information gap (<a href="https://conformalprediction.net/papers/marginally-useful/">Marginally Useful</a>). Focus returns to the full PIT, and to sharp conditional estimates.</p>
