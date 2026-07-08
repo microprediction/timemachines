@@ -68,6 +68,11 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">1914</span> &middot; <span class="tl-who">Allen Hazen</span>
+        <p>Flood-frequency analysis plots ordered observations at positions approximating F, the plotting-position idea that puts the empirical cdf on paper a generation before the transform is named.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">~1922</span> &middot; <span class="tl-who">R. A. Fisher</span>
         <p>Fisher's square-root approximation: for a chi-squared X, sqrt(2X) is roughly normal with mean sqrt(2k-1), the earliest cheap Gaussianizer, a poor man's PIT by moment matching.</p>
       </div>
@@ -100,6 +105,11 @@
       <div class="tl-item">
         <span class="tl-year">1936</span> &middot; <span class="tl-who">M. S. Bartlett</span>
         <p>The <a href="https://rss.onlinelibrary.wiley.com/doi/10.2307/2983678">square-root transform</a> stabilizes the variance of Poisson counts, an early member of the transform-to-tractable family the PIT perfects.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1936&ndash;1948</span> &middot; <span class="tl-who">Nikolai Smirnov</span>
+        <p>Smirnov derives the limiting distribution of omega-squared and publishes <a href="https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-19/issue-2/Table-for-Estimating-the-Goodness-of-Fit-of-Empirical-Distributions/10.1214/aoms/1177730256.full">the tables</a> that make EDF testing practical, and the two-sample version of Kolmogorov’s statistic carries his name.</p>
       </div>
 
       <div class="tl-item">
@@ -323,6 +333,11 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">1977</span> &middot; <span class="tl-who">Beasley &amp; Springer</span>
+        <p><a href="https://academic.oup.com/jrsssc/article/26/1/118/6953567">Algorithm AS 111</a>, the rational approximation to the normal quantile that inverse-transform pipelines shipped for a generation, later given a better tail by Moro and superseded by Wichura.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">1978</span> &middot; <span class="tl-who">Aalen &amp; Hoem</span>
         <p>Random time changes enter multivariate counting-process statistics: subtract the compensator for a martingale, or run on compensator time for Poisson noise. The hazard scale becomes the PIT scale for lifetimes and recurrent events.</p>
       </div>
@@ -385,6 +400,11 @@
       <div class="tl-item">
         <span class="tl-year">1986</span> &middot; <span class="tl-who">Hawkins &amp; Wixley</span>
         <p>The <a href="https://www.tandfonline.com/doi/abs/10.1080/00031305.1986.10475420">fourth root</a> of a chi-squared is close to normal, not uniform: Y = X^c is Weibull with shape 1/c, and the zero-skew shape sits near 3.60, so c near 0.277, with one quarter the convenient round number beside it. The obscure sharper sibling of Wilson-Hilferty, and the transform spectral analysts use to normalize periodogram ordinates, which are asymptotically exponential.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1986</span> &middot; <span class="tl-who">Luc Devroye</span>
+        <p><a href="https://luc.devroye.org/chapter_two.pdf">Non-Uniform Random Variate Generation</a>, the canonical reference for turning uniforms into everything else. He calls the inverse-cdf recipe the inversion method, and the book is the field’s dictionary.</p>
       </div>
 
       <div class="tl-item">
@@ -508,6 +528,11 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">2001</span> &middot; <span class="tl-who">Thomas Hamill</span>
+        <p>A <a href="https://journals.ametsoc.org/view/journals/mwre/129/3/1520-0493_2001_129_0550_iorhfv_2.0.co_2.xml">flat rank histogram is necessary but not sufficient</a>: compensating conditional biases can average to uniform. The caveat that keeps PIT histograms from being over-read.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">2002</span> &middot; <span class="tl-who">Embrechts, McNeil &amp; Straumann</span>
         <p><a href="https://people.math.ethz.ch/~embrecht/ftp/pitfalls.pdf">Correlation and dependence in risk management</a>, the paper that separated linear correlation from copula dependence for practitioners.</p>
       </div>
@@ -573,6 +598,11 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">2009</span> &middot; <span class="tl-who">C&eacute;dric Villani</span>
+        <p><a href="https://link.springer.com/book/10.1007/978-3-540-71050-9">Optimal Transport: Old and New</a> gives the Knothe-Rosenblatt rearrangement its textbook home, a named section presenting the triangular coupling to the transport community.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">2010</span> &middot; <span class="tl-who">Carlier, Galichon &amp; Santambrogio</span>
         <p>The higher-dimensional bridge. <a href="https://epubs.siam.org/doi/10.1137/080740647">They prove</a> that the Knothe&ndash;Rosenblatt map is the limit of Brenier optimal-transport maps as the quadratic cost anisotropically degenerates, so the conditional PIT is optimal transport in a precise limiting sense even where it is not the Brenier map outright.</p>
       </div>
@@ -580,6 +610,16 @@
       <div class="tl-item">
         <span class="tl-year">2010&ndash;2017</span> &middot; <span class="tl-who">normalizing flows</span>
         <p>Deep learning rebuilds Rosenblatt, mostly without knowing it. A normalizing flow is a learned invertible map to a simple base density, trained by exact change of variables, and the autoregressive flows such as <a href="https://arxiv.org/abs/1705.07057">MAF</a> and <a href="https://arxiv.org/abs/1606.04934">IAF</a> parameterise conditional cdfs, the Rosenblatt transform with neural networks for the conditionals. None of the founding papers cite the 1952 result; the link was drawn retrospectively by the 2021 survey<sup><a href="#fn9" style="text-decoration:none">9</a></sup>.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2013</span> &middot; <span class="tl-who">Nicolas Bonnotte</span>
+        <p>An <a href="https://arxiv.org/abs/1205.1099">independent second proof</a> that Knothe’s rearrangement is the degenerate limit of Brenier maps, by a continuation equation for the Kantorovich potential.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2014</span> &middot; <span class="tl-who">Gneiting &amp; Katzfuss</span>
+        <p><a href="https://doi.org/10.1146/annurev-statistics-062713-085831">Probabilistic Forecasting</a>, the review that fixes the modern vocabulary: proper scores, calibration, sharpness, and the PIT as the working diagnostic.</p>
       </div>
 
       <div class="tl-item">
@@ -608,6 +648,21 @@
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">2018</span> &middot; <span class="tl-who">Lei, G’Sell, Rinaldo, Tibshirani &amp; Wasserman</span>
+        <p><a href="https://arxiv.org/abs/1604.04173">Distribution-free predictive inference for regression</a>, the split-conformal foundation. Coverage rests on the uniformity of conformity-score ranks, the PIT idea in rank clothing.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2019</span> &middot; <span class="tl-who">Romano, Patterson &amp; Cand&egrave;s</span>
+        <p><a href="https://arxiv.org/abs/1905.03222">Conformalized quantile regression</a> adapts interval width to the input, the stepping stone between split conformal and fully distributional conformal.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2019</span> &middot; <span class="tl-who">Gabry and coauthors</span>
+        <p><a href="https://arxiv.org/abs/1709.01449">Visualization in Bayesian workflow</a> makes the LOO-PIT plot a standard check: leave one observation out, transform it by the predictive cdf, and look for uniform.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">~2020</span> &middot; <span class="tl-who">z-streams, microprediction.org</span>
         <p>The transform becomes a market mechanism in a high-velocity distributional prediction market run by Intech Investments. Data is pushed through a community implied cdf and then the inverse normal, giving <a href="https://www.linkedin.com/pulse/short-introduction-z-streams-peter-cotton-phd">z-streams</a> that are themselves predicted<sup><a href="#fn11" style="text-decoration:none">11</a></sup>. It answered Berkowitz's 2001 call to action at a velocity he never imagined, and unlike conformal prediction it allows sharp predictions crossing the <a href="https://conformalprediction.net/papers/marginally-useful/">information gap</a>.</p>
       </div>
@@ -630,6 +685,11 @@
       <div class="tl-item">
         <span class="tl-year">2023</span> &middot; <span class="tl-who">Dheur &amp; Ben Taieb</span>
         <p>A <a href="https://arxiv.org/abs/2306.02738">large-scale study</a> that writes Z = F(Y|X) as the probability integral transform, proves uniform PIT equals probabilistic calibration, and recalibrates 57 neural regression datasets to it.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">2023</span> &middot; <span class="tl-who">Baptista, Marzouk &amp; Zahm</span>
+        <p>The <a href="https://arxiv.org/abs/2009.10303">representation and learning theory</a> for monotone triangular transport maps, the parametric Knothe-Rosenblatt maps that autoregressive flows approximate.</p>
       </div>
 
       <div class="tl-item">
