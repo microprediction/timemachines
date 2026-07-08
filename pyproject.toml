@@ -19,7 +19,7 @@ dependencies = [
 [project.optional-dependencies]
 # Third-party detector heads and benchmark harnesses live behind extras;
 # the core is pure stdlib on top of skaters.
-benchmarks = ["rrcf", "statsforecast", "statsmodels", "arch", "prophet"]
+benchmarks = ["rrcf", "statsforecast", "statsmodels", "arch", "prophet", "river"]
 
 [project.urls]
 Homepage = "https://github.com/microprediction/timemachines"

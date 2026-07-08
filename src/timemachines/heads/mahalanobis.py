@@ -327,10 +327,14 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
     assert scatter in ("factor", "shrink")
     assert factors >= 1
     assert dfloor > 0.0
+    assert min_exc >= 2, "min_exc < 2 divides by zero in the GPD fit"
+    assert 0.0 < pot_level < 1.0
+    assert 0.0 < guard_p < 1.0
 
     def _skater(y: float, state: dict | None):
         if state is None:
             state = {
+                "k": k,
                 "base": None,
                 "mu": [0.0] * k,                     # calibrated prior mean
                 "S": [1.0 if i == j else 0.0         # calibrated prior scatter
@@ -350,6 +354,10 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
                 "run": 0, "d2": None, "pvalue": None,
                 "skipped": 0, "last_dists": None,
             }
+        elif state.get("k", k) != k:
+            raise ValueError(
+                f"state was built for k={state['k']} but this head has k={k};"
+                " states are not interchangeable across k")
         # Harden the gate: a non-finite tick must not reach the body — a single
         # NaN poisons (or crashes) any forecaster's state permanently. Hold the
         # last forecasts, emit no score, count the skip, and carry on.
@@ -365,6 +373,23 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
         if state["pend1"] is not None:
             lp = state["pend1"].logpdf(y)
             nlp = -lp if math.isfinite(lp) else 1e6
+        # Winsorize absurd finite magnitudes before the body: double
+        # arithmetic dies long before the float range ends (skaters' AR
+        # raises OverflowError on a 1e300 tick and goes NaN by 1e100).
+        # The parade z saturates at |z| = 7.03 anyway, so clamping at a
+        # million sigmas is decision-invariant for every score this head
+        # emits, and the deep-evidence channel above already saw raw y.
+        y = min(max(y, -1e60), 1e60)
+        if state["pend1"] is not None:
+            m0, s0 = state["pend1"].mean, state["pend1"].std
+            if math.isfinite(m0) and math.isfinite(s0):
+                # magnitude-relative, NOT sigma-relative: after a
+                # degenerate-variance stretch a legitimate value can sit
+                # billions of sigmas out and must pass. Twelve orders
+                # above the current level is unreachable by data, far
+                # below the ~1e77 jump ratio where doubles actually die.
+                w = 1e12 * (1.0 + abs(m0) + s0)
+                y = min(max(y, m0 - w), m0 + w)
         dists, state["base"] = base(y, state["base"])
         state["last_dists"] = dists
         state["pend1"] = dists[0]
@@ -374,7 +399,10 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
             "mahalanobis requires a parade-wrapped skater exposing "
             "state['z'] of length k (e.g. skaters.laplace)")
 
-        if any(v is None for v in z):                # warmup / degenerate tick
+        # warmup / degenerate tick — and, for custom bases without the
+        # parade clamp, a non-finite z, which would otherwise poison the
+        # null moments permanently (inf -> m2/v2 -> nan nu next tick)
+        if any(v is None or not math.isfinite(v) for v in z):
             state["d2"] = None
             state["pvalue"] = None
             return dists, state
