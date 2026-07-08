@@ -125,10 +125,16 @@
       <div class="tl-item">
         <span class="tl-year">1959</span> &middot; <span class="tl-who">Abe Sklar</span>
         <p>Sklar's theorem: every joint distribution is a copula applied to its margins, and
-          the copula is unique when the margins are continuous. The proof is the PIT, applied
-          to each margin separately, and the consequence is that dependence becomes an object
-          you can model apart from the margins. In 1968 Wilk and Gnanadesikan gave the
-          transform its picture, the Q&ndash;Q plot.</p>
+          the copula is unique when the margins are continuous. The consequence is that
+          dependence becomes an object you can model apart from the margins.
+          <a href="https://link.springer.com/chapter/10.1007/978-1-4612-0865-5_4">Hoeffding</a>
+          had built dependence on uniform margins in 1940, in a Berlin institute series, and
+          Fr&eacute;chet posed the given-margins problem in 1951. Sklar's
+          <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4198458">three-page
+          note</a> appeared in Paris, in French, at Fr&eacute;chet's request, with three
+          theorems stated without proof, and coined "copula" from the grammatical term for a
+          linking word. In 1968 Wilk and Gnanadesikan gave the transform its picture, the
+          Q&ndash;Q plot.</p>
       </div>
 
       <div class="tl-item">
@@ -136,9 +142,12 @@
         <p>Copulas reached Wall Street quietly first. At Morgan Stanley, Zhang, Pang and
           Cotton invented a hybrid default simulation generalizing both doubly stochastic
           intensity models and the copula approach later made famous in
-          publication<sup><a href="#fn4" style="text-decoration:none">4</a></sup>. As in
+          publication<sup><a href="#fn4" style="text-decoration:none">4</a></sup>, and the
+          construction was invented independently at other institutions before and
+          after<sup><a href="#fn5" style="text-decoration:none">5</a></sup>. As in
           much of quantitative finance, practice ran ahead of the journals.
-          MacKenzie and Spears later documented the era. In the construction, exponential
+          <a href="https://journals.sagepub.com/doi/10.1177/0306312713517157">MacKenzie and
+          Spears</a> later documented the era from 114 interviews. In the construction, exponential
           random variables were correlated by monotone transform to normal, then defaults
           were defined as the first time the integral of a stochastic hazard rate exceeded
           them.</p>
@@ -151,6 +160,19 @@
           probabilistic forecasting what the residual plot is to regression. Gneiting and
           coauthors sharpen the theory through the 2000s, including the mid-PIT for discrete
           data.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1996&ndash;2009</span> &middot; <span class="tl-who">vines and pair copulas</span>
+        <p>Rosenblatt's transform turns constructive.
+          <a href="https://projecteuclid.org/ebooks/institute-of-mathematical-statistics-lecture-notes-monograph-series/Distributions-with-fixed-marginals-and-related-topics/chapter/Families-of-m-variate-distributions-with-given-margins-and-mm/10.1214/lnms/1215452614">Joe</a>
+          builds multivariate distributions from bivariate blocks,
+          <a href="https://projecteuclid.org/journals/annals-of-statistics/volume-30/issue-4/Vines--a-new-graphical-model-for-dependent-random-variables/10.1214/aos/1031689016.full">Bedford
+          and Cooke</a> organize the decompositions into vines, and
+          <a href="https://ideas.repec.org/a/eee/insuma/v44y2009i2p182-198.html">Aas, Czado,
+          Frigessi and Bakken</a> make the inference practical. A pair-copula construction
+          decomposes a joint density by sequential conditioning, which is the 1952 transform
+          used to build distributions rather than to test them.</p>
       </div>
 
       <div class="tl-item">
@@ -232,8 +254,14 @@
       routinely conflated: Karl (1933) invented the transform-to-uniform test; his son Egon
       (1938) coined the phrase "probability integral transformation". There is no Karl
       Pearson 1938 paper; he died in April 1936.</p>
-    <p id="fn4" style="color: var(--muted); font-size: 14px;"><sup>4</sup> David X. Li
-      published <em>On Default Correlation: A Copula Function Approach</em> in 2000.</p>
+    <p id="fn4" style="color: var(--muted); font-size: 14px;"><sup>4</sup> David X. Li,
+      <em>On Default Correlation: A Copula Function Approach</em>, RiskMetrics working paper
+      with a first draft of September 1999, published in The Journal of Fixed Income 9(4),
+      2000.</p>
+    <p id="fn5" style="color: var(--muted); font-size: 14px;"><sup>5</sup> MacKenzie and
+      Spears document, among others, Vasicek's correlated-default memoranda at KMV between
+      1987 and 1991, unpublished, and CreditMetrics using mathematically equivalent
+      machinery in 1997 before the copula terminology was attached.</p>
 
     <p style="color: var(--muted); font-size: 14px;">A working history, curated rather than
       exhaustive. Omissions we already regret: Hastings' 1955 rational approximations of
