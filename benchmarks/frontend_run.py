@@ -148,7 +148,7 @@ def run_one(args):
     zs = z_series(ys, start)
     tol = max(100, a_end - a_start)
     lo, hi = a_start - tol, a_end + tol
-    res = {"sid": sid, "name": name, "n": n}
+    res = {"sid": sid, "name": name, "fname": fname, "n": n}
 
     for cond, xs in (("raw", ys), ("z", zs)):
         calib = xs[start:train_len]
@@ -185,11 +185,23 @@ def main():
         files = files[:args.limit]
 
     keys = ["dspot_raw", "dspot_z", "rrcf_raw", "rrcf_z"]
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                       "frontend_results.jsonl")
+
     results = []
+    if os.path.exists(out):
+        with open(out) as fh:
+            results = [json.loads(line) for line in fh if line.strip()]
+        done = {r.get("fname") for r in results}
+        files = [f for f in files if f not in done]
+        print(f"resuming: {len(results)} done in {out}, "
+              f"{len(files)} to go", flush=True)
     with Pool(args.workers) as pool:
         for i, res in enumerate(pool.imap_unordered(
                 run_one, [(f,) for f in files])):
             results.append(res)
+            with open(out, "a") as fh:
+                fh.write(json.dumps(res) + "\n")
             hits = {m: sum(r[m]["hit"] for r in results) for m in keys}
             print(f"[{i+1}/{len(files)}] {res['sid']:03d} "
                   f"{res['name'][:26]:26s} {res['seconds']:6.1f}s  "
@@ -197,12 +209,6 @@ def main():
                               for m in keys)
                   + f"   running: " + " ".join(f"{m}:{hits[m]}" for m in keys),
                   flush=True)
-
-    out = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                       f"frontend_results_n{len(results)}.jsonl")
-    with open(out, "w") as fh:
-        for r in sorted(results, key=lambda r: r["sid"]):
-            fh.write(json.dumps(r) + "\n")
 
     n = len(results)
     print("\n=== UCR accuracy: raw vs laplace-transformed (z) ===")

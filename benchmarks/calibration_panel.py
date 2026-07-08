@@ -60,7 +60,7 @@ def run_one(args):
     t0 = time.time()
 
     from timemachines import wald
-    res = {"sid": sid, "n_scored": n_scored}
+    res = {"sid": sid, "name": fname, "n_scored": n_scored}
 
     # --- wald: p-values on the clean stretch ---
     if engine == "garch":
@@ -112,6 +112,7 @@ def main():
     ap.add_argument("--rrcf", action="store_true",
                     help="include the RRCF threshold-transfer row (slow)")
     ap.add_argument("--engine", default="laplace", choices=("laplace", "garch"))
+    ap.add_argument("--out", default=None)
     args = ap.parse_args()
 
     files = sorted(f for f in os.listdir(DATA) if _NAME.match(f))
@@ -122,21 +123,29 @@ def main():
         files = files[:args.limit]
     print(f"{len(files)} series with prefixes >= {WARM + 2000}")
 
+    out = args.out or os.path.join(
+        _HERE, f"calibration_panel_{args.engine}.jsonl")
+
+    # resume: skip series already checkpointed in out
     results = []
+    if os.path.exists(out):
+        with open(out) as fh:
+            results = [json.loads(line) for line in fh if line.strip()]
+        done = {r.get("name") for r in results}
+        files = [f for f in files if f not in done]
+        print(f"resuming: {len(results)} done in {out}, "
+              f"{len(files)} to go", flush=True)
+
     with Pool(args.workers) as pool:
         for i, r in enumerate(pool.imap_unordered(
                 run_one, [(f, args.rrcf, args.engine) for f in files])):
             if r is None:
                 continue
             results.append(r)
+            with open(out, "a") as fh:
+                fh.write(json.dumps(r) + "\n")
             print(f"[{i+1}/{len(files)}] {r['sid']:03d} "
                   f"scored={r['wald_n']:6d} {r['seconds']:6.1f}s", flush=True)
-
-    out = os.path.join(_HERE,
-                       f"calibration_panel_{args.engine}_n{len(results)}.jsonl")
-    with open(out, "w") as fh:
-        for r in results:
-            fh.write(json.dumps(r) + "\n")
 
     methods = ["wald", "dspot"] + (["rrcf"] if args.rrcf else [])
     print(f"\n=== calibration panel: empirical FPR / nominal alpha "

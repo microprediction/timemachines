@@ -154,7 +154,8 @@ def run_one(args):
 
     tol = max(100, a_end - a_start)
     lo, hi = a_start - tol, a_end + tol
-    res = {"sid": sid, "name": name, "n": n, "train_len": train_len,
+    res = {"sid": sid, "name": name, "fname": fname,
+           "n": n, "train_len": train_len,
            "anom": [a_start, a_end], "seconds": round(time.time() - t0, 1)}
     for key, (score, _tie, loc) in best.items():
         res[key] = {"loc": loc, "score": round(score, 3),
@@ -189,15 +190,26 @@ def main():
     out_path = args.out or os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
         f"ucr_results_{args.base}_k{args.k}_sa{args.scale_alpha}"
-        f"_da{args.det_alpha}_n{len(files)}.jsonl")
+        f"_da{args.det_alpha}.jsonl")
 
+    # resume: skip series already checkpointed in out_path
     results = []
+    if os.path.exists(out_path):
+        with open(out_path) as fh:
+            results = [json.loads(line) for line in fh if line.strip()]
+        done = {r.get("fname") for r in results}
+        files = [f for f in files if f not in done]
+        print(f"resuming: {len(results)} done in {out_path}, "
+              f"{len(files)} to go", flush=True)
+
     with Pool(args.workers) as pool:
         for i, res in enumerate(pool.imap_unordered(
                 run_one, [(f, args.k, args.base, args.scale_alpha,
                            args.det_alpha, args.warmup_tail)
                           for f in files])):
             results.append(res)
+            with open(out_path, "a") as fh:
+                fh.write(json.dumps(res) + "\n")
             hits = {m: sum(r[m]["hit"] for r in results) for m in ("mah", "mahS", "z1", "zU", "mz")}
             print(f"[{i+1}/{len(files)}] {res['sid']:03d} {res['name'][:30]:30s} "
                   f"n={res['n']:7d} {res['seconds']:6.1f}s  "
@@ -209,10 +221,6 @@ def main():
                   f"running: mah {hits['mah']} mahS {hits['mahS']} "
                   f"z1 {hits['z1']} zU {hits['zU']} mz {hits['mz']} "
                   f"of {i+1}", flush=True)
-
-    with open(out_path, "w") as fh:
-        for r in sorted(results, key=lambda r: r["sid"]):
-            fh.write(json.dumps(r) + "\n")
 
     n = len(results)
     print("\n=== UCR accuracy ===")

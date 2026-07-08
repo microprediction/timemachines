@@ -174,22 +174,29 @@ def main():
         if len(picked) >= args.limit:
             break
 
+    out = os.path.join(_HERE, "fred_anomaly_results.jsonl")
+
     results = []
+    if os.path.exists(out):
+        with open(out) as fh:
+            results = [json.loads(line) for line in fh if line.strip()]
+        done = {r.get("sid") for r in results}
+        picked = [s for s in picked if s not in done]
+        print(f"resuming: {len(results)} done in {out}, "
+              f"{len(picked)} to go", flush=True)
+
     with Pool(args.workers) as pool:
         for i, res in enumerate(pool.imap_unordered(
                 run_one, [(s,) for s in picked])):
             if res is None:
                 continue
             results.append(res)
+            with open(out, "a") as fh:
+                fh.write(json.dumps(res) + "\n")
             hits = {m: sum(r[m]["hit"] for r in results) for m in KEYS}
             print(f"[{i+1}/{len(picked)}] {res['sid'][:18]:18s} "
                   f"{res['kind']:5s} {res['seconds']:5.1f}s  "
                   + " ".join(f"{m}:{hits[m]}" for m in KEYS), flush=True)
-
-    out = os.path.join(_HERE, f"fred_anomaly_results_n{len(results)}.jsonl")
-    with open(out, "w") as fh:
-        for r in results:
-            fh.write(json.dumps(r) + "\n")
 
     n = len(results)
     print(f"\n=== FRED injection accuracy (n={n}) ===")

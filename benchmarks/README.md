@@ -74,3 +74,12 @@ export TIMEMACHINES_FRED_DATA=/path/to/fred/data
 
 Results land as `*.jsonl` beside the harnesses (gitignored); the aggregate
 tables print at completion and belong in RESULTS.md.
+
+### Checkpointing
+
+Every long harness appends one json line per completed series and flushes
+immediately, so a killed run loses at most the series in flight. Re-running
+the same command resumes: series already present in the output file are
+skipped (`resuming: N done, M to go`). Output filenames are stable per
+configuration; pass `--out` to redirect. To restart a study from scratch,
+delete its jsonl first.

@@ -291,21 +291,28 @@ def main():
         if len(picked) >= args.limit:
             break
 
+    out = os.path.join(_HERE, "frontend_loglik.jsonl")
+
     results = []
+    if os.path.exists(out):
+        with open(out) as fh:
+            results = [json.loads(line) for line in fh if line.strip()]
+        done = {r.get("sid") for r in results}
+        picked = [s for s in picked if s not in done]
+        print(f"resuming: {len(results)} done in {out}, "
+              f"{len(picked)} to go", flush=True)
+
     with Pool(args.workers) as pool:
         for i, res in enumerate(pool.imap_unordered(
                 run_one, [(s,) for s in picked])):
             if res is None:
                 continue
             results.append(res)
+            with open(out, "a") as fh:
+                fh.write(json.dumps(res) + "\n")
             print(f"[{i+1}/{len(picked)}] {res['sid'][:16]:16s} "
                   f"{res['seconds']:6.1f}s  laplace={res['laplace']:+.3f}",
                   flush=True)
-
-    out = os.path.join(_HERE, f"frontend_loglik_n{len(results)}.jsonl")
-    with open(out, "w") as fh:
-        for r in results:
-            fh.write(json.dumps(r) + "\n")
 
     n = len(results)
     print(f"\n=== mean one-step log-lik per point, y-space (n={n} series) ===")
