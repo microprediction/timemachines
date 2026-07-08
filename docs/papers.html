@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>timemachines — papers</title>
+  <meta name="description" content="The paper trail: the studies behind the numbers, the foundation the package stands on, and the theorems its machines are named for." />
+  <link rel="stylesheet" href="./academic.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-inner">
+      <a class="brand" href="/">timemachines</a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/papers.html">Papers</a>
+        <a href="https://skaters.microprediction.org/">skaters</a>
+        <a href="https://github.com/microprediction/timemachines">GitHub</a>
+        <a href="https://pypi.org/project/timemachines/">PyPI</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Papers</h1>
+    <p class="subtitle">The studies behind the numbers, the foundation underneath,
+      and the theorems the machines are named for.</p>
+
+    <h2>The studies (this repository)</h2>
+    <p>Every number on the landing page traces to a harness in
+      <a href="https://github.com/microprediction/timemachines/tree/main/benchmarks"><code>benchmarks/</code></a>,
+      run strictly causally (scores at time t use observations up to t; no whole-series
+      normalisation) with the protocol documented in each file.</p>
+    <ul>
+      <li><a href="https://github.com/microprediction/timemachines/blob/main/benchmarks/RESULTS.md">
+        <strong>The Rosenblatt front-end: results log</strong></a> — detector lifts (DSPOT 5.2&times;,
+        RRCF 1.8&times;), forecaster lifts (ETS, AutoARIMA, GARCH, GARCH-t, Prophet: ~+2 nats,
+        161/162 series), the calibration panel (144 clean prefixes, empirical vs nominal
+        false-alarm rates), and the losses reported next to the wins.</li>
+      <li><a href="https://github.com/microprediction/timemachines/blob/main/benchmarks/RESEARCH.md">
+        <strong>Benchmarking streaming anomaly detection: a verified survey</strong></a> —
+        datasets, metrics, and baselines as of mid-2026, with the known critiques
+        (point-adjust inflation, benchmark flaws) and primary-source verification.</li>
+      <li>A journal-style writeup of the front-end and calibration studies is in preparation.</li>
+    </ul>
+
+    <h2>The foundation</h2>
+    <ul>
+      <li>Cotton, P. — <a href="https://skaters.microprediction.org/papers.html"><em>skaters:
+        fast online distributional time-series prediction</em></a>. The body this package's
+        heads stand on: the forecaster, the prediction parade, and the calibrated surprise
+        stream that is the API boundary between the two packages.</li>
+    </ul>
+
+    <h2>The theorems behind the names</h2>
+    <p>Machines are named for the result that makes them work.</p>
+    <ul>
+      <li><strong>Wald (1947)</strong>, <em>Sequential Analysis</em> — deciding as data
+        arrives, with pre-declared error rates; the detection-delay/false-alarm tradeoff.
+        The statistic <code>wald</code> computes each tick, z&prime;&Sigma;<sup>&minus;1</sup>z,
+        is a Wald test, applied sequentially as Wald invented.</li>
+      <li><strong>Rosenblatt (1952)</strong>, <em>Remarks on a multivariate transformation</em> —
+        the causal bijection z<sub>t</sub> = &Phi;<sup>&minus;1</sup>(F<sub>t</sub>(y<sub>t</sub>))
+        that turns any stream into standard-normal surprises under a calibrated forecaster;
+        the front-end results are this theorem at work
+        (<a href="https://skaters.microprediction.org/demos/rosenblatt.html">live demo</a>).</li>
+      <li><strong>Pickands (1975); Balkema &amp; de Haan (1974)</strong> — exceedances over a
+        high threshold follow a Generalized Pareto Distribution whatever the law. The
+        <code>wald</code> null's deep tail is a streaming GPD for exactly this reason;
+        a two-moment bulk fit alone ran 39&times; the nominal false-alarm rate at 10<sup>&minus;4</sup>.</li>
+      <li><strong>Hosking &amp; Wallis (1987)</strong> — probability-weighted-moments GPD
+        estimation, valid to shape &lt; 1; method of moments cannot exceed &frac12; and the
+        measured excess tails run ~0.7.</li>
+      <li><strong>Page (1954)</strong> — CUSUM; the run-length changepoint machinery descends
+        from Wald's SPRT through it. Roadmap head.</li>
+    </ul>
+
+    <h2>The baselines, credited</h2>
+    <ul>
+      <li>Siffer, Fouque, Termier, Largou&euml;t (KDD 2017) — <em>Anomaly detection in streams
+        with extreme value theory</em> (SPOT/DSPOT). The other calibrated-threshold streaming
+        detector, and the strongest comparison on the panel; its GPD tail layer is the idea
+        <code>wald</code> gratefully adopted.</li>
+      <li>Guha, Mishra, Roy, Schrijvers (ICML 2016) — <em>Robust random cut forest based
+        anomaly detection on streams</em> (RRCF).</li>
+      <li>Wu &amp; Keogh (IEEE TKDE 2023) — <em>Current time series anomaly detection
+        benchmarks are flawed</em> — the reason the UCR archive and its protocol anchor the
+        evaluations here.</li>
+    </ul>
+  </main>
+</body>
+</html>
