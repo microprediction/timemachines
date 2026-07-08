@@ -63,6 +63,17 @@ def _gll(y, mu, var):
     return -0.5 * (_L2PI + math.log(var) + (y - mu) ** 2 / var)
 
 
+def _tll(y, mu, var, nu):
+    """Log-density of a standardized Student-t with mean mu, variance var,
+    dof nu (>2): the conditional law of a GARCH-t."""
+    var = max(var, 1e-12)
+    nu = max(nu, 2.05)
+    z2 = (y - mu) ** 2 / ((nu - 2.0) * var)
+    return (math.lgamma((nu + 1.0) / 2.0) - math.lgamma(nu / 2.0)
+            - 0.5 * math.log(math.pi * (nu - 2.0) * var)
+            - (nu + 1.0) / 2.0 * math.log(1.0 + z2))
+
+
 # --- laplace pass: z-series + jacobian, plus laplace's own log-lik ---
 
 def laplace_pass(ys):
@@ -193,9 +204,36 @@ def roll_prophet(xs, dates=None):
     return out
 
 
+def roll_garch_t(xs, dates=None):
+    """GARCH(1,1) with Student-t innovations — the model that WINS on
+    price/return series (the paper's own no-free-lunch caveat), making it
+    the strongest referee for the front-end claim on that turf."""
+    from arch import arch_model
+    import numpy as np
+    out = [0.0] * len(xs)
+    scale = float(np.std(xs[:BURN])) or 1.0
+    for t in range(BURN, len(xs)):
+        if (t - BURN) % REFIT == 0:
+            w = np.asarray(xs[max(0, t - WINDOW):t], dtype=float) / scale
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                am = arch_model(w, mean="Constant", vol="GARCH", p=1, q=1,
+                                dist="t", rescale=False)
+                fr = am.fit(disp="off", show_warning=False)
+                fc = fr.forecast(horizon=min(REFIT, len(xs) - t),
+                                 reindex=False)
+            mus = fc.mean.values[0]
+            vars_ = fc.variance.values[0]
+            nu = float(fr.params.get("nu", 8.0))
+        i = (t - BURN) % REFIT
+        out[t] = _tll(xs[t] / scale, float(mus[i]), float(vars_[i]), nu) \
+            - math.log(scale)
+    return out
+
+
 OPPONENTS = {"gauss": roll_gauss, "ets": roll_ets,
              "arima": roll_arima, "garch": roll_garch,
-             "prophet": roll_prophet}
+             "garch_t": roll_garch_t, "prophet": roll_prophet}
 
 
 def run_one(args):
@@ -228,12 +266,26 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=20)
     ap.add_argument("--workers", type=int, default=2)
+    ap.add_argument("--only", default=None,
+                    help="comma list of opponents (default: all)")
+    ap.add_argument("--ids", default=None,
+                    help="comma list of FRED series ids (default: universe order)")
     args = ap.parse_args()
+    if args.only:
+        keep = set(args.only.split(","))
+        for k_ in list(OPPONENTS):
+            if k_ not in keep:
+                del OPPONENTS[k_]
 
-    ids = [u["id"] for u in json.load(open(UNIVERSE))]
+    if args.ids:
+        ids = args.ids.split(",")
+    else:
+        ids = [u["id"] for u in json.load(open(UNIVERSE))]
     picked = []
     for sid in ids:
-        p = os.path.join(_HERE, "..", "data", f"{sid}.csv")
+        p = os.path.join(
+            os.environ.get("TIMEMACHINES_FRED_DATA",
+                           os.path.join(_HERE, "data")), f"{sid}.csv")
         if os.path.exists(p) and os.path.getsize(p) > MIN_LEN * 12:
             picked.append(sid)
         if len(picked) >= args.limit:

@@ -48,6 +48,22 @@ Bijection prediction verified: fronted opponents converge to laplace + eps
 extracted ~98% of the structure ARIMA can model). The control head on z
 reproduces laplace's own score, confirming the Jacobian accounting.
 
+The hardest case — GARCH-t on its home turf (12 price/return series:
+equities, FX majors, oil, gas, VIX; Student-t density scored exactly):
+
+| opponent | raw | fronted | mean lift | wins |
+|---|---|---|---|---|
+| GARCH-t | 2.630 | **2.708** | **+0.078** | **12/12** |
+| GARCH(1,1) Gaussian | 2.496 | 2.693 | +0.20 | 12/12 |
+| *laplace alone* | | *2.700* | | |
+
+Even the model that wins on price series gains in the transformed
+coordinates, and the composite (laplace front-end + GARCH-t on z) is the
+best cell measured — the composition `laplace(leaf=garch_leaf)` already
+ships in skaters. Caveat: raw GARCH-t trailing laplace alone here differs
+from the skaters paper's price-table verdict; this protocol (rolling
+200-refit, 1000-window, 3000-point cap) is not that one.
+
 Prophet is the sharpest row: its calendar machinery (weekday/yearly from
 real dates — structure laplace's integer-lag seasonal block cannot
 represent) earns the largest median lift when fronted, yet adds only
