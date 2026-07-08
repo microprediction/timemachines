@@ -54,11 +54,11 @@ represent) earns the largest median lift when fronted, yet adds only
 +0.03 nats over laplace alone: even the calendar model finds almost
 nothing left in the residuals. FINAL: five opponents, 149/150 wins.
 
-## 3. Own head on UCR — honest and secondary
+## 3. Own head on UCR — secondary
 
-The headline claims of this study are the front-end lifts above (sections 1-2);
-the own head's UCR standing is reported for honesty, not marketing. Full 250,
-default config: best scorer (|z1|) 0.276 vs trivial 0.216. The diagnostic
+The headline claims of this study are the front-end lifts above (sections 1-2).
+The own head's UCR standing, full 250,
+default config is: best scorer (|z1|) 0.276 vs trivial 0.216. The diagnostic
 split: **0.500 on the 84 series <= 20k points; 0.169 on the 166 longer ones**
 — two-thirds of the archive is 20k-900k-point periodic physiology whose
 waveform periods (~50-400 samples) the laplace body cannot represent (its
