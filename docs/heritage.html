@@ -709,7 +709,7 @@
 
       <div class="tl-item">
         <span class="tl-year">2026</span> &middot; <span class="tl-who">nearest-the-pin parimutuel</span>
-        <p>The mechanism behind the z-streams gets written down: a <a href="https://mechanisms.microprediction.org/mechanisms/parimutuel.html">nearest-the-pin parimutuel</a> that pays forecasters by proximity to the outcome rather than for backing a single bucket, which is what makes a crowd report a full predictive cdf instead of a point. Formalizing it closes the loop the platform ran by instinct, and connects the PIT to market design.</p>
+        <p>The mechanism behind the z-streams gets written down: a <a href="https://mechanisms.microprediction.org/papers/scoring-point-cloud-distributional-submissions.html">nearest-the-pin parimutuel</a> that pays forecasters by proximity to the outcome, with a formalized noise addition to the target that makes the game incentive compatible<sup><a href="#fn14" style="text-decoration:none">14</a></sup>.</p>
       </div>
 
       <div class="tl-item">
@@ -738,6 +738,7 @@
     <p id="fn11" style="color: var(--muted); font-size: 14px;"><sup>11</sup> The community implied cdf is the distribution implied by everyone's quarantined predictions at two horizons, roughly a minute and roughly an hour. Feeding the resulting z-streams back as new prediction targets is what lets the crowd sharpen its own coordinate system, across billions of micropredictions.</p>
     <p id="fn12" style="color: var(--muted); font-size: 14px;"><sup>12</sup> On held-out data, forecasters run on the transformed stream and scored back by exact change of variables gain around two nats per point; anomaly detectors gain several times their raw hit rate. It is the forecaster passing through, not the opponent.</p>
     <p id="fn13" style="color: var(--muted); font-size: 14px;"><sup>13</sup> Alarm on p below alpha and the false-alarm rate is alpha by construction, no threshold to tune. On real anomaly-free streams <code>wald</code> is the best-calibrated of the streaming detectors measured at operating depth.</p>
+    <p id="fn14" style="color: var(--muted); font-size: 14px;"><sup>14</sup> Paying by proximity rather than for backing a single bucket is what makes a crowd report a full predictive cdf instead of a point, and adding calibrated noise to the target is what makes truthful reporting optimal. Formalizing it closes the loop the platform ran by instinct, and connects the PIT to market design.</p>
 
   </main>
 </body>
