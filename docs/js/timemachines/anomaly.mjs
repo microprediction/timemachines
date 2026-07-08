@@ -63,6 +63,26 @@ export function chi2Ppf(p, dof, tol = 1e-10) {
   return 0.5 * (lo + hi);
 }
 
+function gpdFit(exc) {
+  // Probability-weighted moments (Hosking & Wallis 1987): valid for shape < 1;
+  // method of moments cannot exceed 1/2 and the excess tails run ~0.7.
+  const x = exc.slice().sort((a, b) => a - b);
+  const n = x.length;
+  let a0 = 0.0, a1 = 0.0;
+  for (let i = 0; i < n; i++) { a0 += x[i]; a1 += ((n - 1 - i) / (n - 1)) * x[i]; }
+  a0 /= n; a1 /= n;
+  const denom = a0 - 2.0 * a1;
+  if (denom <= 1e-12) return [0.95, Math.max(a0, 1e-12)];
+  const gamma = Math.min(Math.max(2.0 - a0 / denom, -0.5), 0.95);
+  return [gamma, Math.max(2.0 * a0 * a1 / denom, 1e-12)];
+}
+
+function gpdSf(e, gamma, sigma) {
+  if (Math.abs(gamma) < 1e-9) return Math.exp(-Math.min(e / sigma, 700.0));
+  const arg = 1.0 + gamma * e / sigma;
+  return arg <= 0.0 ? 0.0 : Math.pow(arg, -1.0 / gamma);
+}
+
 // --- small dense linear algebra on flat k x k matrices ---
 
 function cholesky(A, n, jitter = 1e-12) {
@@ -152,13 +172,17 @@ function solveSym(A, b, n) {
 export function mahalanobis(base, k, {
   alpha = 0.02, scatter = "factor", factors = 1, shrink = 0.05,
   dfloor = 1e-3, guardP = 0.99, adaptAfter = 10,
+  potLevel = 0.98, minExc = 30,
 } = {}) {
   function _skater(y, state) {
     if (state === null || state === undefined) {
       const S = new Array(k * k).fill(0.0);
       for (let i = 0; i < k; i++) S[i * k + i] = 1.0;   // calibrated prior
       state = { base: null, mu: new Array(k).fill(0.0), S,
-                m2: k, v2: 2 * k, run: 0, d2: null, pvalue: null,
+                m2: k, v2: 2 * k, exc: [], zeta: 1.0 - potLevel,
+                pend1: null, nm: 0.0, nv: 1.0, n_exc: [],
+                n_zeta: 1.0 - potLevel, n_n: 0,
+                run: 0, d2: null, pvalue: null,
                 skipped: 0, last_dists: null };
     }
     // Harden the gate: a non-finite tick must not reach the body.
@@ -167,8 +191,16 @@ export function mahalanobis(base, k, {
       state.d2 = null; state.pvalue = null;
       return [state.last_dists || new Array(k).fill(null), state];
     }
+    // Deep-evidence channel: -logpdf under last tick's 1-step predictive.
+    // The parade clamps |z| ~7.03 so d2 saturates; nlp is unbounded.
+    let nlp = null;
+    if (state.pend1 !== null) {
+      const lp = state.pend1.logpdf(y);
+      nlp = Number.isFinite(lp) ? -lp : 1e6;
+    }
     const [dists, bs] = base(y, state.base);
     state.last_dists = dists;
+    state.pend1 = dists[0];
     state.base = bs;
     const z = bs && bs.z ? bs.z : null;
     if (!z || z.length !== k) throw new Error("mahalanobis needs a parade-wrapped skater (state.z)");
@@ -231,7 +263,31 @@ export function mahalanobis(base, k, {
     const c = Math.max(v2 / (2.0 * m2), 1e-9);
     const nu = Math.min(Math.max(2.0 * m2 * m2 / v2, 0.5), 1000.0);
     state.d2 = d2;
-    state.pvalue = chi2Sf(d2 / c, nu);
+    // Bulk null (Satterthwaite) below the POT threshold; streaming GPD above
+    // it — the bulk fit understates tail p by ~an order of magnitude
+    // (measured on the calibration panel), and the GPD is authoritative there.
+    const tPot = c * chi2Ppf(potLevel, nu);
+    const tScale = Math.max(tPot, 1e-9);
+    if (d2 > tPot && state.exc.length >= minExc) {
+      // Threshold-relative excesses: the null drifts, absolute excesses
+      // pooled across its history read as spurious tail weight.
+      const [gamma, sigma] = gpdFit(state.exc);
+      state.pvalue = Math.min(
+        Math.max(state.zeta, 1e-12) * gpdSf((d2 - tPot) / tScale, gamma, sigma), 1.0);
+    } else {
+      state.pvalue = chi2Sf(d2 / c, nu);
+    }
+    // nlp channel speaks only in its own POT tail (Bonferroni combine).
+    if (nlp !== null && state.n_n >= minExc) {
+      const ns = Math.sqrt(Math.max(state.nv, 1e-12));
+      const tN = state.nm + 2.33 * ns;
+      if (nlp > tN && state.n_exc.length >= minExc) {
+        const [g2, s2] = gpdFit(state.n_exc);
+        const pN = Math.max(state.n_zeta, 1e-12)
+          * gpdSf((nlp - tN) / Math.max(tN - state.nm, 1e-9), g2, s2);
+        state.pvalue = Math.min(state.pvalue, 2.0 * pN);
+      }
+    }
 
     // Huberised update with a changepoint escape.
     const qGuard = c * chi2Ppf(guardP, nu);
@@ -250,6 +306,26 @@ export function mahalanobis(base, k, {
     const dm = d2n - state.m2;
     state.m2 += alpha * dm;
     state.v2 = (1 - alpha) * state.v2 + alpha * dm * (d2n - state.m2);
+    const aw = alpha * w;
+    state.zeta = (1 - aw) * state.zeta + aw * (d2 > tPot ? 1.0 : 0.0);
+    if (d2 > tPot) {
+      state.exc.push(Math.min((d2 - tPot) / tScale, 50.0));
+      if (state.exc.length > 250) state.exc.shift();
+    }
+    if (nlp !== null) {
+      state.n_n += 1;
+      const ns = Math.sqrt(Math.max(state.nv, 1e-12));
+      const tN = state.nm + 2.33 * ns;
+      const nw = Math.min(nlp, state.nm + 6.0 * ns);
+      const dn = nw - state.nm;
+      state.nm += alpha * dn;
+      state.nv = (1 - alpha) * state.nv + alpha * dn * (nw - state.nm);
+      state.n_zeta = (1 - aw) * state.n_zeta + aw * (nlp > tN ? 1.0 : 0.0);
+      if (nlp > tN) {
+        state.n_exc.push(Math.min((nlp - tN) / Math.max(tN - state.nm, 1e-9), 50.0));
+        if (state.n_exc.length > 250) state.n_exc.shift();
+      }
+    }
     const delta = v;
     for (let i = 0; i < k; i++) mu[i] += a * delta[i];
     const delta2 = z.map((zi, i) => zi - mu[i]);

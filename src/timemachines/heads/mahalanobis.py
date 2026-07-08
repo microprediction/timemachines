@@ -339,6 +339,14 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
                 "v2": float(2 * k),                  # ...and variance (chi2_k prior)
                 "exc": [],                           # POT excesses of d2
                 "zeta": 1.0 - pot_level,             # P(d2 > t_pot), tracked
+                # deep-evidence channel: -logpdf of y under the 1-step
+                # predictive issued last tick. The parade clamps |z| at
+                # ~7.03 (state sanity), so d2 SATURATES: a 250-sigma event
+                # and a 10-sigma event become indistinguishable. nlp is
+                # unbounded and restores resolution at depth; it gets its
+                # own POT tail and joins by Bonferroni.
+                "pend1": None, "nm": 0.0, "nv": 1.0, "n_exc": [],
+                "n_zeta": 1.0 - pot_level, "n_n": 0,
                 "run": 0, "d2": None, "pvalue": None,
                 "skipped": 0, "last_dists": None,
             }
@@ -353,8 +361,13 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
                 return state["last_dists"], state
             from skaters.dist import Dist            # never-seen-data fallback
             return [Dist.gaussian(0.0, 1.0)] * k, state
+        nlp = None
+        if state["pend1"] is not None:
+            lp = state["pend1"].logpdf(y)
+            nlp = -lp if math.isfinite(lp) else 1e6
         dists, state["base"] = base(y, state["base"])
         state["last_dists"] = dists
+        state["pend1"] = dists[0]
         bs = state["base"]
         z = bs.get("z") if isinstance(bs, dict) else None
         assert z is not None and len(z) == k, (
@@ -418,16 +431,33 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
         state["d2"] = d2
         t_pot = c * chi2_ppf(pot_level, nu)
         exc = state["exc"]
+        t_scale = max(t_pot, 1e-9)
         if d2 > t_pot and len(exc) >= min_exc:
             # The GPD is authoritative in its region — the bulk chi2 tail is
             # exactly what it corrects (it understates p out here), so no
-            # clamping against it.
+            # clamping against it. Excesses are threshold-RELATIVE: the null
+            # (and hence t_pot) drifts, and absolute excesses pooled across
+            # its history read as spurious tail weight.
             gamma, sigma = _gpd_fit(exc)
             state["pvalue"] = min(
-                max(state["zeta"], 1e-12) * _gpd_sf(d2 - t_pot, gamma, sigma),
+                max(state["zeta"], 1e-12)
+                * _gpd_sf((d2 - t_pot) / t_scale, gamma, sigma),
                 1.0)
         else:
             state["pvalue"] = chi2_sf(d2 / c, nu)
+
+        # nlp channel: speaks ONLY in its own POT tail — it exists for the
+        # saturation regime (the z-clamp caps d2; nlp is unbounded), and in
+        # the bulk it stays silent so the mahal p-value's null uniformity is
+        # untouched. Combination is Bonferroni-style: min(p, 2 p_n).
+        if nlp is not None and state["n_n"] >= min_exc:
+            ns = math.sqrt(max(state["nv"], 1e-12))
+            t_n = state["nm"] + 2.33 * ns
+            if nlp > t_n and len(state["n_exc"]) >= min_exc:
+                g2, s2 = _gpd_fit(state["n_exc"])
+                p_n = max(state["n_zeta"], 1e-12) * _gpd_sf(
+                    (nlp - t_n) / max(t_n - state["nm"], 1e-9), g2, s2)
+                state["pvalue"] = min(state["pvalue"], 2.0 * p_n)
 
         # Huberised update with a changepoint escape hatch. The guard level is
         # the empirical null's quantile, so it tracks the learned calibration.
@@ -457,10 +487,24 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
         aw = alpha * w
         state["zeta"] = (1.0 - aw) * state["zeta"] + aw * (1.0 if d2 > t_pot else 0.0)
         if d2 > t_pot:
-            e = min(d2 - t_pot, 20.0 * max(t_pot, 1.0))
-            exc.append(e)
+            exc.append(min((d2 - t_pot) / t_scale, 50.0))
             if len(exc) > 250:
                 exc.pop(0)
+        if nlp is not None:
+            state["n_n"] += 1
+            ns = math.sqrt(max(state["nv"], 1e-12))
+            t_n = state["nm"] + 2.33 * ns
+            nw = min(nlp, state["nm"] + 6.0 * ns)   # winsorised moments
+            dn = nw - state["nm"]
+            state["nm"] += alpha * dn
+            state["nv"] = (1.0 - alpha) * state["nv"] + alpha * dn * (nw - state["nm"])
+            state["n_zeta"] = ((1.0 - aw) * state["n_zeta"]
+                               + aw * (1.0 if nlp > t_n else 0.0))
+            if nlp > t_n:
+                state["n_exc"].append(
+                    min((nlp - t_n) / max(t_n - state["nm"], 1e-9), 50.0))
+                if len(state["n_exc"]) > 250:
+                    state["n_exc"].pop(0)
         delta = v                                     # z - mu (pre-update)
         for i in range(k):
             mu[i] += a * delta[i]
