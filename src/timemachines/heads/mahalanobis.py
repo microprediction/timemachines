@@ -296,8 +296,21 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
                 "m2": float(k),                      # empirical-null mean of d2
                 "v2": float(2 * k),                  # ...and variance (chi2_k prior)
                 "run": 0, "d2": None, "pvalue": None,
+                "skipped": 0, "last_dists": None,
             }
+        # Harden the gate: a non-finite tick must not reach the body — a single
+        # NaN poisons (or crashes) any forecaster's state permanently. Hold the
+        # last forecasts, emit no score, count the skip, and carry on.
+        if not (isinstance(y, (int, float)) and math.isfinite(y)):
+            state["skipped"] += 1
+            state["d2"] = None
+            state["pvalue"] = None
+            if state["last_dists"] is not None:
+                return state["last_dists"], state
+            from skaters.dist import Dist            # never-seen-data fallback
+            return [Dist.gaussian(0.0, 1.0)] * k, state
         dists, state["base"] = base(y, state["base"])
+        state["last_dists"] = dists
         bs = state["base"]
         z = bs.get("z") if isinstance(bs, dict) else None
         assert z is not None and len(z) == k, (

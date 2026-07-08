@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.1 (2026-07-07)
+
+Hardening release.
+
+- Non-finite inputs (NaN/inf — real streams contain them) no longer crash
+  or poison the machine: the head gates them, holds the last forecasts,
+  counts them in `state["skipped"]`, and keeps going.
+- Checkpoint/restore: machine state now pickles and resumes bit-identically
+  (requires skaters>=0.12.1, whose state became pure data for exactly this).
+- New hardening suite: hostile-stream fuzz (p-values always in [0,1]),
+  determinism, scale invariance of detection, dead-channel streams.
+
 ## 2.0.0 (2026-07-07)
 
 The rebirth. v1 (a zoo of forecasting wrappers) was deprecated in favour of

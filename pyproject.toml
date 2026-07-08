@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "timemachines"
-version = "2.0.0"
+version = "2.0.1"
 description = "Temporal online machines: streaming anomaly detection and sequential decisions, built on calibrated surprise streams from skaters."
 readme = "README.md"
 license = { text = "MIT" }
@@ -13,7 +13,7 @@ authors = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "skaters>=0.12",
+    "skaters>=0.12.1",
 ]
 
 [project.optional-dependencies]

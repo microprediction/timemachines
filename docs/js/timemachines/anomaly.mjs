@@ -158,9 +158,17 @@ export function mahalanobis(base, k, {
       const S = new Array(k * k).fill(0.0);
       for (let i = 0; i < k; i++) S[i * k + i] = 1.0;   // calibrated prior
       state = { base: null, mu: new Array(k).fill(0.0), S,
-                m2: k, v2: 2 * k, run: 0, d2: null, pvalue: null };
+                m2: k, v2: 2 * k, run: 0, d2: null, pvalue: null,
+                skipped: 0, last_dists: null };
+    }
+    // Harden the gate: a non-finite tick must not reach the body.
+    if (typeof y !== "number" || !Number.isFinite(y)) {
+      state.skipped += 1;
+      state.d2 = null; state.pvalue = null;
+      return [state.last_dists || new Array(k).fill(null), state];
     }
     const [dists, bs] = base(y, state.base);
+    state.last_dists = dists;
     state.base = bs;
     const z = bs && bs.z ? bs.z : null;
     if (!z || z.length !== k) throw new Error("mahalanobis needs a parade-wrapped skater (state.z)");
