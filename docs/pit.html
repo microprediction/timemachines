@@ -306,6 +306,68 @@
 
     </div>
 
+    <h2>The same two moves, everywhere</h2>
+    <p>Strip the timeline down and it is two operations wearing disguises. The forward move,
+      u = F(x), whitens: push a variable through its own cdf and it comes out uniform. The
+      inverse move, x = F<sup>&minus;1</sup>(u), colours: push a uniform through a target
+      inverse cdf and it comes out however you like. Compose them,
+      F<sub>target</sub><sup>&minus;1</sup> after F<sub>source</sub>, and you have carried one
+      distribution onto another. Field after field reinvented this pair and gave it a local
+      name.</p>
+
+    <div class="tl">
+      <div class="tl-item">
+        <span class="tl-who">Image processing</span>
+        <p><a href="https://homepages.inf.ed.ac.uk/rbf/HIPR2/histeq.htm">Histogram
+          equalization</a> maps each pixel through the image's own cumulative histogram. That
+          is the forward PIT applied to intensities, and the output histogram comes out flat
+          for exactly the reason the transform makes uniforms. Its twin,
+          <a href="https://en.wikipedia.org/wiki/Histogram_matching">histogram matching</a>,
+          applies the source cdf then a target inverse cdf, which is the identical inverse-PIT
+          composition, and the identical operation as the Rosenblatt sandwich this package
+          builds.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-who">Climate and hydrology</span>
+        <p>Quantile mapping corrects a model's output to match observations by pushing it
+          through F<sub>model</sub> and then F<sub>obs</sub><sup>&minus;1</sup>, the same
+          inverse-PIT composition as histogram matching, under a different name. Panofsky and
+          Brier stated it in 1968; Cannon and coauthors gave the
+          <a href="https://journals.ametsoc.org/view/journals/clim/28/17/jcli-d-14-00754.1.xml">modern
+          treatment</a> in 2015 and the warning that it can corrupt projected trends.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-who">Meteorology</span>
+        <p>The <a href="https://journals.ametsoc.org/view/journals/clim/9/7/1520-0442_1996_009_1518_amfpae_2_0_co_2.xml">rank
+          histogram</a> (Anderson 1996), also called the Talagrand diagram, asks where the
+          observation falls among the sorted ensemble members, which is the PIT in discrete
+          ensemble form; flat means calibrated. The score the field lives by, the CRPS, was
+          born far away, in a 1976
+          <a href="https://dl.acm.org/doi/abs/10.1287/mnsc.22.10.1087">Management Science</a>
+          paper by Matheson and Winkler, and is the Brier score of the forecast cdf integrated
+          over every threshold.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-who">Genomics</span>
+        <p><a href="https://www.pnas.org/doi/10.1073/pnas.0506580102">Gene set enrichment
+          analysis</a> (Subramanian et al. 2005), among the most cited methods in biology,
+          runs a weighted Kolmogorov&ndash;Smirnov statistic: the running maximum deviation of
+          a gene set's positions from uniform along a ranked list.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-who">Astronomy and physics</span>
+        <p>The KS test is an everyday tool for comparing luminosity functions and source
+          counts, with the standing caution that its distribution-free property fails in more
+          than one dimension (<a href="https://academic.oup.com/mnras/article/202/3/615/967854">Peacock
+          1983</a>). In particle physics the transform is named outright: Cousins' 2018
+          <a href="https://arxiv.org/abs/1807.05996">lectures</a> have a section titled
+          Probability integral transform, recasting any goodness-of-fit test as the claim that
+          the transformed sample is uniform. Radar's constant-false-alarm-rate detectors pivot
+          each cell to a fixed noise distribution, holding the false-alarm probability constant,
+          which is the same instinct <code>wald</code> follows one field over.</p>
+      </div>
+    </div>
+
     <div class="cta">
       <h2>A call to action, from 2001</h2>
       <p>In <a href="https://www.tandfonline.com/doi/abs/10.1198/07350010152596718">Testing
