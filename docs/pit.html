@@ -51,29 +51,45 @@
     <div class="tl">
 
       <div class="tl-item">
+        <span class="tl-year">1875</span> &middot; <span class="tl-who">Francis Galton</span>
+        <p>The cdf becomes a working object. In
+          <a href="https://galton.org/essays/1870-1879/galton-1875-intercomparison.pdf">Statistics
+          by Intercomparison</a> Galton plots the cumulative rank-to-magnitude curve of a
+          trait and names it the ogive. Everything below is a use of this curve and its
+          inverse.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">1925&ndash;1932</span> &middot; <span class="tl-who">R.&nbsp;A. Fisher</span>
         <p>The implicit era. A p-value is the PIT of a test statistic under the null. Fisher
           never quite says this, but his machinery leans on it everywhere: significance levels
           are comparable across experiments because null p-values are uniform, and his rule
           for combining independent tests is a fact about transformed uniforms: minus twice
-          the sum of the log p-values is chi-squared. His 1930 fiducial argument runs the transform
-          in reverse.</p>
+          the sum of the log p-values is chi-squared<sup><a href="#fn1" style="text-decoration:none">1</a></sup>.
+          His 1930
+          <a href="https://www.cambridge.org/core/journals/mathematical-proceedings-of-the-cambridge-philosophical-society/article/abs/inverse-probability/C9AB0A7C4566A3F9FCCEC489CA854814">fiducial
+          argument</a> runs the transform in reverse.</p>
       </div>
 
       <div class="tl-item">
         <span class="tl-year">1933</span> &middot; <span class="tl-who">Karl Pearson; Kolmogorov</span>
-        <p>The transform gets its name and a proper job. Pearson's Biometrika paper puts the
-          probability integral to work on goodness of fit. The same year Kolmogorov's
-          sup|F<sub>n</sub>&thinsp;&minus;&thinsp;F| statistic turns out to be
+        <p>The transform gets a proper job. Pearson's
+          <a href="https://academic.oup.com/biomet/article-abstract/25/3-4/379/200914">Biometrika
+          paper</a> puts the probability integral to work on goodness of fit. The same year
+          Kolmogorov's sup|F<sub>n</sub>&thinsp;&minus;&thinsp;F| statistic turns out to be
           distribution-free, the first big structural payoff: after the PIT every continuous
-          distribution is the same one, so a single table serves them all.</p>
+          distribution is the same one, so a single table serves them all. Anderson and
+          Darling later weight the same transformed process to sharpen its tails<sup><a href="#fn2" style="text-decoration:none">2</a></sup>.</p>
       </div>
 
       <div class="tl-item">
         <span class="tl-year">1937&ndash;1938</span> &middot; <span class="tl-who">Neyman; E.&nbsp;S. Pearson</span>
-        <p>Neyman builds his smooth goodness-of-fit tests on PIT-transformed data. Egon
-          Pearson writes the paper that finally treats the transformation as a subject in its
-          own right rather than a trick used in passing.</p>
+        <p>Neyman builds his
+          <a href="https://www.tandfonline.com/doi/abs/10.1080/03461238.1937.10404821">smooth
+          goodness-of-fit tests</a> on PIT-transformed data. Egon Pearson writes
+          <a href="https://academic.oup.com/biomet/article-abstract/30/1-2/134/176485">the
+          paper</a> that finally treats the transformation as a subject in its own right and
+          gives it its name<sup><a href="#fn3" style="text-decoration:none">3</a></sup>.</p>
       </div>
 
       <div class="tl-item">
@@ -88,10 +104,22 @@
 
       <div class="tl-item">
         <span class="tl-year">1952</span> &middot; <span class="tl-who">Murray Rosenblatt</span>
-        <p>Three pages in the Annals. Chain the transform through conditional distributions,
+        <p><a href="https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-3/Remarks-on-a-Multivariate-Transformation/10.1214/aoms/1177729394.full">Three
+          pages in the Annals</a>. Chain the transform through conditional distributions,
           u<sub>t</sub> = F(x<sub>t</sub>&thinsp;|&thinsp;x<sub>&lt;t</sub>), and any joint
           law becomes iid uniforms: a causal bijection between an arbitrary process and pure
           noise. The universal whitener, and the theorem these packages stand on.</p>
+      </div>
+
+      <div class="tl-item">
+        <span class="tl-year">1948&ndash;1973</span> &middot; <span class="tl-who">David &amp; Johnson; Durbin</span>
+        <p>The transform meets estimation and loses its innocence.
+          <a href="https://academic.oup.com/biomet/article-abstract/35/1-2/182/178943">David and
+          Johnson</a> show that plugging sample-estimated parameters into the cdf destroys
+          the iid-uniform property of the transforms.
+          <a href="https://projecteuclid.org/journals/annals-of-statistics/volume-1/issue-2/Weak-Convergence-of-the-Sample-Distribution-Function-when-Parameters-are/10.1214/aos/1176342365.full">Durbin</a>
+          settles the limit theory in 1973, and the estimated-parameter problem carries his
+          name. Every model that scores its own residuals inherits this caveat.</p>
       </div>
 
       <div class="tl-item">
@@ -108,7 +136,7 @@
         <p>Copulas reached Wall Street quietly first. At Morgan Stanley, Zhang, Pang and
           Cotton invented a hybrid default simulation generalizing both doubly stochastic
           intensity models and the copula approach later made famous in
-          publication<sup><a href="#fn1" style="text-decoration:none">1</a></sup>. As in
+          publication<sup><a href="#fn4" style="text-decoration:none">4</a></sup>. As in
           much of quantitative finance, practice ran ahead of the journals.
           MacKenzie and Spears later documented the era. In the construction, exponential
           random variables were correlated by monotone transform to normal, then defaults
@@ -189,7 +217,22 @@
 
     </div>
 
-    <p id="fn1" style="color: var(--muted); font-size: 14px;"><sup>1</sup> David X. Li
+    <h2 style="font-size:20px">Footnotes</h2>
+    <p id="fn1" style="color: var(--muted); font-size: 14px;"><sup>1</sup> The combining
+      rule is universally cited as Fisher 1925, but it entered <em>Statistical Methods for
+      Research Workers</em> in the fourth edition of 1932; Karl Pearson's 1933 paper cites
+      that edition contemporaneously. See the
+      <a href="https://arxiv.org/pdf/0705.2209">tracing</a>.</p>
+    <p id="fn2" style="color: var(--muted); font-size: 14px;"><sup>2</sup> Anderson and
+      Darling, <a href="https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-2/Asymptotic-Theory-of-Certain-Goodness-of-Fit-Criteria-Based-on/10.1214/aoms/1177729437.full">Annals
+      1952</a> and <a href="https://www.tandfonline.com/doi/abs/10.1080/01621459.1954.10501232">JASA
+      1954</a>: substitute u = F(x), then weight the uniform empirical process by
+      1/(u(1&minus;u)). Same Annals volume as Rosenblatt.</p>
+    <p id="fn3" style="color: var(--muted); font-size: 14px;"><sup>3</sup> Two Pearsons,
+      routinely conflated: Karl (1933) invented the transform-to-uniform test; his son Egon
+      (1938) coined the phrase "probability integral transformation". There is no Karl
+      Pearson 1938 paper; he died in April 1936.</p>
+    <p id="fn4" style="color: var(--muted); font-size: 14px;"><sup>4</sup> David X. Li
       published <em>On Default Correlation: A Copula Function Approach</em> in 2000.</p>
 
     <p style="color: var(--muted); font-size: 14px;">A working history, curated rather than
