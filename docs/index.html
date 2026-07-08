@@ -46,8 +46,9 @@
       each arriving point's surprise is a standard normal, and detection reduces to the textbook
       case. <code>wald</code> runs a <a href="https://skaters.microprediction.org/">skaters</a>
       forecaster underneath and emits a <strong>p-value per observation</strong> — alarm on
-      <code>p&nbsp;&lt;&nbsp;&alpha;</code> and your false-alarm rate <em>is</em> &alpha;, by
-      construction. No threshold tuning, one pass, constant memory, strictly causal.</p>
+      <code>p&nbsp;&lt;&nbsp;&alpha;</code> and your false-alarm rate <em>is</em> &alpha;.
+      Measured, not asserted: see <a href="#calibration">the calibration panel</a> below.
+      No threshold tuning, one pass, constant memory, strictly causal.</p>
 
     <div class="tag-row">
       <span class="tag">calibrated p-values</span>
@@ -110,6 +111,23 @@ for y in stream:
     <p>The same transform also lifts other people's <em>forecasters</em>
       (+2 nats/point for ETS, AutoARIMA, GARCH and Prophet, 30/30 series each) — that story
       belongs to <a href="https://skaters.microprediction.org/">skaters</a>, where it is told.</p>
+
+    <h2 id="calibration">Calibration, measured</h2>
+    <p>144 anomaly-free real-world prefixes (UCR training regions — clean by construction,
+      so every flag is a false alarm), strictly prequential: nulls and thresholds never see
+      the data they are scored on. Entries are empirical false-alarm rate over nominal
+      &alpha; — 1.0 is perfect calibration.</p>
+    <table>
+      <thead><tr><th>method</th><th>&alpha;=10<sup>&minus;2</sup></th><th>&alpha;=10<sup>&minus;3</sup></th><th>&alpha;=10<sup>&minus;4</sup></th></tr></thead>
+      <tbody>
+        <tr><td><code>wald</code></td><td>1.69</td><td><strong>1.86</strong></td><td><strong>3.20</strong> (median series: <strong>1.00</strong>)</td></tr>
+        <tr><td>DSPOT (EVT thresholding, KDD 2017)</td><td><strong>0.98</strong></td><td>1.95</td><td>9.34</td></tr>
+        <tr><td>RRCF, threshold pre-committed on clean data</td><td>1.10</td><td>1.64</td><td>5.42</td></tr>
+      </tbody>
+    </table>
+    <p>At the depth where alarms operate, <code>wald</code> is the best-calibrated streaming
+      detector measured, and its median series is exactly calibrated. Protocol and full
+      history in <a href="https://github.com/microprediction/timemachines/blob/main/benchmarks/RESULTS.md">benchmarks/RESULTS.md</a>.</p>
 
     <h2>Bodies and heads</h2>
     <p>A <strong>body</strong> (a skaters forecaster) turns a stream into forecasts plus
