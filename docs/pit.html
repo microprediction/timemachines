@@ -55,8 +55,8 @@
         <p>The implicit era. A p-value is the PIT of a test statistic under the null. Fisher
           never quite says this, but his machinery leans on it everywhere: significance levels
           are comparable across experiments because null p-values are uniform, and his rule
-          for combining independent tests (minus twice the sum of the log p's is chi-squared)
-          is a fact about transformed uniforms. His 1930 fiducial argument runs the transform
+          for combining independent tests is a fact about transformed uniforms: minus twice
+          the sum of the log p-values is chi-squared. His 1930 fiducial argument runs the transform
           in reverse.</p>
       </div>
 
@@ -78,10 +78,10 @@
 
       <div class="tl-item">
         <span class="tl-year">1946&ndash;1951</span> &middot; <span class="tl-who">Ulam, von Neumann, Metropolis, Los Alamos</span>
-        <p>The inverse direction becomes an industry. Neutron transport resists pencil and
-          paper; Ulam's solitaire idea grows into the Monte Carlo method (Metropolis and
-          Ulam, 1949), and von Neumann codifies inverse transform sampling: draw u uniform,
-          output F<sup>&minus;1</sup>(u). Every simulated random variable since is the
+        <p>The inverse direction becomes an industry. Neutron transport resisted pencil and
+          paper. Ulam's solitaire idea grew into the Monte Carlo method, published by
+          Metropolis and Ulam in 1949, and von Neumann codified inverse transform sampling:
+          draw u uniform, output F<sup>&minus;1</sup>(u). Every simulated random variable since is the
           inverse PIT at work. Computing &Phi;<sup>&minus;1</sup> was expensive enough that
           Box and Muller invented their 1958 method specifically to avoid it.</p>
       </div>
@@ -96,22 +96,23 @@
 
       <div class="tl-item">
         <span class="tl-year">1959</span> &middot; <span class="tl-who">Abe Sklar</span>
-        <p>Send each margin through its own PIT and what remains is the dependence itself, an
-          object in its own right: the copula, unique when the margins are continuous.
-          Dependence becomes something you can model separately from the margins. Wilk and
-          Gnanadesikan's Q&ndash;Q plot (1968) later gave the transform its picture.</p>
+        <p>Sklar's theorem: every joint distribution is a copula applied to its margins, and
+          the copula is unique when the margins are continuous. The proof is the PIT, applied
+          to each margin separately, and the consequence is that dependence becomes an object
+          you can model apart from the margins. In 1968 Wilk and Gnanadesikan gave the
+          transform its picture, the Q&ndash;Q plot.</p>
       </div>
 
       <div class="tl-item">
         <span class="tl-year">1997&ndash;1999</span> &middot; <span class="tl-who">Zhang, Pang &amp; Cotton, Morgan Stanley</span>
-        <p>Copulas reach Wall Street quietly first. At Morgan Stanley, Zhang, Pang and
+        <p>Copulas reached Wall Street quietly first. At Morgan Stanley, Zhang, Pang and
           Cotton invented a hybrid default simulation generalizing both doubly stochastic
           intensity models and the copula approach later made famous in
           publication<sup><a href="#fn1" style="text-decoration:none">1</a></sup>. As in
-          much of quantitative finance, practice ran years ahead of the journals
-          (MacKenzie and Spears documented the era). The construction is the PIT again:
-          default times pushed through their marginal distributions, dependence supplied
-          on the uniform scale.</p>
+          much of quantitative finance, practice ran years ahead of the journals.
+          MacKenzie and Spears later documented the era. The construction is the PIT
+          again: default times pushed through their marginal distributions, dependence
+          supplied on the uniform scale.</p>
       </div>
 
       <div class="tl-item">
@@ -126,20 +127,32 @@
       <div class="tl-item">
         <span class="tl-year">2013&ndash;2017</span> &middot; <span class="tl-who">normalizing flows</span>
         <p>Deep learning rediscovers Rosenblatt. A normalizing flow is a learned invertible
-          map to a simple base density, trained by exact change of variables, and the
-          autoregressive flows (MAF, IAF) parameterise conditional cdfs, which is the
-          Rosenblatt transform with neural networks for the conditionals. The 1952 theorem
+          map to a simple base density, trained by exact change of variables, The
+          autoregressive flows such as MAF and IAF parameterise conditional cdfs, which is
+          the Rosenblatt transform with neural networks for the conditionals. The 1952 theorem
           says a perfect flow exists; the 2010s built approximations by gradient descent.
           The residual composition running through the rest of this timeline (z-streams, the
           parade, conjugation) was developed independently of the flows literature.</p>
       </div>
 
       <div class="tl-item">
+        <span class="tl-year">2005; 2019&ndash;</span> &middot; <span class="tl-who">conformal prediction</span>
+        <p>Machine learning rediscovers the transform in finite-sample clothing. Under
+          exchangeability, the rank of a fresh nonconformity score among held-out ones is
+          uniform. That is the PIT without the continuity assumption, and it is a lovely
+          result. The field then standardized on coverage intervals and stopped short of
+          the full predictive distribution. What gets left on the table has a name and a
+          closed form, the residual-information gap; see
+          <a href="https://conformalprediction.net">conformalprediction.net</a>. A
+          calibrated density hands you every interval at once, and the likelihood too.</p>
+      </div>
+
+      <div class="tl-item">
         <span class="tl-year">~2020</span> &middot; <span class="tl-who">z-streams, microprediction.org</span>
         <p>The transform becomes a market mechanism. Every data point published to the
           platform is pushed through the community implied CDF, the distribution implied by
-          everyone's quarantined predictions (two horizons: roughly a minute and roughly an
-          hour), and then through the inverse normal cdf. The resulting
+          everyone's quarantined predictions at two horizons, roughly a minute and roughly
+          an hour, and then through the inverse normal cdf. The resulting
           <a href="https://www.linkedin.com/pulse/short-introduction-z-streams-peter-cotton-phd">z-streams</a>
           are roughly N(0,1) residual streams, useful for normalization and anomaly detection,
           and they are themselves predicted: the crowd sharpens its own coordinate system.
@@ -148,10 +161,10 @@
 
       <div class="tl-item">
         <span class="tl-year">2021</span> &middot; <span class="tl-who">the prediction parade</span>
-        <p>Inside the original timemachines package (the commit says "initialized parade",
-          April 2021), forecasts march in quarantine until they meet the ground truth they
-          were made for, and each arriving point is scored against the prediction issued for
-          it. The bookkeeping half of the streaming PIT, waiting for a model strong enough
+        <p>Inside the original timemachines package, forecasts march in quarantine until
+          they meet the ground truth they were made for, and each arriving point is scored
+          against the prediction issued for it. The commit is dated April 2021 and says
+          "initialized parade". The bookkeeping half of the streaming PIT, waiting for a model strong enough
           to make the coordinates worth living in.</p>
       </div>
 
@@ -177,9 +190,8 @@
       is exactly what the Gaussian one lacks.</p>
 
     <p style="color: var(--muted); font-size: 14px;">A working history, curated rather than
-      exhaustive. Omissions we already regret: Hastings' rational approximations of
-      &Phi;<sup>&minus;1</sup> (1955), the smooth-test revivals, and the conformal prediction
-      lineage (ranks are the finite-sample PIT).</p>
+      exhaustive. Omissions we already regret: Hastings' 1955 rational approximations of
+      &Phi;<sup>&minus;1</sup>, and the smooth-test revivals.</p>
   </main>
 </body>
 </html>
