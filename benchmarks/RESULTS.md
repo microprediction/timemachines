@@ -328,6 +328,42 @@ premium, i.e. ~2,500 samples/s per stream single-threaded. Right for
 polls, sensors and market bars; wrong inside a hot path at hundreds of
 thousands of ticks per second.
 
+### The fairness audit: lag-equipped baselines (`ablation_lag.py`)
+
+The std baseline above follows river's idiom, features only, no target
+history — which a fair referee calls starved. The audit adds the
+autoregressive ask: stdlag = the same pipeline plus raw y lags 1..8, and
+ltlag = lags plus the wrapper. MAE, tree learner:
+
+| dataset | std | stdlag | lt | ltlag |
+|---|---|---|---|---|
+| TrumpApproval (asis) | 0.334 | 0.266 | 0.301 | **0.252** |
+| TrumpApproval (spiked) | 0.561 | 0.309 | 0.376 | **0.280** |
+| ChickWeights (asis) | **23.8** | 25.2 | 24.1 | 25.6 |
+| AirlinePassengers | 41.9 | 36.3 | **26.6** | 32.2 |
+| Bikes (asis) | 5.07 | 5.15 | **5.01** | 5.06 |
+
+Reading: on the smooth single-entity series raw lags are a strong AND
+spike-resistant baseline (the injection corrupts features, never the
+target, so y lags are an uncorrupted channel that also dilutes the bad
+features), and there lt alone loses to stdlag 0/10 — but the wrapper on
+top of lags is best of all, clean and spiked. Everywhere else lt beats
+stdlag outright (10/10 under spikes on Airline and Bikes, 7-10/10 on
+ChickWeights) because lag ladders inherit every pathology of the raw
+stream. The claims therefore sharpen: "beats river's pipeline" means the
+lag-free pipeline river's docs actually recommend; against hand-added
+lags the wrapper's value is incremental but persistent — it improved the
+strongest configuration found on three of four datasets and was within
+noise of it on the fourth.
+
+A JS-side companion (the demo's engine, 10 seeds, steady state) audited
+the simulated generator the same way: against a one-lag baseline the
+front-end pays ~10% clean, ties at 4-sigma contamination, and wins 10/10
+at the study's 6-10 sigma; against a 13-lag ladder it ties clean and
+wins 9-10/10 contaminated, because every raw lag is another
+contamination entry point. Raw lags and forecaster features are two ways
+to buy the same history; lags are the fragile way.
+
 ### Footnote: the output sandwich (dropped from the recommendation)
 
 All three harnesses also ran output-fixing conditions: zout (raw
