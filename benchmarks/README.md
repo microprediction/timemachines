@@ -24,6 +24,7 @@ log-likelihood protocols as documented in each file's docstring.
 | `ablation_ewma.py` | the cheap-rollup control: EWMA (mu, z) pairs vs the Laplace ones |
 | `sufficiency_study.py` | 126 non-price FRED cross-series pairs, river default learners (the pass that measured the learners; see RESULTS) |
 | `sufficiency_rls.py` / `sufficiency_blr.py` | the corrected sufficiency passes: RLS and river's BayesianLinearRegression; verdict and mechanism in RESULTS |
+| `additive_study.py` | the adopter's framing: forecasts added on top of raw lags (zero additive alpha; see RESULTS) |
 
 Third-party baselines need the extra: `pip install "timemachines[benchmarks]"`.
 

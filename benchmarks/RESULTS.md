@@ -456,6 +456,29 @@ that one column's contamination exposure. The boundary of the claim,
 measured at scale across three learners, reported at the same volume as
 the wins.
 
+### The additive study: zero additive alpha (`additive_study.py`)
+
+The last framing, and the one an adopter would try first: add the
+forecast features ON TOP of raw lags rather than substituting. Same 126
+pairs, BayesianLinearRegression, each augmentation judged against its
+own base. Verdict: nothing, everywhere. mu_y on top of the raw lag:
+median ratio 1.0016 (wins 46/126); mu_x: 1.0014; both: 1.0062; on top
+of the 13-lag ladder: 1.0055. Adding the full rollup including the z's
+is actively harmful clean (1.059) and STILL loses under spikes (1.033,
+45/126): insurance was always a property of substitution, removing the
+unbounded channel, never of addition, since the corrupted raw column
+remains in the feature set. The epsilon symmetry with section 2 is
+complete: ARIMA adds +0.045 nats on top of Laplace; Laplace adds ~0 on
+top of an implicit AR in raw lags. On linear-in-lags universes the two
+representations span the same space.
+
+The whole broadened study now collapses to one sentence: on plain linear
+universes the forecaster's knowledge is already spanned by raw lags, so
+send them raw; the calibrated features earn their place exactly when you
+distrust the channel (substitute, for insurance), when the stream has
+structure a lag cannot express (represent), or when you should not be
+regressing at all (forecast).
+
 ### Footnote: the output sandwich (dropped from the recommendation)
 
 All three harnesses also ran output-fixing conditions: zout (raw
