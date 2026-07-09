@@ -583,6 +583,35 @@ CN opponent; within it, the claim survives pairing: correctly sized
 where the others leak, more powerful where volatility is harsh and the
 signal weak.
 
+**The overnight examination** (`granger_overnight.py`, 10,400
+simulations; p-values stored per rep, so any level is readable):
+
+Size, twelve null rows, all three sample sizes: Z2 sits between 0.034
+and 0.064 everywhere, and on the variance-causality trap it is the only
+test correctly sized at every T (0.040 / 0.034 / 0.050 at T = 300 /
+1200 / 4800) while classical F and F1 run 0.102-0.130 and even the
+ML-GARCH Cheung-Ng leaks at 0.076-0.086. Notable opponent pathologies:
+the HAC Wald hits 0.090 at T=300 under harsh GARCH and collapses to
+0.012 under t(3)+GARCH.
+
+Power, the curve under harsh GARCH at T=1200 (F1 / CNG / Z2): beta .02:
+.172/.215/.255; .03: .448/.468/.535; .04: .630/.693/.750; .06:
+.905/.948/.958; .08: .973/.993/1.000. Time-varying beta:
+.608/.680/.730. Heteroskedastic x: .665/.652/.752. Nonlinear (tanh):
+.958/.988/.998. Paired McNemar, Z2 vs the focused classical F1:
+p < 0.0001 at every cell. Z2 vs the full ML-GARCH Cheung-Ng: p = 0.008,
+0.018, 0.042, and < 0.0001 across the four main cells, borderline
+(0.085) only at the faintest beta. Wrong-lag alternatives belong to the
+lag-scan variants as designed (Z2M 0.990, CNGM 0.995).
+
+The theory has now been tested thoroughly and holds within simulation:
+correctly sized under every null tried including the trap at all sample
+sizes, and significantly more powerful than both the best classical test
+and the full-strength 1996 opponent across the power curve and the
+realistic alternatives. The remaining external checks are the real-data
+size pass (`granger_fred.py`, 252 directed FRED pairs where the lagged
+null approximately holds) and, for a paper, local power theory.
+
 ## 8. Still to come
 
 - slow-alpha full-250 (running); zbank-60 and default-250 (running,

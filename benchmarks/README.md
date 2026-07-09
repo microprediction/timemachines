@@ -27,6 +27,8 @@ log-likelihood protocols as documented in each file's docstring.
 | `additive_study.py` | the adopter's framing: forecasts added on top of raw lags (zero additive alpha; see RESULTS) |
 | `granger_study.py` | the calibrated Granger test: size and power vs classical F, HAC, and the focused F1 |
 | `granger2_study.py` | round two, the harsher grid: variance-causality trap, vol regimes, t(3)+GARCH, wrong lags, and a Cheung-Ng-style opponent |
+| `granger_overnight.py` | the overnight examination: 10,400 sims, ML-GARCH Cheung-Ng, T in {300,1200,4800}, p-values stored |
+| `granger_fred.py` | the real-data size check: 252 directed FRED pairs where the lagged null approximately holds |
 
 Third-party baselines need the extra: `pip install "timemachines[benchmarks]"`.
 
