@@ -358,10 +358,18 @@ noise of it on the fourth.
 
 A JS-side companion (the demo's engine, 10 seeds, steady state) audited
 the simulated generator the same way: against a one-lag baseline the
-front-end pays ~11% clean and wins 8/10 at 4-sigma and 9/10 at the
-study's 6-10 sigma contamination; against a 13-lag ladder it ties clean
-and wins 10/10 and 9/10 contaminated, because every raw lag is another
-contamination entry point. Raw lags and forecaster features are two ways
+minimal four-feature front-end pays ~11% clean and wins 8/10 at 4-sigma
+and 9/10 at the study's 6-10 sigma contamination; against a 13-lag
+ladder it ties clean and wins 10/10 and 9/10 contaminated, because every
+raw lag is another contamination entry point. The clean toll is a basis
+price, not an information price, and it is tunable: handing
+LaplaceFeatures the target's lag as one more input stream (so it arrives
+as a calibrated pair, never raw) cuts the toll to ~6% and improves every
+contaminated row besides (10/10 at both spike scales, 1.257 vs the
+baseline's 1.489 at 6-10 sigma). Emitting the clipped raw innovation
+instead of z was also tried and refuted: it recovers almost none of the
+toll and gives back the robustness, because z's fixed scale is itself
+part of the insurance. Raw lags and forecaster features are two ways
 to buy the same history; lags are the fragile way.
 
 ### The cheap-rollup control: EWMA pairs (`ablation_ewma.py`)
