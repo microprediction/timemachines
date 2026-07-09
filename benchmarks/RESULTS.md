@@ -407,42 +407,54 @@ robustness natively, and the calibrated forecaster is the upgrade path,
 which is exactly the generic-transformer shape the ticket offers.
 
 ### The sufficiency study: are five calibrated numbers typically enough?
-(`sufficiency_study.py`) — NO, on this universe
+(`sufficiency_study.py`, `sufficiency_rls.py`, `sufficiency_blr.py`) —
+NO on this universe, with the mechanism found
 
-The broadened question, on 126 non-price FRED cross-series family pairs
-(price series excluded by the paper's asset_class rule; round-robin
-across 86 families; y regressed on the concurrent sibling x change;
-MAE; "best raw" = per-pair oracle min of the parsimonious [x, y_lag]
-baseline and the 13-lag ladder, a comparator that can only hurt us):
+126 non-price FRED cross-series family pairs (price series excluded by
+the paper's asset_class rule; round-robin across 86 families; y
+regressed on the concurrent sibling x change; MAE; "best raw" = per-pair
+oracle min of the [x, y_lag] baseline and the 13-lag ladder). The rollup
+under test is five numbers from two Laplace bodies: mu_x, z_x, mu_y,
+z_y, mu_y_prev — no raw values.
 
-- river's LinearRegression is disqualified, not defeated: the RAW
-  baseline itself sits at a median 2,900x worse than the plain forecast
-  (SGD divergence at river defaults, the Bikes instability at scale).
-  The tree carries the verdict.
-- With the tree, the five-number rollup is sufficient (within 1.05x of
-  best-raw) on 31% of pairs untouched and 37% under 6-10 sigma covariate
-  spikes, median ratios 1.21 and 1.10. Not typically enough.
-- The reason is upstream of the rollup: on half the pairs the Laplace
-  forecast ALONE beats every regression configuration, raw or fronted
-  (median: best-raw is 12.5% worse than the naked forecast even where
-  regression wins). Daily sibling changes carry little incremental
-  information, and the learner tax eats most of what there is — the
-  forecaster-study "+epsilon" finding reappearing at regression scale.
-- The conditional cut, sufficiency asked only where regression has a job
-  (the ~half of pairs where some raw regression beats the forecast):
-  five is sufficient on 22/61 untouched, 25/63 spiked, median ratio
-  ~1.11 — the rollup keeps only part of an already modest (~12%) edge,
-  and the free EWMA rollup does about as well (25/61, 28/63).
+The study took three passes, and the first one's verdict was an
+artifact worth keeping on the record: with river's DEFAULT learners the
+raw baselines themselves lose to the naked forecast (the SGD
+LinearRegression silently diverges on tiny-scale change series, median
+2,900x worse than the forecast; the Hoeffding tree barely leaves its
+grace period at n~2,000), even though the sibling signal is large
+(median contemporaneous |corr| 0.45; lag-1 is nil, so it is
+contemporaneous, not Granger). river ships the suitable learner in the
+same module: its BayesianLinearRegression exploits the signal on 112/118
+pairs, and a hand-rolled RLS corroborates. Defaults, not the library.
 
-Reading, plainly: on noise-dominated cross-series universes the
-recommendation is the forecast, not any regression; where a covariate
-genuinely helps, the five-number rollup gives back roughly half its
-modest edge, and calibration buys nothing over EWMA shapes as features.
-The front-end's proven territory remains what the earlier sections
-measured: contamination insurance for model-based learners, structured
-streams (the simulation bulk, Airline's seasonality), and the wrapper on
-smooth single-entity series. This section is the boundary of the claim,
-measured at scale, and it is reported at the same volume as the wins.
+The corrected verdict, river-native (BayesianLinearRegression
+everywhere): five is sufficient (within 1.05x of oracle-raw) on 9% of
+pairs untouched, median 31% behind; under 6-10 sigma covariate spikes
+the insurance narrows it to 33% sufficient, median 1.12, while the raw
+configurations lose a sixth of their body-beating pairs. RLS agrees
+(26% / 44%). Not typically enough.
+
+The mechanism, isolated by adding raw values back one at a time (30-pair
+check, medians vs best-raw): five 1.46; five + raw current x 1.11; plus
+raw y_lag too 1.10. Most of the recoverable gap is the raw
+CONTEMPORANEOUS x level: the (mu, z) encoding cannot hand a linear
+learner the level, since rebuilding it needs the product of surprise and
+predictive scale — the same z-sigma reconstruction gap the toll
+investigation found on the synthetic (6-11% there, where history carried
+the signal) scaled up to dominate here, where the same-tick level IS the
+signal. The residual ~10% is the variance cost of carrying five
+forecaster features that add nothing on a universe two raw numbers
+describe.
+
+Reading, plainly: when the signal is today's raw level of a correlated
+stream, send the raw level; the rollup is a lossy encoding of exactly
+that. The pair earns its place on history-shaped channels, contaminated
+channels, and as the target-side wrapper; the practical recipe for
+contemporaneous covariates is raw level alongside the pair, accepting
+that one column's contamination exposure. The boundary of the claim,
+measured at scale across three learners, reported at the same volume as
+the wins.
 
 ### Footnote: the output sandwich (dropped from the recommendation)
 

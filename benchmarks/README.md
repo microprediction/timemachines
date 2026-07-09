@@ -22,7 +22,8 @@ log-likelihood protocols as documented in each file's docstring.
 | `ablation_river.py` | same ablation on river's datasets, dogfooding the published ice-skaters package (needs `pip install ice-skaters`) |
 | `ablation_lag.py` | the fairness audit: lag-equipped baselines (raw y lags 1..8) vs the wrapper, alone and combined |
 | `ablation_ewma.py` | the cheap-rollup control: EWMA (mu, z) pairs vs the Laplace ones |
-| `sufficiency_study.py` | 126 non-price FRED cross-series pairs: is the five-number rollup typically enough? (no, on this universe; see RESULTS) |
+| `sufficiency_study.py` | 126 non-price FRED cross-series pairs, river default learners (the pass that measured the learners; see RESULTS) |
+| `sufficiency_rls.py` / `sufficiency_blr.py` | the corrected sufficiency passes: RLS and river's BayesianLinearRegression; verdict and mechanism in RESULTS |
 
 Third-party baselines need the extra: `pip install "timemachines[benchmarks]"`.
 
@@ -76,6 +77,7 @@ export TIMEMACHINES_FRED_DATA=/path/to/fred/data
 | `ablation_river.py` | 4 river datasets, 44 runs | ~45 CPU-min (12 models/row) |
 | `ablation_lag.py` | 4 river datasets, 44 runs | ~25 CPU-min |
 | `sufficiency_study.py --pairs 150` | 126 FRED pairs, 252 runs | ~2 CPU-h |
+| `sufficiency_rls.py` / `sufficiency_blr.py` | 126 FRED pairs, 252 runs each | ~1 CPU-h each |
 | `ablation_ewma.py` | 4 river datasets, 44 runs | ~5 CPU-min |
 
 ### Bigger-machine targets, in value order
