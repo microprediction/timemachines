@@ -505,7 +505,43 @@ skaters#92. Theoretical resolution: the regret-transfer theorem
 data sequence; the pathology above is a property of extracting the
 pushforward mean, not of the density.
 
-## 7. Still to come
+## 7. The calibrated Granger test (`granger_study.py`)
+
+Peter's question: does testing causality in calibrated coordinates beat
+the classical tests? Theory said the null is exact under calibration
+(the oracle decomposition); simulation had to show size survives
+ESTIMATED calibration and power competes. 200 reps per cell, T=1200,
+rejection rates at nominal 5%:
+
+| scenario | F | HAC | F1 | Z | Z2 | Z2H |
+|---|---|---|---|---|---|---|
+| null: iid | 0.055 | 0.065 | 0.060 | 0.060 | 0.055 | 0.050 |
+| null: GARCH | 0.050 | 0.045 | 0.045 | 0.055 | 0.045 | 0.045 |
+| null: t(3) | 0.055 | 0.070 | 0.060 | **0.095** | 0.060 | 0.065 |
+| null: var break | 0.055 | 0.050 | 0.045 | 0.055 | 0.045 | 0.045 |
+| alt beta=0.05 | 0.265 | 0.305 | 0.440 | 0.330 | 0.435 | **0.455** |
+| alt beta=0.10 | 0.810 | 0.840 | 0.915 | 0.805 | 0.940 | **0.950** |
+| alt beta=0.20 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 |
+
+F = classical Granger (4 lags); HAC = Newey-West Wald; F1 = the focused
+one-lag classical test (the fair sharp opponent); Z = sqrt(T) corr(z_y,
+z_x lagged), news on news; Z2 = corr(z_y, RAW lagged x), the
+level-vs-news fix; Z2H = Z2 with a Newey-West variance on the statistic.
+
+Reading: the naive Z is dominated, over-rejecting at t(3) and losing
+power everywhere, because it correlates the covariate's news when the
+causal driver is its level — the sufficiency study's lesson in inference
+clothes. The corrected statistic, calibrate the TARGET side only and
+feed the signal side raw, is correctly sized under every null including
+heavy tails, ties the focused classical test at weak signal and beats it
+at medium (0.950 vs 0.915), the implicit-GLS gain from dividing out the
+target's volatility clock without modeling it. Caveats stated: this
+design is kind to the classical side (homoskedastic independent x,
+correct lag known to F1); the follow-up grid where Z2H should separate
+further is harsher volatility and misspecified lags. Design rule, twice
+validated tonight: calibrate the target, not the regressor.
+
+## 8. Still to come
 
 - slow-alpha full-250 (running); zbank-60 and default-250 (running,
   detached).
