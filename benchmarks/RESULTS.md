@@ -406,6 +406,44 @@ zero-dependency EWMA rollup transformer would capture much of the
 robustness natively, and the calibrated forecaster is the upgrade path,
 which is exactly the generic-transformer shape the ticket offers.
 
+### The sufficiency study: are five calibrated numbers typically enough?
+(`sufficiency_study.py`) — NO, on this universe
+
+The broadened question, on 126 non-price FRED cross-series family pairs
+(price series excluded by the paper's asset_class rule; round-robin
+across 86 families; y regressed on the concurrent sibling x change;
+MAE; "best raw" = per-pair oracle min of the parsimonious [x, y_lag]
+baseline and the 13-lag ladder, a comparator that can only hurt us):
+
+- river's LinearRegression is disqualified, not defeated: the RAW
+  baseline itself sits at a median 2,900x worse than the plain forecast
+  (SGD divergence at river defaults, the Bikes instability at scale).
+  The tree carries the verdict.
+- With the tree, the five-number rollup is sufficient (within 1.05x of
+  best-raw) on 31% of pairs untouched and 37% under 6-10 sigma covariate
+  spikes, median ratios 1.21 and 1.10. Not typically enough.
+- The reason is upstream of the rollup: on half the pairs the Laplace
+  forecast ALONE beats every regression configuration, raw or fronted
+  (median: best-raw is 12.5% worse than the naked forecast even where
+  regression wins). Daily sibling changes carry little incremental
+  information, and the learner tax eats most of what there is — the
+  forecaster-study "+epsilon" finding reappearing at regression scale.
+- The conditional cut, sufficiency asked only where regression has a job
+  (the ~half of pairs where some raw regression beats the forecast):
+  five is sufficient on 22/61 untouched, 25/63 spiked, median ratio
+  ~1.11 — the rollup keeps only part of an already modest (~12%) edge,
+  and the free EWMA rollup does about as well (25/61, 28/63).
+
+Reading, plainly: on noise-dominated cross-series universes the
+recommendation is the forecast, not any regression; where a covariate
+genuinely helps, the five-number rollup gives back roughly half its
+modest edge, and calibration buys nothing over EWMA shapes as features.
+The front-end's proven territory remains what the earlier sections
+measured: contamination insurance for model-based learners, structured
+streams (the simulation bulk, Airline's seasonality), and the wrapper on
+smooth single-entity series. This section is the boundary of the claim,
+measured at scale, and it is reported at the same volume as the wins.
+
 ### Footnote: the output sandwich (dropped from the recommendation)
 
 All three harnesses also ran output-fixing conditions: zout (raw
