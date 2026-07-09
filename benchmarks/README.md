@@ -26,6 +26,7 @@ log-likelihood protocols as documented in each file's docstring.
 | `sufficiency_rls.py` / `sufficiency_blr.py` | the corrected sufficiency passes: RLS and river's BayesianLinearRegression; verdict and mechanism in RESULTS |
 | `additive_study.py` | the adopter's framing: forecasts added on top of raw lags (zero additive alpha; see RESULTS) |
 | `granger_study.py` | the calibrated Granger test: size and power vs classical F, HAC, and the focused F1 |
+| `granger2_study.py` | round two, the harsher grid: variance-causality trap, vol regimes, t(3)+GARCH, wrong lags, and a Cheung-Ng-style opponent |
 
 Third-party baselines need the extra: `pip install "timemachines[benchmarks]"`.
 

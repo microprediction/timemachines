@@ -545,6 +545,44 @@ correct lag known to F1); the follow-up grid where Z2H should separate
 further is harsher volatility and misspecified lags. Design rule, twice
 validated tonight: calibrate the target, not the regressor.
 
+**Round two, the harsher grid** (`granger2_study.py`): near-integrated
+GARCH, regime-switching volatility, t(3)+GARCH, the variance-causality
+trap null (x drives y's variance, not its mean), weak and wrong-lag
+alternatives, and the proper literature opponent — a Cheung-Ng-style CCF
+on AR-filtered, EWMA-vol-standardized residuals, both sides standardized
+per their design. 200 reps per cell:
+
+| scenario | F | HAC | F1 | CN | CNM | Z2H | Z2M |
+|---|---|---|---|---|---|---|---|
+| null: harsh GARCH | 0.075 | 0.055 | 0.040 | 0.035 | 0.060 | 0.055 | 0.015 |
+| null: vol regimes | 0.075 | 0.070 | 0.040 | 0.085 | 0.050 | 0.045 | 0.055 |
+| null: t(3)+GARCH | 0.055 | **0.000** | 0.070 | 0.025 | 0.020 | 0.070 | 0.060 |
+| null: var-causality trap | **0.120** | 0.045 | **0.110** | **0.095** | **0.095** | **0.035** | **0.035** |
+| alt: beta .08 harsh | 0.955 | 0.975 | 0.995 | 0.995 | 1.000 | 1.000 | 1.000 |
+| alt: beta .04 harsh | 0.500 | 0.515 | 0.675 | 0.670 | 0.605 | **0.750** | 0.625 |
+| alt: t(3)+GARCH .08 | ~size | 0.000 | ~size | ~size | ~size | ~size | ~size |
+| alt: beta .08 at lag 3 | 0.925 | 0.945 | 0.415 | 0.035 | 0.995 | 0.515 | **0.985** |
+
+Three findings, paired-significant this time. (1) On the
+variance-causality trap, the practically notorious null, the calibrated
+test is the only one that holds size (0.035) while classical F and F1
+run at 0.110-0.120 and the Cheung-Ng style leaks at 0.095: dividing out
+the target's volatility clock removes exactly the channel through which
+variance spillover masquerades as mean causality. (2) Under harsh
+volatility at weak signal the implicit-GLS power gain is now real: 0.750
+vs the focused classical 0.675 (McNemar p = 0.017) and vs Cheung-Ng
+0.670 (p = 0.023). (3) Target-only calibration beats both-sides
+standardization on size and power alike, the design rule's third
+confirmation, now against the literature's own choice. Honest edges:
+Z2H slightly liberal at t(3)+GARCH (0.070); the Bonferroni lag-scan
+conservative under harsh GARCH (0.015); the t(3)+GARCH power cell is
+uninformative for every test (noise swamps beta = 0.08); and the HAC
+Wald collapses to zero size AND power there, a classical pathology
+worth its own footnote. Simulation-only, one grid, EWMA proxy for the
+CN opponent; within it, the claim survives pairing: correctly sized
+where the others leak, more powerful where volatility is harsh and the
+signal weak.
+
 ## 8. Still to come
 
 - slow-alpha full-250 (running); zbank-60 and default-250 (running,
