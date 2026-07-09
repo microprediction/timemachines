@@ -247,7 +247,7 @@ had not already extracted.
 Where the features genuinely carry entity identity that an interleaved
 single-stream body cannot represent (ChickWeights: 50 chick growth curves,
 per-entity bodies are the obvious v2), the pipeline keeps its edge and the
-front-end honestly loses. The insurance claim transfers to real
+front-end loses, and the table says so. The insurance claim transfers to real
 backgrounds: under feature contamination the front-end wins 10/10 wherever
 it was competitive as-is. Disclosed instability: river's default SGD
 LinearRegression degrades on Bikes in every coordinate system (14.4 asis
