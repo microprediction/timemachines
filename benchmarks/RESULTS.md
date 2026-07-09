@@ -366,8 +366,11 @@ price, not an information price, and it is tunable: handing
 LaplaceFeatures the target's lag as one more input stream (so it arrives
 as a calibrated pair, never raw) cuts the toll to ~6% and improves every
 contaminated row besides (10/10 at both spike scales, 1.257 vs the
-baseline's 1.489 at 6-10 sigma). Emitting the clipped raw innovation
-instead of z was also tried and refuted: it recovers almost none of the
+baseline's 1.489 at 6-10 sigma). One lag is the sweet spot: three lags
+were tried and are worse everywhere (0.977 at 4-sigma, losing 7/10 to
+the baseline), since the extra pairs are redundant with lag-1 plus mu_y
+and contribute only learner variance and contamination surface. Emitting
+the clipped raw innovation instead of z was also tried and refuted: it recovers almost none of the
 toll and gives back the robustness, because z's fixed scale is itself
 part of the insurance. Raw lags and forecaster features are two ways
 to buy the same history; lags are the fragile way.
