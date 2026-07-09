@@ -756,8 +756,8 @@
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">2010&ndash;2017</span> &middot; <span class="tl-who">normalizing flows</span>
-        <p>Deep learning rebuilds Rosenblatt, mostly without knowing it. A normalizing flow is a learned invertible map to a simple base density, trained by exact change of variables, and the autoregressive flows such as <a href="https://arxiv.org/abs/1705.07057">MAF</a> and <a href="https://arxiv.org/abs/1606.04934">IAF</a> parameterise conditional cdfs, the Rosenblatt transform with neural networks for the conditionals. None of the founding papers cite the 1952 result; the link was drawn retrospectively by the 2021 survey<sup><a href="#fn9" style="text-decoration:none">9</a></sup>.</p>
+        <span class="tl-year">2010&ndash;2017</span> &middot; <span class="tl-who">Tabak, Vanden-Eijnden &amp; Turner</span>
+        <p>Esteban Tabak introduces the flow of maps with Eric Vanden-Eijnden (<a href="https://projecteuclid.org/journals/communications-in-mathematical-sciences/volume-8/issue-1/Density-estimation-by-dual-ascent-of-the-log-likelihood/cms/1266935020.full">2010</a>) and names it with Cristina Turner (<a href="https://onlinelibrary.wiley.com/doi/10.1002/cpa.21423">2013</a>): a learned invertible map to a simple base density, trained by exact change of variables. Deep learning then rebuilds Rosenblatt at scale, mostly without knowing it &mdash; Rezende &amp; Mohamed popularize the idea for inference, and the autoregressive flows <a href="https://arxiv.org/abs/1705.07057">MAF</a> and <a href="https://arxiv.org/abs/1606.04934">IAF</a> parameterise conditional cdfs, the Rosenblatt transform with neural networks for the conditionals. None of the founding deep-learning papers cite the 1952 result; the link was drawn retrospectively by the 2021 survey<sup><a href="#fn9" style="text-decoration:none">9</a></sup>.</p>
       </div>
 
       <div class="tl-item">
@@ -841,22 +841,22 @@
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">2026</span> &middot; <span class="tl-who">the information gap</span>
-        <p>A three-line lemma essentially kills conformal prediction as a field. Coverage and forecast quality are orthogonal, and the height between what conformal delivers and a full predictive distribution has a name and a closed form, the residual-information gap (<a href="https://conformalprediction.net/papers/marginally-useful/">Marginally Useful</a>). Focus returns to the full PIT, and to sharp conditional estimates.</p>
+        <span class="tl-year">2026</span> &middot; <span class="tl-who">Peter Cotton</span>
+        <p>The height between a conformal band and a full predictive distribution gets a name and a closed form, the residual-information gap (<a href="https://conformalprediction.net/papers/marginally-useful/">Marginally Useful</a>). A three-line lemma thus kills conformal prediction as a field<sup><a href="#fn15" style="text-decoration:none">15</a></sup>.</p>
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">2026</span> &middot; <span class="tl-who">nearest-the-pin parimutuel</span>
+        <span class="tl-year">2026</span> &middot; <span class="tl-who">Peter Cotton</span>
         <p>The mechanism behind the z-streams gets written down: a <a href="https://mechanisms.microprediction.org/papers/scoring-point-cloud-distributional-submissions.html">nearest-the-pin parimutuel</a> that pays forecasters by proximity to the outcome, with a formalized noise addition to the target that makes the game incentive compatible<sup><a href="#fn14" style="text-decoration:none">14</a></sup>.</p>
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">2026</span> &middot; <span class="tl-who">laplace (the algorithm)</span>
-        <p><a href="https://skaters.microprediction.org/">skaters</a> ships <code>laplace</code>, the first online forecaster to apply Rosenblatt's transform with itself as the conditional law, one tick at a time. The same bijection is offered as a change of coordinates for other people's models, and it improves <a href="/">nearly all of them</a><sup><a href="#fn12" style="text-decoration:none">12</a></sup>.</p>
+        <span class="tl-year">2026</span> &middot; <span class="tl-who">Laplace (the algorithm)</span>
+        <p><a href="https://skaters.microprediction.org/">skaters</a> ships <code>laplace</code>, an online forecaster built around Rosenblatt's transform with its own predictive as the conditional law, tick by tick. The same bijection is offered as a change of coordinates for other models, and in the benchmarks run so far it has improved <a href="/">most of those tried</a><sup><a href="#fn12" style="text-decoration:none">12</a></sup>.</p>
       </div>
 
       <div class="tl-item">
-        <span class="tl-year">2026</span> &middot; <span class="tl-who">wald (the algorithm)</span>
+        <span class="tl-year">2026</span> &middot; <span class="tl-who">Wald (the algorithm)</span>
         <p>The detection head <code>wald</code> tests each tick's standardized surprise against its own tail, so the advertised false-alarm rate is <a href="/#calibration">the measured one</a><sup><a href="#fn13" style="text-decoration:none">13</a></sup>. A century of the same idea, now running live.</p>
       </div>
 
@@ -876,6 +876,7 @@
     <p id="fn11" style="color: var(--muted); font-size: 14px;"><sup>11</sup> The community implied cdf is the distribution implied by everyone's quarantined predictions at two horizons, roughly a minute and roughly an hour. Feeding the resulting z-streams back as new prediction targets is what lets the crowd sharpen its own coordinate system, across billions of micropredictions.</p>
     <p id="fn12" style="color: var(--muted); font-size: 14px;"><sup>12</sup> On held-out data, forecasters run on the transformed stream and scored back by exact change of variables gain around two nats per point; anomaly detectors gain several times their raw hit rate. It is the forecaster passing through, not the opponent.</p>
     <p id="fn13" style="color: var(--muted); font-size: 14px;"><sup>13</sup> Alarm on p below alpha and the false-alarm rate is alpha by construction, no threshold to tune. On real anomaly-free streams <code>wald</code> is the best-calibrated of the streaming detectors measured at operating depth.</p>
+    <p id="fn15" style="color: var(--muted); font-size: 14px;"><sup>15</sup> Tongue in cheek. Nobody here is out to kill conformal prediction, least of all the author, who strengthens it in a separate result, <a href="https://conformalprediction.net/papers/definetti-feynman/">a Feynman&ndash;Wigner diagnostic for conformal prediction</a>. The lemma is an argument for finishing the job with full distributions, not for abandoning finite-sample validity.</p>
     <p id="fn14" style="color: var(--muted); font-size: 14px;"><sup>14</sup> Paying by proximity rather than for backing a single bucket is what makes a crowd report a full predictive cdf instead of a point, and adding calibrated noise to the target is what makes truthful reporting optimal. Formalizing it closes the loop the platform ran by instinct, and connects the PIT to market design.</p>
 
   </main>
