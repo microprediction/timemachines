@@ -273,7 +273,7 @@ TargetStandardScaler). Both pickle and deep-copy; predict and learn
 paths see identical features despite Pipeline's learn-then-transform
 ordering. Runnable demo in that repo, `examples/trump_approval.py`
 (TrumpApproval: baseline 0.328 clean / 0.597 under 2% corrupted
-pollster readings; fronted 0.382 / 0.407). The ticket should say plainly
+pollster readings; fronted 0.369 / 0.382). The ticket should say plainly
 that we are unsure a skaters dependency is desirable — the package is
 young — and note the alternative: skaters is stdlib-only pure Python
 (no numpy, runs in Pyodide), so a frozen version could be vendored into
@@ -358,9 +358,9 @@ noise of it on the fourth.
 
 A JS-side companion (the demo's engine, 10 seeds, steady state) audited
 the simulated generator the same way: against a one-lag baseline the
-front-end pays ~10% clean, ties at 4-sigma contamination, and wins 10/10
-at the study's 6-10 sigma; against a 13-lag ladder it ties clean and
-wins 9-10/10 contaminated, because every raw lag is another
+front-end pays ~11% clean and wins 8/10 at 4-sigma and 9/10 at the
+study's 6-10 sigma contamination; against a 13-lag ladder it ties clean
+and wins 10/10 and 9/10 contaminated, because every raw lag is another
 contamination entry point. Raw lags and forecaster features are two ways
 to buy the same history; lags are the fragile way.
 
