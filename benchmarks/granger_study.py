@@ -195,8 +195,12 @@ def chi2_sf(xv, k):
     return f(xv, k)
 
 
-def z_test(y, x):
-    """sqrt(T)*corr(z_y[t], z_x[t-1]); N(0,1) under the null."""
+def z_tests(y, x):
+    """Three calibrated statistics. Z: corr(z_y[t], z_x[t-1]) — news on
+    news. Z2: corr(z_y[t], x[t-1]) — calibrated target, raw covariate
+    level (the level-vs-news fix). Z2H: Z2 with a Newey-West variance on
+    the product terms (L=4), repairing residual dependence in z_y under
+    heavy tails."""
     from timemachines import laplace
     from skaters.dist import Dist
     std_normal = Dist.gaussian(0.0, 1.0)
@@ -212,16 +216,33 @@ def z_test(y, x):
 
     zy = surprises(y)
     zx = surprises(x)
-    a = zy[1:]
-    b = zx[:-1]
-    n = len(a)
-    ma = sum(a) / n
-    mb = sum(b) / n
-    ca = [v - ma for v in a]
-    cb = [v - mb for v in b]
-    den = math.sqrt(sum(v * v for v in ca) * sum(v * v for v in cb)) or 1e-30
-    r = sum(p * q for p, q in zip(ca, cb)) / den
-    return math.sqrt(n) * r
+
+    def gstat(a, b):
+        n = len(a)
+        ma = sum(a) / n
+        mb = sum(b) / n
+        ca = [v - ma for v in a]
+        cb = [v - mb for v in b]
+        den = math.sqrt(sum(v * v for v in ca) * sum(v * v for v in cb)) or 1e-30
+        r = sum(p * q for p, q in zip(ca, cb)) / den
+        return math.sqrt(n) * r, ca, cb, den
+
+    g1, _, _, _ = gstat(zy[1:], zx[:-1])
+    g2, ca, cb, den = gstat(zy[1:], x[:-1])
+
+    # Newey-West variance of sum(ca*cb)/den, L=4
+    prod = [p * q for p, q in zip(ca, cb)]
+    n = len(prod)
+    mpr = sum(prod) / n
+    cprod = [v - mpr for v in prod]
+    var = sum(v * v for v in cprod) / n
+    for lag in range(1, 5):
+        w = 1.0 - lag / 5.0
+        var += 2.0 * w * sum(cprod[i] * cprod[i - lag]
+                             for i in range(lag, n)) / n
+    se = math.sqrt(max(var * n, 1e-30))
+    g2h = sum(prod) / se
+    return g1, g2, g2h
 
 
 def run_one(job):
@@ -230,26 +251,30 @@ def run_one(job):
     t0 = time.time()
     chi_F, wald = classical_tests(y, x)
     f1 = classical_f1(y, x)
-    g = z_test(y, x)
+    g1, g2, g2h = z_tests(y, x)
     pF = chi2_sf(chi_F, P)
     pH = chi2_sf(wald, P)
     pF1 = chi2_sf(f1, 1)
-    pZ = 2.0 * (1.0 - 0.5 * (1.0 + math.erf(abs(g) / math.sqrt(2.0))))
+
+    def p2(g):
+        return 2.0 * (1.0 - 0.5 * (1.0 + math.erf(abs(g) / math.sqrt(2.0))))
+
     return {"scenario": scenario, "seed": seed,
             "rej_F": pF < 0.05, "rej_HAC": pH < 0.05,
-            "rej_F1": pF1 < 0.05, "rej_Z": pZ < 0.05,
+            "rej_F1": pF1 < 0.05, "rej_Z": p2(g1) < 0.05,
+            "rej_Z2": p2(g2) < 0.05, "rej_Z2H": p2(g2h) < 0.05,
             "seconds": round(time.time() - t0, 1)}
 
 
 def summarize(results):
     print(f"\n=== calibrated Granger study (n={len(results)}) ===")
-    print(f"{'scenario':12s} {'F':>7s} {'HAC':>7s} {'F1':>7s} {'Z':>7s}   (rejection rate at nominal 5%)")
+    print(f"{'scenario':12s} {'F':>7s} {'HAC':>7s} {'F1':>7s} {'Z':>7s} {'Z2':>7s} {'Z2H':>7s}   (rejection at nominal 5%)")
     for sc in SCENARIOS:
         rows = [r for r in results if r["scenario"] == sc]
         if not rows:
             continue
         line = f"{sc:12s} "
-        for t in ("rej_F", "rej_HAC", "rej_F1", "rej_Z"):
+        for t in ("rej_F", "rej_HAC", "rej_F1", "rej_Z", "rej_Z2", "rej_Z2H"):
             line += f"{sum(r[t] for r in rows)/len(rows):7.3f} "
         print(line + f"  ({len(rows)} reps)")
 
