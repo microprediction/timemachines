@@ -281,6 +281,53 @@ river in river-idiomatic form if the maintainers ever wanted it native;
 the generic shape would be a ForecasterFeatures transformer wrapping any
 of river's own time_series models, with Laplace as one plug.
 
+### The ablation: which scalar carries it, and what it costs
+
+`ablation_frontend.py` decomposes the pair on the section-6 simulation
+(same generator, seeds, RLS learner; excess MSE, medians):
+
+| scenario | raw | mu only | z only | the pair | pair, raw y lag |
+|---|---|---|---|---|---|
+| clean | **0.001** | 0.177 | 16.9 | 0.057 | 0.016 |
+| spikes_y | 3.78 | 3.21 | 17.6 | **1.84** | 2.38 |
+| heavy (t2) | 0.008 | 1.36 | 146 | 0.95 | 0.18 |
+| distort | 1.05 | 1.06 | 18.0 | **0.51** | 0.67 |
+
+z alone is useless: surprises carry no level, and a level cannot be
+regressed from pure news. mu alone pays a large clean toll and misses
+distortion. The pair is genuinely a unit — the learner recombines level
+and news into a conditional mean neither scalar supports alone. The
+target's own pair is insurance for the target specifically: swapping it
+for the raw y lag is better on clean/heavy/drift/shift and worse under
+target spikes and distortion.
+
+`ablation_river.py` repeats on river's datasets, dogfooding the published
+ice-skaters package, and adds the condition the earlier study missed:
+`lt` = LaplaceTarget alone, raw features untouched. MAE, tree learner,
+untouched data:
+
+| dataset | std | lt | full recipe |
+|---|---|---|---|
+| TrumpApproval | 0.334 | **0.301** | 0.387 |
+| ChickWeights | **23.8** | 24.1 | 24.5 |
+| AirlinePassengers | 41.9 | **26.6** | 29.5 |
+| Bikes (20k) | 5.07 | **5.01** | 5.51 |
+
+Under 2% feature spikes lt beats std 10/10 on TrumpApproval,
+AirlinePassengers and Bikes (tree; 6/10 on ChickWeights), despite its
+features being the raw, spiked ones — the target pair anchors the
+prediction and reduces reliance on corrupted features. **Revised
+recommendation, in order:** add the target pair always (one wrapper,
+helps clean and contaminated, ties the pipeline even on the
+counterexample dataset); replace features with their (mu, z) pairs only
+when you distrust the features; never use z alone.
+
+Cost, measured (`ice-skaters`, 3 numeric streams): LaplaceFeatures ~390
+microseconds per stream per sample vs ~0.4 for StandardScaler, a ~900x
+premium, i.e. ~2,500 samples/s per stream single-threaded. Right for
+polls, sensors and market bars; wrong inside a hot path at hundreds of
+thousands of ticks per second.
+
 ### Footnote: the output sandwich (dropped from the recommendation)
 
 All three harnesses also ran output-fixing conditions: zout (raw
@@ -301,7 +348,11 @@ untested fix). The construction stays in the harnesses and in the theory
 bijection, and it is the only route from point learners to
 distributional outputs (CRPS, intervals) — but it exits the practical
 recommendation: fix the inputs, keep the target raw. Self-hosting route:
-skaters#92.
+skaters#92. Theoretical resolution: the regret-transfer theorem
+(ice-skaters, `papers/regret-transfer.md`) proves the sandwich as a
+*density* can never lose more than O(d log T) nats to the body on any
+data sequence; the pathology above is a property of extracting the
+pushforward mean, not of the density.
 
 ## 7. Still to come
 
@@ -315,9 +366,14 @@ skaters#92.
   saturates at |z|=7.03, erasing 20-sigma vs 100-sigma distinctions).
 - TSB-AD-U leaderboard run (VUS-PR; top is 0.42, simple methods lead).
 - Regression front-end v2: slow-memory body for the zout/spikes_y cell;
-  target-intercept shift scenario; then the real-data prong (FRED
-  cross-series regression) and the academic prong (RevIN/DAIN/Dish-TS on
-  ETT with the same dumb learner).
+  target-intercept shift scenario; per-entity bodies (the ChickWeights
+  fix); k=3 multi-horizon surprise features for the drift/shift rows;
+  concept-drift classification (Elec2/Insects); then the FRED
+  cross-series prong and the academic prong (RevIN/DAIN/Dish-TS on ETT
+  with the same dumb learner). Done since the first pass: the mu-vs-z
+  ablation, the LaplaceTarget-only condition, per-tick cost, and the
+  regret-transfer theorem with its numerical check (both in
+  ice-skaters).
 
 ## Reproduce
 
@@ -329,6 +385,8 @@ python benchmarks/anomaly/fred_anomaly.py --limit 100 --workers 4
 python benchmarks/regression_frontend.py --seeds 30 --workers 6
 python benchmarks/river_frontend.py --seeds 30 --workers 6   # pip install river
 python benchmarks/river_data_frontend.py --workers 6
+python benchmarks/ablation_frontend.py --seeds 30 --workers 6
+python benchmarks/ablation_river.py --workers 6   # pip install ice-skaters
 ```
 UCR data: see RESEARCH.md (download + extract into `data/UCR_Anomaly_FullData`).
 FRED data: cached under `benchmarks/data/` (see `benchmarks/fred.py`).

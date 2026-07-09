@@ -18,6 +18,8 @@ log-likelihood protocols as documented in each file's docstring.
 | `regression_frontend.py` | online regression front-end lift: one RLS learner, coordinates varied (raw/affine/robust/Laplace-z), contaminated simulation |
 | `river_frontend.py` | same question, river's learners: Laplace front-end vs river's StandardScaler/TargetStandardScaler pipeline (needs `pip install river`) |
 | `river_data_frontend.py` | the ticket gate: same comparison on river's own regression datasets, as-is and feature-spiked, with a body-alone attribution column |
+| `ablation_frontend.py` | mu-vs-z ablation on the simulation: which of the two scalars carries the value |
+| `ablation_river.py` | same ablation on river's datasets, dogfooding the published ice-skaters package (needs `pip install ice-skaters`) |
 
 Third-party baselines need the extra: `pip install "timemachines[benchmarks]"`.
 
@@ -67,6 +69,8 @@ export TIMEMACHINES_FRED_DATA=/path/to/fred/data
 | `regression_frontend.py --seeds 30` | 240 simulated runs | ~7 CPU-min |
 | `river_frontend.py --seeds 30` | 240 simulated runs | ~20 CPU-min |
 | `river_data_frontend.py` | 4 river datasets, 44 runs | ~15 CPU-min |
+| `ablation_frontend.py --seeds 30` | 240 simulated runs | ~5 CPU-min |
+| `ablation_river.py` | 4 river datasets, 44 runs | ~45 CPU-min (12 models/row) |
 
 ### Bigger-machine targets, in value order
 
