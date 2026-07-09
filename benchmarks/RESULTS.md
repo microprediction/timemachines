@@ -533,9 +533,13 @@ power everywhere, because it correlates the covariate's news when the
 causal driver is its level — the sufficiency study's lesson in inference
 clothes. The corrected statistic, calibrate the TARGET side only and
 feed the signal side raw, is correctly sized under every null including
-heavy tails, ties the focused classical test at weak signal and beats it
-at medium (0.950 vs 0.915), the implicit-GLS gain from dividing out the
-target's volatility clock without modeling it. Caveats stated: this
+heavy tails, with power statistically indistinguishable from the focused
+classical test: the apparent medium-signal edge (0.950 vs 0.915) is 9
+discordant pairs to 2, McNemar p = 0.065, and the weak-signal tie is 13
+to 10, p = 0.68. The supportable claim is "as powerful while assuming
+less", not "more powerful"; the implicit-GLS mechanism predicts real
+gains only where the target's volatility is harsher than this design's.
+Caveats stated: this
 design is kind to the classical side (homoskedastic independent x,
 correct lag known to F1); the follow-up grid where Z2H should separate
 further is harsher volatility and misspecified lags. Design rule, twice
