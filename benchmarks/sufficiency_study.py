@@ -24,8 +24,11 @@ Variants: asis (real dirt only) and spikes (2% measurement spikes at
 6-10 full-sample sigmas on the observed x; the target and the scoring
 stay untouched). MAE, burn-in max(100, n/10), resumable jsonl.
 
-Data: point TIMEMACHINES_FRED_DATA at a FRED cache (the skaters repo
-carries one). Usage:
+Price series (equity, fx, commodity, classified by the skaters repo's
+fred_universe.asset_class title rule) are EXCLUDED: their changes are
+near-martingale, so they measure noise rather than sufficiency; the
+skaters paper applies the same split. Data: point TIMEMACHINES_FRED_DATA
+at a FRED cache (the skaters repo carries one). Usage:
 
     TIMEMACHINES_FRED_DATA=~/github/skaters/benchmarks/data \\
         python benchmarks/sufficiency_study.py --pairs 150 --workers 6
@@ -61,20 +64,47 @@ def family(series_id):
     return (m.group(0)[:4] if m else series_id)
 
 
+def _asset_class():
+    """Load the house price rule from beside the data cache; None if absent."""
+    bench = os.path.dirname(os.path.abspath(_CACHE))
+    path = os.path.join(bench, "fred_universe.py")
+    if not os.path.exists(path):
+        return None
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("fred_universe", path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.asset_class
+
+
+PRICE = {"equity", "fx", "commodity"}
+
+
 def build_pairs(cap):
     universe = os.path.join(_CACHE, "universe_daily.json")
-    ids = [u["id"] for u in json.load(open(universe))]
+    meta = json.load(open(universe))
+    cls = _asset_class()
+    if cls is None:
+        raise SystemExit("fred_universe.py not found beside the data cache; "
+                         "the price exclusion needs its asset_class rule")
+    ids = [u["id"] for u in meta if cls(u.get("title", "")) not in PRICE]
     cached = [s for s in ids
               if os.path.exists(os.path.join(_CACHE, f"{s}.csv"))]
     fams = {}
     for s in cached:
         fams.setdefault(family(s), []).append(s)
+    # round-robin across families so no giant panel (BAML has ~200 members)
+    # floods the cap; one pair per family per round
+    per_fam = {f: [(m[i], m[i + 1]) for i in range(0, len(m) - 1, 2)]
+               for f, m in sorted(fams.items())}
     pairs = []
-    for fam in sorted(fams):
-        members = fams[fam]
-        for i in range(0, len(members) - 1, 2):
-            pairs.append((members[i], members[i + 1]))
-    return pairs[:cap]
+    rnd = 0
+    while len(pairs) < cap and any(len(v) > rnd for v in per_fam.values()):
+        for f in sorted(per_fam):
+            if len(per_fam[f]) > rnd and len(pairs) < cap:
+                pairs.append(per_fam[f][rnd])
+        rnd += 1
+    return pairs
 
 
 def aligned_changes(y_id, x_id):
