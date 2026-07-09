@@ -21,6 +21,7 @@ log-likelihood protocols as documented in each file's docstring.
 | `ablation_frontend.py` | mu-vs-z ablation on the simulation: which of the two scalars carries the value |
 | `ablation_river.py` | same ablation on river's datasets, dogfooding the published ice-skaters package (needs `pip install ice-skaters`) |
 | `ablation_lag.py` | the fairness audit: lag-equipped baselines (raw y lags 1..8) vs the wrapper, alone and combined |
+| `ablation_ewma.py` | the cheap-rollup control: EWMA (mu, z) pairs vs the Laplace ones |
 
 Third-party baselines need the extra: `pip install "timemachines[benchmarks]"`.
 
@@ -73,6 +74,7 @@ export TIMEMACHINES_FRED_DATA=/path/to/fred/data
 | `ablation_frontend.py --seeds 30` | 240 simulated runs | ~5 CPU-min |
 | `ablation_river.py` | 4 river datasets, 44 runs | ~45 CPU-min (12 models/row) |
 | `ablation_lag.py` | 4 river datasets, 44 runs | ~25 CPU-min |
+| `ablation_ewma.py` | 4 river datasets, 44 runs | ~5 CPU-min |
 
 ### Bigger-machine targets, in value order
 

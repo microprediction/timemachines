@@ -364,6 +364,37 @@ and wins 10/10 and 9/10 contaminated, because every raw lag is another
 contamination entry point. Raw lags and forecaster features are two ways
 to buy the same history; lags are the fragile way.
 
+### The cheap-rollup control: EWMA pairs (`ablation_ewma.py`)
+
+The last control: how much of the value is the rollup SHAPE (any
+expectation-plus-clipped-surprise pair) versus the calibrated forecaster
+specifically? An EWMA rollup is two lines and free. MAE, tree learner,
+same seeds (elt = raw features + EWMA target pair; efull = EWMA pairs
+everywhere; compare lt from the ablation above):
+
+| dataset | std | lt (Laplace) | elt (EWMA) | efull (EWMA) |
+|---|---|---|---|---|
+| TrumpApproval (asis) | 0.334 | 0.301 | 0.244 | **0.230** |
+| TrumpApproval (spiked) | 0.561 | 0.376 | 0.269 | **0.256** |
+| ChickWeights (asis) | **23.8** | 24.1 | 24.8 | 25.3 |
+| AirlinePassengers | 41.9 | **26.6** | 28.3 | 28.3 |
+| Bikes (asis) | 5.07 | **5.01** | 5.08 | 5.16 |
+
+On the synthetic generator the ordering reverses hard: the Laplace pairs
+beat the best-of-three-alphas EWMA rollup by 26% clean and 14% at
+4-sigma contamination (where the EWMA control does not even beat raw
+features), and they tie only at 6-10 sigma where the clipping does the
+work. Reading, in three layers: the rollup SHAPE buys the tail
+insurance, and an EWMA buys it for free; the calibrated forecaster earns
+its 900x cost in the bulk, whenever the stream has structure an EWMA
+cannot track (the AR generator, Airline's seasonality); and on
+near-random-walk series the strongest object of all remains the Laplace
+forecast alone (0.150 on TrumpApproval), which every regression wrapper
+degrades with learner slack. For river the implication is friendly: a
+zero-dependency EWMA rollup transformer would capture much of the
+robustness natively, and the calibrated forecaster is the upgrade path,
+which is exactly the generic-transformer shape the ticket offers.
+
 ### Footnote: the output sandwich (dropped from the recommendation)
 
 All three harnesses also ran output-fixing conditions: zout (raw
