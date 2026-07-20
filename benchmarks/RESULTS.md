@@ -92,12 +92,16 @@ waveform periods (~50-400 samples) the Laplace body cannot represent (its
 seasonal grid is calendar {7,12,24}), so every cycle reads as fresh surprise.
 That is a *body* weakness observed through the head — filed upstream as
 skaters#91 — and matrix-profile methods own that terrain by construction.
-Slow-memory config (sa 0.01/da 0.005), full archive (n=247 of 250; the run
-was stopped three 300k-point series short): mahS 0.308 > |z1| 0.291 > mah
-0.283 > trivial 0.219. Slow memory is worth ~+3 points over default and
-flips the ordering — the multivariate scan beats the per-horizon rule at
-scale, which default memory never managed (and 0.675 on the 40 shortest).
-The zbank sigma-grid sits between the configs without tuning.
+Slow-memory config (sa 0.01/da 0.005), full archive (FINAL, all 250; the
+detached run completed 2026-07-13): mahS 0.304 > |z1| 0.288 > mah 0.280 >
+zU 0.276 > trivial 0.216. By length, mahS: 32/53 (<10k), 32/97 (10-50k),
+12/100 (>=50k). Slow memory is worth ~+3-6 points over default (default-250
+FINAL: |z1| 0.276 > zU 0.264 > mah = mahS 0.240) and flips the ordering —
+the multivariate scan beats the per-horizon rule at scale, which default
+memory never managed (and 0.675 on the 40 shortest). The zbank sigma-grid
+(FINAL, n=60: |z1| 0.550, mahS 0.533) sits between the configs without
+tuning. All three tapes were run under skaters 0.12.x (gaussian z tails);
+the 0.13.0 GPD-tails default re-run is checkpointing in this directory.
 
 Findings the study produced regardless of scores: a horizon-misalignment bug
 in skaters' search() (third instance of the pattern; fixed, parity green);
@@ -614,15 +618,33 @@ null approximately holds) and, for a paper, local power theory.
 
 ## 8. Still to come
 
-- slow-alpha full-250 (running); zbank-60 and default-250 (running,
-  detached).
-- FRED v2 with rank-percentile scoring.
-- Detection delay at fixed alpha (the panel covers FPR; delay is the
-  other axis of the Wald tradeoff).
+- FRED v2 with rank-percentile scoring — HARNESS READY (2026-07-20):
+  `fred_anomaly_v2.py`, same deterministic injections as v1, scores the
+  planted window's rank percentile with and without GFC/COVID masking;
+  resumable per series. Smoke-tested; full 150-series run queued in
+  `run_outlier_fleet.sh`.
+- Detection delay at fixed alpha — HARNESS READY (2026-07-20):
+  `detection_delay.py`, burst+shift injections, stated-alpha regime for
+  p-value methods vs matched-empirical-quantile regime for score-only
+  methods, pre-onset false alarms per 1k ticks reported alongside.
+  Caveat found at smoke test: quantile-thresholding DSPOT's saturated
+  score inflates its realized false-alarm rate — its native alarm channel
+  should be added before quoting its delay row.
+- TSB-AD-U leaderboard run (VUS-PR; top is 0.42, simple methods lead) —
+  HARNESS READY (2026-07-20), two phases, both resumable: `tsb_ad_run.py`
+  caches per-tick score arrays per series (detection venv, skaters
+  0.13.0); `tsb_ad_eval.py` computes the official VUS/AUC bundle with the
+  TSB-AD package in `.venv-tsb` (it pins numpy<2 — keep venvs separate).
+  mahS windows are derived at eval time from the cached mah array.
+  Tuning-split scorer started 2026-07-20 (2 nice'd workers).
 - GPD/EVT tail for the detector's extreme p-values (steal DSPOT's tail
   theorem for our head); unclamped -logpdf surprise channel (the z-clamp
   saturates at |z|=7.03, erasing 20-sigma vs 100-sigma distinctions).
-- TSB-AD-U leaderboard run (VUS-PR; top is 0.42, simple methods lead).
+  Note: skaters 0.13.0 ships GPD tails default-on in the forecaster, so
+  the z stream's own p-values are now calibrated at source; the mah
+  (Mahalanobis-layer) overcalibration remains its own open defect.
+- UCR full-250 re-run under skaters 0.13.0 tails (the three 0.12.x tapes
+  above are FINAL for the old default; re-run seeded in this directory).
 - Regression front-end v2: slow-memory body for the zout/spikes_y cell;
   target-intercept shift scenario; per-entity bodies (the ChickWeights
   fix); k=3 multi-horizon surprise features for the drift/shift rows;
@@ -645,6 +667,17 @@ python benchmarks/river_frontend.py --seeds 30 --workers 6   # pip install river
 python benchmarks/river_data_frontend.py --workers 6
 python benchmarks/ablation_frontend.py --seeds 30 --workers 6
 python benchmarks/ablation_river.py --workers 6   # pip install ice-skaters
+
+# outlier fleet (all resumable; WORKERS=2 default is deliberately gentle)
+WORKERS=2 ./benchmarks/run_outlier_fleet.sh > fleet.log 2>&1 &
+python benchmarks/tsb_ad_run.py --split tuning --workers 2   # phase 1
+.venv-tsb/bin/python benchmarks/tsb_ad_eval.py --split tuning  # phase 2
+python benchmarks/fred_anomaly_v2.py --limit 150 --workers 2
+python benchmarks/detection_delay.py --limit 150 --workers 2
 ```
 UCR data: see RESEARCH.md (download + extract into `data/UCR_Anomaly_FullData`).
 FRED data: cached under `benchmarks/data/` (see `benchmarks/fred.py`).
+TSB-AD-U data: `benchmarks/data/TSB-AD-U/` (zip URL in RESEARCH.md; split
+lists auto-fetched). On this machine `benchmarks/data` is a symlink into the
+skaters repo's shared cache. Envs: `.venv` (detection, skaters 0.13.0
+editable) and `.venv-tsb` (TSB-AD metrics only; numpy<2, do not mix).
