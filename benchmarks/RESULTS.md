@@ -399,13 +399,38 @@ injected FRED series, n=96; existing knobs only):
 | **pot95_shrink** | **0.177** | **1.2** | **1.4** | **2.7** |
 
 The argmax column is flat within binomial noise (+/-~3.6 series on n=96), so no
-config trades ranking for calibration on this set — confirming that lowering
-`pot_level` is ranking-invariant by construction (the p-value is monotone in
-`d2` regardless of the threshold). `pot95_shrink` calibrates best on all three
-depths, near the z1 floor. Caveat: FRED injection is the *easy* ranking regime
-(the confounded-argmax problem, §5), so the genuine ranking test for the
-`shrink` component is UCR waveforms — pending before any default change.
-`pot_level` is safe to lower now; `shrink` is gated on the UCR check.
+config trades ranking for calibration on this set. `pot95_shrink` calibrates
+best on all three depths, near the z1 floor.
+
+**UCR ranking gate** (`mah_ucr_ranking.py`, argmax accuracy, n=40 shortest):
+base 20/40 = 0.500, shrink 18/40 = 0.450, pot95_shrink 22/40 = 0.550 — all
+within binomial noise (+/-~3.2). Two corrections came out of it:
+
+* **`pot_level` is NOT ranking-invariant.** shrink (18) != pot95_shrink (22)
+  proves it. The GPD splice *raises* p in the tail, so `-log10 p` has a
+  downward discontinuity at `t_pot`: a sub-maximal-d2 tick just below the
+  threshold can outrank the true max just above it, and moving `pot_level`
+  moves that discontinuity. The earlier "monotone, invariant" claim was wrong.
+* **Lowering `pot_level` fails masking resistance.** The `pot_level=0.95`
+  default change (attempted, reverted) breaks `tests/test_heads.py::
+  test_masking_resistance`: with a 120-sigma spike every 40 ticks, only 10/13
+  fire at p<1e-3 (vs 13/13 at 0.98; worst outlier p 1.9e-3 vs 2.1e-11). The
+  dense spikes contaminate the lower exceedance set and corrupt the GPD fit
+  for extreme excesses. Sparse-anomaly FRED/UCR benchmarks could not surface
+  this — the test suite did.
+
+**Conclusion.** `pot_level=0.95` is a genuine calibration win on sparse-anomaly
+data but trades away masking resistance under dense outliers, so it is NOT a
+safe default; reverted, 0.98 kept, finding documented in the docstring. The
+right repair is a tail *shape* fix that keeps the 98% threshold: replace the
+bulk null's scaled-chi2 with a **scaled-F carrying the estimation dof**
+(`d2 ~ [k(n_eff-1)/(n_eff-k)] F(k, n_eff-k)`, `n_eff ~ 2/alpha`), which models
+the heavy finite-sample tail at its source instead of asking the empirical GPD
+to mop it up from a lower threshold. That is a localized change to the null
+family (both languages, with the masking test as a gate) — the next step, not
+rushed. `scatter="shrink"` remains a documented opt-in (best combined
+calibration, no measured ranking cost) but not the default (the factor model
+serves the multivariate `zbank`).
 
 ## 5. FRED injection (argmax) — protocol needs v2
 

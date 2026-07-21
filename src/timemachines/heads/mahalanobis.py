@@ -310,6 +310,10 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
             data (the calibration panel measures this). Pickands--Balkema--%
             de Haan says exceedances are GPD whatever the law, so the tail
             gets its own fit — DSPOT's theorem on our multivariate statistic.
+            (Lowering it to 0.95 improves sparse-anomaly calibration but
+            regresses masking resistance under dense outliers — the
+            exceedance set is contaminated and the GPD fit corrupted; see
+            benchmarks/RESULTS.md §4c. 0.98 is kept for that reason.)
         min_exc: exceedances required before the GPD tail is trusted
             (bulk fit is used below that).
 
