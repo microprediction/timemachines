@@ -103,6 +103,20 @@ memory never managed (and 0.675 on the 40 shortest). The zbank sigma-grid
 tuning. All three tapes were run under skaters 0.12.x (gaussian z tails);
 the 0.13.0 GPD-tails default re-run is checkpointing in this directory.
 
+### The 0.13.0 re-run (GPD tails default, 2026-07-21) — a real regression
+
+Same harness, same slow-memory config, same warmup protocol, full 250,
+skaters 0.13.0: mahS 0.288 < |z1| 0.280 ~ mah 0.256, zU 0.232, trivial
+0.216 — every channel drops vs the 0.12.x tapes (mahS 0.304, z1 0.288,
+mah 0.280, zU 0.276). The mechanism is the design tension stated plainly:
+the tail splice exists to make extreme z CALIBRATED, which necessarily
+compresses the very tail contrast argmax ranking feeds on; zU, built
+entirely from extreme per-margin p-values, bleeds most (-4.4 points).
+Calibration and ranking are different objectives and now measurably trade
+off — quote UCR rows with the tails config attached, and consider
+`tails="gaussian"` (the old behavior, still available) when the task is
+argmax localization rather than alarming.
+
 Findings the study produced regardless of scores: a horizon-misalignment bug
 in skaters' search() (third instance of the pattern; fixed, parity green);
 the effective-rank collapse of the z scatter -> empirical null + factor
@@ -145,6 +159,69 @@ noise. Diagnosis: real backgrounds contain genuine unlabeled anomalies
 confounded measure. v2: score the planted window's rank percentile in the
 full score ordering (robust to dominant natural events), and/or mask known
 crisis windows. Keep argmax row for reference.
+
+### v2 — rank percentile with crisis masking (n=120, 2026-07-21)
+
+`fred_anomaly_v2.py`, same deterministic injections, skaters 0.13.0.
+Masking GFC/COVID from the ranking set lifts every method's argmax hit
+rate (z1 0.250 -> 0.317, mz 0.250 -> 0.342), confirming the v1 confound
+was real. Mean rank percentile (masked / argmax-hit masked):
+
+| method | pct_m | hit_m | note |
+|---|---|---|---|
+| dspot_z | **0.9951** | 0.275 | fronted DSPOT best percentile again |
+| z1 | 0.9945 | 0.317 | best own channel |
+| rrcf_raw | 0.9921 | 0.283 | |
+| mah | 0.9912 | 0.175 | percentile fine, argmax poor |
+| dspot_raw | 0.9886 | 0.325 | |
+| mz | 0.9850 | **0.342** | trivial baseline wins argmax-hit |
+| mahS64 | 0.9126 | 0.233 | scan window dilutes rank sharply |
+
+Read: on percentile the field is compressed (everyone ~0.98-0.995) and the
+front-end story repeats (dspot_z > dspot_raw on percentile); on masked
+argmax the trivial mz is top — planted 8-sigma spikes on economic series
+are simply not hard, so this benchmark measures the easy regime. The
+discriminating FRED evidence stays the calibration panel and the delay
+panel, not injections.
+
+### Detection delay at fixed alarm budget (n=83 burst+shift, 2026-07-21)
+
+`detection_delay.py`. In the stated-alpha regime (deployable, no oracle):
+z1 at alpha=1e-3 detects 63% at median delay 12 ticks with realized 1.43
+false alarms per 1k (1.4x nominal — the 0.13.0 tails keeping their
+budget); mah detects 80% but at delay 157 and 2.8x budget. In the
+matched-quantile regime mz is the delay/detection sweet spot (0.81
+detect, delay 18, 2.4/1k at the 1e-3 budget); dspot's saturated score
+defeats quantile matching (30-40 fa/1k regardless of budget) — its native
+alarm channel is required before its delay row is quotable.
+
+## 5b. TSB-AD-U — the leaderboard run (tuning read 2026-07-21)
+
+Two-phase harness (`tsb_ad_run.py` scores, `tsb_ad_eval.py` official
+metrics). Tuning split (48 series), mean VUS-PR: slow-memory config
+z1 **0.190** > zU 0.188 > mz 0.177 > mahS8 0.169 > mah 0.159 > mahS64
+0.138; the default-memory config is worse everywhere (best 0.173). Config
+frozen for eval: slow memory, z1 the headline channel — note the
+UCR-consistent pattern that the plain parade surprise beats the
+Mahalanobis geometry on ranking metrics, and the trivial EWMA z sits only
+0.013 VUS-PR behind the best own channel on this split. Leaderboard
+context: univariate top is Sub-PCA 0.42. (The metrics pass first died on
+a single inf tick — the mz baseline's denormal-variance overflow, since
+clamped at source and sanitized at eval; not a skaters defect.)
+
+### Eval split — FINAL (350 series, 2026-07-21)
+
+Mean VUS-PR: mahS8 0.162 ~ zU 0.161 ~ **mz 0.160** ~ z1 0.153 ~ mahS64
+0.152 ~ mah 0.150. The tuning-split ordering did NOT generalize (z1 led
+tuning at 0.190, trails the trivial baseline on eval), and the whole own
+stack is statistically on top of the EWMA z-score at ~0.16 — a third of
+the leaderboard top (Sub-PCA 0.42, KShapeAD 0.40), squarely in the
+trivial band. Same verdict as UCR, now on the leaderboard benchmark: the
+laplace body cannot represent the short waveform periods that dominate
+these archives, so ranking-metric benchmarks score its weakest organ.
+The differentiator remains calibration (panel, §4) and stated-alpha delay
+(§5) — capabilities VUS-PR is blind to by construction. Quote this row
+plainly as the credibility line; do not spin it.
 
 ## 6. Regression front-end — contaminated simulation (240 runs)
 
@@ -618,33 +695,23 @@ null approximately holds) and, for a paper, local power theory.
 
 ## 8. Still to come
 
-- FRED v2 with rank-percentile scoring — HARNESS READY (2026-07-20):
-  `fred_anomaly_v2.py`, same deterministic injections as v1, scores the
-  planted window's rank percentile with and without GFC/COVID masking;
-  resumable per series. Smoke-tested; full 150-series run queued in
-  `run_outlier_fleet.sh`.
-- Detection delay at fixed alpha — HARNESS READY (2026-07-20):
-  `detection_delay.py`, burst+shift injections, stated-alpha regime for
-  p-value methods vs matched-empirical-quantile regime for score-only
-  methods, pre-onset false alarms per 1k ticks reported alongside.
-  Caveat found at smoke test: quantile-thresholding DSPOT's saturated
-  score inflates its realized false-alarm rate — its native alarm channel
-  should be added before quoting its delay row.
-- TSB-AD-U leaderboard run (VUS-PR; top is 0.42, simple methods lead) —
-  HARNESS READY (2026-07-20), two phases, both resumable: `tsb_ad_run.py`
-  caches per-tick score arrays per series (detection venv, skaters
-  0.13.0); `tsb_ad_eval.py` computes the official VUS/AUC bundle with the
-  TSB-AD package in `.venv-tsb` (it pins numpy<2 — keep venvs separate).
-  mahS windows are derived at eval time from the cached mah array.
-  Tuning-split scorer started 2026-07-20 (2 nice'd workers).
+Overnight fleet 2026-07-20/21 (11 workers, nice 19, 13h) closed out: FRED
+v2 rank-percentile (§5, n=120), detection delay (§5, n=83), TSB-AD-U
+tuning read (§5b), UCR full-250 under 0.13.0 tails (§3 — a real
+argmax regression, documented). Remaining:
+
+- TSB-AD-U eval-split metrics pass (scores cached; VUS bundle running
+  after the inf-sanitizer fix) — the leaderboard row.
+- DSPOT native alarm channel in `detection_delay.py` (quantile matching
+  is defeated by its saturated score; its delay row is not yet quotable).
 - GPD/EVT tail for the detector's extreme p-values (steal DSPOT's tail
   theorem for our head); unclamped -logpdf surprise channel (the z-clamp
   saturates at |z|=7.03, erasing 20-sigma vs 100-sigma distinctions).
   Note: skaters 0.13.0 ships GPD tails default-on in the forecaster, so
   the z stream's own p-values are now calibrated at source; the mah
-  (Mahalanobis-layer) overcalibration remains its own open defect.
-- UCR full-250 re-run under skaters 0.13.0 tails (the three 0.12.x tapes
-  above are FINAL for the old default; re-run seeded in this directory).
+  (Mahalanobis-layer) overcalibration remains its own open defect — and
+  §3's 0.13.0 regression shows calibration and argmax ranking now
+  measurably trade off, so the repair must be scored on both axes.
 - Regression front-end v2: slow-memory body for the zout/spikes_y cell;
   target-intercept shift scenario; per-entity bodies (the ChickWeights
   fix); k=3 multi-horizon surprise features for the drift/shift rows;

@@ -103,7 +103,8 @@ def run_one(args):
         mz_n += 1
         a = max(0.02, 1.0 / mz_n)
         if mz_n > 3 and mz_v > 0:
-            mz[t] = abs(y - mz_m) / math.sqrt(mz_v)
+            # denormal-tiny variance can overflow the division to inf
+            mz[t] = min(abs(y - mz_m) / math.sqrt(mz_v), 1e12)
         d = y - mz_m
         mz_m += a * d
         mz_v = (1 - a) * mz_v + a * d * (y - mz_m)

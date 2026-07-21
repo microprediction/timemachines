@@ -69,8 +69,17 @@ def rolling_mean(x: np.ndarray, w: int) -> np.ndarray:
     return out
 
 
+def sanitize(a: np.ndarray) -> np.ndarray:
+    """AUC-family metrics only need the ordering; cap stray non-finites."""
+    if np.isfinite(a).all():
+        return a
+    finite = a[np.isfinite(a)]
+    top = (finite.max() if len(finite) else 0.0) + 1.0
+    return np.nan_to_num(a, nan=0.0, posinf=top, neginf=0.0)
+
+
 def methods_from(npz) -> dict:
-    out = {k: npz[k].astype(np.float64) for k in npz.files}
+    out = {k: sanitize(npz[k].astype(np.float64)) for k in npz.files}
     for w in (8, 64):
         out[f"mahS{w}"] = rolling_mean(out["mah"], w)
     return out
