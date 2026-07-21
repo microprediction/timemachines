@@ -10,7 +10,66 @@ Working results for the anomaly/front-end study (issues #88, PR branch
 
 All runs: strictly causal scores (no whole-series normalisation), defaults
 unless stated, one pass. Protocols in `RESEARCH.md`; harnesses in this
-directory. Updated 2026-07-07.
+directory. Updated 2026-07-21.
+
+## 0. Discussion — the synthesis, stated up front
+
+Every result below sorts under two distinctions. Read the tables through
+them.
+
+**Two jobs.** Job 1 is localization: *where* is the anomaly (argmax, VUS,
+rank percentile — ranking metrics, blind to calibration by construction).
+Job 2 is alarming: *when* to fire at a stated false-alarm budget (the
+calibration panel, detection delay at stated alpha). Methods that emit
+scores can only do job 2 with an oracle threshold; methods that emit
+calibrated p-values do it as shipped. Our stack's differentiator is job 2,
+and only job 2.
+
+**Two regimes.** On *recurrent* series (UCR's periodic physiology, most of
+TSB-AD-U), normal behavior traces a low-dimensional manifold in
+delay-embedding space and an anomaly is a subsequence far from every
+historical neighbor. Similarity search reads that off directly and owns
+job 1 by construction: raw DAMP 0.587 on UCR-150 vs our best-ever 0.304;
+our TSB-AD-U eval row (~0.16 VUS-PR, the trivial band, vs leaderboard top
+0.42) is the same verdict on the leaderboard benchmark. On
+*non-recurrent* series (FRED: drift, regime shifts, fat tails, no
+periodicity) there is no template and no meaningful
+nearest-neighbor null — every neighborhood of the trace is sparse — so
+the only coherent notion of anomaly is "surprising under a calibrated
+predictive density," which forces a forecaster + EVT tail. That is where
+the panel and delay results live. Caveat stated plainly: we never ran
+DAMP on FRED; the non-recurrent half of this claim rests on the mechanism
+plus RRCF's indifference there, not on a direct measurement. And the FRED
+*injection* benchmarks (v1 and v2) turned out to discriminate nobody —
+planted 8-sigma spikes are the easy regime for every method (§5).
+
+**The front-end verdict is a gradient, not a blanket.** Same detector,
+same series, only the input changes (raw y vs parade z; full-250 UCR
+unless noted):
+
+| head | type | raw -> fronted | verdict |
+|---|---|---|---|
+| DSPOT | distributional (EVT tail, assumes stationarity) | 0.120 -> **0.232** (5.6x on <10k) | improved, everywhere measured — also best FRED-v2 percentile (0.9951) and deep-tail rates toward nominal on both FRED and UCR |
+| RRCF | weak structural (shingles) | 0.244 -> 0.236 | wash — gains drift/scale families, loses periodic-template families |
+| DAMP | strong structural (left-discord matrix profile, n=150) | 0.587 -> 0.427 | **hurt** — z whitens exactly the recurrence it feeds on, and it carries its own local normalizer |
+
+The rule: the front-end improves a head to the exact degree the head is
+distributional (stationarity-hungry) and degrades it to the degree it
+feeds on repeated templates. The Rosenblatt z manufactures stationarity
+and destroys recurrence — those are the same operation.
+
+**One-sentence scope statement.** Pattern matching owns "where" on
+recurrent series; calibrated surprise owns "when to alarm" everywhere;
+the front-end improves any head exactly to the degree that head is
+distributional rather than structural.
+
+Two standing caveats on the waveform side: similarity search "solves"
+recurrent series at the ranking level only (at nominal 1e-3 every method,
+DAMP included, drowns in false alarms on the periodic families), and
+matrix-profile methods need the period to fit their window. And one on
+ours: skaters 0.13.0's calibrated tails cost argmax contrast (§3) —
+calibration and localization now measurably trade off even within our own
+stack.
 
 ## 1. Detector front-end — FINAL (UCR-60, argmax protocol)
 

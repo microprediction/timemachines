@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>timemachines — streaming anomaly detection with calibrated p-values</title>
-  <meta name="description" content="Temporal online machines: streaming anomaly detection built on the calibrated surprise streams of skaters. Alarm on p < alpha and the false-alarm rate is alpha — no threshold tuning. The same transform lifts DSPOT 5x and adds +2 nats to ARIMA, ETS, GARCH and Prophet." />
+  <meta name="description" content="Temporal online machines: streaming anomaly detection built on the calibrated surprise streams of skaters. Alarm on p < alpha and the false-alarm rate is alpha — no threshold tuning. The same transform doubles DSPOT on the full UCR archive and adds +2 nats to ARIMA, ETS, GARCH and Prophet." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="timemachines" />
   <meta property="og:title" content="timemachines — anomaly detection with calibrated p-values" />
@@ -100,15 +100,50 @@ for y in stream:
       The measured consequence for detection, full protocol in the
       <a href="https://github.com/microprediction/timemachines/tree/main/benchmarks">benchmarks</a>:</p>
 
-    <h3>Other people's detectors get better in these coordinates</h3>
-    <p>Same detector, same series (UCR anomaly archive, 60 series), only the input changed:</p>
+    <h3>The transform helps exactly the detectors it should — a gradient, not a blanket</h3>
+    <p>Same detector, same series (UCR anomaly archive, full 250 unless noted), only the
+      input changed:</p>
     <table>
-      <thead><tr><th>detector</th><th>raw series</th><th>transformed</th><th>lift</th></tr></thead>
+      <thead><tr><th>detector</th><th>type</th><th>raw</th><th>transformed</th><th>verdict</th></tr></thead>
       <tbody>
-        <tr><td>DSPOT &mdash; streaming extreme-value thresholding (Siffer et&nbsp;al., KDD 2017)</td><td>0.100</td><td><strong>0.517</strong></td><td><strong>5.2&times;</strong></td></tr>
-        <tr><td>RRCF &mdash; Robust Random Cut Forest (Guha et&nbsp;al., ICML 2016; AWS Kinesis)</td><td>0.250</td><td><strong>0.450</strong></td><td><strong>1.8&times;</strong></td></tr>
+        <tr><td>DSPOT &mdash; streaming extreme-value thresholding (Siffer et&nbsp;al., KDD 2017)</td><td>distributional</td><td>0.120</td><td><strong>0.232</strong></td><td>improved &mdash; 2&times; overall, 5.6&times; on short series, and better calibrated at depth</td></tr>
+        <tr><td>RRCF &mdash; Robust Random Cut Forest (Guha et&nbsp;al., ICML 2016; AWS Kinesis)</td><td>weak structural</td><td>0.244</td><td>0.236</td><td>wash &mdash; gains drift/scale families, loses periodic-template families</td></tr>
+        <tr><td>DAMP &mdash; left-discord matrix profile (Lu et&nbsp;al., KDD 2022; n=150)</td><td>strong structural</td><td><strong>0.587</strong></td><td>0.427</td><td><strong>hurt</strong></td></tr>
       </tbody>
     </table>
+    <p>The gradient <em>is</em> the finding. A distributional head assumes a stationary
+      stream and gets one; a similarity-search head feeds on recurring templates and the
+      transform whitens them. Manufacturing stationarity and destroying recurrence are the
+      same operation, so the front-end improves a detector exactly to the degree it is
+      distributional rather than structural.</p>
+
+    <h3>Two jobs, two regimes — the scope, stated plainly</h3>
+    <p><strong>Job 1 is localization</strong> (<em>where</em> is the anomaly: argmax, VUS —
+      ranking metrics, blind to calibration by construction). <strong>Job 2 is
+      alarming</strong> (<em>when</em> to fire at a stated false-alarm budget). On
+      <em>recurrent</em> series — periodic physiology, most waveform archives — normal
+      behavior traces a repeating template, an anomaly is a subsequence far from every
+      historical neighbour, and similarity search reads that off directly: raw DAMP scores
+      0.587 on UCR where our best channel reaches 0.304, and on the TSB-AD-U leaderboard
+      our stack sits in the trivial band (&approx;0.16 VUS-PR against a 0.42 top). Those
+      numbers are quoted plainly: on job 1 over recurrent series, pattern matching wins by
+      construction.</p>
+    <p>On <em>non-recurrent</em> series — economic data: drift, regime shifts, fat tails,
+      no periodicity — there is no template, and no meaningful nearest-neighbour null:
+      the only coherent notion of anomaly left is <em>surprise under a calibrated
+      predictive density</em>, which is job 2 and requires exactly this stack. Measured:
+      the calibration table below, and a detection-delay panel where at stated
+      &alpha;=10<sup>&minus;3</sup> the surprise channel catches 63% of planted onsets at
+      median delay 12 ticks while spending 1.4&times; its stated alarm budget — with no
+      threshold tuning, while score-based detectors cannot state a rate at all without an
+      oracle threshold. What similarity search cannot do at any accuracy — on any series —
+      is hold a stated false-alarm rate; at &alpha;=10<sup>&minus;3</sup> every method,
+      matrix profile included, drowns in false alarms on the periodic families.</p>
+    <p>One sentence: <strong>pattern matching owns &ldquo;where&rdquo; on recurrent series;
+      calibrated surprise owns &ldquo;when to alarm&rdquo; everywhere; the transform
+      improves any head exactly to the degree it is distributional rather than
+      structural.</strong> Full discussion with every table:
+      <a href="https://github.com/microprediction/timemachines/blob/main/benchmarks/RESULTS.md">benchmarks/RESULTS.md</a> &sect;0.</p>
 
     <p>The same transform also lifts other people's <em>forecasters</em>
       (+2 nats/point for ETS, AutoARIMA, GARCH and Prophet, 30/30 series each) — that story

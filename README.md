@@ -55,13 +55,24 @@ homogeneous input every classical detection method assumes and raw data
 never provides. Two measured consequences (protocols and full tables in
 `benchmarks/`):
 
-**Other people's detectors get better in these coordinates.** Same detector,
-same series (UCR anomaly archive, 60 series), only the input changed:
+**Distributional detectors get better in these coordinates — structural
+ones do not.** Same detector, same series (UCR anomaly archive, full 250),
+only the input changed:
 
-| detector | raw series | laplace-transformed | lift |
-|---|---|---|---|
-| DSPOT (EVT thresholding, KDD 2017) | 0.100 | **0.517** | **5.2x** |
-| RRCF (random cut forest, ICML 2016) | 0.250 | **0.450** | **1.8x** |
+| detector | type | raw | laplace-transformed | verdict |
+|---|---|---|---|---|
+| DSPOT (EVT thresholding, KDD 2017) | distributional | 0.120 | **0.232** | improved (5.6x on <10k series) |
+| RRCF (random cut forest, ICML 2016) | weak structural | 0.244 | 0.236 | wash |
+| DAMP (matrix profile, KDD 2022; n=150) | strong structural | **0.587** | 0.427 | hurt |
+
+The gradient is the finding: the transform manufactures the stationarity a
+distributional head assumes, and destroys the recurring templates a
+similarity-search head feeds on — those are the same operation. On
+recurrent (periodic, waveform) series, similarity search owns *where is
+the anomaly* by construction; what it cannot do at any accuracy is *when
+to alarm at a stated false-alarm rate*, which is this stack's actual
+differentiator (see the calibration table above and
+`benchmarks/RESULTS.md` §0 for the full discussion).
 
 **Other people's forecasters get better too.** One-step log-likelihood on 30
 FRED series, exact change of variables through the bijection
