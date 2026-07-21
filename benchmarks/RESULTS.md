@@ -321,6 +321,52 @@ the excess tails run ~0.7) brought it to ~5x; and the z-clamp saturation
 unbounded -logpdf channel with its own POT tail, restoring evidence at any
 depth (2e-11 where the clamp capped at 3e-5) at a small bulk cost.
 
+### 4b. Does the lattice projection pollute the z tail? (`sticky_ablation.py`)
+
+Conjecture: laplace's `sticky` lattice projection (on by default) adds
+near-Dirac atoms at revisited values; on lattice series (administrative
+rates whose CHANGE series is a run of exact zeros) an atom is a step in the
+predictive CDF, so a normal point near the atom is mapped through a
+near-vertical F_t and picks up a spurious large |z| — polluting the z tail
+and inflating alarms. Tested: laplace `sticky {on,off}` x `tails {gpd,
+gaussian}`, 120 non-price FRED series, paired per series (same real events
+both ways), split by exact-repeat fraction. Median per-series two-sided FPR
+of erfc(|z1|); the 1-step LL is the forecasting cost of turning sticky off.
+
+| group | config | LL | FPR@1e-2 | @1e-3 | @1e-4 |
+|---|---|---|---|---|---|
+| continuous (n=48, control) | sticky, gpd | 3.4303 | 1.19e-2 | 2.14e-3 | 7.35e-4 |
+| | no-sticky, gpd | 3.4304 | 1.19e-2 | 2.14e-3 | 7.35e-4 |
+| lattice (n=72) | sticky, gpd (default) | **3.35** | 1.19e-2 | 2.41e-3 | 7.43e-4 |
+| | no-sticky, gpd | 2.52 | 1.19e-2 | 2.37e-3 | 7.43e-4 |
+| | sticky, gaussian | 3.30 | 2.43e-2 | 9.28e-3 | 4.64e-3 |
+| | no-sticky, gaussian | 2.51 | 2.02e-2 | 8.27e-3 | 4.28e-3 |
+
+Three reads, one of which corrects an earlier claim:
+
+1. **Falsifiable control passes exactly.** On continuous series sticky is
+   identical on/off (LL 3.4303 vs 3.4304; every FPR equal) — atoms never
+   fire, the wrapper vanishes, confirming atoms are the mechanism.
+2. **The raw artifact is real but modest, and the DEFAULT splice absorbs it.**
+   With gaussian tails (no splice) sticky inflates lattice-series FPR ~10-20%
+   (9.28e-3 vs 8.27e-3 at 1e-3) — the predicted pollution. But with the
+   default `tails="gpd"` sticky and no-sticky are essentially identical
+   (2.41e-3 vs 2.37e-3; paired-worse 34/72, a coin flip). Earlier note that
+   "the GPD splice cannot reach the shoulder" was WRONG: nominal 1e-2..1e-4
+   are |z| beyond 2.6 sigma, i.e. inside the GPD-governed region (thresholds
+   at the 98% quantile), and the censored-ML re-fit on actual exceedances
+   absorbs the atom-induced distortion.
+3. **sticky is a large forecasting win on lattice series** (+0.83 nats) at no
+   calibration cost on the default. Keep it on; this is a clean validation
+   that the 0.13.0 tail splice does its job (it repairs sticky's distortion
+   as a side effect).
+
+Consequence for the mah repair: this rules OUT sticky as the source of the
+mah overconfidence. Plain z1 on the default (gpd) holds ~2x nominal at 1e-3
+(consistent with the genuine-anomaly base rate in FRED), while mah runs ~9x
+on the same data — so the extra overshoot is the Mahalanobis empirical-null
+layer itself, not an upstream z-stream artifact. The mah repair (§8) stands.
+
 ## 5. FRED injection (argmax) — protocol needs v2
 
 `fred_anomaly.py`, n=100 real FRED change series, planted spike/burst/shift.
