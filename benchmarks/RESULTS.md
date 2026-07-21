@@ -77,12 +77,15 @@ De-anchoring UCR shows matrix profile's edge is genuine recurrence
 capability (it survives de-anchoring slower than its window) and collapses
 only when the level moves WITHIN a window — precisely where its per-window
 z-normalization, its Achilles heel, breaks. That failure mode is
-repairable: replacing znorm with laplace's causal normalization
-(DAMP-laplace) reverses the collapse (16-4 paired under fast de-anchoring)
-at a real cost on stationary data (13-6 the other way). So the front-end
-does not merely help distributional heads and hurt structural ones — it
-can also fix a structural head's normalizer, but only in the non-stationary
-regime that normalizer cannot handle.
+repairable in a narrow regime: replacing znorm with laplace's causal
+normalization (DAMP-laplace) reverses the collapse (16-4 paired) under
+*fast* within-window de-anchoring, at a real cost on stationary data (13-6
+the other way). But the repair does NOT transfer to real martingale series
+(FRED levels, §3b): those carry a unit root yet drift too slowly relative to
+the window for znorm to fail, so damp_raw wins there decisively. So the
+front-end can fix a structural head's normalizer, but only when the level
+moves fast relative to the subsequence window — a real effect with a small
+deployment footprint, not a general "laplace fixes SOTA" claim.
 
 ## 1. Detector front-end — FINAL (UCR-60, argmax protocol)
 
@@ -256,7 +259,41 @@ per-window znorm cannot absorb — at a real cost on stationary data. Swap it
 in when the level moves within a window; keep znorm when it does not.** The
 non-circular deployment test is `damp_lap` vs `damp_raw` on genuinely
 martingale series (FRED), where there is no stationary template to fall back
-on and laplace-z is MP's only viable normalization — next.
+on and laplace-z is MP's only viable normalization.
+
+### The FRED arm — the crossover does NOT transfer (`martingale_fred.py`, n=96)
+
+Planted spike/burst/shift on FRED series, argmax hit and rank percentile,
+window M=100. Run both on the unit-root levels (the genuine martingale
+regime) and, as a control, on the differenced returns (stationary):
+
+| mode | detector | hit | pct | lap vs raw (paired) |
+|---|---|---|---|---|
+| **levels** (unit root) | damp_raw | **0.438** | **0.962** | — |
+| | damp_lap | 0.271 | 0.926 | pct lap>raw 27/96; hit lap-only 14, raw-only 30 |
+| changes (stationary) | damp_raw | 0.146 | 0.956 | — |
+| | damp_lap | 0.156 | 0.911 | pct lap>raw 40/96; hit ~tied (10 vs 9) |
+
+**The `rw_fast` crossover does not reproduce on real martingale data.** On
+FRED levels `damp_raw` wins decisively (paired hit 30-14); on returns the two
+are a wash. Two reasons, and they tighten the claim rather than refute it:
+(1) FRED price levels carry a unit root but drift *slowly relative to a
+100-point window* — rates and indices barely move over M=100 next to an
+8-sigma planted spike — so per-window znorm copes and laplace-z buys nothing;
+FRED levels behave like `rw_slow` (a wash), not `rw_fast`. (2) A spike on a
+*level* is a large-amplitude transient, an easy discord znorm catches cleanly,
+whereas UCR-cumsum's anomaly was a subtle pre-existing waveform defect that
+integration smeared into a hard step. Different anomaly character, opposite
+winner.
+
+**Honest conclusion:** DAMP-laplace is a real but NARROW repair. It helps only
+when the level moves fast relative to the subsequence window — a regime the
+`rw_fast` injection manufactures but ordinary financial levels at M=100 do not
+exhibit. The controlled crossover above (16-4) is genuine; its deployment
+footprint is small. The earlier "laplace fixes SOTA under our challenge"
+framing was too broad and is narrowed to this scope. The mechanism predicts
+the edge would return at a smaller window M, or on genuinely fast-drifting
+levels (intraday volatility, FX) — an open probe, not a claim.
 
 ## 4. The calibration panel — the differentiator, measured
 
