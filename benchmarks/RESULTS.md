@@ -71,6 +71,19 @@ ours: skaters 0.13.0's calibrated tails cost argmax contrast (§3) —
 calibration and localization now measurably trade off even within our own
 stack.
 
+**The anchor refinement (§3b).** "Recurrent vs non-recurrent" is more
+precisely "is the level-anchor intact at the subsequence timescale."
+De-anchoring UCR shows matrix profile's edge is genuine recurrence
+capability (it survives de-anchoring slower than its window) and collapses
+only when the level moves WITHIN a window — precisely where its per-window
+z-normalization, its Achilles heel, breaks. That failure mode is
+repairable: replacing znorm with laplace's causal normalization
+(DAMP-laplace) reverses the collapse (16-4 paired under fast de-anchoring)
+at a real cost on stationary data (13-6 the other way). So the front-end
+does not merely help distributional heads and hurt structural ones — it
+can also fix a structural head's normalizer, but only in the non-stationary
+regime that normalizer cannot handle.
+
 ## 1. Detector front-end — FINAL (UCR-60, argmax protocol)
 
 Same detector, same series; only the input changes (raw y vs parade z from
@@ -182,6 +195,68 @@ the effective-rank collapse of the z scatter -> empirical null + factor
 scatter with exact Woodbury; masking through the null's second moment ->
 winsorised updates; the sigma-memory axis; and (from the hardening suite)
 skaters' state-purity fix enabling checkpoint/restore (0.12.1).
+
+## 3b. Anchor vs recurrence, and DAMP-laplace (`martingale_transform_study.py`)
+
+Is matrix profile's UCR dominance an *absolute-anchor* artifact (biological
+series are level-stationary; finance is a martingale with a unit root) or a
+genuine *recurrence* capability? We de-anchor each series and re-run every
+detector. `window_wander` = the sigma-fraction the injected level drifts over
+one subsequence window M=100; anomaly LOCATION is preserved by every
+transform (cumsum changes the anomaly TYPE, spike->step, not tracked here).
+UCR n=60 shortest (family-heavy: AirTemperature, InternalBleeding, Walking,
+insectEPG — read as directional), argmax accuracy:
+
+| detector | raw | rw_slow (ww 0.15) | rw_fast (ww 3.0) | cumsum |
+|---|---|---|---|---|
+| mah | 0.417 | 0.283 | 0.167 | 0.200 |
+| mahS | 0.483 | 0.333 | 0.167 | 0.150 |
+| z1 | 0.500 | 0.467 | 0.250 | 0.200 |
+| damp_raw (znorm MP, SOTA) | **0.617** | **0.567** | 0.133 | 0.433 |
+| damp_rawnn (no normalizer) | 0.667 | 0.533 | 0.033 | 0.117 |
+| damp_z (znorm on laplace-z) | 0.383 | 0.450 | 0.083 | 0.283 |
+| **damp_lap (non-norm MP on laplace-z)** | 0.500 | 0.517 | **0.333** | 0.367 |
+
+**Q1 — the anchor bites at WINDOW scale, not globally.** `damp_raw` barely
+moves under a random walk slower than a window (0.617 -> 0.567) and survives
+integration (0.433); it collapses only when the level moves ~3 sigma WITHIN a
+window (rw_fast 0.133) — precisely znorm's blind spot. Matrix profile's edge
+is genuine recurrence capability, robust to global de-anchoring; it is not an
+absolute-anchor artifact. The `damp_rawnn` control confirms the mechanism:
+strip the normalizer and rw_fast annihilates it (0.033).
+
+**Q2 — our head degrades more gracefully but does not overtake.** `z1` is
+flat across raw/rw_slow (0.500/0.467) and beats `damp_raw` under rw_fast
+(0.250 vs 0.133); it does not catch up and win on stationary turf.
+
+**Q3 — DAMP-laplace is a TARGETED repair, not a free lunch.** Swapping
+laplace's causal model-based normalization in for the per-window znorm
+(non-normalized MP on the laplace-z stream) is the user's proposal. Paired,
+per series, `damp_lap` vs `damp_raw`:
+
+| transform | lap beats raw | raw beats lap | both | neither |
+|---|---|---|---|---|
+| raw | 6 | **13** | 24 | 17 |
+| rw_slow | 9 | 12 | 22 | 17 |
+| rw_fast | **16** | 4 | 4 | 36 |
+| cumsum | 16 | 20 | 6 | 18 |
+
+On stationary data znorm is the right normalizer and `damp_lap` genuinely
+loses (13-6) — laplace-z discards the template, exactly the §1 mechanism. But
+under within-window de-anchoring the reversal is strong and real (16-4, not
+an aggregation artifact): where the level moves inside a window and znorm
+breaks, laplace's normalization is decisively better. Global de-anchoring and
+integration are washes. The win concentrates in the lower-frequency,
+drift-prone families (InternalBleeding 9-3 of 28, CIMIS AirTemperature 8-4 of
+13); high-frequency insectEPG is 0-0 (nobody localizes under rw_fast).
+
+The precise claim: **laplace-normalization repairs matrix profile for exactly
+one failure mode — non-stationarity at the subsequence timescale that
+per-window znorm cannot absorb — at a real cost on stationary data. Swap it
+in when the level moves within a window; keep znorm when it does not.** The
+non-circular deployment test is `damp_lap` vs `damp_raw` on genuinely
+martingale series (FRED), where there is no stationary template to fall back
+on and laplace-z is MP's only viable normalization — next.
 
 ## 4. The calibration panel — the differentiator, measured
 
