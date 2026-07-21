@@ -367,6 +367,46 @@ mah overconfidence. Plain z1 on the default (gpd) holds ~2x nominal at 1e-3
 on the same data — so the extra overshoot is the Mahalanobis empirical-null
 layer itself, not an upstream z-stream artifact. The mah repair (§8) stands.
 
+### 4c. Diagnosing and repairing mah (`mah_diagnostic.py`, `mah_repair_sweep.py`)
+
+**Decomposition** (knobs isolate the p-value stages; n=96 non-price FRED,
+median per-series FPR / nominal):
+
+| config | x@1e-2 | x@1e-3 | x@1e-4 | what it isolates |
+|---|---|---|---|---|
+| z1 (plain parade) | 1.2 | 2.2 | 7.4 | the floor (base rate + clamp) |
+| bulk (chi2 only, `min_exc=1e9`) | 2.6 | **10.6** | **62.9** | Satterthwaite null alone |
+| full (default: factor, GPD+nlp) | 2.1 | 4.2 | 18.6 | shipped |
+| shrink (`scatter="shrink"`) | 1.7 | 3.3 | 12.4 | scatter model |
+
+The overconfidence is the **bulk Satterthwaite chi2 null**, not the tail
+machinery: turning the GPD/nlp off (`bulk`) runs 10.6x/62.9x, and the GPD
+*repairs* most of it (full 4.2x/18.6x). Mechanism: `d2 = v' Sigma^-1 v` with
+`Sigma` EWMA-estimated (effective n ~ 2/alpha ~ 99) is the finite-sample
+Hotelling regime — `d2` follows a heavy scaled-F, not chi2 — and a two-moment
+match keeps a chi2 tail shape that is fundamentally too thin. The factor
+scatter also inflates `d2` vs plain shrinkage (full 4.2x vs shrink 3.3x).
+
+**Dual-axis repair sweep** (argmax ranking AND clean-region FPR on the same
+injected FRED series, n=96; existing knobs only):
+
+| config | argmax | x@1e-2 | x@1e-3 | x@1e-4 |
+|---|---|---|---|---|
+| base (pot 0.98, factor) | 0.156 | 1.9 | 2.5 | 5.4 |
+| pot95 | 0.146 | 1.5 | 1.8 | 2.9 |
+| pot90 | 0.146 | 1.3 | 1.8 | 3.0 |
+| shrink | 0.167 | 1.5 | 2.2 | 3.6 |
+| **pot95_shrink** | **0.177** | **1.2** | **1.4** | **2.7** |
+
+The argmax column is flat within binomial noise (+/-~3.6 series on n=96), so no
+config trades ranking for calibration on this set — confirming that lowering
+`pot_level` is ranking-invariant by construction (the p-value is monotone in
+`d2` regardless of the threshold). `pot95_shrink` calibrates best on all three
+depths, near the z1 floor. Caveat: FRED injection is the *easy* ranking regime
+(the confounded-argmax problem, §5), so the genuine ranking test for the
+`shrink` component is UCR waveforms — pending before any default change.
+`pot_level` is safe to lower now; `shrink` is gated on the UCR check.
+
 ## 5. FRED injection (argmax) — protocol needs v2
 
 `fred_anomaly.py`, n=100 real FRED change series, planted spike/burst/shift.
