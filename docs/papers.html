@@ -89,8 +89,11 @@
     <ul>
       <li>Siffer, Fouque, Termier, Largou&euml;t (KDD 2017) — <em>Anomaly detection in streams
         with extreme value theory</em> (SPOT/DSPOT). The other calibrated-threshold streaming
-        detector, and the strongest comparison on the panel; its GPD tail layer is the idea
-        <code>wald</code> gratefully adopted.</li>
+        detector, and the strongest comparison on the panel; its GPD/POT tail idea was
+        gratefully adopted twice: in the skaters forecaster itself (<code>laplace</code>
+        ships spliced GPD tails by default since skaters 0.13.0, so the surprise stream
+        arrives tail-calibrated), and again inside <code>wald</code>, whose empirical
+        null's deep tail is a streaming GPD over d&sup2; exceedances.</li>
       <li>Guha, Mishra, Roy, Schrijvers (ICML 2016) — <em>Robust random cut forest based
         anomaly detection on streams</em> (RRCF).</li>
       <li>Wu &amp; Keogh (IEEE TKDE 2023) — <em>Current time series anomaly detection
