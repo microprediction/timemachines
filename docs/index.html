@@ -100,9 +100,13 @@ for y in stream:
       The measured consequence for detection, full protocol in the
       <a href="https://github.com/microprediction/timemachines/tree/main/benchmarks">benchmarks</a>:</p>
 
-    <h3>The transform helps exactly the detectors it should — a gradient, not a blanket</h3>
-    <p>Same detector, same series (UCR anomaly archive, full 250 unless noted), only the
-      input changed:</p>
+    <h3>A prior state-of-the-art detector more than doubles in these coordinates</h3>
+    <p>DSPOT (Siffer et&nbsp;al., KDD 2017) — the streaming extreme-value detector that set
+      the calibrated-alarming bar — starves on raw non-stationary waveforms and feasts on
+      laplace's <em>z</em>: the front-end hands its EVT theorem exactly the stationary input
+      it always assumed, and it more than doubles. The lift is a gradient, not a blanket,
+      and that gradient is the finding. Same detector, same series (UCR anomaly archive,
+      full 250 unless noted), only the input changed:</p>
     <table>
       <thead><tr><th>detector</th><th>type</th><th>raw</th><th>transformed</th><th>verdict</th></tr></thead>
       <tbody>
@@ -145,9 +149,15 @@ for y in stream:
       structural.</strong> Full discussion with every table:
       <a href="https://github.com/microprediction/timemachines/blob/main/benchmarks/RESULTS.md">benchmarks/RESULTS.md</a> &sect;0.</p>
 
-    <p>The same transform also lifts other people's <em>forecasters</em>
-      (+2 nats/point for ETS, AutoARIMA, GARCH and Prophet, 30/30 series each) — that story
-      belongs to <a href="https://skaters.microprediction.org/">skaters</a>, where it is told.</p>
+    <p><strong>And every classical forecaster gets ~2 nats better.</strong> The same
+      transform lifts the forecasting workhorses too — +2.04 (ETS), +2.07 (AutoARIMA),
+      +1.97 (GARCH), +2.07 (Prophet) nats/point, 30/30 series each — each converging to the
+      skaters forecaster plus a few hundredths of a nat (that story
+      belongs to <a href="https://skaters.microprediction.org/">skaters</a>, where it is
+      told in full). So the one transform that makes laplace a calibrated forecaster also
+      makes prior-SOTA distributional detectors and every classical forecaster better:
+      in its coordinates each method finally sees the stationary, calibrated stream its
+      theorem assumes.</p>
 
     <h2 id="calibration">Calibration, measured</h2>
     <p>144 anomaly-free real-world prefixes (UCR training regions — clean by construction,

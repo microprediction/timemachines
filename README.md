@@ -55,27 +55,32 @@ homogeneous input every classical detection method assumes and raw data
 never provides. Two measured consequences (protocols and full tables in
 `benchmarks/`):
 
-**Distributional detectors get better in these coordinates — structural
-ones do not.** Same detector, same series (UCR anomaly archive, full 250),
-only the input changed:
+**A prior state-of-the-art detector more than doubles in these
+coordinates.** DSPOT (Siffer et al., KDD 2017 — the streaming extreme-value
+detector that set the calibrated-alarming bar) starves on raw non-stationary
+waveforms and *feasts* on laplace's z: the front-end hands its EVT theorem
+exactly the stationary input it always assumed. Same detector, same series
+(UCR anomaly archive, full 250), only the input changed:
 
 | detector | type | raw | laplace-transformed | verdict |
 |---|---|---|---|---|
-| DSPOT (EVT thresholding, KDD 2017) | distributional | 0.120 | **0.232** | improved (5.6x on <10k series) |
-| RRCF (random cut forest, ICML 2016) | weak structural | 0.244 | 0.236 | wash |
+| **DSPOT** (EVT thresholding, KDD 2017) | distributional | 0.120 | **0.232** | **more than doubles** (5.6x on short series) |
+| RRCF (random cut forest, ICML 2016; AWS Kinesis) | weak structural | 0.244 | 0.236 | wash |
 | DAMP (matrix profile, KDD 2022; n=150) | strong structural | **0.587** | 0.427 | hurt |
 
-The gradient is the finding: the transform manufactures the stationarity a
-distributional head assumes, and destroys the recurring templates a
-similarity-search head feeds on — those are the same operation. On
-recurrent (periodic, waveform) series, similarity search owns *where is
+The gradient is the finding: the transform helps a detector *exactly to the
+degree it is distributional rather than structural*. It manufactures the
+stationarity a distributional head assumes, and destroys the recurring
+templates a similarity-search head feeds on — those are the same operation.
+On recurrent (periodic, waveform) series, similarity search owns *where is
 the anomaly* by construction; what it cannot do at any accuracy is *when
 to alarm at a stated false-alarm rate*, which is this stack's actual
 differentiator (see the calibration table above and
 `benchmarks/RESULTS.md` §0 for the full discussion).
 
-**Other people's forecasters get better too.** One-step log-likelihood on 30
-FRED series, exact change of variables through the bijection
+**And every classical forecaster gets ~2 nats better.** The same transform
+lifts the forecasting workhorses too — one-step log-likelihood on 30 FRED
+series, exact change of variables through the bijection
 `z_t = Phi^-1(F_t(y_t))`:
 
 | opponent | lift (nats/point) | wins |
@@ -87,7 +92,10 @@ FRED series, exact change of variables through the bijection
 
 Fronted opponents converge to the skaters forecaster plus a few hundredths
 of a nat: the body had already extracted nearly everything they know how to
-model.
+model. So the one transform that makes laplace a calibrated forecaster also
+makes prior-SOTA distributional detectors and every classical forecaster
+better — because in its coordinates each method finally sees the stationary,
+calibrated stream its theorem assumes.
 
 ## The machines
 
