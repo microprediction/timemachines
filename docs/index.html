@@ -48,8 +48,8 @@
       each arriving point's surprise is a standard normal, and detection reduces to the textbook
       case. <code>wald</code> runs a <a href="https://skaters.microprediction.org/">skaters</a>
       forecaster underneath and emits a <strong>p-value per observation</strong> — alarm on
-      <code>p&nbsp;&lt;&nbsp;&alpha;</code> and your false-alarm rate <em>is</em> &alpha;.
-      Measured, not asserted: see <a href="#calibration">the calibration panel</a> below.
+      <code>p&nbsp;&lt;&nbsp;&alpha;</code> and your false-alarm rate <em>is</em> &alpha;
+      (see <a href="#calibration">the calibration panel</a> below).
       No threshold tuning, one pass, constant memory, strictly causal.</p>
 
     <div class="tag-row">
@@ -121,7 +121,7 @@ for y in stream:
       same operation, so the front-end improves a detector exactly to the degree it is
       distributional rather than structural.</p>
 
-    <h3>Two jobs, two regimes — the scope, stated plainly</h3>
+    <h3>Two jobs, two regimes</h3>
     <p><strong>Job 1 is localization</strong> (<em>where</em> is the anomaly: argmax, VUS —
       ranking metrics, blind to calibration by construction). <strong>Job 2 is
       alarming</strong> (<em>when</em> to fire at a stated false-alarm budget). On
@@ -129,14 +129,13 @@ for y in stream:
       behavior traces a repeating template, an anomaly is a subsequence far from every
       historical neighbour, and similarity search reads that off directly: raw DAMP scores
       0.587 on UCR where our best channel reaches 0.304, and on the TSB-AD-U leaderboard
-      our stack sits in the trivial band (&approx;0.16 VUS-PR against a 0.42 top). Those
-      numbers are quoted plainly: on job 1 over recurrent series, pattern matching wins by
-      construction.</p>
+      our stack sits in the trivial band (&approx;0.16 VUS-PR against a 0.42 top). On job 1
+      over recurrent series, pattern matching wins by construction.</p>
     <p>On <em>non-recurrent</em> series — economic data: drift, regime shifts, fat tails,
       no periodicity — there is no template, and no meaningful nearest-neighbour null:
       the only coherent notion of anomaly left is <em>surprise under a calibrated
-      predictive density</em>, which is job 2 and requires exactly this stack. Measured:
-      the calibration table below, and a detection-delay panel where at stated
+      predictive density</em>, which is job 2 and requires exactly this stack — the
+      calibration table below, and a detection-delay panel where at stated
       &alpha;=10<sup>&minus;3</sup> the surprise channel catches 63% of planted onsets at
       median delay 12 ticks while spending 1.4&times; its stated alarm budget — with no
       threshold tuning, while score-based detectors cannot state a rate at all without an
