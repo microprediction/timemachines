@@ -4,4 +4,6 @@ __pycache__/
 dist/
 *.egg-info/
 benchmarks/*.jsonl
+benchmarks/*.log
+benchmarks/data
 benchmarks/data/
