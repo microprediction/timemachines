@@ -95,15 +95,37 @@ export function fsum(values) {
   return s + c;
 }
 
+// Extended dist types (e.g. the GPD tail splice) register their decoders
+// here at module load, keeping the import graph one-directional.
+const _distDecoders = {};
+export function registerDistDecoder(tag, fn) { _distDecoders[tag] = fn; }
+
+// Module-private key for the trusted constructor path (Dist.trusted).
+const TRUSTED = Symbol("skaters.Dist.trusted");
+
 export class Dist {
   // components: array of [weight, mean, std]
-  constructor(components) {
+  constructor(components, mode = undefined) {
     if (!components || components.length === 0) {
       throw new Error("Dist requires at least one component");
+    }
+    if (mode === TRUSTED) {
+      // Already-normalised weights, assigned without dividing by the
+      // compensated sum. Only Dist.trusted can reach this branch.
+      this.components = components;
+      return;
     }
     const wTotal = fsum(components.map((c) => c[0]));
     if (!(wTotal > 0)) throw new Error("Dist weights must sum to > 0");
     this.components = components.map(([w, m, s]) => [w / wTotal, m, s]);
+  }
+
+  // Trusted-input construction: the components are taken as given, bit for
+  // bit, with no renormalising. For the inverse of toDict and for callers
+  // that have already normalised. Goes through the real constructor, so a
+  // subclass or a second own property keeps working.
+  static trusted(components) {
+    return new this(components, TRUSTED);
   }
 
   // --- constructors ---
@@ -288,10 +310,30 @@ export class Dist {
   }
 
   static fromDict(d) {
-    return new Dist(d.components.map((c) => c.slice()));
+    if (d.spliced) {
+      const fn = _distDecoders.spliced;
+      if (!fn) throw new Error("spliced dist: import tails.mjs before fromDict");
+      return fn(d);
+    }
+    // The exact inverse of toDict. Weights that already sum to one, to
+    // within 1e-9 of the compensated sum, take the trusted path and are kept
+    // bit-for-bit: renormalising a normalised mixture divides by a total that
+    // is one only up to rounding, which can move the last bit and break a
+    // checkpoint/restore round trip. A loose hand-written dict still goes
+    // through the normalising constructor. Mirrors Dist.from_dict in Python.
+    const components = d.components.map((c) => c.slice());
+    const wTotal = fsum(components.map((c) => c[0]));
+    if (Math.abs(wTotal - 1.0) <= 1e-9) return Dist.trusted(components);
+    return new Dist(components);
   }
 
-  get length() {
-    return this.components.length;
-  }
+}
+
+// Classes allowed inside skater state (see state.mjs). Dist is one; extended
+// dist types register themselves alongside their decoder.
+const _distClasses = [Dist];
+export function registerDistClass(cls) { if (!_distClasses.includes(cls)) _distClasses.push(cls); }
+export function isDistInstance(v) {
+  for (const cls of _distClasses) if (v instanceof cls) return true;
+  return false;
 }

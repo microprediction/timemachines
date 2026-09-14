@@ -113,15 +113,24 @@ export function standardize(alpha = 0.05, eps = 1e-8) {
   function forward(y, state) {
     if (state === null || state === undefined) return [0.0, { mu: y, var: 0.0 }];
     const mu = state.mu;
-    let varr = state.var;
+    const varr = state.var;
     const diff = y - mu;
-    // Center against the PRIOR mean (post-update centering shrinks the residual
-    // by (1-alpha) -> overconfident intervals); standard EWMA variance recursion.
-    const muNew = mu + alpha * diff;
-    varr = (1 - alpha) * varr + alpha * diff * diff;
-    const sigma = varr > eps * eps ? Math.sqrt(varr) : eps;
+    // Emit against the PRIOR state, so the forward map is the affine change
+    // of coordinates z = (y - mu) / sigma that the inverse applies. Scaling
+    // by the post-update std makes the emission self-normalized (bounded by
+    // 1/sqrt(alpha)) and the affine inverse is then not its inverse.
+    // Cold start: before the variance is informative, scale by the first
+    // nonzero residual, so the first informative emission is +-1.
+    let sigma;
+    if (varr > eps * eps) {
+      sigma = Math.sqrt(varr);
+    } else {
+      sigma = Math.abs(diff) > eps ? Math.abs(diff) : eps;
+    }
     const yPrime = diff / sigma;
-    return [yPrime, { mu: muNew, var: varr }];
+    const muNew = mu + alpha * diff;
+    const varNew = (1 - alpha) * varr + alpha * diff * diff;
+    return [yPrime, { mu: muNew, var: varNew }];
   }
   function inverseK(dists, state) {
     const varr = state.var;
@@ -293,20 +302,27 @@ export function holtLinear(alpha = 0.1, beta = 0.05) {
 // GARCH(1,1) volatility scaling
 // ---------------------------------------------------------------------------
 
-export function garch(omega = 0.01, alpha = 0.1, beta = 0.85, eps = 1e-8) {
+export function garch(omega = 0.01, alpha = 0.1, beta = 0.85, meanAlpha = 0.05, eps = 1e-8) {
   function forward(y, state) {
     if (state === null || state === undefined) {
       const persist = alpha + beta;
       const var0 = persist < 1 ? omega / (1 - persist) : omega / eps;
-      return [y / Math.max(Math.sqrt(var0), eps), { var: var0, last_y: y }];
+      return [0.0, { var: var0, last_dev: 0.0, mu: y }];
     }
-    const varr = omega + alpha * state.last_y * state.last_y + beta * state.var;
+    // GARCH conditional variance of the DEVIATION from a running mean, not of
+    // the raw value: alpha*y^2 treats y as a mean-zero return, so on a level
+    // series the "volatility" is of order |y| and the inverse re-inflates it
+    // (unstable). Tracking a mean makes garch shift-invariant; on mean-zero
+    // returns mu stays ~0 and this reduces to the original y/sigma.
+    const mu = state.mu;
+    const dev = y - mu;
+    const varr = omega + alpha * state.last_dev * state.last_dev + beta * state.var;
     const sigma = varr > eps * eps ? Math.sqrt(varr) : eps;
-    return [y / sigma, { var: varr, last_y: y }];
+    return [dev / sigma, { var: varr, last_dev: dev, mu: mu + meanAlpha * dev }];
   }
   function inverseK(dists, state) {
     const sigma = state.var > 1e-16 ? Math.sqrt(state.var) : 1e-8;
-    return dists.map((d) => d.scale(sigma));
+    return dists.map((d) => d.affine(sigma, state.mu));
   }
   return { forward, inverseK };
 }
@@ -357,6 +373,65 @@ export function seasonalDifference(period = 12) {
         result.push(new Dist(comps));
       } else {
         result.push(dists[h].shift(anchorMean));
+      }
+    }
+    return result;
+  }
+  return { forward, inverseK };
+}
+
+// ---------------------------------------------------------------------------
+// Seasonal anchor: hedged seasonal location (phase-EMA blended with naive)
+// ---------------------------------------------------------------------------
+
+export function seasonalAnchor(period, alpha = 0.2, weight = 0.5) {
+  const anchorOf = (ema, snaive) =>
+    ema !== null ? weight * ema + (1.0 - weight) * snaive : snaive;
+
+  function forward(y, state) {
+    if (state === null || state === undefined) {
+      return [0.0, { ema: new Array(period).fill(null), buffer: [y], n: 1 }];
+    }
+    const buf = state.buffer;
+    const p = state.n % period;
+    const snaive = buf.length >= period ? buf[buf.length - period] : buf[buf.length - 1];
+    const yPrime = y - anchorOf(state.ema[p], snaive);
+    const e = state.ema[p];
+    state.ema[p] = e === null ? y : e + alpha * (y - e);
+    buf.push(y);
+    if (buf.length > 2 * period) buf.shift();
+    state.n += 1;
+    return [yPrime, state];
+  }
+
+  function inverseK(dists, state) {
+    const buf = state.buffer;
+    const recoveredMeans = [];
+    const recoveredVars = [];
+    const result = [];
+    for (let h = 0; h < dists.length; h++) {
+      const p = (state.n + h) % period;
+      const lagIdx = h - period;
+      let snaive, snaiveVar;
+      if (lagIdx < 0) {
+        const bufIdx = buf.length - period + h;
+        snaive = bufIdx >= 0 && bufIdx < buf.length ? buf[bufIdx] : buf[buf.length - 1];
+        snaiveVar = 0.0;
+      } else {
+        snaive = recoveredMeans[lagIdx];
+        snaiveVar = recoveredVars[lagIdx];
+      }
+      const aMean = anchorOf(state.ema[p], snaive);
+      const aVar = (1.0 - weight) * (1.0 - weight) * snaiveVar;
+      recoveredMeans.push(dists[h].mean + aMean);
+      recoveredVars.push(dists[h].var + aVar);
+      if (aVar > 0.0) {
+        const comps = dists[h].components.map(
+          ([w, m, s]) => [w, m + aMean, Math.sqrt(s * s + aVar)]
+        );
+        result.push(new Dist(comps));
+      } else {
+        result.push(dists[h].shift(aMean));
       }
     }
     return result;
@@ -443,6 +518,47 @@ export function yeoJohnson(lmbda = 0.0) {
 // AR(p) with online recursive least squares
 // ---------------------------------------------------------------------------
 
+// Spectral radius of the AR companion matrix (largest |characteristic root|).
+// The h-step forecast converges iff this is < 1. Closed form for p<=2, power
+// iteration otherwise.
+function arSpectralRadius(phi) {
+  const p = phi.length;
+  if (p === 1) return Math.abs(phi[0]);
+  if (p === 2) {
+    const a = phi[0], b = phi[1];
+    const disc = a * a + 4.0 * b;
+    if (disc >= 0.0) {
+      const r = Math.sqrt(disc);
+      return Math.max(Math.abs((a + r) / 2.0), Math.abs((a - r) / 2.0));
+    }
+    return Math.hypot(a / 2.0, Math.sqrt(-disc) / 2.0);
+  }
+  let v = new Array(p).fill(1.0), rho = 0.0;
+  for (let it = 0; it < 60; it++) {
+    let s = 0.0;
+    for (let j = 0; j < p; j++) s += phi[j] * v[j];
+    const nv = new Array(p);
+    nv[0] = s;
+    for (let i = 1; i < p; i++) nv[i] = v[i - 1];
+    let m = 0.0;
+    for (const x of nv) m = Math.max(m, Math.abs(x));
+    if (m === 0.0) m = 1.0;
+    v = nv.map((x) => x / m);
+    rho = m;
+  }
+  return rho;
+}
+
+// Damp AR coefficients into the stationary region for forecasting. Scaling
+// phi_j by gamma^(j+1) scales every companion eigenvalue by gamma; a no-op when
+// already stationary. Constrained forecasting, not a magnitude clip.
+function arStationary(phi, margin = 0.999) {
+  const rho = arSpectralRadius(phi);
+  if (rho <= margin) return phi;
+  const g = margin / rho;
+  return phi.map((c, j) => c * Math.pow(g, j + 1));
+}
+
 export function ar(order = 2, lam = 0.99, ridge = 1.0, decay = 0.0) {
   const p = order;
 
@@ -501,13 +617,22 @@ export function ar(order = 2, lam = 0.99, ridge = 1.0, decay = 0.0) {
 
   function inverseK(dists, state) {
     const buf = state.buffer.slice();
-    const phi = state.phi;
+    // Forecast with stationarity-constrained coefficients; the one-step fit in
+    // `state` is left intact, only the extrapolation is kept well-posed.
+    const phi = arStationary(state.phi);
+    const H = dists.length;
+    // Impulse responses psi_0..psi_{H-1}: psi_0 = 1, psi_i = sum_j phi_j psi_{i-j}.
+    const psi = [1.0];
+    for (let i = 1; i < H; i++) {
+      let s = 0.0;
+      for (let j = 0; j < p; j++) if (i - 1 - j >= 0) s += phi[j] * psi[i - 1 - j];
+      psi.push(s);
+    }
     const recoveredMeans = [];
-    const recoveredVars = [];
     const result = [];
-    for (let h = 0; h < dists.length; h++) {
+    let cumPsi2 = 0.0;
+    for (let h = 0; h < H; h++) {
       let arMean = 0.0;
-      let arVar = 0.0;
       for (let j = 0; j < p; j++) {
         const lagH = h - j - 1;
         if (lagH < 0) {
@@ -515,14 +640,13 @@ export function ar(order = 2, lam = 0.99, ridge = 1.0, decay = 0.0) {
           if (bufIdx >= 0 && bufIdx < buf.length) arMean += phi[j] * buf[bufIdx];
         } else if (lagH < recoveredMeans.length) {
           arMean += phi[j] * recoveredMeans[lagH];
-          arVar += phi[j] * phi[j] * recoveredVars[lagH];
         }
       }
       const totalMean = dists[h].mean + arMean;
-      const totalVar = dists[h].var + arVar;
+      cumPsi2 += psi[h] * psi[h];
+      const totalVar = cumPsi2 * dists[h].var; // sigma^2 * sum psi_i^2
       const totalStd = totalVar > 0 ? Math.sqrt(totalVar) : Math.max(dists[h].std, 1e-12);
       recoveredMeans.push(totalMean);
-      recoveredVars.push(totalVar);
       result.push(Dist.gaussian(totalMean, totalStd));
     }
     return result;
@@ -606,14 +730,22 @@ export function groupedAr(maxLag = 16, lam = 0.99, ridge = 1.0) {
   function inverseK(dists, state) {
     const buf = state.buffer.slice();
     const th = state.theta;
-    const phi = [];
-    for (let j = 0; j < maxLag; j++) phi.push(th[groups[j]]);
+    const rawPhi = [];
+    for (let j = 0; j < maxLag; j++) rawPhi.push(th[groups[j]]);
+    // Constrain to stationarity for a well-posed forecast (same fix as `ar`).
+    const phi = arStationary(rawPhi);
+    const H = dists.length;
+    const psi = [1.0];
+    for (let i = 1; i < H; i++) {
+      let s = 0.0;
+      for (let j = 0; j < maxLag; j++) if (i - 1 - j >= 0) s += phi[j] * psi[i - 1 - j];
+      psi.push(s);
+    }
     const recoveredMeans = [];
-    const recoveredVars = [];
     const result = [];
-    for (let h = 0; h < dists.length; h++) {
+    let cumPsi2 = 0.0;
+    for (let h = 0; h < H; h++) {
       let arMean = 0.0;
-      let arVar = 0.0;
       for (let j = 0; j < maxLag; j++) {
         const lagH = h - j - 1;
         if (lagH < 0) {
@@ -621,14 +753,13 @@ export function groupedAr(maxLag = 16, lam = 0.99, ridge = 1.0) {
           if (bufIdx >= 0 && bufIdx < buf.length) arMean += phi[j] * buf[bufIdx];
         } else if (lagH < recoveredMeans.length) {
           arMean += phi[j] * recoveredMeans[lagH];
-          arVar += phi[j] * phi[j] * recoveredVars[lagH];
         }
       }
       const totalMean = dists[h].mean + arMean;
-      const totalVar = dists[h].var + arVar;
+      cumPsi2 += psi[h] * psi[h];
+      const totalVar = cumPsi2 * dists[h].var; // sigma^2 * sum psi_i^2
       const totalStd = totalVar > 0 ? Math.sqrt(totalVar) : Math.max(dists[h].std, 1e-12);
       recoveredMeans.push(totalMean);
-      recoveredVars.push(totalVar);
       result.push(Dist.gaussian(totalMean, totalStd));
     }
     return result;

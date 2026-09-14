@@ -30,3 +30,4 @@ export {
   diffSpec, fracSpec, stdSpec, emaTSpec,
 } from "./spec.mjs";
 export { runningCov, emaCov, ledoitWolfCov } from "./cov.mjs";
+export { stateToJSON, stateFromJSON, assertPlainState } from "./state.mjs";

@@ -39,9 +39,10 @@ function avgW(entry, k) {
   return s / k;
 }
 
-function makeEntry(skaterFn, depth, recipe, k, cost = 0.0) {
+// A pool entry holds no closure: its skater is rebuilt from `recipe` by the
+// wrapper (see fnFor in search) so the state stays plain data.
+function makeEntry(depth, recipe, k, cost = 0.0) {
   return {
-    f: skaterFn,
     s: null,
     depth,
     recipe,
@@ -54,9 +55,9 @@ function makeEntry(skaterFn, depth, recipe, k, cost = 0.0) {
   };
 }
 
-function warmup(entry, buffer, k) {
+function warmup(entry, f, buffer, k) {
   for (const y of buffer) {
-    const [dists, s] = entry.f(y, entry.s);
+    const [dists, s] = f(y, entry.s);
     entry.s = s;
     entry.dists = dists;
     entry.age += 1;
@@ -72,25 +73,34 @@ function warmup(entry, buffer, k) {
 
 function initPool(k, costBudget) {
   const pool = [];
-  const leafEntry = makeEntry(leaf(k), 0, [], k, 1.0);
+  const leafEntry = makeEntry(0, [], k, 1.0);
   leafEntry.warmed = true;
   pool.push(leafEntry);
-  for (const [tName, tFactory, tCost] of TRANSFORMS) {
+  for (const [tName, , tCost] of TRANSFORMS) {
     const candidateCost = 1.0 + tCost;
     if (candidateCost > costBudget) continue;
-    const f = conjugate(leaf(k), tFactory(), k);
-    f.skaterName = `${tName}|leaf`;
-    const entry = makeEntry(f, 1, [tName], k, candidateCost);
+    const entry = makeEntry(1, [tName], k, candidateCost);
     entry.warmed = true;
     pool.push(entry);
   }
   return pool;
 }
 
+// The grammar in force: the fixed table plus one seasonal difference per
+// detected period, in detection order.
+function transformsFor(state) {
+  const out = TRANSFORMS.slice();
+  for (const period of state.detected_periods) {
+    out.push([`seas(${period})`, () => seasonalDifference(period), 2]);
+  }
+  return out;
+}
+
 function buildFromRecipe(recipe, k, transforms) {
   const lookup = new Map(transforms.map(([name, factory]) => [name, factory]));
   let f = leaf(k);
   for (const tName of recipe) f = conjugate(f, lookup.get(tName)(), k);
+  f.skaterName = recipe.concat(["leaf"]).join("|");
   return f;
 }
 
@@ -110,9 +120,7 @@ function expand(pool, k, topN, maxDepth, transforms, costBudget) {
       const key = newRecipe.join("|");
       if (existing.has(key)) continue;
       existing.add(key);
-      const childFn = buildFromRecipe(newRecipe, k, transforms);
-      childFn.skaterName = newRecipe.join("|") + "|leaf";
-      children.push(makeEntry(childFn, newRecipe.length, newRecipe, k, childCost));
+      children.push(makeEntry(newRecipe.length, newRecipe, k, childCost));
     }
   }
   return children;
@@ -157,6 +165,21 @@ export function search({
 } = {}) {
   const pdFunc = periodDetector();
 
+  // Closures are configuration, not state. Pool skaters are stateless
+  // functions of their recipe, so they live here, keyed by recipe, and are
+  // rebuilt on demand after a restore. Entries pruned from the pool drop out
+  // of the cache at the next expansion.
+  const fnCache = new Map();
+  function fnFor(entry, state) {
+    const key = entry.recipe.join("|");
+    let f = fnCache.get(key);
+    if (f === undefined) {
+      f = buildFromRecipe(entry.recipe, k, transformsFor(state));
+      fnCache.set(key, f);
+    }
+    return f;
+  }
+
   function _search(y, state) {
     if (state === null || state === undefined) {
       state = {
@@ -164,8 +187,7 @@ export function search({
         n_obs: 0,
         buffer: [],
         pd_state: null,
-        detected_periods: new Set(),
-        transforms: TRANSFORMS.slice(),
+        detected_periods: [],
       };
     }
 
@@ -176,7 +198,7 @@ export function search({
     const pool = state.pool;
 
     for (const entry of pool) {
-      const [dists, s] = entry.f(y, entry.s);
+      const [dists, s] = fnFor(entry, state)(y, entry.s);
       entry.s = s;
       entry.dists = dists;
       entry.age += 1;
@@ -211,16 +233,14 @@ export function search({
     if (state.n_obs % expandInterval === 0 && state.n_obs > 10) {
       const detected = topPeriods(scores, 0.3, 3);
       for (const period of detected) {
-        if (!state.detected_periods.has(period)) {
-          state.detected_periods.add(period);
-          const tName = `seas(${period})`;
-          state.transforms.push([tName, () => seasonalDifference(period), 2]);
-        }
+        if (!state.detected_periods.includes(period)) state.detected_periods.push(period);
       }
-      const newChildren = expand(pool, k, expandTopN, maxDepth, state.transforms, costBudget);
-      for (const child of newChildren) warmup(child, state.buffer, k);
+      const newChildren = expand(pool, k, expandTopN, maxDepth, transformsFor(state), costBudget);
+      for (const child of newChildren) warmup(child, fnFor(child, state), state.buffer, k);
       for (const child of newChildren) pool.push(child);
       prune(pool, pruneThreshold, maxPool, k);
+      const live = new Set(pool.map((e) => e.recipe.join("|")));
+      for (const key of fnCache.keys()) if (!live.has(key)) fnCache.delete(key);
     }
 
     const combined = [];

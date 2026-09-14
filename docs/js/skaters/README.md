@@ -55,6 +55,28 @@ In the browser, import the hosted module directly — no build step:
 </script>
 ```
 
+## Checkpoint and restore
+
+A skater is a fold: its state is plain data, and it round-trips through JSON
+bit-exactly. Stop a stream, store the state, and resume anywhere with the same
+numbers.
+
+```js
+import { laplace, stateToJSON, stateFromJSON } from "skaters";
+
+const f = laplace(1);
+let [dists, state] = f(y, null);
+const text = JSON.stringify(stateToJSON(state));   // Dist -> {components}, else as is
+// ... later, in another process ...
+state = stateFromJSON(JSON.parse(text));            // {components} -> Dist, no renormalising
+[dists, state] = f(nextY, state);                   // identical to never having stopped
+```
+
+Rebuild the skater with the same arguments (or from its spec) before resuming:
+the configuration lives in the closure, the state holds only data. Both
+walkers throw, naming the path, if a state holds anything JSON would damage.
+`parity/roundtrip.mjs` holds every exported skater to this contract.
+
 ## What's exported
 
 `laplace` and `buildCandidates`; the `Dist` object; transforms (`difference`,
