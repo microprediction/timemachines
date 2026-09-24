@@ -476,16 +476,28 @@ def mahalanobis(base, k: int, alpha: float = 0.02, scatter: str = "factor",
 
         # nlp channel: speaks ONLY in its own POT tail — it exists for the
         # saturation regime (the z-clamp caps d2; nlp is unbounded), and in
-        # the bulk it stays silent so the mahal p-value's null uniformity is
-        # untouched. Combination is Bonferroni-style: min(p, 2 p_n).
-        if nlp is not None and state["n_n"] >= min_exc:
+        # the bulk it stays silent. Once the channel is calibrated (a fitted
+        # tail), the two channels are combined by Bonferroni: each runs at
+        # alpha/2, so the union rejects at most at alpha. The earlier form,
+        # min(p, 2 p_n), left the Mahalanobis channel at full alpha and
+        # added the nlp channel's alarms on top, a level near 1.5 alpha.
+        # In the bulk p_n is 1: the channel cannot reject there, and the
+        # Mahalanobis p-value is doubled to keep the union at alpha.
+        p_m = state["pvalue"]
+        p_n = None
+        if (nlp is not None and state["n_n"] >= min_exc
+                and len(state["n_exc"]) >= min_exc):
             ns = math.sqrt(max(state["nv"], 1e-12))
             t_n = state["nm"] + 2.33 * ns
-            if nlp > t_n and len(state["n_exc"]) >= min_exc:
+            if nlp > t_n:
                 g2, s2 = _gpd_fit(state["n_exc"])
                 p_n = max(state["n_zeta"], 1e-12) * _gpd_sf(
                     (nlp - t_n) / max(t_n - state["nm"], 1e-9), g2, s2)
-                state["pvalue"] = min(state["pvalue"], 2.0 * p_n)
+            else:
+                p_n = 1.0
+            state["pvalue"] = min(1.0, 2.0 * min(p_m, p_n))
+        state["p_mahal"] = p_m
+        state["p_nlp"] = p_n
 
         # Huberised update with a changepoint escape hatch. The guard level is
         # the empirical null's quantile, so it tracks the learned calibration.

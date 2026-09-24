@@ -262,3 +262,29 @@ def test_wald_named_machine():
     assert len(dists) == 2                        # laplace forecasts pass through
     _, state = f(25.0, state)
     assert state["pvalue"] < 1e-6
+
+
+def test_two_channel_pvalue_is_bonferroni_over_both_channels():
+    """Issue #138: once the nlp channel is calibrated, the reported p-value
+    is min(1, 2 min(p_mahal, p_nlp)), so the union of the two channels
+    rejects at most at the nominal level. The old min(p, 2 p_n) kept the
+    Mahalanobis channel at full alpha."""
+    k = 2
+    rng = random.Random(3)
+    f = mahalanobis(laplace(k), k=k, min_exc=5)
+    s = None
+    armed = 0
+    for _ in range(2500):
+        y = rng.gauss(0.0, 1.0)
+        _, s = f(y, s)
+        if s.get("pvalue") is None:
+            continue
+        p_m, p_n = s.get("p_mahal"), s.get("p_nlp")
+        assert p_m is not None
+        if p_n is None:
+            assert s["pvalue"] == p_m
+            continue
+        armed += 1
+        assert s["pvalue"] == pytest.approx(min(1.0, 2.0 * min(p_m, p_n)))
+        assert 0.0 <= s["pvalue"] <= 1.0
+    assert armed > 100, "the nlp channel never armed in this test"
