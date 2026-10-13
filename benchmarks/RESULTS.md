@@ -10,7 +10,82 @@ Working results for the anomaly/front-end study (issues #88, PR branch
 
 All runs: strictly causal scores (no whole-series normalisation), defaults
 unless stated, one pass. Protocols in `RESEARCH.md`; harnesses in this
-directory. Updated 2026-07-07.
+directory. Updated 2026-07-21.
+
+## 0. Discussion — the synthesis, stated up front
+
+Every result below sorts under two distinctions. Read the tables through
+them.
+
+**Two jobs.** Job 1 is localization: *where* is the anomaly (argmax, VUS,
+rank percentile — ranking metrics, blind to calibration by construction).
+Job 2 is alarming: *when* to fire at a stated false-alarm budget (the
+calibration panel, detection delay at stated alpha). Methods that emit
+scores can only do job 2 with an oracle threshold; methods that emit
+calibrated p-values do it as shipped. Our stack's differentiator is job 2,
+and only job 2.
+
+**Two regimes.** On *recurrent* series (UCR's periodic physiology, most of
+TSB-AD-U), normal behavior traces a low-dimensional manifold in
+delay-embedding space and an anomaly is a subsequence far from every
+historical neighbor. Similarity search reads that off directly and owns
+job 1 by construction: raw DAMP 0.587 on UCR-150 vs our best-ever 0.304;
+our TSB-AD-U eval row (~0.16 VUS-PR, the trivial band, vs leaderboard top
+0.42) is the same verdict on the leaderboard benchmark. On
+*non-recurrent* series (FRED: drift, regime shifts, fat tails, no
+periodicity) there is no template and no meaningful
+nearest-neighbor null — every neighborhood of the trace is sparse — so
+the only coherent notion of anomaly is "surprising under a calibrated
+predictive density," which forces a forecaster + EVT tail. That is where
+the panel and delay results live. Caveat stated plainly: we never ran
+DAMP on FRED; the non-recurrent half of this claim rests on the mechanism
+plus RRCF's indifference there, not on a direct measurement. And the FRED
+*injection* benchmarks (v1 and v2) turned out to discriminate nobody —
+planted 8-sigma spikes are the easy regime for every method (§5).
+
+**The front-end verdict is a gradient, not a blanket.** Same detector,
+same series, only the input changes (raw y vs parade z; full-250 UCR
+unless noted):
+
+| head | type | raw -> fronted | verdict |
+|---|---|---|---|
+| DSPOT | distributional (EVT tail, assumes stationarity) | 0.120 -> **0.232** (5.6x on <10k) | improved, everywhere measured — also best FRED-v2 percentile (0.9951) and deep-tail rates toward nominal on both FRED and UCR |
+| RRCF | weak structural (shingles) | 0.244 -> 0.236 | wash — gains drift/scale families, loses periodic-template families |
+| DAMP | strong structural (left-discord matrix profile, n=150) | 0.587 -> 0.427 | **hurt** — z whitens exactly the recurrence it feeds on, and it carries its own local normalizer |
+
+The rule: the front-end improves a head to the exact degree the head is
+distributional (stationarity-hungry) and degrades it to the degree it
+feeds on repeated templates. The Rosenblatt z manufactures stationarity
+and destroys recurrence — those are the same operation.
+
+**One-sentence scope statement.** Pattern matching owns "where" on
+recurrent series; calibrated surprise owns "when to alarm" everywhere;
+the front-end improves any head exactly to the degree that head is
+distributional rather than structural.
+
+Two standing caveats on the waveform side: similarity search "solves"
+recurrent series at the ranking level only (at nominal 1e-3 every method,
+DAMP included, drowns in false alarms on the periodic families), and
+matrix-profile methods need the period to fit their window. And one on
+ours: skaters 0.13.0's calibrated tails cost argmax contrast (§3) —
+calibration and localization now measurably trade off even within our own
+stack.
+
+**The anchor refinement (§3b).** "Recurrent vs non-recurrent" is more
+precisely "is the level-anchor intact at the subsequence timescale."
+De-anchoring UCR shows matrix profile's edge is genuine recurrence
+capability (it survives de-anchoring slower than its window) and collapses
+only when the level moves WITHIN a window — precisely where its per-window
+z-normalization, its Achilles heel, breaks. That failure mode is
+repairable in a narrow regime: replacing znorm with laplace's causal
+normalization (DAMP-laplace) reverses the collapse (16-4 paired) under
+*fast* within-window de-anchoring, at a real cost on stationary data (13-6
+the other way). But the repair does NOT transfer to real martingale series
+(FRED levels, §3b): those carry a unit root yet drift too slowly relative to
+the window for znorm to fail, so damp_raw wins there decisively. So the
+front-end can fix a structural head's normalizer, but only when the level
+moves fast relative to the subsequence window — a real effect with a small
+deployment footprint, not a general "laplace fixes SOTA" claim.
 
 ## 1. Detector front-end — FINAL (UCR-60, argmax protocol)
 
@@ -92,12 +167,30 @@ waveform periods (~50-400 samples) the Laplace body cannot represent (its
 seasonal grid is calendar {7,12,24}), so every cycle reads as fresh surprise.
 That is a *body* weakness observed through the head — filed upstream as
 skaters#91 — and matrix-profile methods own that terrain by construction.
-Slow-memory config (sa 0.01/da 0.005), full archive (n=247 of 250; the run
-was stopped three 300k-point series short): mahS 0.308 > |z1| 0.291 > mah
-0.283 > trivial 0.219. Slow memory is worth ~+3 points over default and
-flips the ordering — the multivariate scan beats the per-horizon rule at
-scale, which default memory never managed (and 0.675 on the 40 shortest).
-The zbank sigma-grid sits between the configs without tuning.
+Slow-memory config (sa 0.01/da 0.005), full archive (FINAL, all 250; the
+detached run completed 2026-07-13): mahS 0.304 > |z1| 0.288 > mah 0.280 >
+zU 0.276 > trivial 0.216. By length, mahS: 32/53 (<10k), 32/97 (10-50k),
+12/100 (>=50k). Slow memory is worth ~+3-6 points over default (default-250
+FINAL: |z1| 0.276 > zU 0.264 > mah = mahS 0.240) and flips the ordering —
+the multivariate scan beats the per-horizon rule at scale, which default
+memory never managed (and 0.675 on the 40 shortest). The zbank sigma-grid
+(FINAL, n=60: |z1| 0.550, mahS 0.533) sits between the configs without
+tuning. All three tapes were run under skaters 0.12.x (gaussian z tails);
+the 0.13.0 GPD-tails default re-run is checkpointing in this directory.
+
+### The 0.13.0 re-run (GPD tails default, 2026-07-21) — a real regression
+
+Same harness, same slow-memory config, same warmup protocol, full 250,
+skaters 0.13.0: mahS 0.288 < |z1| 0.280 ~ mah 0.256, zU 0.232, trivial
+0.216 — every channel drops vs the 0.12.x tapes (mahS 0.304, z1 0.288,
+mah 0.280, zU 0.276). The mechanism is the design tension stated plainly:
+the tail splice exists to make extreme z CALIBRATED, which necessarily
+compresses the very tail contrast argmax ranking feeds on; zU, built
+entirely from extreme per-margin p-values, bleeds most (-4.4 points).
+Calibration and ranking are different objectives and now measurably trade
+off — quote UCR rows with the tails config attached, and consider
+`tails="gaussian"` (the old behavior, still available) when the task is
+argmax localization rather than alarming.
 
 Findings the study produced regardless of scores: a horizon-misalignment bug
 in skaters' search() (third instance of the pattern; fixed, parity green);
@@ -105,6 +198,102 @@ the effective-rank collapse of the z scatter -> empirical null + factor
 scatter with exact Woodbury; masking through the null's second moment ->
 winsorised updates; the sigma-memory axis; and (from the hardening suite)
 skaters' state-purity fix enabling checkpoint/restore (0.12.1).
+
+## 3b. Anchor vs recurrence, and DAMP-laplace (`martingale_transform_study.py`)
+
+Is matrix profile's UCR dominance an *absolute-anchor* artifact (biological
+series are level-stationary; finance is a martingale with a unit root) or a
+genuine *recurrence* capability? We de-anchor each series and re-run every
+detector. `window_wander` = the sigma-fraction the injected level drifts over
+one subsequence window M=100; anomaly LOCATION is preserved by every
+transform (cumsum changes the anomaly TYPE, spike->step, not tracked here).
+UCR n=60 shortest (family-heavy: AirTemperature, InternalBleeding, Walking,
+insectEPG — read as directional), argmax accuracy:
+
+| detector | raw | rw_slow (ww 0.15) | rw_fast (ww 3.0) | cumsum |
+|---|---|---|---|---|
+| mah | 0.417 | 0.283 | 0.167 | 0.200 |
+| mahS | 0.483 | 0.333 | 0.167 | 0.150 |
+| z1 | 0.500 | 0.467 | 0.250 | 0.200 |
+| damp_raw (znorm MP, SOTA) | **0.617** | **0.567** | 0.133 | 0.433 |
+| damp_rawnn (no normalizer) | 0.667 | 0.533 | 0.033 | 0.117 |
+| damp_z (znorm on laplace-z) | 0.383 | 0.450 | 0.083 | 0.283 |
+| **damp_lap (non-norm MP on laplace-z)** | 0.500 | 0.517 | **0.333** | 0.367 |
+
+**Q1 — the anchor bites at WINDOW scale, not globally.** `damp_raw` barely
+moves under a random walk slower than a window (0.617 -> 0.567) and survives
+integration (0.433); it collapses only when the level moves ~3 sigma WITHIN a
+window (rw_fast 0.133) — precisely znorm's blind spot. Matrix profile's edge
+is genuine recurrence capability, robust to global de-anchoring; it is not an
+absolute-anchor artifact. The `damp_rawnn` control confirms the mechanism:
+strip the normalizer and rw_fast annihilates it (0.033).
+
+**Q2 — our head degrades more gracefully but does not overtake.** `z1` is
+flat across raw/rw_slow (0.500/0.467) and beats `damp_raw` under rw_fast
+(0.250 vs 0.133); it does not catch up and win on stationary turf.
+
+**Q3 — DAMP-laplace is a TARGETED repair, not a free lunch.** Swapping
+laplace's causal model-based normalization in for the per-window znorm
+(non-normalized MP on the laplace-z stream) is the user's proposal. Paired,
+per series, `damp_lap` vs `damp_raw`:
+
+| transform | lap beats raw | raw beats lap | both | neither |
+|---|---|---|---|---|
+| raw | 6 | **13** | 24 | 17 |
+| rw_slow | 9 | 12 | 22 | 17 |
+| rw_fast | **16** | 4 | 4 | 36 |
+| cumsum | 16 | 20 | 6 | 18 |
+
+On stationary data znorm is the right normalizer and `damp_lap` genuinely
+loses (13-6) — laplace-z discards the template, exactly the §1 mechanism. But
+under within-window de-anchoring the reversal is strong and real (16-4, not
+an aggregation artifact): where the level moves inside a window and znorm
+breaks, laplace's normalization is decisively better. Global de-anchoring and
+integration are washes. The win concentrates in the lower-frequency,
+drift-prone families (InternalBleeding 9-3 of 28, CIMIS AirTemperature 8-4 of
+13); high-frequency insectEPG is 0-0 (nobody localizes under rw_fast).
+
+The precise claim: **laplace-normalization repairs matrix profile for exactly
+one failure mode — non-stationarity at the subsequence timescale that
+per-window znorm cannot absorb — at a real cost on stationary data. Swap it
+in when the level moves within a window; keep znorm when it does not.** The
+non-circular deployment test is `damp_lap` vs `damp_raw` on genuinely
+martingale series (FRED), where there is no stationary template to fall back
+on and laplace-z is MP's only viable normalization.
+
+### The FRED arm — the crossover does NOT transfer (`martingale_fred.py`, n=96)
+
+Planted spike/burst/shift on FRED series, argmax hit and rank percentile,
+window M=100. Run both on the unit-root levels (the genuine martingale
+regime) and, as a control, on the differenced returns (stationary):
+
+| mode | detector | hit | pct | lap vs raw (paired) |
+|---|---|---|---|---|
+| **levels** (unit root) | damp_raw | **0.438** | **0.962** | — |
+| | damp_lap | 0.271 | 0.926 | pct lap>raw 27/96; hit lap-only 14, raw-only 30 |
+| changes (stationary) | damp_raw | 0.146 | 0.956 | — |
+| | damp_lap | 0.156 | 0.911 | pct lap>raw 40/96; hit ~tied (10 vs 9) |
+
+**The `rw_fast` crossover does not reproduce on real martingale data.** On
+FRED levels `damp_raw` wins decisively (paired hit 30-14); on returns the two
+are a wash. Two reasons, and they tighten the claim rather than refute it:
+(1) FRED price levels carry a unit root but drift *slowly relative to a
+100-point window* — rates and indices barely move over M=100 next to an
+8-sigma planted spike — so per-window znorm copes and laplace-z buys nothing;
+FRED levels behave like `rw_slow` (a wash), not `rw_fast`. (2) A spike on a
+*level* is a large-amplitude transient, an easy discord znorm catches cleanly,
+whereas UCR-cumsum's anomaly was a subtle pre-existing waveform defect that
+integration smeared into a hard step. Different anomaly character, opposite
+winner.
+
+**Honest conclusion:** DAMP-laplace is a real but NARROW repair. It helps only
+when the level moves fast relative to the subsequence window — a regime the
+`rw_fast` injection manufactures but ordinary financial levels at M=100 do not
+exhibit. The controlled crossover above (16-4) is genuine; its deployment
+footprint is small. The earlier "laplace fixes SOTA under our challenge"
+framing was too broad and is narrowed to this scope. The mechanism predicts
+the edge would return at a smaller window M, or on genuinely fast-drifting
+levels (intraday volatility, FX) — an open probe, not a claim.
 
 ## 4. The calibration panel — the differentiator, measured
 
@@ -132,6 +321,117 @@ the excess tails run ~0.7) brought it to ~5x; and the z-clamp saturation
 unbounded -logpdf channel with its own POT tail, restoring evidence at any
 depth (2e-11 where the clamp capped at 3e-5) at a small bulk cost.
 
+### 4b. Does the lattice projection pollute the z tail? (`sticky_ablation.py`)
+
+Conjecture: laplace's `sticky` lattice projection (on by default) adds
+near-Dirac atoms at revisited values; on lattice series (administrative
+rates whose CHANGE series is a run of exact zeros) an atom is a step in the
+predictive CDF, so a normal point near the atom is mapped through a
+near-vertical F_t and picks up a spurious large |z| — polluting the z tail
+and inflating alarms. Tested: laplace `sticky {on,off}` x `tails {gpd,
+gaussian}`, 120 non-price FRED series, paired per series (same real events
+both ways), split by exact-repeat fraction. Median per-series two-sided FPR
+of erfc(|z1|); the 1-step LL is the forecasting cost of turning sticky off.
+
+| group | config | LL | FPR@1e-2 | @1e-3 | @1e-4 |
+|---|---|---|---|---|---|
+| continuous (n=48, control) | sticky, gpd | 3.4303 | 1.19e-2 | 2.14e-3 | 7.35e-4 |
+| | no-sticky, gpd | 3.4304 | 1.19e-2 | 2.14e-3 | 7.35e-4 |
+| lattice (n=72) | sticky, gpd (default) | **3.35** | 1.19e-2 | 2.41e-3 | 7.43e-4 |
+| | no-sticky, gpd | 2.52 | 1.19e-2 | 2.37e-3 | 7.43e-4 |
+| | sticky, gaussian | 3.30 | 2.43e-2 | 9.28e-3 | 4.64e-3 |
+| | no-sticky, gaussian | 2.51 | 2.02e-2 | 8.27e-3 | 4.28e-3 |
+
+Three reads, one of which corrects an earlier claim:
+
+1. **Falsifiable control passes exactly.** On continuous series sticky is
+   identical on/off (LL 3.4303 vs 3.4304; every FPR equal) — atoms never
+   fire, the wrapper vanishes, confirming atoms are the mechanism.
+2. **The raw artifact is real but modest, and the DEFAULT splice absorbs it.**
+   With gaussian tails (no splice) sticky inflates lattice-series FPR ~10-20%
+   (9.28e-3 vs 8.27e-3 at 1e-3) — the predicted pollution. But with the
+   default `tails="gpd"` sticky and no-sticky are essentially identical
+   (2.41e-3 vs 2.37e-3; paired-worse 34/72, a coin flip). Earlier note that
+   "the GPD splice cannot reach the shoulder" was WRONG: nominal 1e-2..1e-4
+   are |z| beyond 2.6 sigma, i.e. inside the GPD-governed region (thresholds
+   at the 98% quantile), and the censored-ML re-fit on actual exceedances
+   absorbs the atom-induced distortion.
+3. **sticky is a large forecasting win on lattice series** (+0.83 nats) at no
+   calibration cost on the default. Keep it on; this is a clean validation
+   that the 0.13.0 tail splice does its job (it repairs sticky's distortion
+   as a side effect).
+
+Consequence for the mah repair: this rules OUT sticky as the source of the
+mah overconfidence. Plain z1 on the default (gpd) holds ~2x nominal at 1e-3
+(consistent with the genuine-anomaly base rate in FRED), while mah runs ~9x
+on the same data — so the extra overshoot is the Mahalanobis empirical-null
+layer itself, not an upstream z-stream artifact. The mah repair (§8) stands.
+
+### 4c. Diagnosing and repairing mah (`mah_diagnostic.py`, `mah_repair_sweep.py`)
+
+**Decomposition** (knobs isolate the p-value stages; n=96 non-price FRED,
+median per-series FPR / nominal):
+
+| config | x@1e-2 | x@1e-3 | x@1e-4 | what it isolates |
+|---|---|---|---|---|
+| z1 (plain parade) | 1.2 | 2.2 | 7.4 | the floor (base rate + clamp) |
+| bulk (chi2 only, `min_exc=1e9`) | 2.6 | **10.6** | **62.9** | Satterthwaite null alone |
+| full (default: factor, GPD+nlp) | 2.1 | 4.2 | 18.6 | shipped |
+| shrink (`scatter="shrink"`) | 1.7 | 3.3 | 12.4 | scatter model |
+
+The overconfidence is the **bulk Satterthwaite chi2 null**, not the tail
+machinery: turning the GPD/nlp off (`bulk`) runs 10.6x/62.9x, and the GPD
+*repairs* most of it (full 4.2x/18.6x). Mechanism: `d2 = v' Sigma^-1 v` with
+`Sigma` EWMA-estimated (effective n ~ 2/alpha ~ 99) is the finite-sample
+Hotelling regime — `d2` follows a heavy scaled-F, not chi2 — and a two-moment
+match keeps a chi2 tail shape that is fundamentally too thin. The factor
+scatter also inflates `d2` vs plain shrinkage (full 4.2x vs shrink 3.3x).
+
+**Dual-axis repair sweep** (argmax ranking AND clean-region FPR on the same
+injected FRED series, n=96; existing knobs only):
+
+| config | argmax | x@1e-2 | x@1e-3 | x@1e-4 |
+|---|---|---|---|---|
+| base (pot 0.98, factor) | 0.156 | 1.9 | 2.5 | 5.4 |
+| pot95 | 0.146 | 1.5 | 1.8 | 2.9 |
+| pot90 | 0.146 | 1.3 | 1.8 | 3.0 |
+| shrink | 0.167 | 1.5 | 2.2 | 3.6 |
+| **pot95_shrink** | **0.177** | **1.2** | **1.4** | **2.7** |
+
+The argmax column is flat within binomial noise (+/-~3.6 series on n=96), so no
+config trades ranking for calibration on this set. `pot95_shrink` calibrates
+best on all three depths, near the z1 floor.
+
+**UCR ranking gate** (`mah_ucr_ranking.py`, argmax accuracy, n=40 shortest):
+base 20/40 = 0.500, shrink 18/40 = 0.450, pot95_shrink 22/40 = 0.550 — all
+within binomial noise (+/-~3.2). Two corrections came out of it:
+
+* **`pot_level` is NOT ranking-invariant.** shrink (18) != pot95_shrink (22)
+  proves it. The GPD splice *raises* p in the tail, so `-log10 p` has a
+  downward discontinuity at `t_pot`: a sub-maximal-d2 tick just below the
+  threshold can outrank the true max just above it, and moving `pot_level`
+  moves that discontinuity. The earlier "monotone, invariant" claim was wrong.
+* **Lowering `pot_level` fails masking resistance.** The `pot_level=0.95`
+  default change (attempted, reverted) breaks `tests/test_heads.py::
+  test_masking_resistance`: with a 120-sigma spike every 40 ticks, only 10/13
+  fire at p<1e-3 (vs 13/13 at 0.98; worst outlier p 1.9e-3 vs 2.1e-11). The
+  dense spikes contaminate the lower exceedance set and corrupt the GPD fit
+  for extreme excesses. Sparse-anomaly FRED/UCR benchmarks could not surface
+  this — the test suite did.
+
+**Conclusion.** `pot_level=0.95` is a genuine calibration win on sparse-anomaly
+data but trades away masking resistance under dense outliers, so it is NOT a
+safe default; reverted, 0.98 kept, finding documented in the docstring. The
+right repair is a tail *shape* fix that keeps the 98% threshold: replace the
+bulk null's scaled-chi2 with a **scaled-F carrying the estimation dof**
+(`d2 ~ [k(n_eff-1)/(n_eff-k)] F(k, n_eff-k)`, `n_eff ~ 2/alpha`), which models
+the heavy finite-sample tail at its source instead of asking the empirical GPD
+to mop it up from a lower threshold. That is a localized change to the null
+family (both languages, with the masking test as a gate) — the next step, not
+rushed. `scatter="shrink"` remains a documented opt-in (best combined
+calibration, no measured ranking cost) but not the default (the factor model
+serves the multivariate `zbank`).
+
 ## 5. FRED injection (argmax) — protocol needs v2
 
 `fred_anomaly.py`, n=100 real FRED change series, planted spike/burst/shift.
@@ -141,6 +441,69 @@ noise. Diagnosis: real backgrounds contain genuine unlabeled anomalies
 confounded measure. v2: score the planted window's rank percentile in the
 full score ordering (robust to dominant natural events), and/or mask known
 crisis windows. Keep argmax row for reference.
+
+### v2 — rank percentile with crisis masking (n=120, 2026-07-21)
+
+`fred_anomaly_v2.py`, same deterministic injections, skaters 0.13.0.
+Masking GFC/COVID from the ranking set lifts every method's argmax hit
+rate (z1 0.250 -> 0.317, mz 0.250 -> 0.342), confirming the v1 confound
+was real. Mean rank percentile (masked / argmax-hit masked):
+
+| method | pct_m | hit_m | note |
+|---|---|---|---|
+| dspot_z | **0.9951** | 0.275 | fronted DSPOT best percentile again |
+| z1 | 0.9945 | 0.317 | best own channel |
+| rrcf_raw | 0.9921 | 0.283 | |
+| mah | 0.9912 | 0.175 | percentile fine, argmax poor |
+| dspot_raw | 0.9886 | 0.325 | |
+| mz | 0.9850 | **0.342** | trivial baseline wins argmax-hit |
+| mahS64 | 0.9126 | 0.233 | scan window dilutes rank sharply |
+
+Read: on percentile the field is compressed (everyone ~0.98-0.995) and the
+front-end story repeats (dspot_z > dspot_raw on percentile); on masked
+argmax the trivial mz is top — planted 8-sigma spikes on economic series
+are simply not hard, so this benchmark measures the easy regime. The
+discriminating FRED evidence stays the calibration panel and the delay
+panel, not injections.
+
+### Detection delay at fixed alarm budget (n=83 burst+shift, 2026-07-21)
+
+`detection_delay.py`. In the stated-alpha regime (deployable, no oracle):
+z1 at alpha=1e-3 detects 63% at median delay 12 ticks with realized 1.43
+false alarms per 1k (1.4x nominal — the 0.13.0 tails keeping their
+budget); mah detects 80% but at delay 157 and 2.8x budget. In the
+matched-quantile regime mz is the delay/detection sweet spot (0.81
+detect, delay 18, 2.4/1k at the 1e-3 budget); dspot's saturated score
+defeats quantile matching (30-40 fa/1k regardless of budget) — its native
+alarm channel is required before its delay row is quotable.
+
+## 5b. TSB-AD-U — the leaderboard run (tuning read 2026-07-21)
+
+Two-phase harness (`tsb_ad_run.py` scores, `tsb_ad_eval.py` official
+metrics). Tuning split (48 series), mean VUS-PR: slow-memory config
+z1 **0.190** > zU 0.188 > mz 0.177 > mahS8 0.169 > mah 0.159 > mahS64
+0.138; the default-memory config is worse everywhere (best 0.173). Config
+frozen for eval: slow memory, z1 the headline channel — note the
+UCR-consistent pattern that the plain parade surprise beats the
+Mahalanobis geometry on ranking metrics, and the trivial EWMA z sits only
+0.013 VUS-PR behind the best own channel on this split. Leaderboard
+context: univariate top is Sub-PCA 0.42. (The metrics pass first died on
+a single inf tick — the mz baseline's denormal-variance overflow, since
+clamped at source and sanitized at eval; not a skaters defect.)
+
+### Eval split — FINAL (350 series, 2026-07-21)
+
+Mean VUS-PR: mahS8 0.162 ~ zU 0.161 ~ **mz 0.160** ~ z1 0.153 ~ mahS64
+0.152 ~ mah 0.150. The tuning-split ordering did NOT generalize (z1 led
+tuning at 0.190, trails the trivial baseline on eval), and the whole own
+stack is statistically on top of the EWMA z-score at ~0.16 — a third of
+the leaderboard top (Sub-PCA 0.42, KShapeAD 0.40), squarely in the
+trivial band. Same verdict as UCR, now on the leaderboard benchmark: the
+laplace body cannot represent the short waveform periods that dominate
+these archives, so ranking-metric benchmarks score its weakest organ.
+The differentiator remains calibration (panel, §4) and stated-alpha delay
+(§5) — capabilities VUS-PR is blind to by construction. Quote this row
+plainly as the credibility line; do not spin it.
 
 ## 6. Regression front-end — contaminated simulation (240 runs)
 
@@ -614,15 +977,23 @@ null approximately holds) and, for a paper, local power theory.
 
 ## 8. Still to come
 
-- slow-alpha full-250 (running); zbank-60 and default-250 (running,
-  detached).
-- FRED v2 with rank-percentile scoring.
-- Detection delay at fixed alpha (the panel covers FPR; delay is the
-  other axis of the Wald tradeoff).
+Overnight fleet 2026-07-20/21 (11 workers, nice 19, 13h) closed out: FRED
+v2 rank-percentile (§5, n=120), detection delay (§5, n=83), TSB-AD-U
+tuning read (§5b), UCR full-250 under 0.13.0 tails (§3 — a real
+argmax regression, documented). Remaining:
+
+- TSB-AD-U eval-split metrics pass (scores cached; VUS bundle running
+  after the inf-sanitizer fix) — the leaderboard row.
+- DSPOT native alarm channel in `detection_delay.py` (quantile matching
+  is defeated by its saturated score; its delay row is not yet quotable).
 - GPD/EVT tail for the detector's extreme p-values (steal DSPOT's tail
   theorem for our head); unclamped -logpdf surprise channel (the z-clamp
   saturates at |z|=7.03, erasing 20-sigma vs 100-sigma distinctions).
-- TSB-AD-U leaderboard run (VUS-PR; top is 0.42, simple methods lead).
+  Note: skaters 0.13.0 ships GPD tails default-on in the forecaster, so
+  the z stream's own p-values are now calibrated at source; the mah
+  (Mahalanobis-layer) overcalibration remains its own open defect — and
+  §3's 0.13.0 regression shows calibration and argmax ranking now
+  measurably trade off, so the repair must be scored on both axes.
 - Regression front-end v2: slow-memory body for the zout/spikes_y cell;
   target-intercept shift scenario; per-entity bodies (the ChickWeights
   fix); k=3 multi-horizon surprise features for the drift/shift rows;
@@ -645,6 +1016,17 @@ python benchmarks/river_frontend.py --seeds 30 --workers 6   # pip install river
 python benchmarks/river_data_frontend.py --workers 6
 python benchmarks/ablation_frontend.py --seeds 30 --workers 6
 python benchmarks/ablation_river.py --workers 6   # pip install ice-skaters
+
+# outlier fleet (all resumable; WORKERS=2 default is deliberately gentle)
+WORKERS=2 ./benchmarks/run_outlier_fleet.sh > fleet.log 2>&1 &
+python benchmarks/tsb_ad_run.py --split tuning --workers 2   # phase 1
+.venv-tsb/bin/python benchmarks/tsb_ad_eval.py --split tuning  # phase 2
+python benchmarks/fred_anomaly_v2.py --limit 150 --workers 2
+python benchmarks/detection_delay.py --limit 150 --workers 2
 ```
 UCR data: see RESEARCH.md (download + extract into `data/UCR_Anomaly_FullData`).
 FRED data: cached under `benchmarks/data/` (see `benchmarks/fred.py`).
+TSB-AD-U data: `benchmarks/data/TSB-AD-U/` (zip URL in RESEARCH.md; split
+lists auto-fetched). On this machine `benchmarks/data` is a symlink into the
+skaters repo's shared cache. Envs: `.venv` (detection, skaters 0.13.0
+editable) and `.venv-tsb` (TSB-AD metrics only; numpy<2, do not mix).
