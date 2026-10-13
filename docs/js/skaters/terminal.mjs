@@ -20,13 +20,16 @@ export function terminalLeafEnsemble(skaters, {
   const d = depths === null ? new Array(n).fill(0) : depths;
   const prior = priorLogWeights === null ? new Array(n).fill(0.0) : priorLogWeights;
 
+  // Closures live in the wrapper, never in state: skater state stays pure
+  // data (serialisable for checkpoint/restore), mirroring terminal.py.
+  const tleafs = Array.from({ length: k }, () => leafFn(1));
+
   function _skater(y, state) {
     if (state === null || state === undefined) {
       state = {
         sub: new Array(n).fill(null),
         qdist: Array.from({ length: n }, () => []),
         log_w: prior.slice(),
-        tleaf: Array.from({ length: k }, () => leafFn(1)),
         leafState: new Array(k).fill(null),
         leafPred: new Array(k).fill(null),
         meanQ: Array.from({ length: k }, () => []),
@@ -66,7 +69,7 @@ export function terminalLeafEnsemble(skaters, {
       const mq = state.meanQ[h];
       if (mq.length >= h + 1) {
         const r = y - mq.shift();
-        const [ld, ls] = state.tleaf[h](r, state.leafState[h]);
+        const [ld, ls] = tleafs[h](r, state.leafState[h]);
         state.leafState[h] = ls;
         state.leafPred[h] = ld[0];
       }
