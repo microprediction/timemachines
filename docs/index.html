@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>timemachines — streaming anomaly detection with calibrated p-values</title>
-  <meta name="description" content="Temporal online machines: streaming anomaly detection built on the calibrated surprise streams of skaters. Alarm on p < alpha and the false-alarm rate is alpha — no threshold tuning. The same transform lifts DSPOT 5x and adds +2 nats to ARIMA, ETS, GARCH and Prophet." />
+  <meta name="description" content="Temporal online machines: streaming anomaly detection built on the calibrated surprise streams of skaters. Nominal thresholds require validated calibration and correct channel combination. The same transform lifts DSPOT 5x and adds +2 nats to ARIMA, ETS, GARCH and Prophet." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="timemachines" />
   <meta property="og:title" content="timemachines — anomaly detection with calibrated p-values" />
@@ -48,8 +48,10 @@
       each arriving point's surprise is a standard normal, and detection reduces to the textbook
       case. <code>wald</code> runs a <a href="https://skaters.microprediction.org/">skaters</a>
       forecaster underneath and emits a <strong>p-value per observation</strong> — alarm on
-      <code>p&nbsp;&lt;&nbsp;&alpha;</code> and your false-alarm rate <em>is</em> &alpha;.
-      Measured, not asserted: see <a href="#calibration">the calibration panel</a> below.
+      <code>p&nbsp;&lt;&nbsp;&alpha;</code> uses a nominal per-observation level.
+      Error control requires valid marginal p-values and correct channel combination;
+      it is not an unconditional guarantee. See the release caveat below and
+      <a href="#calibration">the historical calibration panel</a>.
       No threshold tuning, one pass, constant memory, strictly causal.</p>
 
     <div class="tag-row">
@@ -78,6 +80,17 @@
     </div>
 
     <h2>Quick start</h2>
+    <p><strong>Release caveat (checked 2026-10-30):</strong> PyPI's latest
+      <code>2.1.0</code> release (2026-07-08) still ships the pre-fix two-channel
+      p-value rule. The corrected repository code has not been released, so the
+      command below does not install that correction. It can make different alarm
+      decisions; do not assume nominal false-alarm control from this release.
+      See <a href="https://github.com/microprediction/timemachines/issues/167">#167</a>
+      and the <a href="https://github.com/microprediction/timemachines/blob/main/docs/releasing.md">release checklist</a>.
+      The browser copy is tracked separately in
+      <a href="https://github.com/microprediction/timemachines/issues/143">#143</a>;
+      historical calibration tables do not validate the unreleased correction
+      (<a href="https://github.com/microprediction/timemachines/issues/163">#163</a>).</p>
     <pre><code>pip install timemachines        # v2: requires skaters
 
 from timemachines import wald

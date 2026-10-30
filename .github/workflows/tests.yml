@@ -22,3 +22,10 @@ jobs:
         run: python -m pytest tests/ -q
       - name: Continuity smoke (the v1 import must keep working)
         run: python -c "from timemachines import laplace, wald; assert callable(laplace) and callable(wald)"
+      - name: Build wheel and smoke installed artifact (no checkout imports)
+        run: |
+          python -m pip install build
+          python -m build
+          python -m venv "$RUNNER_TEMP/timemachines-wheel"
+          "$RUNNER_TEMP/timemachines-wheel/bin/python" -m pip install dist/*.whl
+          "$RUNNER_TEMP/timemachines-wheel/bin/python" -I scripts/smoke_installed_wheel.py
