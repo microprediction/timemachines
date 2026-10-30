@@ -6,6 +6,16 @@ first — built on the calibrated surprise streams of
 
 ![skating](https://i.imgur.com/elu5muO.png)
 
+## Release status (checked 2026-10-30)
+
+PyPI's latest release is **2.1.0 (2026-07-08)**. It still contains the
+pre-fix two-channel p-value rule: the same input can alarm under 2.1.0 but
+not under the corrected repository code. See [#167](https://github.com/microprediction/timemachines/issues/167).
+The correction on `main` has **not been released**; `pip install timemachines`
+does not obtain it. Do not assume nominal false-alarm control from that release.
+A release must pass the [installed-wheel checks](docs/releasing.md); this notice
+is not a recommendation to deploy unreleased `main`.
+
 ```python
 from timemachines import wald
 
@@ -17,9 +27,11 @@ for y in stream:
         alarm(y, state["pvalue"], state["run"])
 ```
 
-That `1e-4` is a **false-alarm rate, not a tuned threshold**: `wald` emits a
-calibrated per-observation p-value, so alarming on `p < alpha` yields a
-false-alarm rate of approximately alpha. Measured, not asserted — on 144
+The `1e-4` threshold is a nominal per-observation level. Error control depends
+on valid marginal p-values and correct channel combination; neither a threshold
+nor the combination fix alone establishes empirical calibration. The historical
+measurements below are not validation of the unreleased correction (see
+[#163](https://github.com/microprediction/timemachines/issues/163)). On 144
 anomaly-free real-world prefixes (strictly prequential), empirical/nominal:
 
 | method | 1e-2 | 1e-3 | 1e-4 |

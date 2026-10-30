@@ -16,6 +16,11 @@ jobs:
         run: pip install build twine
       - name: Build
         run: python -m build
+      - name: Smoke installed wheel before upload
+        run: |
+          python -m venv "$RUNNER_TEMP/timemachines-wheel"
+          "$RUNNER_TEMP/timemachines-wheel/bin/python" -m pip install dist/*.whl
+          "$RUNNER_TEMP/timemachines-wheel/bin/python" -I scripts/smoke_installed_wheel.py
       - name: Publish to PyPI
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
