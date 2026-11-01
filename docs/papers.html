@@ -35,9 +35,15 @@
     <ul>
       <li><a href="https://github.com/microprediction/timemachines/blob/main/benchmarks/RESULTS.md">
         <strong>The Rosenblatt front-end: results log</strong></a> — detector lifts (DSPOT 5.2&times;,
-        RRCF 1.8&times;), forecaster lifts (ETS, AutoARIMA, GARCH, GARCH-t, Prophet: ~+2 nats,
-        161/162 series), the calibration panel (144 clean prefixes, empirical vs nominal
-        false-alarm rates), and the losses reported next to the wins.</li>
+        RRCF 1.8&times;), reported forecaster lifts on FRED-30
+        (ETS, AutoARIMA, Gaussian GARCH, Prophet: +1.97 to +2.07 nats mean lift,
+        120/120 model-series wins; EWMA-Gauss control: +1.55 nats, 29/30 wins),
+        and GARCH-t on a separate 12-series price/return panel (+0.078 nats, 12/12 wins).
+        These are the logged results, not a revalidation of the benchmark:
+        <a href="https://github.com/microprediction/timemachines/issues/158">the
+        blocked-forecast versus one-step information-set concern</a> remains open.
+        The log also covers the calibration panel (144 clean prefixes, empirical vs
+        nominal false-alarm rates), and the losses reported next to the wins.</li>
       <li><a href="https://github.com/microprediction/timemachines/blob/main/benchmarks/RESEARCH.md">
         <strong>Benchmarking streaming anomaly detection: a verified survey</strong></a> —
         datasets, metrics, and baselines as of mid-2026, with the known critiques
