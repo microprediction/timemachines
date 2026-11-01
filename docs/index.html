@@ -44,12 +44,14 @@
       with calibrated p-values.</p>
 
     <p class="lead">The hard part of anomaly detection is not the detector — it is the
-      <em>null</em>. A calibrated online forecaster is the best null model there is: under it,
-      each arriving point's surprise is a standard normal, and detection reduces to the textbook
-      case. <code>wald</code> runs a <a href="https://skaters.microprediction.org/">skaters</a>
-      forecaster underneath and emits a <strong>p-value per observation</strong> — alarm on
-      <code>p&nbsp;&lt;&nbsp;&alpha;</code> and your false-alarm rate <em>is</em> &alpha;.
-      Measured, not asserted: see <a href="#calibration">the calibration panel</a> below.
+      <em>null</em>. A forecaster supplies a predictive reference for each arriving point.
+      With the true continuous conditional CDF given the past, ideal transformed surprises
+      are iid standard normal. Marginal calibration alone does not give independence.
+      <code>wald</code> runs a <a href="https://skaters.microprediction.org/">skaters</a>
+      forecaster underneath and emits a <strong>p-value per observation</strong>.
+      Alarming on <code>p&nbsp;&lt;&nbsp;&alpha;</code> targets a nominal per-tick level
+      &alpha;; its realized calibration is an empirical question. See
+      <a href="#calibration">the marginal alarm-frequency panel</a> below.
       No threshold tuning, one pass, constant memory, strictly causal.</p>
 
     <div class="tag-row">
@@ -100,6 +102,15 @@ for y in stream:
       The measured consequence for detection, full protocol in the
       <a href="https://github.com/microprediction/timemachines/tree/main/benchmarks">benchmarks</a>:</p>
 
+    <p>The iid conclusion requires each forecast CDF to equal the true continuous
+      conditional law given the relevant past
+      (<a href="https://doi.org/10.1214/aoms/1177729394">Rosenblatt, 1952</a>).
+      Uniform marginal PITs alone can still be serially dependent: if every observation
+      equals one shared uniform draw and every forecast is uniform, every PIT is uniform
+      but all PITs are identical. Residual dependence must be tested or modeled before
+      applying iid run-length or stopping-time calculations. This ideal, unclipped
+      transform statement does not certify the fitted detector or numerical clipping.</p>
+
     <h3>Other people's detectors get better in these coordinates</h3>
     <p>Same detector, same series (UCR anomaly archive, 60 series), only the input changed:</p>
     <table>
@@ -118,7 +129,9 @@ for y in stream:
     <p>144 anomaly-free real-world prefixes (UCR training regions — clean by construction,
       so every flag is a false alarm), strictly prequential: nulls and thresholds never see
       the data they are scored on. Entries are empirical false-alarm rate over nominal
-      &alpha; — 1.0 is perfect calibration.</p>
+      &alpha; — 1.0 matches the nominal marginal alarm frequency. These historical
+      measurements do not establish independence or validate iid run-length or
+      stopping-time probabilities.</p>
     <table>
       <thead><tr><th>method</th><th>&alpha;=10<sup>&minus;2</sup></th><th>&alpha;=10<sup>&minus;3</sup></th><th>&alpha;=10<sup>&minus;4</sup></th></tr></thead>
       <tbody>
@@ -133,8 +146,9 @@ for y in stream:
 
     <h2>Bodies and heads</h2>
     <p>A <strong>body</strong> (a skaters forecaster) turns a stream into forecasts plus
-      calibrated surprises. A <strong>head</strong> (this package) turns surprises into
-      decisions with controlled error rates. Bodies are few and stable; heads multiply.
+      standardized surprises. A <strong>head</strong> (this package) turns surprises into
+      decisions whose error rates depend on its null and dependence assumptions.
+      Bodies are few and stable; heads multiply.
       <code>wald</code> — the Mahalanobis head on the laplace body — is the first named
       machine; <code>page</code> (CUSUM run-length) and <code>pickands</code> (EVT tails)
       are the roadmap, each named for its theorem.</p>

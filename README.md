@@ -17,10 +17,12 @@ for y in stream:
         alarm(y, state["pvalue"], state["run"])
 ```
 
-That `1e-4` is a **false-alarm rate, not a tuned threshold**: `wald` emits a
-calibrated per-observation p-value, so alarming on `p < alpha` yields a
-false-alarm rate of approximately alpha. Measured, not asserted — on 144
-anomaly-free real-world prefixes (strictly prequential), empirical/nominal:
+That `1e-4` is a **nominal per-observation false-alarm level**. If the emitted
+p-values are marginally calibrated under the null, `p < alpha` has probability
+alpha at each tick. This alone gives no iid run-length or stopping-time
+guarantee. The following historical measurement reports marginal alarm
+frequencies on 144 anomaly-free real-world prefixes (strictly prequential),
+empirical/nominal:
 
 | method | 1e-2 | 1e-3 | 1e-4 |
 |---|---|---|---|
@@ -41,18 +43,29 @@ alongside each forecast, the standardized surprise `z` of every arriving
 point under the predictions previously made *for it*.
 
 v2 is the rebirth one layer up. A skaters forecaster (a **body**) turns any
-stream into forecasts plus calibrated surprises; this package's **heads**
-turn surprises into decisions with controlled error rates. Bodies are few
+stream into forecasts plus standardized surprises; this package's **heads**
+turn surprises into decisions whose error rates must be checked under the
+applicable null and dependence assumptions. Bodies are few
 and stable; heads multiply — that is why they get their own package.
 (`from timemachines import laplace` worked in the v1 shim and still works.)
 
 ## Why a forecaster-first detector
 
 The hard part of anomaly detection is not the detector — it is the *null*.
-A calibrated online forecaster is the best null model there is: under it,
-the surprise stream is approximately iid N(0,1), which is exactly the
-homogeneous input every classical detection method assumes and raw data
-never provides. Two measured consequences (protocols and full tables in
+If each predictive CDF is the true continuous conditional law given the
+relevant past, the ideal, unclipped transforms `U_t = F_t(Y_t)` are iid uniform,
+and `Phi^-1(U_t)` are iid N(0,1). This is the conditional-law premise of the
+[Rosenblatt transform](https://doi.org/10.1214/aoms/1177729394), not a consequence
+of marginal calibration alone. Marginal PIT calibration guarantees uniform
+marginals but permits serial dependence, which the detection head must test
+or model before using iid run-length or stopping-time calculations.
+
+For example, let every observation equal the same uniform random variable V
+and report a uniform marginal forecast at every tick. Every PIT is uniform,
+but every PIT equals V: there is no independence. The empirical alarm-frequency
+panel above does not test this distinction or establish independence. Nor
+does the ideal transform theorem by itself certify a fitted detector or its
+numerical clipping. Two measured comparisons (protocols and full tables in
 `benchmarks/`):
 
 **Other people's detectors get better in these coordinates.** Same detector,
