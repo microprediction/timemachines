@@ -112,7 +112,8 @@ def rrcf_scores(xs, num_trees=40, shingle=4, tree_size=256, seed=0):
         point = tuple(window)
         total = 0.0
         for tree in forest:
-            if len(tree.leaves) > tree_size:
+            # Evict before insertion, including when the population is exactly full.
+            if len(tree.leaves) >= tree_size:
                 tree.forget_point(i - tree_size)
             tree.insert_point(point, index=i)
             total += tree.codisp(i)

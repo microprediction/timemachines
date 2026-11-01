@@ -12,6 +12,22 @@ All runs: strictly causal scores (no whole-series normalisation), defaults
 unless stated, one pass. Protocols in `RESEARCH.md`; harnesses in this
 directory. Updated 2026-07-07.
 
+## RRCF reproduction caveat (2026-11-01)
+
+The RRCF rows below are historical and have **not** been rerun after the
+rolling-window correction in [#165](https://github.com/microprediction/timemachines/issues/165).
+The old helper retained the first complete shingle indefinitely, plus the
+latest 256 shingles, instead of a rolling population of 256. The corrected
+helper can change CoDisp scores, selected anomalies and calibration results.
+No replacement aggregate or direction of change is claimed here.
+
+Before rerunning, archive existing `frontend_results.jsonl`,
+`fred_anomaly_results.jsonl` and any RRCF-enabled `calibration_panel_*.jsonl`
+outside the active output paths. These harnesses resume by series identifier,
+not implementation version, so reusing an old cache can silently combine
+results from different RRCF populations. Use a fresh `--out` path for the
+calibration panel and retain the revision and dependency versions with results.
+
 ## 1. Detector front-end — FINAL (UCR-60, argmax protocol)
 
 Same detector, same series; only the input changes (raw y vs parade z from
