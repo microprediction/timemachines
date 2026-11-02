@@ -106,3 +106,20 @@ the same command resumes: series already present in the output file are
 skipped (`resuming: N done, M to go`). Output filenames are stable per
 configuration; pass `--out` to redirect. To restart a study from scratch,
 delete its jsonl first.
+
+### DSPOT tail-count correction (#157)
+
+The DSPOT baseline now keeps a lifetime exceedance count separately from its
+500-excess GPD fitting buffer. Previously, the fitted tail mass shrank with
+stream age after that buffer filled. Scores before the cap are unchanged;
+longer runs can have different anomaly rankings and alarm frequencies.
+The existing denominator timing (including the current tick before scoring)
+and empty-initial-tail behavior are unchanged by this correction.
+
+Historical tables have not been rerun or revalidated. Before rerunning
+`frontend_run.py`, `calibration_panel.py`, or `fred_anomaly.py`, archive their
+existing output JSONL files and start fresh outputs; do not append corrected
+rows to an old study or relabel old results. `frontend_run.py` uses the fixed
+`frontend_results.jsonl` path, so move that file aside first. Recreate any
+privately saved DSPOT objects: an old capped buffer cannot recover the total
+number of past exceedances. Record the code revision with new study results.
