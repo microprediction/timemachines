@@ -49,6 +49,7 @@ class _Tail:
         self.t = s[min(int(level * len(s)), len(s) - 1)]
         self.exc = [x - self.t for x in calib if x > self.t]
         self.n = len(calib)
+        self.n_exc_total = len(self.exc)
 
     def _gpd(self):
         m = sum(self.exc) / len(self.exc)
@@ -65,7 +66,7 @@ class _Tail:
         if x <= self.t or not self.exc:
             return 0.0
         gamma, sigma = self._gpd()
-        zeta = len(self.exc) / self.n            # P(X > t)
+        zeta = self.n_exc_total / self.n        # lifetime P(X > t), not fit-buffer size
         e = x - self.t
         if abs(gamma) < 1e-9:
             lt = -e / sigma
@@ -74,6 +75,7 @@ class _Tail:
             lt = (-1.0 / gamma) * math.log(arg) if arg > 0 else -745.0
         # log P(X > x) = log zeta + log survival of GPD at e
         self.exc.append(e)
+        self.n_exc_total += 1
         if len(self.exc) > 500:                  # cap refit cost
             self.exc.pop(0)
         return -(math.log(max(zeta, 1e-300)) + lt)
