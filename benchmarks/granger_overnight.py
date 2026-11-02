@@ -29,6 +29,7 @@ Summarize any time:
 
 from __future__ import annotations
 import argparse
+import hashlib
 import json
 import math
 import os
@@ -59,8 +60,38 @@ CELLS = [
 ]
 
 
+# Version the mapping so a restart cannot silently mix legacy or future samples.
+SEED_SCHEME = "sha256-json-v1"
+
+
+def resolved_seed(scenario, T, seed):
+    key = json.dumps([SEED_SCHEME, scenario, T, seed], separators=(",", ":"))
+    return int.from_bytes(hashlib.sha256(key.encode("utf-8")).digest(), "big")
+
+
+def load_results(path):
+    """Read a compatible checkpoint before starting workers or appending rows."""
+    if not os.path.exists(path):
+        return []
+    results = []
+    with open(path) as fh:
+        for line_number, line in enumerate(fh, 1):
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            if (row.get("seed_scheme") != SEED_SCHEME or
+                    row.get("rng_seed") != resolved_seed(
+                        row["scenario"], row["T"], row["seed"])):
+                raise ValueError(
+                    f"Incompatible seed provenance in {path}, line {line_number}; "
+                    "archive this output and choose a fresh --out path. "
+                    "Legacy samples cannot be reconstructed from their numeric seed.")
+            results.append(row)
+    return results
+
+
 def simulate(scenario, T, seed):
-    rng = _random.Random((hash((scenario, T)) & 0xffffff) * 1000003 + seed)
+    rng = _random.Random(resolved_seed(scenario, T, seed))
     n = T + 200
     x = [0.0] * n
     y = [0.0] * n
@@ -346,6 +377,7 @@ def run_one(job):
     cng = _ccf_pvals(_garch_fit_std(ey), _garch_fit_std(ex))
     z2 = _z2_pvals(y, x)
     return {"scenario": scenario, "T": T, "seed": seed,
+            "seed_scheme": SEED_SCHEME, "rng_seed": resolved_seed(scenario, T, seed),
             "pF": pF, "pHAC": pH, "pF1": pF1,
             "pCNE": cne[0], "pCNG": cng[0], "pCNGM": min(cng) * P,
             "pZ2": z2[0], "pZ2M": min(z2) * P,
@@ -381,10 +413,8 @@ def main():
     args = ap.parse_args()
 
     jobs = [(sc, T, s) for sc, T, reps in CELLS for s in range(reps)]
-    results = []
+    results = load_results(args.out)
     if os.path.exists(args.out):
-        with open(args.out) as fh:
-            results = [json.loads(line) for line in fh if line.strip()]
         done = {(r["scenario"], r["T"], r["seed"]) for r in results}
         jobs = [j for j in jobs if j not in done]
         print(f"resuming: {len(results)} done, {len(jobs)} to go", flush=True)

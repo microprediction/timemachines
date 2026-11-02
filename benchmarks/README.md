@@ -106,3 +106,18 @@ the same command resumes: series already present in the output file are
 skipped (`resuming: N done, M to go`). Output filenames are stable per
 configuration; pass `--out` to redirect. To restart a study from scratch,
 delete its jsonl first.
+
+### Overnight Granger seed provenance
+
+`granger_overnight.py` now derives each simulation seed from SHA-256 of the
+compact JSON array `["sha256-json-v1", scenario, T, seed]` (UTF-8), interpreted
+as a big-endian integer. Each output row records `seed_scheme` and `rng_seed`.
+This removes dependence on Python's process-randomized string hash (#159).
+
+The mapping intentionally changes historical paths. Before rerunning, archive
+old JSONL files and select a fresh `--out` path; legacy or mismatched seed
+provenance is rejected before workers start or any output is appended. Do not
+relabel legacy rows: their original hidden hash seed is not recoverable from
+the recorded keys. Historical RESULTS tables have **not** been regenerated.
+The mapping stabilizes simulation identity, not results across changed Python,
+math-library or skaters versions; record those versions alongside a run.
