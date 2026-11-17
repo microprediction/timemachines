@@ -192,8 +192,12 @@ export function garchLeaf(k = 1, gamma = 0.02, refitEvery = 40, minObs = 80,
             let v = 0.0;
             for (let i = 0; i < resid.length; i++) {
               const r = resid[i];
-              hh = om + al * (r * r) + be * hh;
-              if (hh <= 1e-300) hh = 1e-300;
+              // h_t from r_{t-1}; the first point is scored under the unconditional variance (issue #244)
+              if (i > 0) {
+                const prev = resid[i - 1];
+                hh = om + al * (prev * prev) + be * hh;
+                if (hh <= 1e-300) hh = 1e-300;
+              }
               v += Math.log(hh) + (r * r) / hh;
             }
             if (v < bestV) { bestV = v; bom = om; bal = al; bbe = be; }   // first-wins on tie
@@ -214,7 +218,11 @@ export function garchLeaf(k = 1, gamma = 0.02, refitEvery = 40, minObs = 80,
       const g = gamma > 1.0 / s.n ? gamma : 1.0 / s.n;
       s.w = w.map((wi, i) => (1 - g) * wi + g * dens[i] / total);
     }
-    const comps = C.map((c, i) => [s.w[i], 0.0, c * sigma]);
+    // Emitted scale is the NEXT conditional variance h_{t+1} = omega + alpha r_t^2 + beta h_t (issue #239).
+    let hNext = s.omega + s.alpha * y * y + s.beta * h;
+    if (!(Number.isFinite(hNext) && hNext > 1e-300)) hNext = s.s2;
+    const sigmaNext = Math.sqrt(hNext);
+    const comps = C.map((c, i) => [s.w[i], 0.0, c * sigmaNext]);
     return [new Array(k).fill(new Dist(comps)), s];
   }
   _leaf.skaterName = `garch_leaf(k=${k})`;

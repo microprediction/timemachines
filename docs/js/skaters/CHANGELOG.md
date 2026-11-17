@@ -7,6 +7,14 @@ every release.
 
 ## Unreleased
 
+- Gaussian-mixture quantiles in the stdlib, JavaScript and Rust cores use a
+  scale-relative tolerance below unit scale and a 2100-step default budget
+  (including forwarding wrappers), fixing tiny components and extreme separation.
+  Float-resolution handling preserves historical rounding for resolved components
+  where the old absolute tolerance could not stop, and handles collapsed components
+  and atom jumps explicitly. Nonfinite search brackets fail explicitly. The optional
+  Torch implementation is unchanged. See `parity/QUANTILE_CONTRACT.md`.
+
 State round-trips through JSON bit-exactly — a skater is a fold. New exports
 `stateToJSON(state)`, `stateFromJSON(obj)` and `assertPlainState(state)`
 (`state.mjs`): the first turns every `Dist` (and the GPD-spliced predictive)

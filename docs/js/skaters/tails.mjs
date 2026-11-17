@@ -163,7 +163,7 @@ export class SplicedDist {
     return lp < 700.0 ? Math.exp(lp) : Infinity;
   }
 
-  quantile(p, tol = 1e-9, maxIter = 100) {
+  quantile(p, tol = 1e-9, maxIter = 2100) {
     if (!(p > 0 && p < 1)) throw new Error("quantile p must be in (0, 1)");
     let z;
     if (p < this.zetaLo) {
@@ -265,7 +265,7 @@ export function gpdtails(base, k, level = 0.98, nexc = 500, warmup = 500, rateAl
   return function skater(y, state) {
     if (state === null || state === undefined) {
       const tails = [];
-      for (let i = 0; i < k; i++) tails.push({ up: tailNew(), lo: tailNew(), warm: [], n: 0 });
+      for (let i = 0; i < k; i++) tails.push({ up: tailNew(), lo: tailNew(), warm: [], n: 0, skipped: 0 });
       state = { base: null, pending: [], tails };
     }
     const pend = state.pending;
@@ -279,6 +279,9 @@ export function gpdtails(base, k, level = 0.98, nexc = 500, warmup = 500, rateAl
       const th = state.tails[m - 1];
       const up = th.up, lo = th.lo;
       if (up.t === null) {
+        // Leave the trunk's warm-up fallback PITs (first 2m resolved z's at m >= 2)
+        // out of the threshold sample; m = 1 untouched. See tails.py.
+        if (m >= 2 && (th.skipped || 0) < 2 * m) { th.skipped = (th.skipped || 0) + 1; continue; }
         th.warm.push(z);
         if (th.warm.length >= warmup) {
           const w = th.warm.slice().sort((a, b) => a - b);

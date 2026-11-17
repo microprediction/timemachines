@@ -97,7 +97,7 @@ surface.
 ## Links
 
 - Docs & benchmarks: <https://skaters.microprediction.org>
-- Paper: *Transforms All the Way Down — Automatic Online Distributional Forecasting by Conjugation*
+- Paper: *Transforms All the Way Down — Automatic Online Distributional Forecasting by Conjugation*, <https://papers.ssrn.com/abstract=7220478>
 - Python package: <https://pypi.org/project/skaters/>
 - Source: <https://github.com/microprediction/skaters>
 

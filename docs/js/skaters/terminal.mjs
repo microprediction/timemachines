@@ -15,6 +15,7 @@ export function terminalLeafEnsemble(skaters, {
   priorLogWeights = null,
   maxComponents = 20,
   forget = 1.0,
+  gateHook = null,   // granger's gate: () => per-candidate offsets on the combining weights (or null)
 } = {}) {
   const n = skaters.length;
   const d = depths === null ? new Array(n).fill(0) : depths;
@@ -58,8 +59,12 @@ export function terminalLeafEnsemble(skaters, {
       q.push(allDists[i][0]);
     }
 
-    const maxLw = Math.max(...state.log_w);
-    const w = state.log_w.map((lw) => Math.exp(lw - maxLw));
+    // granger's gate shifts the combining weights for this step only; the
+    // recursion above is untouched. laplace passes no hook.
+    const off = gateHook === null ? null : gateHook();
+    const lwc = off === null ? state.log_w : state.log_w.map((v, i) => v + off[i]);
+    const maxLw = Math.max(...lwc);
+    const w = lwc.map((lw) => Math.exp(lw - maxLw));
     const tot = fsum(w);
 
     const combined = [];

@@ -15,7 +15,8 @@
     "*.mjs",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "granger_params/*.json"
   ],
   "sideEffects": false,
   "engines": {
