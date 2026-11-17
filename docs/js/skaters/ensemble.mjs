@@ -45,8 +45,12 @@ export function precisionWeightedEnsemble(skaters, k = 1, floor = 1e-6) {
       const weights = [];
       for (let i = 0; i < n; i++) {
         const mse = runningMseGet(state.stats[i][h]);
-        let w = Number.isFinite(mse) && mse > 0 ? 1.0 / mse : floor;
-        weights.push(Math.max(w, floor));
+        // runningMseGet returns Infinity exactly when immature; a MATURE
+        // perfect forecaster legitimately returns mse === 0 and must get the
+        // highest precision, not the floor (skaters#220). `floor` doubles as
+        // the precision cap (1/floor) so a near-zero mse cannot overflow.
+        const w = Number.isFinite(mse) ? 1.0 / Math.max(mse, floor) : floor;
+        weights.push(w);
       }
       const horizonDists = [];
       for (let i = 0; i < n; i++) horizonDists.push(allDists[i][h]);

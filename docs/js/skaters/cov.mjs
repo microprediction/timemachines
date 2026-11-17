@@ -49,47 +49,22 @@ export function emaCov(y, state, alpha = 0.05) {
   return [mean.slice(), cov.slice(), state];
 }
 
+// skaters#224: delegate to emaCov (a genuine rank-one EMA update, PSD by
+// construction) and shrink THAT coherent covariance toward its diagonal --
+// (1-rho)*C + rho*diag(C) stays PSD because C and diag(C) are both PSD and
+// PSD matrices are convex. The prior version updated each pairwise
+// correlation independently and clamped it to [-1, 1] on its own; pairwise-
+// valid correlations do not imply the resulting MATRIX is PSD.
 export function ledoitWolfCov(y, state, alpha = 0.05, shrinkage = 0.5) {
   const n = y.length;
-  if (state === null || state === undefined) {
-    const corr = new Array(n * n);
-    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) corr[i * n + j] = i === j ? 1.0 : 0.0;
-    state = { mean: y.slice(), var: new Array(n).fill(0.0), corr, n: 1 };
-    return [y.slice(), new Array(n * n).fill(0.0), state];
-  }
-  const mean = state.mean;
-  const varr = state.var;
-  const corr = state.corr;
-  state.n += 1;
-
-  const delta = new Array(n);
-  for (let i = 0; i < n; i++) delta[i] = y[i] - mean[i];
-  for (let i = 0; i < n; i++) mean[i] += alpha * delta[i];
-  const delta2 = new Array(n);
-  for (let i = 0; i < n; i++) delta2[i] = y[i] - mean[i];
-  for (let i = 0; i < n; i++) varr[i] = (1 - alpha) * varr[i] + alpha * delta[i] * delta2[i];
-
-  for (let i = 0; i < n; i++) {
-    const si = varr[i] > 1e-16 ? Math.sqrt(varr[i]) : 1e-8;
-    for (let j = i + 1; j < n; j++) {
-      const sj = varr[j] > 1e-16 ? Math.sqrt(varr[j]) : 1e-8;
-      const zCross = (delta[i] / si) * (delta[j] / sj);
-      const idx = i * n + j;
-      let c = (1 - alpha) * corr[idx] + alpha * zCross;
-      c = Math.max(-1.0, Math.min(1.0, c));
-      corr[idx] = c;
-      corr[j * n + i] = c;
-    }
-  }
+  const [mean, cov, innerState] = emaCov(y, state ? state.inner : null, alpha);
+  const newState = { inner: innerState };
 
   const shrunkCov = new Array(n * n).fill(0.0);
   for (let i = 0; i < n; i++) {
-    const si = varr[i] > 1e-16 ? Math.sqrt(varr[i]) : 1e-8;
     for (let j = 0; j < n; j++) {
-      const sj = varr[j] > 1e-16 ? Math.sqrt(varr[j]) : 1e-8;
-      if (i === j) shrunkCov[i * n + j] = varr[i];
-      else shrunkCov[i * n + j] = (1 - shrinkage) * corr[i * n + j] * si * sj;
+      shrunkCov[i * n + j] = i === j ? cov[i * n + j] : (1 - shrinkage) * cov[i * n + j];
     }
   }
-  return [mean.slice(), shrunkCov, state];
+  return [mean, shrunkCov, newState];
 }

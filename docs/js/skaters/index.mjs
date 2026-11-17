@@ -21,6 +21,7 @@ export { periodDetector, topPeriods, DEFAULT_LAGS } from "./periodicity.mjs";
 export {
   buildCandidates, laplace,
 } from "./api.mjs";
+export { granger, loadGrangerParams, validateGrangerParams, MixtureDist } from "./granger.mjs";
 export { multiscale } from "./multiscale.mjs";
 export { parade } from "./parade.mjs";
 export { sticky } from "./sticky.mjs";
@@ -30,3 +31,4 @@ export {
   diffSpec, fracSpec, stdSpec, emaTSpec,
 } from "./spec.mjs";
 export { runningCov, emaCov, ledoitWolfCov } from "./cov.mjs";
+export { stateToJSON, stateFromJSON, assertPlainState } from "./state.mjs";

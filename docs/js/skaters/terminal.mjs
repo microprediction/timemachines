@@ -15,10 +15,15 @@ export function terminalLeafEnsemble(skaters, {
   priorLogWeights = null,
   maxComponents = 20,
   forget = 1.0,
+  gateHook = null,   // granger's gate: () => per-candidate offsets on the combining weights (or null)
 } = {}) {
   const n = skaters.length;
   const d = depths === null ? new Array(n).fill(0) : depths;
   const prior = priorLogWeights === null ? new Array(n).fill(0.0) : priorLogWeights;
+
+  // Closures live in the wrapper, never in state: skater state stays pure
+  // data (serialisable for checkpoint/restore), mirroring terminal.py.
+  const tleafs = Array.from({ length: k }, () => leafFn(1));
 
   function _skater(y, state) {
     if (state === null || state === undefined) {
@@ -26,7 +31,6 @@ export function terminalLeafEnsemble(skaters, {
         sub: new Array(n).fill(null),
         qdist: Array.from({ length: n }, () => []),
         log_w: prior.slice(),
-        tleaf: Array.from({ length: k }, () => leafFn(1)),
         leafState: new Array(k).fill(null),
         leafPred: new Array(k).fill(null),
         meanQ: Array.from({ length: k }, () => []),
@@ -55,8 +59,12 @@ export function terminalLeafEnsemble(skaters, {
       q.push(allDists[i][0]);
     }
 
-    const maxLw = Math.max(...state.log_w);
-    const w = state.log_w.map((lw) => Math.exp(lw - maxLw));
+    // granger's gate shifts the combining weights for this step only; the
+    // recursion above is untouched. laplace passes no hook.
+    const off = gateHook === null ? null : gateHook();
+    const lwc = off === null ? state.log_w : state.log_w.map((v, i) => v + off[i]);
+    const maxLw = Math.max(...lwc);
+    const w = lwc.map((lw) => Math.exp(lw - maxLw));
     const tot = fsum(w);
 
     const combined = [];
@@ -66,7 +74,7 @@ export function terminalLeafEnsemble(skaters, {
       const mq = state.meanQ[h];
       if (mq.length >= h + 1) {
         const r = y - mq.shift();
-        const [ld, ls] = state.tleaf[h](r, state.leafState[h]);
+        const [ld, ls] = tleafs[h](r, state.leafState[h]);
         state.leafState[h] = ls;
         state.leafPred[h] = ld[0];
       }

@@ -9,9 +9,11 @@ import { bayesianEnsemble } from "./bayesian.mjs";
 import { sticky as project } from "./sticky.mjs";
 import { multiscale } from "./multiscale.mjs";
 import { parade } from "./parade.mjs";
+import { gpdtails } from "./tails.mjs";
 import {
   difference, fractionalDifference, standardize, emaTransform, ouTransform, drift,
-  holtLinear, ar, theta, seasonalDifference, garch, powerTransform, yeoJohnson,
+  holtLinear, ar, theta, seasonalDifference, seasonalAnchor, garch, powerTransform,
+  yeoJohnson,
 } from "./transform.mjs";
 
 // ---------------------------------------------------------------------------
@@ -61,6 +63,10 @@ export function buildCandidates(k) {
 
   // Depth 1: Seasonal differencing
   for (const period of [7, 12, 24]) push(conjugate(leaf(k), seasonalDifference(period), k), 1, "seasonal");
+
+  // Depth 1: Hedged seasonal anchor — phase-EMA blended 50/50 with the
+  // seasonal-naive (mirrors api.py; see comparisons/laplace-vs-csp/).
+  for (const period of [7, 12, 24]) push(conjugate(leaf(k), seasonalAnchor(period), k), 1, "seasonal anchor");
 
   // Depth 2: Seasonal differencing + EMA
   for (const period of [7, 12, 24]) {
@@ -167,9 +173,12 @@ function laplaceSingleScale(k, objective, sticky, scaleAlpha) {
 // predictive scale tracks volatility). Default 0.03 beats the older 0.01 on
 // held-out log-likelihood AND CRPS across the continuous FRED universe; pass
 // scaleAlpha = 0.01 to reproduce the earlier default.
-export function laplace(k = 1, objective = "crps", sticky = true, scales = null, scaleAlpha = 0.03) {
-  // parade adds state.pit / state.z calibration diagnostics (see parade.mjs)
-  const f = parade(multiscale((kk) => laplaceSingleScale(kk, objective, sticky, scaleAlpha), k, { scales }), k);
+export function laplace(k = 1, objective = "crps", sticky = true, scales = null, scaleAlpha = 0.03, tails = "gpd") {
+  // conditional tail fit (body -> region -> tail), then parade reads PIT/z
+  // against the spliced predictive (see tails.mjs, parade.mjs)
+  let f = multiscale((kk) => laplaceSingleScale(kk, objective, sticky, scaleAlpha), k, { scales });
+  if (tails === "gpd") f = gpdtails(f, k);
+  f = parade(f, k);
   f.skaterName = `laplace(k=${k})`;
   return f;
 }
